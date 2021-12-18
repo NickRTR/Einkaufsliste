@@ -12,7 +12,7 @@
     <div class="Card">
         <input type="checkbox" id="checkbox+{product.id}" bind:checked={product.checked}>
         <label for="checkbox+{product.id}" on:click>{product.title}</label>
-        <input type="image" src="/static/delete.svg" alt="delete" on:click={() => {handleClick(product.id)}}>
+        <input type="image" src="/delete.png" alt="delete" on:click={() => {handleClick(product.id)}}>
     </div>
 {/each}
 
