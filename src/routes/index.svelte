@@ -45,6 +45,7 @@
 
     input {
         width: 80%;
+        height: 35px;
         margin: 0;
         background-color: #F6C90E;
         padding: 0px 10px;
@@ -56,7 +57,7 @@
 
     button {
         font-size: 1.5em;
-        height: 100%;
+        height: 35px;
         background-color: #F6C90E;
         color: #303841;
         border-radius: 10px;

@@ -27,6 +27,7 @@
         display: grid;
         grid-template-columns: 1fr 25px;
         text-align: start;
+        justify-content: center;
     }
 
     .productTitle {
@@ -41,7 +42,6 @@
     input[type=checkbox] {
         width: 20px;
         height: 20px;
-        margin: auto;
     }
 
     input[type=image] {
