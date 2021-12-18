@@ -38,6 +38,7 @@
         display: flex;
         justify-content: center;
         text-align: center;
+        margin: 10px;
         margin-bottom: 20px;
     }
 

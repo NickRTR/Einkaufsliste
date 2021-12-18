@@ -24,12 +24,11 @@
         border-radius: 10px;
         display: grid;
         grid-template-columns: 20px 1fr 70px;
-        font-size: 1.4em;
-        text-align: center;
     }
 
     label {
         background-color: #3A4750;
+        font-size: 1.4em;
     }
 
     input {
@@ -40,11 +39,9 @@
 
     button {
         background-color: #F6C90E;
-        text-align: center;
         color: #303841;
-        font-size: 0.9em;
+        font-size: 1.2em;
         border: none;
-        margin: 0;
         border-radius: 2px;
         width: 70px;
     }
