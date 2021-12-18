@@ -27,6 +27,7 @@
         grid-template-columns: 20px 1fr 70px;
         align-items: flex-start;
         font-size: 1.4em;
+        text-align: center;
     }
 
     label {
