@@ -18,8 +18,7 @@
 
 <style>
     .Card {
-        margin: auto;
-        margin-top: 10px;
+        margin: 10px;
         background-color: #3A4750;
         padding: 10px 10px;
         border-radius: 10px;
