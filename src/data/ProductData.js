@@ -1,6 +1,6 @@
-import {writable} from "svelte/store"
+import {writable} from "svelte/store";
 
-const ProductList = writable([
+const ProductList = writable(JSON.parse(localStorage.getItem("ProductList")) || [
     {
         id: 1,
         title: "Bier",
@@ -12,5 +12,7 @@ const ProductList = writable([
         checked: false,  
     },
 ])
+
+ProductList.subscribe((value) => localStorage.ProductList = JSON.stringify(value));
 
 export default ProductList;
