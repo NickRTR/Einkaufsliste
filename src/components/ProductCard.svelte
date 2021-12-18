@@ -20,15 +20,15 @@
     .Card {
         margin: 10px;
         background-color: #3A4750;
-        padding: 10px 10px;
+        padding: 7px 10px;
         border-radius: 10px;
         display: grid;
-        grid-template-columns: 20px 1fr 30px;
+        grid-template-columns: 20px 1fr 25px;
     }
 
     label {
         background-color: #3A4750;
-        font-size: 1.4em;
+        font-size: 1.7em;
     }
 
     input[type=checkbox] {
@@ -38,7 +38,7 @@
     }
 
     input[type=image] {
-        width: 30px;
+        height: 30px;
         padding: 0;
         background-color: #3A4750;
         margin: auto;
