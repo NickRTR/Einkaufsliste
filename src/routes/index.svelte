@@ -1,15 +1,47 @@
 <script>
-    import ProductData from "../data/ProductData";
-    import ProductCard from "../components/ProductCard.svelte";
+    // firebase
+    import {initializeApp, getApps, getApp} from "firebase/app";
+    import {getFirestore, collection, onSnapshot, doc, updateDoc, deleteDoc, setDoc} from "firebase/firestore";
+    import {firebaseConfig} from "../data/firebaseConfig.js"
+    import {browser} from "$app/env"
 
-    $: input = "";
+    const firebaseApp = browser && (getApps().length === 0 ? initializeApp(firebaseConfig) : getApp());
+    const db = browser && getFirestore();
 
-    // update Product List in Global Storage
-    const handleInput = () => {
+    const colRef = browser && collection(db, "products");
+
+    var products = [];
+
+    const unsubscribe = browser && onSnapshot(colRef, (querySnapshot) => {
+        let fbProducts = [];
+        querySnapshot.forEach((doc) => {
+            let product = {...doc.data(), id: doc.id};
+            fbProducts = [product, ...fbProducts];
+        });
+        products = fbProducts;
+    console.table(products);
+    });
+
+    const deleteProduct = async (id) => {
+        await deleteDoc(doc(db, "products", id));
+    }
+
+    const toggleChecked = async (id, status) => {
+        await updateDoc(doc(db, "products", id), {
+            checked: !status,
+        });
+    }
+
+    // handle Input
+    $: input = ""
+
+    const handleInput = async () => {
         if (!input == "") {
-            ProductData.update(currentProducts => {
-                return [{id: $ProductData.length, title: input, checked: false}, ...currentProducts]
-            })
+            await setDoc(doc(db, "products", input), {
+                id: products.length,
+                title: input,
+                checked: false,
+            });
         }
         input = "";
     }
@@ -22,7 +54,15 @@
         <button type="submit">Add</button>
     </form>
     <div class="products">
-        <ProductCard/>
+        {#each products as product}
+            <div class="Card">
+                <div class="productTitle">
+                    <input type="checkbox" id="checkbox+{product.id}" on:click={() => {toggleChecked(product.id, product.checked)}}>
+                    <label for="checkbox+{product.id}" on:click={() => {toggleChecked(product.id, product.checked)}}>{product.title}</label>
+                </div>
+                <input type="image" src="/delete.png" alt="delete" on:click={() => {deleteProduct(product.id)}}>
+            </div>
+        {/each}
     </div>
 </main>
 
@@ -43,7 +83,7 @@
         margin-bottom: 15px;
     }
 
-    input {
+    input[type=text] {
         width: 80%;
         height: 35px;
         margin: 0;
@@ -63,5 +103,40 @@
         border-radius: 10px;
         margin-left: 5px;
         border: none;
+    }
+
+    /* Card Styles */
+
+    .Card {
+        margin: 10px;
+        background-color: #3A4750;
+        padding: 7px 10px;
+        border-radius: 10px;
+        display: grid;
+        grid-template-columns: 1fr 25px;
+        text-align: start;
+        justify-content: center;
+    }
+
+    .productTitle {
+        background-color: #3A4750;
+        font-size: 1.7em;
+    }
+
+    label {
+        background-color: #3A4750;
+    }
+
+    input[type=checkbox] {
+        width: 20px;
+        height: 20px;
+    }
+
+    input[type=image] {
+        width: auto;
+        height: auto;
+        padding: 0;
+        background-color: #3A4750;
+        margin: auto;
     }
 </style>
