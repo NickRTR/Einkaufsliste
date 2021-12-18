@@ -46,5 +46,6 @@
         border: none;
         margin: 0;
         border-radius: 2px;
+        width: 70px;
     }
 </style>
