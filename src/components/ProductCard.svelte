@@ -25,7 +25,6 @@
         border-radius: 10px;
         display: grid;
         grid-template-columns: 20px 1fr 70px;
-        align-items: flex-start;
         font-size: 1.4em;
         text-align: center;
     }
@@ -42,6 +41,7 @@
 
     button {
         background-color: #F6C90E;
+        text-align: center;
         color: #303841;
         font-size: 0.9em;
         border: none;
