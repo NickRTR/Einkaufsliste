@@ -6,10 +6,11 @@
 
     // update Product List in Global Storage
     const handleInput = () => {
-        ProductData.update(currentProducts => {
-            return [{id: $ProductData.length, title: input, checked: false}, ...currentProducts]
-        })
-        // console.log($ProductData);
+        if (!input == "") {
+            ProductData.update(currentProducts => {
+                return [{id: $ProductData.length, title: input, checked: false}, ...currentProducts]
+            })
+        }
         input = "";
     }
 </script>
@@ -39,7 +40,7 @@
         justify-content: center;
         text-align: center;
         margin: 10px;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
 
     input {
@@ -55,7 +56,7 @@
 
     button {
         font-size: 1.5em;
-        padding: 5px;
+        height: 100%;
         background-color: #F6C90E;
         color: #303841;
         border-radius: 10px;

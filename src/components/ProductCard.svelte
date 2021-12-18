@@ -10,8 +10,10 @@
 
 {#each $ProductData as product}
     <div class="Card">
-        <input type="checkbox" id="checkbox+{product.id}" bind:checked={product.checked}>
-        <label for="checkbox+{product.id}" on:click>{product.title}</label>
+        <div class="productTitle">
+            <input type="checkbox" id="checkbox+{product.id}" bind:checked={product.checked}>
+            <label for="checkbox+{product.id}" on:click>{product.title}</label>
+        </div>
         <input type="image" src="/delete.png" alt="delete" on:click={() => {handleClick(product.id)}}>
     </div>
 {/each}
@@ -23,12 +25,17 @@
         padding: 7px 10px;
         border-radius: 10px;
         display: grid;
-        grid-template-columns: 20px 1fr 25px;
+        grid-template-columns: 1fr 25px;
+        text-align: start;
+    }
+
+    .productTitle {
+        background-color: #3A4750;
+        font-size: 1.7em;
     }
 
     label {
         background-color: #3A4750;
-        font-size: 1.7em;
     }
 
     input[type=checkbox] {
