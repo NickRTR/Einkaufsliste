@@ -9,7 +9,7 @@
         ProductData.update(currentProducts => {
             return [{id: $ProductData.length, title: input, checked: false}, ...currentProducts]
         })
-        console.log($ProductData);
+        // console.log($ProductData);
         input = "";
     }
 </script>
@@ -31,16 +31,19 @@
     }
 
     h1 {
-        font-size: 2.5em;
+        font-size: 2em;
     }
 
     form {
         display: flex;
         justify-content: center;
         text-align: center;
+        margin-bottom: 20px;
     }
 
     input {
+        width: 70%;
+        margin: 0;
         background-color: #F6C90E;
         padding: 0px 5px;
         border: none;
@@ -50,7 +53,7 @@
     }
 
     button {
-        font-size: 30px;
+        font-size: 1.5em;
         background-color: #F6C90E;
         color: #303841;
         border-radius: 10px;
