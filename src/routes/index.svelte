@@ -56,6 +56,10 @@
     };
 </script>
 
+<svelte:head>
+    <title>Einkaufsliste</title>
+</svelte:head>
+
 <main>
     <h1>Einkaufsliste</h1>
     <form on:submit|preventDefault={handleInput}>
