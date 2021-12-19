@@ -1,31 +1,37 @@
 <script>
     // firebase
     import {initializeApp, getApps, getApp} from "firebase/app";
-    import {getFirestore, collection, onSnapshot, doc, updateDoc, deleteDoc, addDoc} from "firebase/firestore";
+    import {getFirestore, collection, onSnapshot, doc, updateDoc, deleteDoc, addDoc, query, orderBy, getDocs, Timestamp} from "firebase/firestore";
     import {firebaseConfig} from "../data/firebaseConfig.js"
     import {browser} from "$app/env"
 
     const firebaseApp = browser && (getApps().length === 0 ? initializeApp(firebaseConfig) : getApp());
     const db = browser && getFirestore();
 
-    const colRef = browser && collection(db, "products");
+    const sort = browser && query(collection(db, "products"), orderBy("created"));
 
     var products = [];
 
-    // subscribe to firebase data
-    const unsubscribe = browser && onSnapshot(colRef, (querySnapshot) => {
+    // subscribe to changes
+    const unsubscribe = browser && onSnapshot(sort, () => {
+        getData();
+    });
+
+    // get Data
+    const getData = async () => {
         let fbProducts = [];
-        querySnapshot.forEach((doc) => {
-            let product = {...doc.data(), id: doc.id};
-            fbProducts = [product, ...fbProducts];
+        const querySnapshot = await getDocs(sort);
+            querySnapshot.forEach((doc) => {
+                let product = {...doc.data(), id: doc.id};
+                fbProducts = [product, ...fbProducts];
         });
         products = fbProducts;
-    // console.table(products);
-    });
+    }
 
     // delete
     const deleteProduct = async (id) => {
         await deleteDoc(doc(db, "products", id));
+        
     }
 
     // toggle checked
@@ -33,22 +39,21 @@
         await updateDoc(doc(db, "products", id), {
             checked: !status,
         });
-        return !status;
-    }
+    };
 
     // add Products
     $: input = ""
 
     const handleInput = async () => {
-        if (!input == "") {
+        if (input !== "") {
             await addDoc(collection(db, "products"), {
-                id: products.length,
                 title: input,
                 checked: false,
+                created: Timestamp.now()
             });
         }
         input = "";
-    }
+    };
 </script>
 
 <main>
