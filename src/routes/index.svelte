@@ -20,7 +20,7 @@
             fbProducts = [product, ...fbProducts];
         });
         products = fbProducts;
-    console.table(products);
+    // console.table(products);
     });
 
     // delete
@@ -33,6 +33,7 @@
         await updateDoc(doc(db, "products", id), {
             checked: !status,
         });
+        return !status;
     }
 
     // add Products
@@ -60,7 +61,7 @@
         {#each products as product}
             <div class="Card">
                 <div class="productTitle">
-                    <input type="checkbox" id="checkbox+{product.id}" on:click={() => {toggleChecked(product.id, product.checked)}}>
+                    <input type="checkbox" id="checkbox+{product.id}" checked={product.checked} on:click={() => {toggleChecked(product.id, product.checked)}}>
                     <label for="checkbox+{product.id}" on:click={() => {toggleChecked(product.id, product.checked)}}>{product.title}</label>
                 </div>
                 <input type="image" src="/delete.png" alt="delete" on:click={() => {deleteProduct(product.id)}}>
