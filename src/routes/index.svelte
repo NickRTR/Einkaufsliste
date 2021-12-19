@@ -1,7 +1,7 @@
 <script>
     // firebase
     import {initializeApp, getApps, getApp} from "firebase/app";
-    import {getFirestore, collection, onSnapshot, doc, updateDoc, deleteDoc, setDoc} from "firebase/firestore";
+    import {getFirestore, collection, onSnapshot, doc, updateDoc, deleteDoc, addDoc} from "firebase/firestore";
     import {firebaseConfig} from "../data/firebaseConfig.js"
     import {browser} from "$app/env"
 
@@ -12,6 +12,7 @@
 
     var products = [];
 
+    // subscribe to firebase data
     const unsubscribe = browser && onSnapshot(colRef, (querySnapshot) => {
         let fbProducts = [];
         querySnapshot.forEach((doc) => {
@@ -22,22 +23,24 @@
     console.table(products);
     });
 
+    // delete
     const deleteProduct = async (id) => {
         await deleteDoc(doc(db, "products", id));
     }
 
+    // toggle checked
     const toggleChecked = async (id, status) => {
         await updateDoc(doc(db, "products", id), {
             checked: !status,
         });
     }
 
-    // handle Input
+    // add Products
     $: input = ""
 
     const handleInput = async () => {
         if (!input == "") {
-            await setDoc(doc(db, "products", input), {
+            await addDoc(collection(db, "products"), {
                 id: products.length,
                 title: input,
                 checked: false,
