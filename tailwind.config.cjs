@@ -8,6 +8,7 @@ module.exports = {
             "marine": "#303841",
             "marine-bright": "#3A4750",
             "white": "#EEEEEE",
+            "black": "#000000",
         },
     },
 }
