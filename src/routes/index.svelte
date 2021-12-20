@@ -60,96 +60,21 @@
     <title>Einkaufsliste</title>
 </svelte:head>
 
-<main>
-    <h1>Einkaufsliste</h1>
-    <form on:submit|preventDefault={handleInput}>
-        <input type="text" bind:value={input}>
-        <button type="submit">Add</button>
+<main class="text-center text-bee bg-marine h-screen">
+    <h1 class="text-4xl py-5 font-semibold">Einkaufsliste</h1>
+    <form class="flex mb-4 mt-1 justify-center" on:submit|preventDefault={handleInput}>
+        <input class="m-0 w-3/4 h-8 px-2 bg-bee border-none rounded-xl" type="text" bind:value={input}>
+        <button class="text-2.5xl font-semibold px-2 ml-1.5 bg-bee text-marine rounded-xl" type="submit">Add</button>
     </form>
     <div class="products">
         {#each products as product}
-            <div class="Card">
-                <div class="productTitle">
-                    <input type="checkbox" id="checkbox+{product.id}" checked={product.checked} on:click={() => {toggleChecked(product.id, product.checked)}}>
-                    <label for="checkbox+{product.id}" on:click={() => {toggleChecked(product.id, product.checked)}}>{product.title}</label>
+            <div class="Card text-left m-2.5 bg-marine-bright px-2.5 py-1 rounded-xl grid grid-cols-12">
+                <div class="text-2xl font-semibold bg-marine-bright col-span-11 mb-1">
+                    <input class="align-middle w-5 h-5" type="checkbox" id="checkbox+{product.id}" checked={product.checked} on:click={() => {toggleChecked(product.id, product.checked)}}>
+                    <label class="align-middle" for="checkbox+{product.id}" on:click={() => {toggleChecked(product.id, product.checked)}}>{product.title}</label>
                 </div>
-                <input type="image" src="/delete.png" alt="delete" on:click={() => {deleteProduct(product.id)}}>
+                <input class="col-span-1 m-auto mt-0.5" type="image" src="/delete.png" alt="delete" on:click={() => {deleteProduct(product.id)}}>
             </div>
         {/each}
     </div>
 </main>
-
-<style>
-    main {
-        text-align: center;
-    }
-
-    h1 {
-        font-size: 2em;
-    }
-
-    form {
-        display: flex;
-        justify-content: center;
-        text-align: center;
-        margin: 10px;
-        margin-bottom: 15px;
-    }
-
-    input[type=text] {
-        width: 80%;
-        height: 35px;
-        margin: 0;
-        background-color: #F6C90E;
-        padding: 0px 10px;
-        border: none;
-        border-radius: 15px;
-        color: #303841;
-        font-size: 1.5em;
-    }
-
-    button {
-        font-size: 1.5em;
-        height: 35px;
-        background-color: #F6C90E;
-        color: #303841;
-        border-radius: 10px;
-        margin-left: 5px;
-        border: none;
-    }
-
-    /* Card Styles */
-
-    .Card {
-        margin: 10px;
-        background-color: #3A4750;
-        padding: 7px 10px;
-        border-radius: 10px;
-        display: grid;
-        grid-template-columns: 1fr 25px;
-        text-align: start;
-        justify-content: center;
-    }
-
-    .productTitle {
-        background-color: #3A4750;
-        font-size: 1.7em;
-    }
-
-    label {
-        background-color: #3A4750;
-    }
-
-    input[type=checkbox] {
-        width: 20px;
-        height: 20px;
-    }
-
-    input[type=image] {
-        width: auto;
-        height: auto;
-        padding: 0;
-        background-color: #3A4750;
-        margin: auto;
-    }
-</style>
