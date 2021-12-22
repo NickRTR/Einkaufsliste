@@ -56,7 +56,8 @@
             await addDoc(collection(db, "products"), {
                 title: input,
                 checked: false,
-                created: Timestamp.now()
+                category: input,
+                created: Timestamp.now(),
             });
         }
         input = "";
@@ -67,7 +68,7 @@
     <title>Einkaufsliste</title>
 </svelte:head>
 
-<main class="text-center text-bee bg-marine min-h-screen h-full pb-1">
+<main class="text-center text-bee bg-marine l min-h-screen h-full pb-1">
     <h1 class="text-4xl py-5 font-semibold">Einkaufsliste</h1>
     <form class="flex mb-4 mt-1 justify-center" on:submit|preventDefault={handleInput}>
         <input class="m-0 w-3/4 h-8 px-2 bg-bee border-none text-lg text-marine font-semibold rounded-xl" type="text" bind:value={input}>
@@ -75,12 +76,15 @@
     </form>
     <div class="products bg-marine">
         {#each products as product}
-            <div class="Card text-left m-2.5 bg-marine-bright px-2.5 py-1 rounded-xl grid grid-cols-12 break-words">
-                <div class="text-2xl bg-marine-bright col-span-11 mb-1">
+            <div class="Card text-2xl text-left p-1.5 m-2.5 bg-marine-bright rounded-xl break-words flex items-center">
+                    <input class="h-10 w-10 mr-1.5" type="image" src="./static/category/{product.category}.svg" alt="(delete)" on:click={() => {deleteProduct(product.id)}}>
+                    <p class="" on:click={() => {toggleChecked(product.id, product.checked)}}>{product.title}</p>
+                    <input class="ml-auto mr-1 w-6 h-6" type="checkbox" checked={product.checked} on:click={() => {toggleChecked(product.id, product.checked)}}>
+                <!-- <div class="text-2xl col-span-11 mb-1">
                     <input class="align-middle w-5 h-5" type="checkbox" id="checkbox+{product.id}" checked={product.checked} on:click={() => {toggleChecked(product.id, product.checked)}}>
                     <label class="align-middle" for="checkbox+{product.id}" on:click={() => {toggleChecked(product.id, product.checked)}}>{product.title}</label>
                 </div>
-                <input class="col-span-1 m-auto mt-0.5" type="image" src="/delete.png" alt="delete" on:click={() => {deleteProduct(product.id)}}>
+                <input class="col-span-1 m-auto mt-0.5" type="image" src="/delete.png" alt="delete" on:click={() => {deleteProduct(product.id)}}> -->
             </div>
         {/each}
     </div>
