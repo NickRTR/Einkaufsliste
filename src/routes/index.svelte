@@ -7,7 +7,14 @@
     import {firebaseConfig} from "../data/firebaseConfig.js";
     import {browser} from "$app/env";
 
-    const firebaseApp = browser && (getApps().length === 0 ? initializeApp(firebaseConfig) : getApp());
+    while(true) {
+        try {
+            const firebaseApp = browser && (getApps().length === 0 ? initializeApp(firebaseConfig) : getApp());
+            break;
+        } catch (e) {
+            console.log(e);
+        }
+    }
     const db = browser && getFirestore();
 
     const sort = browser && query(collection(db, "products"), orderBy("created"));
