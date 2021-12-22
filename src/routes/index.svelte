@@ -77,7 +77,7 @@
     <div class="products bg-marine">
         {#each products as product}
             <div class="Card text-2xl text-left p-1.5 m-2.5 bg-marine-bright rounded-xl break-words flex items-center">
-                    <input class="h-10 w-10 mr-1.5" type="image" src="./static/category/{product.category}.svg" alt="(delete)" on:click={() => {deleteProduct(product.id)}}>
+                    <input class="h-10 w-10 mr-1.5" type="image" src="/category/{product.category}.svg" alt="(delete)" on:click={() => {deleteProduct(product.id)}}>
                     <p class="" on:click={() => {toggleChecked(product.id, product.checked)}}>{product.title}</p>
                     <input class="ml-auto mr-1 w-6 h-6" type="checkbox" checked={product.checked} on:click={() => {toggleChecked(product.id, product.checked)}}>
                 <!-- <div class="text-2xl col-span-11 mb-1">
