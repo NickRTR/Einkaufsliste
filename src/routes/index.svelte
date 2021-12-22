@@ -13,19 +13,26 @@
     var products = [];
 
     // subscribe to changes
-    const unsubscribe = browser && onSnapshot(sort, () => {
-        getData();
-    });
+    while(true) {
+        try {
+            const unsubscribe = browser && onSnapshot(sort, () => {
+                getData();
+            });
 
-    // get Data
-    const getData = async () => {
-        let fbProducts = [];
-        const querySnapshot = await getDocs(sort);
-            querySnapshot.forEach((doc) => {
-                let product = {...doc.data(), id: doc.id};
-                fbProducts = [product, ...fbProducts];
-        });
-        products = fbProducts;
+            // get Data
+            const getData = async () => {
+                let fbProducts = [];
+                const querySnapshot = await getDocs(sort);
+                    querySnapshot.forEach((doc) => {
+                        let product = {...doc.data(), id: doc.id};
+                        fbProducts = [product, ...fbProducts];
+                });
+                products = fbProducts;
+            }
+            break;
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     // delete
