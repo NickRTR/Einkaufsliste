@@ -75,7 +75,7 @@
     </form>
     <div class="products bg-marine">
         {#each products as product}
-            <div class="Card text-left m-2.5 bg-marine-bright px-2.5 py-1 rounded-xl grid grid-cols-12">
+            <div class="Card text-left m-2.5 bg-marine-bright px-2.5 py-1 rounded-xl grid grid-cols-12 break-words">
                 <div class="text-2xl bg-marine-bright col-span-11 mb-1">
                     <input class="align-middle w-5 h-5" type="checkbox" id="checkbox+{product.id}" checked={product.checked} on:click={() => {toggleChecked(product.id, product.checked)}}>
                     <label class="align-middle" for="checkbox+{product.id}" on:click={() => {toggleChecked(product.id, product.checked)}}>{product.title}</label>
