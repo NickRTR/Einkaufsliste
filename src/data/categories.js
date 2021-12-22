@@ -2,10 +2,10 @@
 
 export const categories = {
     // Milch
-    milk: ["milch", "butter", "sahne", "joghurt", "käse", "Frischkäse"],
+    milk: ["milch", "butter", "sahne", "joghurt", "käse", "frischkäse", "grießbrei"],
 
     // Wurst, Fleisch
-    sausage: ["fleisch", "wurst"],
+    sausage: ["fleisch", "wurst", "schinken"],
 
     // Gefrorenes
     frozen: ["pommes", "gefroren"],
