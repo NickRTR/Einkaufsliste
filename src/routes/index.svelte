@@ -60,13 +60,13 @@
     <title>Einkaufsliste</title>
 </svelte:head>
 
-<main class="text-center text-bee bg-marine h-screen">
+<main class="text-center text-bee bg-marine min-h-screen h-full pb-1">
     <h1 class="text-4xl py-5 font-semibold">Einkaufsliste</h1>
     <form class="flex mb-4 mt-1 justify-center" on:submit|preventDefault={handleInput}>
         <input class="m-0 w-3/4 h-8 px-2 bg-bee border-none text-lg text-marine font-semibold rounded-xl" type="text" bind:value={input}>
         <button class="text-lg font-semibold px-2 ml-1.5 bg-bee text-marine rounded-xl" type="submit">Add</button>
     </form>
-    <div class="products">
+    <div class="products bg-marine">
         {#each products as product}
             <div class="Card text-left m-2.5 bg-marine-bright px-2.5 py-1 rounded-xl grid grid-cols-12">
                 <div class="text-2xl bg-marine-bright col-span-11 mb-1">
