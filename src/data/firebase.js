@@ -21,7 +21,7 @@ const createCollection = async (listName) => {
     await addDoc(collection(db, listName), {
         title: "Bier",
         checked: false,
-        category: getCategory(listName),
+        category: "drink",
         created: Timestamp.now(),
     });
     await setDoc(doc(db, list, "share"), {
