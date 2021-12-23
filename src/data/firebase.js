@@ -176,7 +176,7 @@ export const login = async (inputList, inputPassword) => {
 
         if (inputPassword == password) {
             localStorage.setItem("list", inputList)
-            window.location.reload();
+            location.reload();
         } else {
             console.log("falsches Passwort");
         }
