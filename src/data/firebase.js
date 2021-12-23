@@ -8,6 +8,7 @@ import {categories} from "../data/categories.js";
 
 while(true) {
     try {
+        localStorage.clear();
         const firebaseApp = browser && (getApps().length === 0 ? initializeApp(firebaseConfig) : getApp());
         break;
     } catch (e) {
@@ -74,6 +75,9 @@ while(true) {
             products.update(products => [...fbProducts]);
             listName = fbProducts[fbProducts.length - 1].list;
             listPassword = fbProducts[fbProducts.length - 1].password;
+            if (products.length == 0) {
+                createCollection(list);
+            }
         }
         break;
     } catch (e) {
