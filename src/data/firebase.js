@@ -26,7 +26,7 @@ const createCollection = async (listName) => {
     });
     await setDoc(doc(db, list, "share"), {
         list: list,
-        password: 1234,
+        password: Math.floor(Math.random() * 10000) + 1000,
         created: Timestamp.fromMillis(9999999999),
     });
 }
