@@ -1,5 +1,5 @@
 <script>
-import {handleInput, toggleChecked, deleteProduct} from "../data/firebase.js";
+import {handleInput, toggleChecked, deleteProduct, shareList} from "../data/firebase.js";
 import products from "../data/store.js";
 
 var input = "";
@@ -14,9 +14,10 @@ const addProduct = (i) => {
     <title>Einkaufsliste</title>
 </svelte:head>
 
-<main class="bg-marine md:px-40 lg:px-64 xl:px-96">
+<main class="bg-marine min-h-screen md:px-40 lg:px-64 xl:px-96 text-center">
     <div class="text-center text-bee pb-1">
-        <h1 class="text-4xl py-5 font-semibold">Einkaufsliste</h1>
+        <h1 class="text-4xl pt-5 font-semibold">Einkaufsliste</h1>
+        <button class="text-white my-2 mr-4 underline" on:click={shareList}>Liste teilen</button>
         <form class="flex mb-4 mt-1 justify-center" on:submit|preventDefault={() => {addProduct(input)}}>
             <input class="m-0 w-3/4 h-8 px-2 bg-bee border-none text-lg text-marine font-semibold rounded-xl" type="text" bind:value={input}>
             <button class="text-lg font-semibold px-2 ml-1.5 bg-bee text-marine rounded-xl" type="submit">Add</button>
@@ -33,7 +34,8 @@ const addProduct = (i) => {
                 {/if}
             {/each}
         </div>
-        <div class="checkedProducts mt-10">
+        <div class="checkedProducts">
+            <p class="border-t-2 m-2.5 mt-3"></p>
             {#each $products as product}
                 {#if product.checked}
                     <div class="checkedCard text-2xl text-left p-1.5 m-2.5 bg-marine-bright rounded-xl break-words flex items-center">

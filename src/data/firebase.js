@@ -1,6 +1,6 @@
+import {firebaseConfig} from "./firebaseConfig.js";
 import {initializeApp, getApps, getApp} from "firebase/app";
 import {getFirestore, collection, onSnapshot, doc, updateDoc, deleteDoc, addDoc, query, orderBy, getDocs, Timestamp} from "firebase/firestore";
-import {firebaseConfig} from "./firebaseConfig.js";
 import {browser} from "$app/env";
 
 import products from "./store.js";
@@ -14,9 +14,39 @@ while(true) {
         console.log(e);
     }
 }
+
 const db = browser && getFirestore();
 
-const sort = browser && query(collection(db, "products"), orderBy("created"));
+const createCollection = async(listName) => {
+    await addDoc(collection(db, listName), {
+        title: "Good Luck!",
+        checked: false,
+        category: getCategory(listName),
+        created: Timestamp.now(),
+    });
+}
+
+const createList = () => {
+    localStorage.clear();
+    let createdList = Math.floor((Math.random() * 1000)).toString();
+    createCollection(createdList)
+    return createdList;
+}
+
+export const getListName = () => {
+    if (browser) {
+        let getList = localStorage.getItem("list")
+        if (getList === null) {
+            getList = createList();
+            localStorage.setItem("list", getList)
+        }
+        return getList;
+    }
+}
+
+var list = getListName();
+
+const sort = browser && query(collection(db, list), orderBy("created"));
 
 // subscribe to changes
 while(true) {
@@ -43,7 +73,7 @@ while(true) {
 
 // delete Product
 export const deleteProduct = async (id) => {
-    await deleteDoc(doc(db, "products", id));
+    await deleteDoc(doc(db, list, id));
 }
 
 // toggle checked
@@ -52,7 +82,7 @@ export const toggleChecked = async (id, created, status) => {
     if (status == true) {
         time = Timestamp.now();
     }
-    await updateDoc(doc(db, "products", id), {
+    await updateDoc(doc(db, list, id), {
         checked: !status,
         created: time,
     });
@@ -61,7 +91,7 @@ export const toggleChecked = async (id, created, status) => {
 // add Products
 export const handleInput = async (input) => {
     if (input !== "") {
-        await addDoc(collection(db, "products"), {
+        await addDoc(collection(db, list), {
             title: input,
             checked: false,
             category: getCategory(input),
@@ -116,3 +146,6 @@ function getCategory(input) {
     }
 }
 
+export const shareList = () => {
+    console.log(list);
+}
