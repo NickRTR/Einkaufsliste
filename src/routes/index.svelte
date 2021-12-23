@@ -1,5 +1,5 @@
 <script>
-    import {handleInput, toggleChecked, deleteProduct, shareList} from "../data/firebase.js";
+    import {handleInput, toggleChecked, deleteProduct} from "../data/firebase.js";
     import products from "../data/store.js";
 
     import LoginScreen from "../components/login.svelte";
