@@ -2,19 +2,19 @@
 
 export const categories = {
     // Milch
-    milk: ["milch", "butter", "sahne", "joghurt", "käse", "frischkäse", "grießbrei", "milchpulver", "reisbrei", "schmand", "schlagsahne", "saure sahne", "milchstreichfett", "milchpulver", "butterschmalz", "käse", "quark"],
+    milk: ["milch", "butter", "sahne", "joghurt", "frischkäse", "grießbrei", "milchpulver", "reisbrei", "schmand", "schlagsahne", "saure sahne", "streichzarte butter", "butterschmalz", "käse", "quark"],
 
     // Wurst, Fleisch
-    sausage: ["fleisch", "wurst", "schinken", "lyoner", "salami", "pizzafleischkäse", "bierschinken", "currywurst", "bratwurst", "leberwurst", "landjäger", "weißwurst", "saitenwurst"],
+    sausage: ["fleisch", "fisch", "wurst", "schinken", "lyoner", "salami", "pizzafleischkäse", "bierschinken", "currywurst", "bratwurst", "leberwurst", "landjäger", "weißwürste", "saitenwürste"],
 
     // Gefrorenes
-    frozen: ["pommes", "kroketten", "hähnchen", "eis", "gefrorene himbeeren", "frosta", "pommes", "fisch"],
+    frozen: ["pommes", "kroketten", "hähnchen", "eis", "gefrorene himbeeren", "frosta"],
 
     // Früchte, Obst
-    fruit: ["obst", "früchte", "apfel", "äpfel", "kirschen", "melone", "birnen", "bananen", "orangen", "aprikosen", "brombeeren", "erdbeeren", "himbeeren", "johannisbeeren", "heidelbeeren", "kiwi", "avocado", "ananas", "pfirsich", "trauben", "rosinen", "granatapfel", "granatäpfel", "zitronen", "limetten", "mango", "aprikosen", "litschi", "kokosnuss", "mandarine"],
+    fruit: ["obst", "früchte", "äpfel", "kirschen", "melone", "birnen", "bananen", "orangen", "aprikosen", "brombeeren", "erdbeeren", "himbeeren", "johannisbeeren", "heidelbeeren", "kiwis", "avocado", "ananas", "pfirsiche", "trauben", "rosinen", "granatapfel", "granatäpfel", "zitronen", "limetten", "mango", "mangos", "aprikosen", "litschis", "kokosnuss", "mandarinen"],
 
     // Gemüse
-    vegetables: ["paprika", "zwiebel", "kartoffel", "gurke", "salat", "karotten", "erbsen", "bohnen", "brokkoli", "blumenkohl", "avocado", "fenchel", "kohl", "gurke", "möhren", "knoblauch", "kichererbsen", "pilze", "kohlrabi", "oliven", "kürbis", "auberginen", "radieschen", "rhabarber", "rosenkohl", "sellerie", "spinat", "spargel", "tomaten", "zucchini", "lauch", "zwiebeln", "spargel", "kürbis"],
+    vegetables: ["paprikas", "zwiebenl", "kartoffeln", "gurken", "salat", "karotten", "erbsen", "bohnen", "brokkoli", "blumenkohl", "avocado", "fenchel", "kohl", "gurken", "möhren", "knoblauch", "kichererbsen", "pilze", "kohlrabi", "oliven", "kürbis", "auberginen", "radieschen", "rhabarber", "rosenkohl", "sellerie", "spinat", "spargel", "tomaten", "zucchini", "lauch", "zwiebeln", "spargel"],
 
     // Dosenartikel
     canned: ["ravioli", "dosenwurst", "bohnen"],
@@ -23,16 +23,16 @@ export const categories = {
     drink: ["bier", "wasser", "saft", "orangensaft", "alkohol", "kinderpunsch", "glühwein", "sprudel", "spezi", "fanta", "cola", "capri sonne", "energy drink", "traubensaft", "redbull", "durstlöscher", "sprite"],
 
     // Drogierieartikel
-    drogery: ["waschmittel", "spülmittel", "zahnpasta", "duschgel", "zahnbürste", "handseife", "seife", "lappen", "deo", "gel", "wachs", "rasierer", "kamm", "duschseife", "handtuch", "parfüm"],
+    drogery: ["waschmittel", "spülmittel", "zahnpasta", "duschgel", "zahnbürste", "zahnbürsten", "handseife", "seife", "lappen", "deo", "gel", "wachs", "rasierer", "kamm", "duschseife", "handtuch", "handtücher", "parfüm"],
 
     // Nudeln
-    noodles: ["nudeln", "spaghetti", "maccheroni", "fusilli", "penne", "rigatoni"],
+    noodles: ["nudeln", "spaghetti", "makeroni", "fusilli", "penne", "rigatoni"],
 
     // Süßigkeiten
-    sweets: ["nimm2", "haribo", "gummibärchen", "schokolade", "twixx","smarties", "marsriegel", "chips", "m&m's", "snickers", "toblerone", "donuts", "kinder schokolade", "giotto", "lolli", "duplo", "oreo", "trolliwürmer", "kaugummi", "ritter sport schokolade", "ahoi brause", "esspapier"],
+    sweets: ["nimm2", "haribo", "gummibärchen", "schokolade", "twixx", "smarties", "mars", "chips", "m&m's", "snickers", "toblerone", "donuts", "kinder schokolade", "giotto", "lollis", "duplo", "oreo", "trolliwürmer", "kaugummis", "ritter sport schokolade", "ahoi brause", "esspapier"],
 
     // Brot, Gebäck
-    bread: ["brot", "brötchen", "wecken", "gebäck", "laugenstangen", "toast", "brezel"],
+    bread: ["brot", "brötchen", "wecken", "gebäck", "laugenstangen", "toast", "brezeln"],
 
     // Soßen
     sauce: ["soße", "bratensoße", "ketchup", "rindersoße", "rahmsoße", "bechamelsoße", "hollandaise", "tomatensoße", "mayonnaise"],

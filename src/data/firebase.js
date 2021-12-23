@@ -18,6 +18,8 @@ while(true) {
 const db = browser && getFirestore();
 
 const createCollection = async (listName) => {
+    let createdPassword = Math.floor(Math.random() * 10000) + 1000;
+    localStorage.setItem("password", createdPassword)
     await addDoc(collection(db, listName), {
         title: "Bier",
         checked: false,
@@ -26,7 +28,7 @@ const createCollection = async (listName) => {
     });
     await setDoc(doc(db, list, "share"), {
         list: list,
-        password: Math.floor(Math.random() * 10000) + 1000,
+        password: createdPassword,
         created: Timestamp.fromMillis(9999999999),
     });
 }
@@ -159,15 +161,7 @@ function getCategory(input) {
     }
 }
 
-export const shareList = () => {
-}
-
 // login to List
-
-const getDbPassword = async (inputList) => {
-
-}
-
 export const login = async (inputList, inputPassword) => {
     let password;
     const dbPassword = await getDoc(doc(db, inputList, "share"));
