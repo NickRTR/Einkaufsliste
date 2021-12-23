@@ -1,6 +1,6 @@
 import {firebaseConfig} from "./firebaseConfig.js";
 import {initializeApp, getApps, getApp} from "firebase/app";
-import {getFirestore, collection, onSnapshot, doc, updateDoc, deleteDoc, addDoc, query, orderBy, getDocs, Timestamp} from "firebase/firestore";
+import {getFirestore, collection, onSnapshot, doc, updateDoc, deleteDoc, addDoc, setDoc, query, orderBy, getDocs, Timestamp, getDoc} from "firebase/firestore";
 import {browser} from "$app/env";
 
 import products from "./store.js";
@@ -17,12 +17,17 @@ while(true) {
 
 const db = browser && getFirestore();
 
-const createCollection = async(listName) => {
+const createCollection = async (listName) => {
     await addDoc(collection(db, listName), {
-        title: "Good Luck!",
+        title: "Bier",
         checked: false,
         category: getCategory(listName),
         created: Timestamp.now(),
+    });
+    await setDoc(doc(db, list, "share"), {
+        list: list,
+        password: 1234,
+        created: Timestamp.fromMillis(9999999999),
     });
 }
 
@@ -48,6 +53,9 @@ var list = getListName();
 
 const sort = browser && query(collection(db, list), orderBy("created"));
 
+var listName;
+var listPassword;
+
 // subscribe to changes
 while(true) {
     try {
@@ -64,6 +72,8 @@ while(true) {
                     fbProducts = [product, ...fbProducts];
             });
             products.update(products => [...fbProducts]);
+            listName = fbProducts[fbProducts.length - 1].list;
+            listPassword = fbProducts[fbProducts.length - 1].password;
         }
         break;
     } catch (e) {
@@ -147,6 +157,27 @@ function getCategory(input) {
 }
 
 export const shareList = () => {
-    console.log(list);
-    return list;
+}
+
+// login to List
+
+const getDbPassword = async (inputList) => {
+
+}
+
+export const login = async (inputList, inputPassword) => {
+    let password;
+    const dbPassword = await getDoc(doc(db, inputList, "share"));
+    if (dbPassword.exists()) {
+        password = dbPassword.data().password;
+
+        if (inputPassword == password) {
+            localStorage.setItem("list", inputList)
+            window.location.reload();
+        } else {
+            console.log("falsches Passwort");
+        }
+    } else {
+        console.log("Liste nicht vorhanden");
+    }
 }
