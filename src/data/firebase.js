@@ -116,3 +116,6 @@ function getCategory(input) {
     }
 }
 
+export const shareList = () => {
+    console.log(list);
+}
