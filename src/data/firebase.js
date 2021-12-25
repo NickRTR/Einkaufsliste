@@ -164,6 +164,9 @@ function getCategory(input) {
     else if (updatedCategories.noodles.includes(input.toLowerCase())) {
         category = "noodles";
     }
+    else if (updatedCategories.pencil.includes(input.toLowerCase())) {
+        category = "pencil";
+    }
     else if (updatedCategories.sweets.includes(input.toLowerCase())) {
         category = "sweet";
     }

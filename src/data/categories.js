@@ -8,7 +8,7 @@ export const categories = {
     sausage: ["fleisch", "fisch", "wurst", "schinken", "lyoner", "salami", "pizzafleischkäse", "bierschinken", "currywurst", "bratwurst", "leberwurst", "landjäger", "weißwürste", "saitenwürste"],
 
     // Gefrorenes
-    frozen: ["pommes", "kroketten", "hähnchen", "eis", "gefrorene himbeeren", "frosta"],
+    frozen: ["pommes", "kroketten", "hähnchen", "eis", "gefrorene himbeeren", "frosta", "pizza"],
 
     // Früchte, Obst
     fruit: ["obst", "früchte", "äpfel", "kirschen", "melone", "birnen", "bananen", "orangen", "aprikosen", "brombeeren", "erdbeeren", "himbeeren", "johannisbeeren", "heidelbeeren", "kiwis", "avocado", "ananas", "pfirsiche", "trauben", "rosinen", "granatapfel", "granatäpfel", "zitronen", "limetten", "mango", "mangos", "aprikosen", "litschis", "kokosnuss", "mandarinen"],
@@ -17,7 +17,7 @@ export const categories = {
     vegetables: ["paprikas", "zwiebenl", "kartoffeln", "gurken", "salat", "karotten", "erbsen", "bohnen", "brokkoli", "blumenkohl", "avocado", "fenchel", "kohl", "gurken", "möhren", "knoblauch", "kichererbsen", "pilze", "kohlrabi", "oliven", "kürbis", "auberginen", "radieschen", "rhabarber", "rosenkohl", "sellerie", "spinat", "spargel", "tomaten", "zucchini", "lauch", "zwiebeln", "spargel"],
 
     // Dosenartikel
-    canned: ["ravioli", "dosenwurst", "bohnen"],
+    canned: ["ravioli", "dosenwurst", "bohnen", "tütensuppen", "tütensuppe"],
 
     // Getränke
     drink: ["bier", "wasser", "saft", "orangensaft", "alkohol", "kinderpunsch", "glühwein", "sprudel", "spezi", "fanta", "cola", "capri sonne", "energy drink", "traubensaft", "redbull", "durstlöscher", "sprite"],
@@ -27,6 +27,9 @@ export const categories = {
 
     // Nudeln
     noodles: ["nudeln", "spaghetti", "makkaroni", "fusilli", "penne", "rigatoni"],
+
+    // Stifte, Arbeitsmaterialien
+    pencil: ["stifte", "stift", "füller", "patronen", "ordner", "schnellhefter"],
 
     // Süßigkeiten
     sweets: ["nimm2", "haribo", "gummibärchen", "schokolade", "twixx", "smarties", "mars", "chips", "m&m's", "snickers", "toblerone", "donuts", "kinder schokolade", "giotto", "lollis", "duplo", "oreo", "trolliwürmer", "kaugummis", "ritter sport schokolade", "ahoi brause", "esspapier"],

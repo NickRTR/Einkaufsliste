@@ -30,6 +30,7 @@
         <img class="h-11 w-11 m-0.5 p-0.5 border-2 border-marine" src="/category/jam.svg" alt="Brotaufstrich" on:click={() => {toggleCategoryScreen(); changeCategory(product.title, "jam", product.id)}}>
         <img class="h-11 w-11 m-0.5 p-0.5 border-2 border-marine" src="/category/milk.svg" alt="Milchprodukte" on:click={() => {toggleCategoryScreen(); changeCategory(product.title, "milk", product.id)}}>
         <img class="h-11 w-11 m-0.5 p-0.5 border-2 border-marine" src="/category/noodles.svg" alt="Nudeln" on:click={() => {toggleCategoryScreen(); changeCategory(product.title, "noodles", product.id)}}>
+        <img class="h-11 w-11 m-0.5 p-0.5 border-2 border-marine" src="/category/pencil.svg" alt="Arbeitsmaterialien" on:click={() => {toggleCategoryScreen(); changeCategory(product.title, "pencil", product.id)}}>
         <img class="h-11 w-11 m-0.5 p-0.5 border-2 border-marine" src="/category/sauce.svg" alt="Soßen" on:click={() => {toggleCategoryScreen(); changeCategory(product.title, "sauce", product.id)}}>
         <img class="h-11 w-11 m-0.5 p-0.5 border-2 border-marine" src="/category/sausage.svg" alt="Fleich" on:click={() => {toggleCategoryScreen(); changeCategory(product.title, "sausage", product.id)}}>
         <img class="h-11 w-11 m-0.5 p-0.5 border-2 border-marine" src="/category/spices.svg" alt="Gewürze" on:click={() => {toggleCategoryScreen(); changeCategory(product.title, "spices", product.id)}}>
