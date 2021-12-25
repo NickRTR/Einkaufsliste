@@ -121,12 +121,14 @@ export const handleInput = async (input) => {
 };
 
 const getUpdatedCategories = () => {
-    let storageCategories = JSON.parse(localStorage.getItem("categories"));
-    if (storageCategories == null) {
-        localStorage.setItem("categories", JSON.stringify(categories));
-        storageCategories = categories;
+    if (browser) {
+        let storageCategories = JSON.parse(localStorage.getItem("categories"));
+        if (storageCategories == null) {
+            localStorage.setItem("categories", JSON.stringify(categories));
+            storageCategories = categories;
+        }
+        return storageCategories;
     }
-    return storageCategories;
 }
 
 let updatedCategories = getUpdatedCategories();
