@@ -33,10 +33,15 @@ const createCollection = async (listName) => {
     });
 }
 
+const setCategorieList = () => {
+    localStorage.setItem("categories", JSON.stringify(categories));
+}
+
 const createList = () => {
     localStorage.clear();
     let createdList = Math.floor((Math.random() * 1000)).toString();
-    createCollection(createdList)
+    createCollection(createdList);
+    setCategorieList();
     return createdList;
 }
 
@@ -115,50 +120,76 @@ export const handleInput = async (input) => {
     }
 };
 
+const getUpdatedCategories = () => {
+    let storageCategories = JSON.parse(localStorage.getItem("categories"));
+    if (storageCategories == null) {
+        localStorage.setItem("categories", JSON.stringify(categories));
+        storageCategories = categories;
+    }
+    return storageCategories;
+}
+
+let updatedCategories = getUpdatedCategories();
+
 // choose category corresponding to categories array
 function getCategory(input) {
-    if (categories.milk.includes(input.toLowerCase())) {
-        return "milk";
+    let category = "choose";
+
+    if (updatedCategories.milk.includes(input.toLowerCase())) {
+        category = "milk";
     }
-    else if (categories.sausage.includes(input.toLowerCase())) {
-        return "sausage";
+    else if (updatedCategories.sausage.includes(input.toLowerCase())) {
+        category = "sausage";
     }
-    else if (categories.frozen.includes(input.toLowerCase())) {
-        return "frozen";
+    else if (updatedCategories.frozen.includes(input.toLowerCase())) {
+        category = "frozen";
     }
-    else if (categories.fruit.includes(input.toLowerCase())) {
-        return "fruit";
+    else if (updatedCategories.fruit.includes(input.toLowerCase())) {
+        category = "fruit";
     }
-    else if (categories.vegetables.includes(input.toLowerCase())) {
-        return "vegetables";
+    else if (updatedCategories.vegetables.includes(input.toLowerCase())) {
+        category = "vegetables";
     }
-    else if (categories.canned.includes(input.toLowerCase())) {
-        return "canned";
+    else if (updatedCategories.canned.includes(input.toLowerCase())) {
+        category = "canned";
     }
-    else if (categories.drink.includes(input.toLowerCase())) {
-        return "drink";
+    else if (updatedCategories.drink.includes(input.toLowerCase())) {
+        category = "drink";
     }
-    else if (categories.drogery.includes(input.toLowerCase())) {
-        return "drogery";
+    else if (updatedCategories.drogery.includes(input.toLowerCase())) {
+        category = "drogery";
     }
-    else if (categories.noodles.includes(input.toLowerCase())) {
-        return "noodles";
+    else if (updatedCategories.noodles.includes(input.toLowerCase())) {
+        category = "noodles";
     }
-    else if (categories.sweets.includes(input.toLowerCase())) {
-        return "sweet";
+    else if (updatedCategories.sweets.includes(input.toLowerCase())) {
+        category = "sweet";
     }
-    else if (categories.bread.includes(input.toLowerCase())) {
-        return "bread";
+    else if (updatedCategories.bread.includes(input.toLowerCase())) {
+        category = "bread";
     }
-    else if (categories.sauce.includes(input.toLowerCase())) {
-        return "sauce";
+    else if (updatedCategories.sauce.includes(input.toLowerCase())) {
+        category = "sauce";
     }
-    else if (categories.jam.includes(input.toLowerCase())) {
-        return "jam";
+    else if (updatedCategories.jam.includes(input.toLowerCase())) {
+        category = "jam";
     }
-    else {
-        return "choose";
+    else if (updatedCategories.spices.includes(input.toLowerCase())) {
+        category = "spices";
     }
+    return category;
+}
+
+export const changeCategory = async (input, category, id) => {
+    updatedCategories = getUpdatedCategories()
+    if (category != "choose") {
+        updatedCategories[category].filter(value => value != input);
+    }
+    updatedCategories[category] = [input.toLowerCase(), ...categories[category]];
+    localStorage.setItem("updatedCategories", JSON.stringify(updatedCategories));
+    await updateDoc(doc(db, list, id), {
+        category: category,
+    });
 }
 
 // login to List

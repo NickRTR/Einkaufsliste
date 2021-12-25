@@ -32,11 +32,14 @@ export const categories = {
     sweets: ["nimm2", "haribo", "gummibärchen", "schokolade", "twixx", "smarties", "mars", "chips", "m&m's", "snickers", "toblerone", "donuts", "kinder schokolade", "giotto", "lollis", "duplo", "oreo", "trolliwürmer", "kaugummis", "ritter sport schokolade", "ahoi brause", "esspapier"],
 
     // Brot, Gebäck
-    bread: ["brot", "brötchen", "wecken", "gebäck", "laugenstangen", "toast", "brezeln"],
+    bread: ["brot", "brötchen", "wecken", "gebäck", "laugenstangen", "toast", "brezeln", "backpulver", "vanillinzucker"],
 
     // Soßen
     sauce: ["soße", "bratensoße", "ketchup", "rindersoße", "rahmsoße", "bechamelsoße", "hollandaise", "tomatensoße", "mayonnaise"],
 
     // Brotaufstrich
     jam: ["marmelade", "erdbeermarmelade", "kirschmarmelade", "nutella", "honig"],
+
+    // Gewürze
+    spices: ["salz", "pfeffer", "petersilie", "basilikum", "zimt", "chilipulver", "paprikapulver", "maggi", "muskatnuss"],
 }

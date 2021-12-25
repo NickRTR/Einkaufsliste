@@ -1,5 +1,5 @@
 <script>
-    import {handleInput, toggleChecked, deleteProduct} from "../data/firebase.js";
+    import {handleInput} from "../data/firebase.js";
     import products from "../data/store.js";
 
     import ProductCard from "../components/productCard.svelte"
