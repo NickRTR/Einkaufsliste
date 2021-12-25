@@ -2,7 +2,6 @@
     import {toggleChecked, deleteProduct, changeCategory} from "../data/firebase.js";
 
     export let product;
-
     let showCategorySreen = "hidden";
 
     const toggleCategoryScreen = () => {
