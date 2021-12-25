@@ -2,6 +2,7 @@
     import {handleInput, toggleChecked, deleteProduct} from "../data/firebase.js";
     import products from "../data/store.js";
 
+    import ProductCard from "../components/productCard.svelte"
     import ConnectScreen from "../components/connect.svelte";
 
     var input = "";
@@ -11,13 +12,13 @@
         input = "";
     } 
 
-    var hidden = "hidden";
+    var showConnect = "hidden";
 
     const toggleLogin = () => {
-        if (hidden == "hidden") {
-            hidden = "";
+        if (showConnect == "hidden") {
+            showConnect = "";
         } else {
-            hidden = "hidden"
+            showConnect = "hidden"
         }
     }
 </script>
@@ -30,7 +31,7 @@
     <div class="text-center text-bee pb-1">
         <h1 class="text-4xl pt-5 font-semibold">Einkaufsliste</h1>
         <button class="text-white mt-2 mr-4 underline" on:click={toggleLogin}>Liste verbinden</button>
-        <div class="{hidden} bg-marine-bright rounded-xl m-5"><ConnectScreen></ConnectScreen></div>
+        <div class="{showConnect} bg-marine-bright rounded-xl m-5"><ConnectScreen></ConnectScreen></div>
         <form class="flex my-4 justify-center" on:submit|preventDefault={() => {addProduct(input)}}>
             <input class="m-0 w-3/4 h-8 px-2 bg-bee border-none text-lg text-marine font-semibold rounded-xl" type="text" bind:value={input}>
             <button class="shadow-xl text-lg font-semibold px-2 ml-1.5 bg-bee text-marine rounded-xl" type="submit">Add</button>
@@ -38,12 +39,7 @@
         <div class="products bg-marine">
             {#each $products as product}
                 {#if !product.checked && product.title !== undefined}
-                    <div class="Card text-2xl text-left p-1.5 m-2.5 bg-marine-bright rounded-xl break-words flex items-center">
-                        <img class="h-10 w-10 mr-1.5 text-xs" type="image" src="/category/{product.category}.svg" alt={product.category}>
-                        <p on:click={() => {toggleChecked(product.id, product.checked)}}>{product.title}</p>
-                        <input class="ml-auto mr-1 w-6 h-6" type="checkbox" checked={product.checked} on:click={() => {toggleChecked(product.id, product.created, product.checked)}}>
-                        <input class="mt-0.5 h-7 w-7 text-xs" type="image" src="/delete.svg" alt="delete" on:click={() => {deleteProduct(product.id)}}>
-                    </div>
+                    <ProductCard product={product}/>
                 {/if}
             {/each}
         </div>
@@ -51,12 +47,7 @@
             <p class="border-t-2 m-2.5 mt-3"></p>
             {#each $products as product}
                 {#if product.checked && product.title !== undefined}
-                    <div class="checkedCard text-2xl text-left p-1.5 m-2.5 bg-marine-bright rounded-xl break-words flex items-center">
-                        <input class="h-10 w-10 mr-1.5" type="image" src="/category/{product.category}.svg" alt="(delete)">
-                        <p on:click={() => {toggleChecked(product.id, product.created, product.checked)}}>{product.title}</p>
-                        <input class="ml-auto mr-1 w-6 h-6" type="checkbox" checked={product.checked} on:click={() => {toggleChecked(product.id, product.created, product.checked)}}>
-                        <input class="mt-0.5 h-7 w-7 text-xs" type="image" src="/delete.svg" alt="delete" on:click={() => {deleteProduct(product.id)}}>
-                    </div>
+                <ProductCard product={product}/>
                 {/if}
             {/each}
         </div>

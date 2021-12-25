@@ -26,7 +26,7 @@ export const categories = {
     drogery: ["waschmittel", "spülmittel", "zahnpasta", "duschgel", "zahnbürste", "zahnbürsten", "handseife", "seife", "lappen", "deo", "gel", "wachs", "rasierer", "kamm", "duschseife", "handtuch", "handtücher", "parfüm"],
 
     // Nudeln
-    noodles: ["nudeln", "spaghetti", "makeroni", "fusilli", "penne", "rigatoni"],
+    noodles: ["nudeln", "spaghetti", "makkaroni", "fusilli", "penne", "rigatoni"],
 
     // Süßigkeiten
     sweets: ["nimm2", "haribo", "gummibärchen", "schokolade", "twixx", "smarties", "mars", "chips", "m&m's", "snickers", "toblerone", "donuts", "kinder schokolade", "giotto", "lollis", "duplo", "oreo", "trolliwürmer", "kaugummis", "ritter sport schokolade", "ahoi brause", "esspapier"],

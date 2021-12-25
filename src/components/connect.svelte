@@ -1,5 +1,4 @@
 <script>
-    import products from "../data/store.js";
     import {login} from "../data/firebase.js";
     import { browser } from "$app/env";
 
