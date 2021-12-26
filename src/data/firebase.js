@@ -18,7 +18,7 @@ const createCollection = async (listName) => {
         let createdPassword = Math.floor(Math.random() * 10000) + 1000;
         localStorage.setItem("password", createdPassword)
         await addDoc(collection(db, listName), {
-            title: "Bier",
+            title: "Wasser",
             checked: false,
             category: "drink",
             created: Timestamp.now(),
