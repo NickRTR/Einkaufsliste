@@ -6,11 +6,15 @@
     $: password = "";
 
     var ListName = "Loading";
-    var ListPassword = "Loading"
+    var ListPassword = "Loading";
 
     if (browser) {
         ListName = localStorage.getItem("list");
-        ListPassword = localStorage.getItem("password");
+        let localStoragePWD = localStorage.getItem("password");
+        while (localStoragePWD == null) {
+            localStoragePWD = localStorage.getItem("password");
+        }
+        ListPassword = localStoragePWD;
     }
 </script>
 
