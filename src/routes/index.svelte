@@ -1,11 +1,11 @@
 <script>
-    import {handleInput, login} from "../data/firebase.js";
+    import {handleInput} from "../data/firebase.js";
     import products from "../data/store.js";
 
     import ProductCard from "../components/productCard.svelte"
     import ConnectScreen from "../components/connect.svelte";
 
-    $: input = "";
+    var input = "";
 
     $: {
         getSuggestion(input);
@@ -29,8 +29,8 @@
     $: suggestion = "";
 
     $: getSuggestion = () => {
-        if (input != "") {
-            for (var i = 0; i < $products.length; i++) {
+        if (input != "" && $products.length > 1) {
+            for (var i = 0; i < $products.length - 1; i++) {
                 var title = $products[i].title;
                 if (title.toLowerCase().startsWith(input.toLowerCase())) {
                     suggestion = title;
@@ -55,7 +55,7 @@
             <input class="m-0 w-3/4 h-8 px-2 bg-bee border-none text-lg text-marine font-semibold rounded-xl" type="text" bind:value={input}>
             <button class="shadow-xl text-lg font-semibold px-2 ml-1.5 bg-bee text-marine rounded-xl" type="submit">Add</button>
         </form>
-        <div class="suggestion text-xl p-0 m-0" on:click={() => {addProduct(suggestion)}}>{suggestion}</div>
+        <div class="suggestion text-xl" on:click={() => {addProduct(suggestion)}}>{suggestion}</div>
         <div class="products">
             {#each $products as product}
                 {#if !product.checked && product.title !== undefined}

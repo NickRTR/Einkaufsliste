@@ -11,7 +11,7 @@
     if (browser) {
         ListName = localStorage.getItem("list");
         let localStoragePWD = localStorage.getItem("password");
-        while (localStoragePWD == null) {
+        if (localStoragePWD == null) {
             localStoragePWD = localStorage.getItem("password");
         }
         ListPassword = localStoragePWD;

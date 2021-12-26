@@ -7,7 +7,7 @@ import products from "./store.js";
 
 // initialize Database
 const firebaseApp = initializeApp(firebaseConfig);
-const db = browser && getFirestore();
+const db = browser && getFirestore();   
 
 const createCollection = async (listName) => {
     const share = await getDoc(doc(db, listName, "share"));
