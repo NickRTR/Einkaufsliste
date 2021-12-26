@@ -18,30 +18,31 @@ while(true) {
 const db = browser && getFirestore();
 
 const createCollection = async (listName) => {
-    let createdPassword = Math.floor(Math.random() * 10000) + 1000;
-    localStorage.setItem("password", createdPassword)
-    await addDoc(collection(db, listName), {
-        title: "Bier",
-        checked: false,
-        category: "drink",
-        created: Timestamp.now(),
-    });
-    await setDoc(doc(db, list, "share"), {
-        list: list,
-        password: createdPassword,
-        created: Timestamp.fromMillis(9999999999),
-    });
-}
-
-const setCategorieList = () => {
-    localStorage.setItem("categories", JSON.stringify(categories));
+    const share = await getDoc(doc(db, listName, "share"));
+    if (share.exists()) { 
+        localStorage.clear();
+        list = getListName();
+    } else {
+        let createdPassword = Math.floor(Math.random() * 10000) + 1000;
+        localStorage.setItem("password", createdPassword)
+        await addDoc(collection(db, listName), {
+            title: "Bier",
+            checked: false,
+            category: "drink",
+            created: Timestamp.now(),
+        });
+        await setDoc(doc(db, list, "share"), {
+            list: list,
+            password: createdPassword,
+            created: Timestamp.fromMillis(9999999999),
+        });
+    }
 }
 
 const createList = () => {
     localStorage.clear();
-    let createdList = Math.floor((Math.random() * 1000)).toString();
+    let createdList = Math.floor((Math.random() * 100)).toString();
     createCollection(createdList);
-    setCategorieList();
     return createdList;
 }
 
@@ -59,9 +60,6 @@ export const getListName = () => {
 var list = getListName();
 
 const sort = browser && query(collection(db, list), orderBy("created"));
-
-var listName;
-var listPassword;
 
 // subscribe to changes
 while(true) {
@@ -82,8 +80,6 @@ while(true) {
                 createCollection(list);
             }
             products.update(products => [...fbProducts]);
-            listName = fbProducts[fbProducts.length - 1].list;
-            listPassword = fbProducts[fbProducts.length - 1].password;
         }
         break;
     } catch (e) {
@@ -187,11 +183,13 @@ function getCategory(input) {
 
 export const changeCategory = async (input, category, id) => {
     updatedCategories = getUpdatedCategories()
-    if (category != "choose") {
-        updatedCategories[category].filter(value => value != input);
-    }
+    let previousCategory = getCategory(input);
+    if (previousCategory != "choose") {
+        updatedCategories[previousCategory] = updatedCategories[previousCategory].filter(value => value != input.toLowerCase());
+        localStorage.setItem("categories", JSON.stringify(updatedCategories));    
+    }   
     updatedCategories[category] = [input.toLowerCase(), ...categories[category]];
-    localStorage.setItem("updatedCategories", JSON.stringify(updatedCategories));
+    localStorage.setItem("categories", JSON.stringify(updatedCategories));
     await updateDoc(doc(db, list, id), {
         category: category,
     });
