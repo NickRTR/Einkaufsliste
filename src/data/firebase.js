@@ -1,20 +1,12 @@
 import {firebaseConfig} from "./firebaseConfig.js";
-import {initializeApp, getApps, getApp} from "firebase/app";
+import {initializeApp} from "firebase/app";
 import {getFirestore, collection, onSnapshot, doc, updateDoc, deleteDoc, addDoc, setDoc, query, orderBy, getDocs, Timestamp, getDoc} from "firebase/firestore";
 import {browser} from "$app/env";
-
-import products from "./store.js";
 import {categories} from "../data/categories.js";
+import products from "./store.js";
 
-while(true) {
-    try {
-        const firebaseApp = browser && (getApps().length === 0 ? initializeApp(firebaseConfig) : getApp());
-        break;
-    } catch (e) {
-        console.log(e);
-    }
-}
-
+// initialize Database
+const firebaseApp = initializeApp(firebaseConfig);
 const db = browser && getFirestore();
 
 const createCollection = async (listName) => {
@@ -62,28 +54,23 @@ var list = getListName();
 const sort = browser && query(collection(db, list), orderBy("created"));
 
 // subscribe to changes
-while(true) {
-    try {
-        const unsubscribe = browser && onSnapshot(sort, () => {
-            getData();
-        });
+if (browser) {
+    const unsubscribe = browser && onSnapshot(sort, () => {
+        getData();
+    });
 
-        // get Data
-        const getData = async () => {
-            let fbProducts = [];
-            const querySnapshot = await getDocs(sort);
-                querySnapshot.forEach((doc) => {
-                    let product = {...doc.data(), id: doc.id};
-                    fbProducts = [product, ...fbProducts];
-            });
-            if (fbProducts.length == 0) {
-                createCollection(list);
-            }
-            products.update(products => [...fbProducts]);
+    // get Data
+    const getData = async () => {
+        let fbProducts = [];
+        const querySnapshot = await getDocs(sort);
+            querySnapshot.forEach((doc) => {
+                let product = {...doc.data(), id: doc.id};
+                fbProducts = [product, ...fbProducts];
+        });
+        if (fbProducts.length == 0) {
+            createCollection(list);
         }
-        break;
-    } catch (e) {
-        console.log(e);
+        products.update(products => [...fbProducts]);
     }
 }
 
@@ -131,51 +118,54 @@ let updatedCategories = getUpdatedCategories();
 
 // choose category corresponding to categories array
 function getCategory(input) {
+    input = input.toLowerCase();
+    input = input.trim();
+
     let category = "choose";
 
-    if (updatedCategories.milk.includes(input.toLowerCase())) {
+    if (updatedCategories.milk.includes(input)) {
         category = "milk";
     }
-    else if (updatedCategories.sausage.includes(input.toLowerCase())) {
+    else if (updatedCategories.sausage.includes(input)) {
         category = "sausage";
     }
-    else if (updatedCategories.frozen.includes(input.toLowerCase())) {
+    else if (updatedCategories.frozen.includes(input)) {
         category = "frozen";
     }
-    else if (updatedCategories.fruit.includes(input.toLowerCase())) {
+    else if (updatedCategories.fruit.includes(input)) {
         category = "fruit";
     }
-    else if (updatedCategories.vegetables.includes(input.toLowerCase())) {
+    else if (updatedCategories.vegetables.includes(input)) {
         category = "vegetables";
     }
-    else if (updatedCategories.canned.includes(input.toLowerCase())) {
+    else if (updatedCategories.canned.includes(input)) {
         category = "canned";
     }
-    else if (updatedCategories.drink.includes(input.toLowerCase())) {
+    else if (updatedCategories.drink.includes(input)) {
         category = "drink";
     }
-    else if (updatedCategories.drogery.includes(input.toLowerCase())) {
+    else if (updatedCategories.drogery.includes(input)) {
         category = "drogery";
     }
-    else if (updatedCategories.noodles.includes(input.toLowerCase())) {
+    else if (updatedCategories.noodles.includes(input)) {
         category = "noodles";
     }
-    else if (updatedCategories.pencil.includes(input.toLowerCase())) {
+    else if (updatedCategories.pencil.includes(input)) {
         category = "pencil";
     }
-    else if (updatedCategories.sweets.includes(input.toLowerCase())) {
+    else if (updatedCategories.sweets.includes(input)) {
         category = "sweet";
     }
-    else if (updatedCategories.bread.includes(input.toLowerCase())) {
+    else if (updatedCategories.bread.includes(input)) {
         category = "bread";
     }
-    else if (updatedCategories.sauce.includes(input.toLowerCase())) {
+    else if (updatedCategories.sauce.includes(input)) {
         category = "sauce";
     }
-    else if (updatedCategories.jam.includes(input.toLowerCase())) {
+    else if (updatedCategories.jam.includes(input)) {
         category = "jam";
     }
-    else if (updatedCategories.spices.includes(input.toLowerCase())) {
+    else if (updatedCategories.spices.includes(input)) {
         category = "spices";
     }
     return category;
