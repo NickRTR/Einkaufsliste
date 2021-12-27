@@ -34,7 +34,7 @@
         <img class="h-11 w-11 m-0.5 p-0.5 border-2 border-marine" src="/category/sauce.svg" alt="Soßen" on:click={() => {toggleCategoryScreen(); changeCategory(product.title, "sauce", product.id)}}>
         <img class="h-11 w-11 m-0.5 p-0.5 border-2 border-marine" src="/category/sausage.svg" alt="Fleich" on:click={() => {toggleCategoryScreen(); changeCategory(product.title, "sausage", product.id)}}>
         <img class="h-11 w-11 m-0.5 p-0.5 border-2 border-marine" src="/category/spices.svg" alt="Gewürze" on:click={() => {toggleCategoryScreen(); changeCategory(product.title, "spices", product.id)}}>
-        <img class="h-11 w-11 m-0.5 p-0.5 border-2 border-marine" src="/category/sweet.svg" alt="Süßigkeiten" on:click={() => {toggleCategoryScreen(); changeCategory(product.title, "sweet", product.id)}}>
+        <img class="h-11 w-11 m-0.5 p-0.5 border-2 border-marine" src="/category/sweets.svg" alt="Süßigkeiten" on:click={() => {toggleCategoryScreen(); changeCategory(product.title, "sweets", product.id)}}>
         <img class="h-11 w-11 m-0.5 p-0.5 border-2 border-marine" src="/category/vegetables.svg" alt="Gemüse" on:click={() => {toggleCategoryScreen(); changeCategory(product.title, "vegetables", product.id)}}>
     </div>
 </div>

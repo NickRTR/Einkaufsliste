@@ -154,7 +154,7 @@ function getCategory(input) {
         category = "pencil";
     }
     else if (updatedCategories.sweets.includes(input)) {
-        category = "sweet";
+        category = "sweets";
     }
     else if (updatedCategories.bread.includes(input)) {
         category = "bread";
