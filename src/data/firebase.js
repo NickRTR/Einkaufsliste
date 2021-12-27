@@ -6,8 +6,10 @@ import {categories} from "../data/categories.js";
 import products from "./store.js";
 
 // initialize Database
-const firebaseApp = initializeApp(firebaseConfig);
-const db = browser && getFirestore();   
+if (browser) {
+    const firebaseApp = initializeApp(firebaseConfig);
+}  
+const db = browser && getFirestore(); 
 
 const createCollection = async (listName) => {
     const share = await getDoc(doc(db, listName, "share"));
@@ -20,7 +22,7 @@ const createCollection = async (listName) => {
         await addDoc(collection(db, listName), {
             title: "Wasser",
             checked: false,
-            category: "drink",
+            category: "Getränke",
             created: Timestamp.now(),
         });
         await setDoc(doc(db, list, "share"), {
@@ -123,50 +125,53 @@ function getCategory(input) {
 
     let category = "choose";
 
-    if (updatedCategories.milk.includes(input)) {
-        category = "milk";
+    if (updatedCategories.Milchprodukte.includes(input)) {
+        category = "Milchprodukte";
     }
-    else if (updatedCategories.sausage.includes(input)) {
-        category = "sausage";
+    else if (updatedCategories.Fleisch.includes(input)) {
+        category = "Fleisch";
     }
-    else if (updatedCategories.frozen.includes(input)) {
-        category = "frozen";
+    else if (updatedCategories.Tiefkühlartikel.includes(input)) {
+        category = "Tiefkühlartikel";
     }
-    else if (updatedCategories.fruit.includes(input)) {
-        category = "fruit";
+    else if (updatedCategories.Früchte.includes(input)) {
+        category = "Früchte";
     }
-    else if (updatedCategories.vegetables.includes(input)) {
-        category = "vegetables";
+    else if (updatedCategories.Gemüse.includes(input)) {
+        category = "Gemüse";
     }
-    else if (updatedCategories.canned.includes(input)) {
-        category = "canned";
+    else if (updatedCategories.Konserven.includes(input)) {
+        category = "Konserven";
     }
-    else if (updatedCategories.drink.includes(input)) {
-        category = "drink";
+    else if (updatedCategories.Getränke.includes(input)) {
+        category = "Getränke";
     }
-    else if (updatedCategories.drogery.includes(input)) {
-        category = "drogery";
+    else if (updatedCategories.Drogerieartikel.includes(input)) {
+        category = "Drogerieartikel";
     }
-    else if (updatedCategories.noodles.includes(input)) {
-        category = "noodles";
+    else if (updatedCategories.Nudeln.includes(input)) {
+        category = "Nudeln";
     }
-    else if (updatedCategories.pencil.includes(input)) {
-        category = "pencil";
+    else if (updatedCategories.Arbeitsmaterialien.includes(input)) {
+        category = "Arbeitsmaterialien";
     }
-    else if (updatedCategories.sweets.includes(input)) {
-        category = "sweets";
+    else if (updatedCategories.Süßigkeiten.includes(input)) {
+        category = "Süßigkeiten";
     }
-    else if (updatedCategories.bread.includes(input)) {
-        category = "bread";
+    else if (updatedCategories.Gebäck.includes(input)) {
+        category = "Gebäck";
     }
-    else if (updatedCategories.sauce.includes(input)) {
-        category = "sauce";
+    else if (updatedCategories.Soßen.includes(input)) {
+        category = "Soßen";
     }
-    else if (updatedCategories.jam.includes(input)) {
-        category = "jam";
+    else if (updatedCategories.Brotaufstrich.includes(input)) {
+        category = "Brotaufstrich";
     }
-    else if (updatedCategories.spices.includes(input)) {
-        category = "spices";
+    else if (updatedCategories.Gewürze.includes(input)) {
+        category = "Gewürze";
+    }
+    else if (updatedCategories.Technik.includes(input)) {
+        category = "Technik";
     }
     return category;
 }

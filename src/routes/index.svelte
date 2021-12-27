@@ -64,7 +64,7 @@
             {/each}
         </div>
         <div class="checkedProducts">
-            <p class="divider border-t-2 border-white mx-2.5"></p>
+            <p class="divider border-t-2 border-white mx-2.5 mt-2.5"></p>
             {#each $products as product}
                 {#if product.checked && product.title !== undefined}
                 <ProductCard product={product}/>
@@ -72,4 +72,5 @@
             {/each}
         </div>
     </div>
+    <p class="text-white">©2022 Nick Reutlinger</p>
 </main>
