@@ -35,6 +35,7 @@ const createCollection = async (listName) => {
             title: "Wasser",
             checked: false,
             category: "Getränke",
+            quantity: {amount: "1", type: "stk"},
             created: Timestamp.now(),
         });
         await setDoc(doc(db, list, "share"), {
@@ -105,6 +106,14 @@ export const toggleChecked = async (id, created, status) => {
     });
 };
 
+// update Quantity
+export const updateQuantity = async (amount, type, id) => {
+    let updatedQuantity = {amount, type}
+    await updateDoc(doc(db, list, id), {
+        quantity: updatedQuantity,
+    });
+}
+
 // add Products
 export const handleInput = async (input) => {
     if (input !== "") {
@@ -112,6 +121,7 @@ export const handleInput = async (input) => {
             title: input,
             checked: false,
             category: getCategory(input),
+            quantity: {amount: "1", type: "stk"},
             created: Timestamp.now(),
         });
     }

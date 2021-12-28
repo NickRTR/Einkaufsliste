@@ -1,5 +1,5 @@
 export const categories = {
-    Milchprodukte: ["milch", "butter", "sahne", "joghurt", "frischkäse", "grießbrei", "milchpulver", "reisbrei", "schmand", "schlagsahne", "saure sahne", "streichzarte butter", "butterschmalz", "käse", "quark"],
+    Milchprodukte: ["milch", "butter", "sahne", "joghurt", "frischkäse", "grießbrei", "milchpulver", "reisbrei", "schmand", "schlagsahne", "saure sahne", "streichzarte butter", "butterschmalz", "käse", "quark", "pudding"],
 
     Fleisch: ["fleisch", "fisch", "wurst", "schinken", "lyoner", "salami", "pizzafleischkäse", "bierschinken", "currywurst", "bratwurst", "leberwurst", "landjäger", "weißwürste", "saitenwürste"],
 
@@ -7,7 +7,7 @@ export const categories = {
 
     Früchte: ["obst", "früchte", "äpfel", "kirschen", "melonen", "melone", "birnen", "bananen", "orangen", "aprikosen", "brombeeren", "erdbeeren", "himbeeren", "johannisbeeren", "heidelbeeren", "kiwis", "avocado", "ananas", "pfirsiche", "trauben", "rosinen", "granatapfel", "granatäpfel", "zitronen", "limetten", "mango", "mangos", "aprikosen", "litschis", "kokosnuss", "mandarinen"],
 
-    Gemüse: ["paprikas", "zwiebenl", "kartoffeln", "gurken", "salat", "karotten", "erbsen", "bohnen", "brokkoli", "blumenkohl", "avocado", "fenchel", "kohl", "gurken", "möhren", "knoblauch", "kichererbsen", "pilze", "kohlrabi", "oliven", "kürbis", "auberginen", "radieschen", "rhabarber", "rosenkohl", "sellerie", "spinat", "spargel", "tomaten", "zucchini", "lauch", "zwiebeln", "spargel"],
+    Gemüse: ["paprika", "paprikas", "zwiebenl", "kartoffeln", "gurken", "salat", "karotten", "erbsen", "bohnen", "brokkoli", "blumenkohl", "avocado", "fenchel", "kohl", "gurken", "möhren", "knoblauch", "kichererbsen", "pilze", "kohlrabi", "oliven", "kürbis", "auberginen", "radieschen", "rhabarber", "rosenkohl", "sellerie", "spinat", "spargel", "tomaten", "zucchini", "lauch", "zwiebeln", "spargel"],
 
     Konserven: ["ravioli", "dosenwurst", "bohnen", "tütensuppen", "tütensuppe", "erbsen", "getrocknete tomaten", "sardinen"],
 
@@ -19,7 +19,7 @@ export const categories = {
 
     Arbeitsmaterialien: ["stifte", "stift", "füller", "patronen", "ordner", "schnellhefter", "tintenkiller", "schere", "kleber", "flüssigkleber", "ordner", "bleistift", "lineal", "geodreieck", "spitzler", "block"],
 
-    Süßigkeiten: ["nimm2", "haribo", "gummibärchen", "schokolade", "twixx", "smarties", "mars", "chips", "m&m's", "snickers", "toblerone", "donuts", "kinder schokolade", "giotto", "lollis", "duplo", "oreo", "trolliwürmer", "kaugummis", "ritter sport schokolade", "ahoi brause", "esspapier"],
+    Süßigkeiten: ["nimm2", "haribo", "gummibärchen", "schokolade", "twixx", "smarties", "mars", "chips", "m&m's", "snickers", "toblerone", "donuts", "kinder schokolade", "giotto", "lollis", "duplo", "oreo", "trolliwürmer", "kaugummis", "ritter sport schokolade", "ahoi brause", "esspapier", "rittersport schokolade"],
 
     Gebäck: ["brot", "brötchen", "wecken", "gebäck", "laugenstangen", "toast", "brezeln", "backpulver", "vanillinzucker", "kuchen", "empolvados", "croissant", "apfeltaschen", "käsestangen", "weihnachtsgebäck"],
 
@@ -27,9 +27,9 @@ export const categories = {
 
     Brotaufstrich: ["marmelade", "erdbeermarmelade", "kirschmarmelade", "nutella", "honig", "pfirsichmarmelade", "pflaum marmelade", "pflaummarmelade", "apfelmarmelade", "apfel marmelade", "rhabarbermarmelade", "rhabarber marmelade", "birnenmarmelade", "birnen marmelade", "ananas marmelade", "ananasmarmelade", "orangenmarmelade", "orangen marmelade", "quitten marmelade", "quittenmarmelade", "himbeer marmelade", "himbeemarmelade"],
 
-    Gewürze: ["salz", "pfeffer", "petersilie", "basilikum", "zimt", "chilipulver", "paprikapulver", "maggi", "muskatnuss", "koriander", "ankerkraut", "curry", "fenchel", "ingwer", "knoblauch", "kümmel", "lorbeer", "minze", "oregano", "rosmarin", "salbei", "schnittlauch", "wacholderbeeren"],
+    Gewürze: ["salz", "pfeffer", "petersilie", "basilikum", "zimt", "chilipulver", "paprikapulver", "maggi", "muskatnuss", "koriander", "ankerkraut", "curry", "fenchel", "ingwer", "knoblauch", "kümmel", "lorbeer", "minze", "oregano", "rosmarin", "salbei", "schnittlauch", "wacholderbeeren", "olivenöl"],
 
     Technik: ["computer", "handy", "iphone", "maus", "tastatur", "monitor", "led kette", "kamera", "mikrofon", "mikro", "headset", "lampe", "telefon", "ladegerät", "lichterkette"],
 
-    Spirituosen: ["wein", "wodka"],
+    Spirituosen: ["wein", "wodka", "rotwein", "weißwein", "roséwein", "schnaps", "gin tonic"],
 }
