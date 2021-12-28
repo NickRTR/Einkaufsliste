@@ -47,11 +47,11 @@
  
 <div class="container mx-auto">
     <div class="Card text-2xl p-1.5 m-2.5 bg-marine-bright rounded-xl flex items-center break-words">
-        <img class="h-8 w-8 mr-1" type="image" src="/category/{product.category}.svg" alt={product.category} title={product.category} on:click={toggleCategoryScreen}>
-        <p class="text-lg" on:click={() => {toggleChecked(product.id, product.checked)}}>{product.title}</p>
+        <img class="h-8 w-8 md:h-10 md:w-10 mr-1 md:mr-2" type="image" src="/category/{product.category}.svg" alt={product.category} title={product.category} on:click={toggleCategoryScreen}>
+        <p class="text-lg md:text-2xl" on:click={() => {toggleChecked(product.id, product.checked)}}>{product.title}</p>
         <div class="quantity ml-auto mr-2 flex">
-            <input class="w-9 rounded-xl rounded-r-none m-0 bg-bee border-none px-1 text-base text-marine" type="text" maxlength="3" bind:value={amount} on:input={() => {updateQuantity(amount, type, product.id)}}>
-            <select class="text-sm w-10 rounded-xl rounded-l-none m-0 bg-bee text-marine font-semibold" bind:value={type}>
+            <input class="w-10 rounded-xl rounded-r-none m-0 bg-bee border-none px-1 text-base md:text-lg md:font-semibold text-marine" type="text" maxlength="3" bind:value={amount} on:input={() => {updateQuantity(amount, type, product.id)}}>
+            <select class="text-sm md:text-base w-12 rounded-xl rounded-l-none m-0 bg-bee text-marine font-semibold" bind:value={type}>
                 <option class="font-semibold" value="stk">stk</option>
                 <option class="font-semibold" value="gr">gr</option>
                 <option class="font-semibold" value="kg">kg</option>

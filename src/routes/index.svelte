@@ -50,9 +50,9 @@
     <div class="text-bee pb-1">
         <h1 class="text-4xl pt-5 font-semibold">Einkaufsliste</h1>
         <div>
-            <button class="text-white mt-2 underline" on:click={toggleLogin}>Liste verbinden</button><br>
+            <button class="text-white md:text-lg mt-2 underline" on:click={toggleLogin}>Liste verbinden</button><br>
             <div class="{showConnect} bg-marine-bright rounded-xl mt-3"><ConnectScreen></ConnectScreen></div>
-            <button class="text-white mt-2 underline" on:click={() => {localStorage.clear(); location.reload()}}>Neue Liste</button>
+            <button class="text-white md:text-lg mt-2 underline" on:click={() => {localStorage.clear(); location.reload()}}>Neue Liste</button>
         </div>
         <form class="flex mt-4 mb-2 justify-center" on:submit|preventDefault={() => {addProduct(input)}}>
             <input class="m-0 w-3/4 h-8 px-2 bg-bee border-none text-lg text-marine font-semibold rounded-xl" type="text" bind:value={input}>
