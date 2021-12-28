@@ -19,7 +19,7 @@ while (true) {
         var db = getFirestore(); 
         break;
     } catch (error) {
-        console.log(error);
+        alert(error);
     }
 }
 
@@ -226,9 +226,9 @@ export const login = async (inputList, inputPassword) => {
             localStorage.setItem("password", password);
             location.reload();
         } else {
-            console.log("falsches Passwort");
+            alert("Falsches Passwort!");
         }
     } else {
-        console.log("Liste nicht vorhanden");
+        alert("Liste nicht vorhanden!");
     }
 }
