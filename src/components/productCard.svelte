@@ -5,15 +5,21 @@
     let showCategorySreen = "hidden";
 
     $: updateAmount(product.quantity.amount);
+    $: updateType(product.quantity.type);
 
     const updateAmount = (updatedAmount) => {
         amount = updatedAmount;
     }
 
+    const updateType = (updatedType) => {
+        type = updatedType;
+    }
+
     let amount = product.quantity.amount;
-    $: type = product.quantity.type;
+    let type = product.quantity.type;
 
     $: checkInput(amount);
+    $: getSelection(type);
 
     const checkInput = (input) => {
         if (/^\d+$/.test(input)) {
@@ -22,6 +28,10 @@
             input = input.toString();
             amount = input.substring(0, input.length - 1);
         }
+    }
+
+    const getSelection = (type) => {
+        updateQuantity(amount, type, product.id);
     }
 
     const categories = ["Gebäck", "Konserven", "Getränke", "Drogerieartikel", "Tiefkühlartikel", "Früchte", "Brotaufstrich", "Milchprodukte", "Nudeln", "Arbeitsmaterialien", "Soßen", "Fleisch", "Gewürze", "Süßigkeiten", "Gemüse", "Technik", "Spirituosen"];
@@ -41,7 +51,7 @@
         <p class="text-lg" on:click={() => {toggleChecked(product.id, product.checked)}}>{product.title}</p>
         <div class="quantity ml-auto mr-2 flex">
             <input class="w-9 rounded-xl rounded-r-none m-0 bg-bee border-none px-1 text-base text-marine" type="text" maxlength="3" bind:value={amount} on:input={() => {updateQuantity(amount, type, product.id)}}>
-            <select class="text-sm w-10 rounded-xl rounded-l-none m-0 bg-bee text-marine font-semibold" bind:value={type} on:change={() => {updateQuantity(amount, type, product.id)}}>
+            <select class="text-sm w-10 rounded-xl rounded-l-none m-0 bg-bee text-marine font-semibold" bind:value={type}>
                 <option class="font-semibold" value="stk">stk</option>
                 <option class="font-semibold" value="gr">gr</option>
                 <option class="font-semibold" value="kg">kg</option>
