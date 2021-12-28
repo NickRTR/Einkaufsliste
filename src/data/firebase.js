@@ -185,6 +185,9 @@ function getCategory(input) {
     else if (updatedCategories.Technik.includes(input)) {
         category = "Technik";
     }
+    else if (updatedCategories.Spirituosen.includes(input)) {
+        category = "Spirituosen";
+    }
     return category;
 }
 

@@ -4,7 +4,7 @@
     export let product;
     let showCategorySreen = "hidden";
 
-    const categories = ["Gebäck", "Konserven", "Getränke", "Drogerieartikel", "Tiefkühlartikel", "Früchte", "Brotaufstrich", "Milchprodukte", "Nudeln", "Arbeitsmaterialien", "Soßen", "Fleisch", "Gewürze", "Süßigkeiten", "Gemüse", "Technik"];
+    const categories = ["Gebäck", "Konserven", "Getränke", "Drogerieartikel", "Tiefkühlartikel", "Früchte", "Brotaufstrich", "Milchprodukte", "Nudeln", "Arbeitsmaterialien", "Soßen", "Fleisch", "Gewürze", "Süßigkeiten", "Gemüse", "Technik", "Spirituosen"];
 
     const toggleCategoryScreen = () => {
         if (showCategorySreen == "hidden") {
