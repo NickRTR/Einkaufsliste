@@ -1,4 +1,3 @@
-import {firebaseConfig} from "./firebaseConfig.js";
 import {initializeApp} from "firebase/app";
 import {getFirestore, collection, onSnapshot, doc, updateDoc, deleteDoc, addDoc, setDoc, query, orderBy, getDocs, Timestamp, getDoc} from "firebase/firestore";
 import {browser} from "$app/env";
@@ -6,10 +5,16 @@ import {categories} from "../data/categories.js";
 import products from "./store.js";
 
 // initialize Database
-if (browser) {
-    const firebaseApp = initializeApp(firebaseConfig);
-}  
-const db = browser && getFirestore(); 
+const firebaseApp = initializeApp({
+    apiKey: "AIzaSyAfARrvqE1zBN-MQIsornrEBcZTiw1LsM4",
+    authDomain: "einkaufsliste-svelte.firebaseapp.com",
+    projectId: "einkaufsliste-svelte",
+    storageBucket: "einkaufsliste-svelte.appspot.com",
+    messagingSenderId: "117071138476",
+    appId: "1:117071138476:web:3a3b2ccef76b53aa545909"
+});
+
+const db = getFirestore(); 
 
 const createCollection = async (listName) => {
     const share = await getDoc(doc(db, listName, "share"));
