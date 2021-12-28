@@ -21,7 +21,7 @@ export const categories = {
 
     Süßigkeiten: ["nimm2", "haribo", "gummibärchen", "schokolade", "twixx", "smarties", "mars", "chips", "m&m's", "snickers", "toblerone", "donuts", "kinder schokolade", "giotto", "lollis", "duplo", "oreo", "trolliwürmer", "kaugummis", "ritter sport schokolade", "ahoi brause", "esspapier"],
 
-    Gebäck: ["brot", "brötchen", "wecken", "gebäck", "laugenstangen", "toast", "brezeln", "backpulver", "vanillinzucker"],
+    Gebäck: ["brot", "brötchen", "wecken", "gebäck", "laugenstangen", "toast", "brezeln", "backpulver", "vanillinzucker", "kuchen"],
 
     Soßen: ["soße", "bratensoße", "ketchup", "rindersoße", "rahmsoße", "bechamelsoße", "hollandaise", "tomatensoße", "mayonnaise"],
 
