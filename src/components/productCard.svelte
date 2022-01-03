@@ -46,12 +46,12 @@
 </script>
  
 <div class="container mx-auto">
-    <div class="Card text-2xl p-1.5 m-2.5 bg-marine-bright rounded-xl flex items-center break-words">
+    <div class="Card text-2xl p-1.5 m-2.5 bg-primary rounded-xl flex items-center break-words">
         <img class="h-8 w-8 md:h-10 md:w-10 mr-1 md:mr-2" type="image" src="/category/{product.category}.svg" alt={product.category} title={product.category} on:click={toggleCategoryScreen}>
         <p class="text-lg md:text-2xl" on:click={() => {toggleChecked(product.id, product.checked)}}>{product.title}</p>
         <div class="quantity ml-auto mr-2 flex">
-            <input class="w-10 rounded-xl rounded-r-none m-0 bg-bee border-none px-1 text-base md:text-lg md:font-semibold text-marine" type="text" maxlength="3" bind:value={amount} on:input={() => {updateQuantity(amount, type, product.id)}}>
-            <select class="text-sm md:text-base w-12 rounded-xl rounded-l-none m-0 bg-bee text-marine font-semibold" bind:value={type}>
+            <input class="w-10 rounded-xl rounded-r-none m-0 bg-black text-white border-none px-1 text-base md:text-lg md:font-semibold" type="text" maxlength="3" bind:value={amount} on:input={() => {updateQuantity(amount, type, product.id)}}>
+            <select class="text-sm md:text-base w-12 rounded-xl rounded-l-none m-0 bg-black text-white font-semibold" bind:value={type}>
                 <option class="font-semibold" value="stk">stk</option>
                 <option class="font-semibold" value="gr">gr</option>
                 <option class="font-semibold" value="kg">kg</option>
@@ -62,9 +62,9 @@
         <input class="mr-1 w-6 h-6" type="checkbox" checked={product.checked} on:click={() => {toggleChecked(product.id, product.created, product.checked)}}>
         <input class="h-7 w-7 text-xs" type="image" src="/delete.svg" alt="delete" on:click={() => {deleteProduct(product.id)}}>
     </div>
-    <div class="changeCategory {showCategorySreen} flex flex-wrap justify-center rounded-xl mx-2.5 mt-1 p-1 bg-marine-bright">
+    <div class="changeCategory {showCategorySreen} flex flex-wrap justify-center rounded-xl mx-2.5 mt-1 p-1 bg-primary">
         {#each categories as categorie}
-            <img class="h-10 w-10 m-0.5 p-0.5 border-2 border-marine" src="/category/{categorie}.svg" alt={categorie} title={categorie} on:click={() => {toggleCategoryScreen(); changeCategory(product.title, categorie, product.id)}}>
+            <img class="h-10 w-10 m-0.5 p-0.5 border-2 border-black" src="/category/{categorie}.svg" alt={categorie} title={categorie} on:click={() => {toggleCategoryScreen(); changeCategory(product.title, categorie, product.id)}}>
         {/each}
     </div>
 </div>

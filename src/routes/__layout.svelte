@@ -1,4 +1,4 @@
-<body>
+<body class="text-black">
     <slot></slot>
 </body>
 
