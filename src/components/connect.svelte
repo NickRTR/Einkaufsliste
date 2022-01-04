@@ -23,8 +23,8 @@
         <p class="m">Name: {ListName} | Passwort: {ListPassword}</p>
     </div>
     <form class="mt-3">
-        <input class="h-7 px-2 border-none text-black font-semibold rounded-xl bg-primary" type="text" placeholder="Listenname" bind:value={list}>
-        <input class="h-7 mt-1 px-2 border-none text-black font-semibold rounded-xl bg-primary" type="text" placeholder="Passwort" bind:value={password}><br>
+        <input class="h-7 px-2 border-none text-black font-semibold rounded-xl bg-primary placeholder-gray-700" type="text" placeholder="Listenname" bind:value={list}>
+        <input class="h-7 mt-1 px-2 border-none text-black font-semibold rounded-xl bg-primary placeholder-gray-700" type="text" placeholder="Passwort" bind:value={password}><br>
         <button class="shadow-xl bg-primary font-semibold px-2 mt-2 ml-1.5 text-black rounded-xl" on:click|preventDefault={() => {login(list, password)}}>Verbinden</button>
     </form>
 </div>
