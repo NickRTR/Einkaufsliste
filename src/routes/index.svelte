@@ -40,25 +40,38 @@
             suggestion = "";
         }
     }
+
+    // Weiß, lightpink, purple, babyblue, babygreen, orange
+    const colors = ["#EEE", "#F2CCC3", "#B7D3F2", "#a1c181", "#e9c46a"];
+    var currentColor = 0;
+    var primaryColor = "#EEE";
+
+    const changePrimary = () => {
+        currentColor++;
+        if (currentColor == colors.length) {
+            currentColor = 0;
+        }
+        primaryColor = colors[currentColor];
+    }
 </script>
 
 <svelte:head>
     <title>Einkaufsliste</title>
 </svelte:head>
 
-<main class="bg-marine min-h-screen text-center md:px-40 lg:px-64 xl:px-96">
-    <div class="text-bee pb-1">
-        <h1 class="text-4xl pt-5 font-semibold">Einkaufsliste</h1>
+<main class="bg-black min-h-screen text-center md:px-40 lg:px-64 xl:px-96" style="--primary: {primaryColor}">
+    <div class="pb-1">
+        <h1 class="text-4xl pt-5 text-primary font-semibold cursor-pointer" on:click={changePrimary}>Einkaufsliste</h1>
         <div>
-            <button class="text-white md:text-lg mt-2 underline" on:click={toggleLogin}>Liste verbinden</button><br>
-            <div class="{showConnect} bg-marine-bright rounded-xl mt-3 mx-2.5"><ConnectScreen></ConnectScreen></div>
-            <button class="text-white md:text-lg mt-2 underline" on:click={() => {localStorage.clear(); location.reload()}}>Neue Liste</button>
+            <button class="text-primary md:text-lg mt-2 underline" on:click={toggleLogin}>Liste verbinden</button><br>
+            <div class="{showConnect} rounded-xl mt-3 mx-2.5"><ConnectScreen></ConnectScreen></div>
+            <button class="text-primary md:text-lg mt-2 underline" on:click={() => {localStorage.clear(); location.reload()}}>Neue Liste</button>
         </div>
         <form class="flex mt-4 mb-2 justify-center" on:submit|preventDefault={() => {addProduct(input)}}>
-            <input class="m-0 w-3/4 h-8 px-2 bg-bee border-none text-lg text-marine font-semibold rounded-xl" type="text" bind:value={input}>
-            <button class="shadow-xl text-lg font-semibold px-2 ml-1.5 bg-bee text-marine rounded-xl" type="submit">Add</button>
+            <input class="m-0 w-3/4 h-8 px-2 bg-primary border-none text-lg text-black font-semibold rounded-xl" type="text" bind:value={input}>
+            <button class="shadow-xl text-lg font-semibold px-2 ml-1.5 bg-primary text-black rounded-xl" type="submit">Add</button>
         </form>
-        <div class="suggestion cursor-pointer underline text-lg" on:click={() => {addProduct(suggestion)}}>{suggestion}</div>
+        <div class="suggestion cursor-pointer underline text-lg text-primary" on:click={() => {addProduct(suggestion)}}>{suggestion}</div>
         <div class="products">
             {#each $products as product}
                 {#if !product.checked && product.title !== undefined}
@@ -67,7 +80,7 @@
             {/each}
         </div>
         <div class="checkedProducts">
-            <p class="divider border-t-2 border-white mx-2.5 mt-2.5"></p>
+            <p class="divider border-t-2 border-primary mx-2.5 mt-2.5"></p>
             {#each $products as product}
                 {#if product.checked && product.title !== undefined}
                 <ProductCard product={product}/>
@@ -75,5 +88,11 @@
             {/each}
         </div>
     </div>
-    <p class="text-white">©2022 Nick Reutlinger</p>
+    <p class="text-primary">©2022 Nick Reutlinger</p>
 </main>
+
+<style>
+    :root {
+        --primary: primaryColor;
+    }
+</style>

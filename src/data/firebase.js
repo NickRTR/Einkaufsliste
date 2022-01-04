@@ -142,61 +142,18 @@ let updatedCategories = getUpdatedCategories();
 
 // choose category corresponding to categories array
 function getCategory(input) {
+    const categoryList = ["Vorrat", "Gemüse", "Obst", "Kühlregal", "Gefriertruhe", "Fleisch", "Süßigkeiten", "Haushalt", "Getränke"];
     input = input.toLowerCase();
     input = input.trim();
 
     let category = "choose";
 
-    if (updatedCategories.Milchprodukte.includes(input)) {
-        category = "Milchprodukte";
-    }
-    else if (updatedCategories.Fleisch.includes(input)) {
-        category = "Fleisch";
-    }
-    else if (updatedCategories.Tiefkühlartikel.includes(input)) {
-        category = "Tiefkühlartikel";
-    }
-    else if (updatedCategories.Früchte.includes(input)) {
-        category = "Früchte";
-    }
-    else if (updatedCategories.Gemüse.includes(input)) {
-        category = "Gemüse";
-    }
-    else if (updatedCategories.Konserven.includes(input)) {
-        category = "Konserven";
-    }
-    else if (updatedCategories.Getränke.includes(input)) {
-        category = "Getränke";
-    }
-    else if (updatedCategories.Drogerieartikel.includes(input)) {
-        category = "Drogerieartikel";
-    }
-    else if (updatedCategories.Nudeln.includes(input)) {
-        category = "Nudeln";
-    }
-    else if (updatedCategories.Arbeitsmaterialien.includes(input)) {
-        category = "Arbeitsmaterialien";
-    }
-    else if (updatedCategories.Süßigkeiten.includes(input)) {
-        category = "Süßigkeiten";
-    }
-    else if (updatedCategories.Gebäck.includes(input)) {
-        category = "Gebäck";
-    }
-    else if (updatedCategories.Soßen.includes(input)) {
-        category = "Soßen";
-    }
-    else if (updatedCategories.Brotaufstrich.includes(input)) {
-        category = "Brotaufstrich";
-    }
-    else if (updatedCategories.Gewürze.includes(input)) {
-        category = "Gewürze";
-    }
-    else if (updatedCategories.Technik.includes(input)) {
-        category = "Technik";
-    }
-    else if (updatedCategories.Spirituosen.includes(input)) {
-        category = "Spirituosen";
+    for (let i = 0; i <= categoryList.length; i++) {
+        if (updatedCategories[categoryList[i]].includes(input)) {
+            console.log("yio");
+            category = categoryList[i];
+            return category;
+        }
     }
     return category;
 }
