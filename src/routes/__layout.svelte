@@ -3,6 +3,10 @@
 </body>
 
 <style>
+    * {
+        -webkit-appearance:none;
+    }
+
     @tailwind base;
     @tailwind components;
     @tailwind utilities;

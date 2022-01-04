@@ -71,7 +71,7 @@
             <input class="m-0 w-3/4 h-8 px-2 bg-primary border-none text-lg text-black font-semibold rounded-xl" type="text" bind:value={input}>
             <button class="shadow-xl text-lg font-semibold px-2 ml-1.5 bg-primary text-black rounded-xl" type="submit">Add</button>
         </form>
-        <div class="suggestion cursor-pointer underline text-lg" on:click={() => {addProduct(suggestion)}}>{suggestion}</div>
+        <div class="suggestion cursor-pointer underline text-lg text-primary" on:click={() => {addProduct(suggestion)}}>{suggestion}</div>
         <div class="products">
             {#each $products as product}
                 {#if !product.checked && product.title !== undefined}
