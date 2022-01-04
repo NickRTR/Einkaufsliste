@@ -41,9 +41,10 @@
         }
     }
 
-    const colors = ["#EEEEEE", "#9D8DF1", "#A2FAA3", "#C7E8F3", "#ffb703", "#ff6700"];
+    // Weiß, lightpink, purple, babyblue, babygreen, orange
+    const colors = ["#EEE", "#F2CCC3", "#B7D3F2", "#a1c181", "#e9c46a"];
     var currentColor = 0;
-    var primaryColor = "#EEEEEE";
+    var primaryColor = "#EEE";
 
     const changePrimary = () => {
         currentColor++;
