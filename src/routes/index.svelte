@@ -1,32 +1,21 @@
 <script>
-    import {products, user} from "$lib/stores.js";
+    import {products, user, theme} from "$lib/stores.js";
     import {onMount} from "svelte";
-    import {getProducts, addProduct, logout} from "$lib/data/supabase.js";
+    import {getProducts, addProduct, logout, setTheme} from "$lib/supabase.js";
 
     import ProductCard from "$lib/components/productCard.svelte";
-    import ConnectScreen from "$lib/components/connect.svelte";
 
     onMount(async () => {
         await getProducts();
-    })
+    });
 
     var input = "";
+
+    let suggestion = "";
 
     $: {
         getSuggestion(input);
     }
-
-    var showConnect = "hidden";
-
-    const toggleLogin = () => {
-        if (showConnect == "hidden") {
-            showConnect = "";
-        } else {
-            showConnect = "hidden";
-        }
-    }
-
-    $: suggestion = "";
 
     const getSuggestion = () => {
         if (input != "" && $products.length > 1) {
@@ -42,16 +31,17 @@
     }
 
     // Weiß, lightpink, purple, babyblue, babygreen, orange
+    $: primaryColor = colors[$theme];
+
     const colors = ["#EEE", "#F2CCC3", "#B7D3F2", "#a1c181", "#e9c46a"];
-    var currentColor = 0;
-    var primaryColor = "#EEE";
 
     const changePrimary = () => {
+        let currentColor = $theme;
         currentColor++;
         if (currentColor == colors.length) {
             currentColor = 0;
         }
-        primaryColor = colors[currentColor];
+        setTheme(currentColor, $user.id);
     }
 </script>
 
@@ -66,17 +56,12 @@
     </div>
 
     <div class="pb-1">
-        <h1 class="text-4xl pt-5 text-primary font-semibold cursor-pointer" on:click={changePrimary}>Einkaufsliste</h1>
-        <div>
-            <button class="text-primary md:text-lg mt-2 underline" on:click={toggleLogin}>Liste verbinden</button><br>
-            <div class="{showConnect} rounded-xl mt-3 mx-2.5"><ConnectScreen></ConnectScreen></div>
-            <button class="text-primary md:text-lg mt-2 underline" on:click={() => {localStorage.clear(); location.reload()}}>Neue Liste</button>
-        </div>
-        <form class="flex mt-4 mb-2 justify-center" on:submit|preventDefault={() => {addProduct(input, $user.id); input = "";}}>
+        <h1 class="text-4xl pt-4 text-primary font-semibold cursor-pointer" on:click={() => {changePrimary()}}>Einkaufsliste</h1>
+        <form class="flex mt-4 mb-2 justify-center" on:submit|preventDefault={() => {addProduct(input); input = "";}}>
             <input class="m-0 w-3/4 h-8 px-2 bg-primary border-none text-lg text-black font-semibold rounded-xl" type="text" bind:value={input}>
             <button class="shadow-xl text-lg font-semibold px-2 ml-1.5 bg-primary text-black rounded-xl" type="submit">Add</button>
         </form>
-        <div class="suggestion cursor-pointer underline text-lg text-primary" on:click={() => {addProduct(suggestion, $user.id)}}>{suggestion}</div>
+        <div class="suggestion cursor-pointer underline text-lg text-primary" on:click={() => {addProduct(suggestion); input = "";}}>{suggestion}</div>
         <div class="products">
             {#each $products.reverse() as product}
                 {#if !product.checked && product.title !== undefined}

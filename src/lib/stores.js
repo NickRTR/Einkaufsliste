@@ -5,4 +5,6 @@ export const user = writable(supabase.auth.user() || false);
 
 export const products = writable([]);
 
+export const theme = writable(0);
+
 export const categories = writable();
