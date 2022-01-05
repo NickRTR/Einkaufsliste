@@ -3,7 +3,4 @@ node_modules
 /build
 /.svelte-kit
 /package
-!.env.example
 Listen.md
-
-.env
