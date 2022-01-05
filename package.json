@@ -8,6 +8,7 @@
     "preview": "svelte-kit preview"
   },
   "devDependencies": {
+    "@supabase/supabase-js": "^1.8.0",
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
     "autoprefixer": "^10.4.0",
@@ -16,6 +17,6 @@
   },
   "type": "module",
   "dependencies": {
-    "firebase": "^9.4.1"
+    "@supabase/supabase-js": "^1.29.1"
   }
 }

@@ -1,11 +1,11 @@
 <script>
-    import {toggleChecked, deleteProduct, changeCategory, updateQuantity} from "../data/firebase.js";
+    import {deleteProduct, toggleChecked, changeCategory, updateQuantity} from "$lib/supabase.js";
 
     export let product;
     let showCategorySreen = "hidden";
 
-    $: updateAmount(product.quantity.amount);
-    $: updateType(product.quantity.type);
+    $: updateAmount(product.amount);
+    $: updateType(product.type);
 
     const updateAmount = (updatedAmount) => {
         amount = updatedAmount;
@@ -15,8 +15,8 @@
         type = updatedType;
     }
 
-    let amount = product.quantity.amount;
-    let type = product.quantity.type;
+    let amount = product.amount;
+    let type = product.type;
 
     $: checkInput(amount);
     $: getSelection(type);
@@ -24,6 +24,8 @@
     const checkInput = (input) => {
         if (/^\d+$/.test(input)) {
             amount = input;
+        } else if (input == "") {
+            amount = 1;
         } else {
             input = input.toString();
             amount = input.substring(0, input.length - 1);
@@ -31,7 +33,9 @@
     }
 
     const getSelection = (type) => {
-        updateQuantity(amount, type, product.id);
+        if (type != product.type) {
+            updateQuantity(amount, type, product.id);
+        }
     }
 
     const categories = ["Vorrat", "Gemüse", "Obst", "Kühlregal", "Gefriertruhe", "Fleisch", "Süßigkeiten", "Haushalt", "Getränke"];
@@ -60,13 +64,13 @@
                     <option value="l">l</option>
                 </select>
             </div>
-                <input class="w-7 h-7 align-middle" type="checkbox" checked={product.checked} on:click={() => {toggleChecked(product.id, product.created, product.checked)}}>
+                <input class="w-7 h-7 align-middle" type="checkbox" bind:checked={product.checked} on:click={() => {toggleChecked(product.id, product.created, product.checked)}}>
                 <input class="h-8 align-middle" type="image" src="/delete.svg" alt="delete" on:click={() => {deleteProduct(product.id)}}>
         </div>
     </div>
     <div class="changeCategory {showCategorySreen} grid grid-cols-3 justify-center rounded-xl mx-2.5 mt-1 p-1 pb-0 bg-primary">
         {#each categories as category}
-            <div class="border-b-2 border-black" on:click={() => {toggleCategoryScreen(); changeCategory(product.title, category, product.id)}}>
+            <div class="border-b-2 border-black" on:click={() => {toggleCategoryScreen(); changeCategory(product.title, product.category, category, product.id)}}>
                 <p class="my-auto text-lg font-semibold break-all">{category}</p>
                 <img class="h-10 w-10 mb-1 mx-auto" src="/category/{category}.svg" alt={category} title={category}>
             </div>
