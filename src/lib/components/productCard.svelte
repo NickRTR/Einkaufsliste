@@ -1,11 +1,11 @@
 <script>
-    import {toggleChecked, deleteProduct, changeCategory, updateQuantity} from "../data/firebase.js";
+    import {deleteProduct, toggleChecked, changeCategory, updateQuantity} from "$lib/data/supabase.js";
 
     export let product;
     let showCategorySreen = "hidden";
 
-    $: updateAmount(product.quantity.amount);
-    $: updateType(product.quantity.type);
+    $: updateAmount(product.amount);
+    $: updateType(product.type);
 
     const updateAmount = (updatedAmount) => {
         amount = updatedAmount;
@@ -15,8 +15,8 @@
         type = updatedType;
     }
 
-    let amount = product.quantity.amount;
-    let type = product.quantity.type;
+    let amount = product.amount;
+    let type = product.type;
 
     $: checkInput(amount);
     $: getSelection(type);
@@ -31,7 +31,9 @@
     }
 
     const getSelection = (type) => {
-        updateQuantity(amount, type, product.id);
+        if (type != product.type) {
+            updateQuantity(amount, type, product.id);
+        }
     }
 
     const categories = ["Vorrat", "Gemüse", "Obst", "Kühlregal", "Gefriertruhe", "Fleisch", "Süßigkeiten", "Haushalt", "Getränke"];

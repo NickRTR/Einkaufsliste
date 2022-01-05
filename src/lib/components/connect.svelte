@@ -1,5 +1,5 @@
 <script>
-    import {login} from "../data/firebase.js";
+    import {login} from "$lib/data/firebase.js";
     import { browser } from "$app/env";
 
     $: list = "";

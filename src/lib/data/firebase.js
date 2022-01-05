@@ -1,8 +1,8 @@
 import {initializeApp} from "firebase/app";
 import {getFirestore, collection, onSnapshot, doc, updateDoc, deleteDoc, addDoc, setDoc, query, orderBy, getDocs, Timestamp, getDoc} from "firebase/firestore";
 import {browser} from "$app/env";
-import {categories} from "../data/categories.js";
-import products from "./store.js";
+import {categories} from "./categories.js";
+import {products} from "$lib/stores.js";
 
 // initialize Database
 while (true) {
@@ -85,7 +85,7 @@ if (browser) {
         if (fbProducts.length == 0) {
             createCollection(list);
         }
-        products.update(products => [...fbProducts]);
+        // products.update(products => [...fbProducts]);
     }
 }
 
