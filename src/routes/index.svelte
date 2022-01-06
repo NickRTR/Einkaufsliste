@@ -52,7 +52,7 @@
 <main class="bg-black min-h-screen text-center md:px-40 lg:px-64 xl:px-96" style="--primary: {primaryColor}">
     <div class="user text-primary flex">
         <h4 class="pt-2 pl-2">Willkommen {$user?.email ? $user.email : ""}!</h4>
-        <button class="ml-auto pt-2 pr-2" on:click={logout}>logout</button>
+        <button class="ml-auto underline pt-2 pr-2" on:click={logout}>logout</button>
     </div>
 
     <div class="pb-1">

@@ -41,9 +41,9 @@
 
 <body class="bg-black min-h-screen text-center md:px-40 lg:px-64 xl:px-96 text-primary" style="--primary: #EEE">
     {#if isNewRegistration}
-        <h1 class="text-4xl pt-5 text-primary font-semibold">Registrieren</h1>
+        <h1 class="text-4xl pt-5 text-primary font-semibold cursor-pointer" on:click={() => {isNewRegistration = !isNewRegistration}}>Registrieren</h1>
     {:else}
-    <h1 class="text-4xl pt-5 text-primary font-semibold">Login</h1>
+        <h1 class="text-4xl pt-5 text-primary font-semibold cursor-pointer" on:click={() => {isNewRegistration = !isNewRegistration}}>Login</h1>
     {/if}
     
 
@@ -54,10 +54,10 @@
         <input class="h-8 px-2 my-2 bg-primary text-black font-semibold rounded-xl" type="password" id="password" placeholder="password" bind:value={passwordInput}><br>
 
         {#if isNewRegistration}
-            <button class="shadow-xl text-xl font-semibold px-2 h-8 pb-0.5 mt-2 ml-1.5 bg-primary text-black rounded-2xl" on:click={signUp}>SignUp</button>
+            <button class="shadow-xl text-xl font-semibold px-2 h-8 pb-0.5 mt-2 ml-1.5 bg-primary text-black rounded-2xl" on:click={signUp}>signup</button>
             <p class="switchMethod mb-2 mt-1 cursor-pointer underline" on:click={() => {isNewRegistration = !isNewRegistration}}>Besitzt du schon einen Account?</p>
         {:else}
-            <button class="shadow-xl text-xl font-semibold px-2 h-8 pb-0.5 mt-2 ml-1.5 bg-primary text-black rounded-2xl" on:click={logIn}>LogIn</button>
+            <button class="shadow-xl text-xl font-semibold px-2 h-8 pb-0.5 mt-2 ml-1.5 bg-primary text-black rounded-2xl" on:click={logIn}>login</button>
             <p class="switchMethod mb-2 mt-1 cursor-pointer underline" on:click={() => {isNewRegistration = !isNewRegistration}}>Neuen Account erstellen?</p>
         {/if}
     </form>
