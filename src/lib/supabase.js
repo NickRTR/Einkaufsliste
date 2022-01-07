@@ -25,6 +25,7 @@ export const addProduct = async (input) => {
     if (input != "") {
         await supabase.from('products').insert([{title: input, category: getCategory(input), user_id: supabase.auth.user().id}]);
     }
+    getProducts();
 }
 
 export const toggleChecked = async (id, created, checked) => {
