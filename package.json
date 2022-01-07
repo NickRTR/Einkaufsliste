@@ -8,6 +8,7 @@
     "preview": "svelte-kit preview"
   },
   "devDependencies": {
+    "@supabase/supabase-js": "^1.29.1",
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
     "autoprefixer": "^10.4.0",
