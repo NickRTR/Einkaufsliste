@@ -1,12 +1,13 @@
 import supabase from "$lib/db.js";
 import {get} from "svelte/store";
 import {goto} from "$app/navigation";
-import {products, theme, user, categories} from "$lib/stores.js";
+import {products, theme, user, categories, priorityToCategory} from "$lib/stores.js";
 
 const dbSubscribe = supabase.from('products').on('*', payload => {getProducts()}).subscribe();
 
 const userId = get(user).id;
 var updatedCategories;
+var priorities;
 
 export const getProducts = async () => {
     let {data: dbProducts} = await supabase.from('products').select("*").order("category", {ascending: true});
@@ -19,6 +20,10 @@ export const getProducts = async () => {
     let {data: dbCategories} = await supabase.from('userdata').select("categories");
     categories.update(categories => dbCategories[0].categories);
     updatedCategories = dbCategories[0].categories
+
+    let {data: dbPrioritytoCategory} = await supabase.from('userdata').select("priorityToCategory");
+    priorityToCategory.update(priorities => dbPrioritytoCategory[0].priorityToCategory);
+    priorities = dbPrioritytoCategory[0].priorityToCategory;
 }
 
 export const addProduct = async (input) => {     
@@ -51,20 +56,42 @@ export const getCategory = (input) => {
     input = input.toLowerCase();
     input = input.trim();
 
-    let category = "choose";
+    let category;
     for (let i = 0; i < categoryList.length; i++) {
         if (updatedCategories[categoryList[i]].includes(input)) {
             category = categoryList[i];
-            return category;
+            for (let i = 0; i <= Object.keys(priorities).length; i++) {
+                if (priorities[i] == category) {
+                    console.log(i);
+                    return i;
+                }
+            }
         }
     }
-    return category;
+
+    return 0;
+}
+
+export const decodeCategory = (input) => {
+    return priorities[input];
+}
+
+export const codeCategory = (input) => {
+    for (let i = 0; i <= Object.keys(priorities).length; i++) {
+        if (priorities[i] == input) {
+            return i;
+        }
+    }
 }
 
 export const changeCategory = async (input, oldCategory, category, id) => {
-    await supabase.from('products').update({"category": category}).eq("id", id);
+    await supabase.from('products').update({"category": codeCategory(category)}).eq("id", id);
+
+    oldCategory = decodeCategory(oldCategory);
 
     if (oldCategory != "choose") {
+        console.log("test");
+        console.log(oldCategory);
         updatedCategories[oldCategory] = updatedCategories[oldCategory].filter(value => value != input.toLowerCase());
     }
     updatedCategories[category] = [input.toLowerCase(), ...updatedCategories[category]];

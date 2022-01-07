@@ -1,17 +1,17 @@
 <script>
-    import {products, user, theme} from "$lib/stores.js";
+    import {products, user, theme, priorityToCategory} from "$lib/stores.js";
     import {onMount} from "svelte";
     import {getProducts, addProduct, logout, setTheme} from "$lib/supabase.js";
 
-    import ProductCard from "$lib/components/productCard.svelte";
+    import ProductCard from "$lib/components/ProductCard.svelte";
 
-    onMount(async () => {
-        await getProducts();
+    onMount(() => {
+        getProducts();
     });
 
-    var input = "";
-
+    let input = "";
     let suggestion = "";
+    let showSort = false;
 
     $: {
         getSuggestion(input);
@@ -29,6 +29,8 @@
             suggestion = "";
         }
     }
+
+    let priorities = Object.values($priorityToCategory);
 
     // Weiß, lightpink, purple, babyblue, babygreen, orange
     $: primaryColor = colors[$theme];
@@ -57,6 +59,19 @@
 
     <div class="pb-1">
         <h1 class="text-4xl pt-4 text-primary font-semibold cursor-pointer" on:click={() => {changePrimary()}}>Einkaufsliste</h1>
+        <button class="text-primary underline pt-2" on:click={() => {showSort = !showSort}}>Kategorien sortieren</button>
+
+        {#if showSort}
+            <div class="sort bg-primary text-black grid grid-cols-3 justify-center rounded-xl mx-2.5 mt-1 p-1 pb-0">
+                {#each priorities as category}
+                    <div class="border-b-2 border-black">
+                        <p class="my-auto text-lg font-semibold break-all">{category}</p>
+                        <img class="h-10 w-10 mb-1 mx-auto" src="/category/{category}.svg" alt={category} title={category}>
+                    </div>
+                {/each}
+            </div>
+        {/if}
+
         <form class="flex mt-4 mb-2 justify-center" on:submit|preventDefault={() => {addProduct(input); input = "";}}>
             <input class="m-0 w-3/4 h-8 px-2 bg-primary border-none text-lg text-black font-semibold rounded-xl" type="text" bind:value={input}>
             <button class="shadow-xl text-lg font-semibold px-2 ml-1.5 bg-primary text-black rounded-xl" type="submit">Add</button>

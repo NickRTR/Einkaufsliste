@@ -3,4 +3,4 @@ node_modules
 /build
 /.svelte-kit
 /package
-Listen.md
+/src/lib/.categories.js

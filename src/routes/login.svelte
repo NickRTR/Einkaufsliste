@@ -51,7 +51,7 @@
         <label class="font-semibold text-xl" for="email">E-mail: </label><br>
         <input class="h-8 px-2 my-2 bg-primary text-black font-semibold rounded-xl" type="email" id="email" placeholder="email@email.com" bind:value={emailInput}><br>
         <label class="font-semibold text-xl" for="password">password: </label><br>
-        <input class="h-8 px-2 my-2 bg-primary text-black font-semibold rounded-xl" type="password" id="password" placeholder="password" bind:value={passwordInput}><br>
+        <input class="h-8 px-2 my-2 bg-primary text-black font-semibold rounded-xl" type="password" id="password" placeholder="password" minlength="8" bind:value={passwordInput}><br>
 
         {#if isNewRegistration}
             <button class="shadow-xl text-xl font-semibold px-2 h-8 pb-0.5 mt-2 ml-1.5 bg-primary text-black rounded-2xl" on:click={signUp}>signup</button>
