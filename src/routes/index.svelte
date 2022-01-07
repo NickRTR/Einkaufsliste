@@ -63,7 +63,7 @@
         </form>
         <div class="suggestion cursor-pointer underline text-lg text-primary" on:click={() => {addProduct(suggestion); input = "";}}>{suggestion}</div>
         <div class="products">
-            {#each $products.reverse() as product}
+            {#each $products as product}
                 {#if !product.checked && product.title !== undefined}
                     <ProductCard product={product}/>
                 {/if}
@@ -73,7 +73,7 @@
         </div>
         <div class="checkedProducts">
             <p class="divider border-t-2 border-primary mx-2.5 mt-2.5"></p>
-            {#each $products.reverse() as product}
+            {#each $products as product}
                 {#if product.checked && product.title !== undefined}
                 <ProductCard product={product}/>
                 {/if}

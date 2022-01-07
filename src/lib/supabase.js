@@ -9,7 +9,7 @@ const userId = get(user).id;
 var updatedCategories;
 
 export const getProducts = async () => {
-    let {data: dbProducts} = await supabase.from('products').select("*");
+    let {data: dbProducts} = await supabase.from('products').select("*").order("category", {ascending: true});
     products.update(products => [...dbProducts]);
 
     let {data: color} = await supabase.from('userdata').select("theme");
