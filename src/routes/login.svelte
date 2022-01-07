@@ -1,5 +1,5 @@
 <script>
-    import { goto } from "$app/navigation";
+    import {goto} from "$app/navigation";
     import supabase from "$lib/db.js";
     import {user} from "$lib/stores.js";
     import {createUserData} from "$lib/supabase.js";
