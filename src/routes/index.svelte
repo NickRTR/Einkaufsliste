@@ -90,7 +90,7 @@
             <p class="divider border-t-2 border-primary mx-2.5 mt-2.5"></p>
             {#each $products as product}
                 {#if product.checked && product.title !== undefined}
-                <ProductCard product={product}/>
+                    <ProductCard product={product}/>
                 {/if}
             {/each}
         </div>
