@@ -41,7 +41,12 @@
 
     const categories = ["Vorrat", "Gemüse", "Obst", "Kühlregal", "Gefriertruhe", "Fleisch", "Süßigkeiten", "Haushalt", "Getränke"];
 
-    $: category = $priorityToCategory[product.category];
+    let category;
+    $: if (product.category === 0) {
+        category = 0;
+    } else {
+        category = $priorityToCategory[product.category];
+    }
 </script>
  
 <div class="container mx-auto">

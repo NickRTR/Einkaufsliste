@@ -50,7 +50,6 @@ export const updateQuantity = async (amount, type, id) => {
 }
 
 // categories
-
 export const getCategory = (input) => {
     const categoryList = ["Vorrat", "Gemüse", "Obst", "Kühlregal", "Gefriertruhe", "Fleisch", "Süßigkeiten", "Haushalt", "Getränke"];
     input = input.toLowerCase();
@@ -62,13 +61,11 @@ export const getCategory = (input) => {
             category = categoryList[i];
             for (let i = 0; i <= Object.keys(priorities).length; i++) {
                 if (priorities[i] == category) {
-                    console.log(i);
                     return i;
                 }
             }
         }
     }
-
     return 0;
 }
 
@@ -87,11 +84,8 @@ export const codeCategory = (input) => {
 export const changeCategory = async (input, oldCategory, category, id) => {
     await supabase.from('products').update({"category": codeCategory(category)}).eq("id", id);
 
-    oldCategory = decodeCategory(oldCategory);
-
-    if (oldCategory != "choose") {
-        console.log("test");
-        console.log(oldCategory);
+    if (oldCategory !== 0) {
+        oldCategory = decodeCategory(oldCategory);
         updatedCategories[oldCategory] = updatedCategories[oldCategory].filter(value => value != input.toLowerCase());
     }
     updatedCategories[category] = [input.toLowerCase(), ...updatedCategories[category]];

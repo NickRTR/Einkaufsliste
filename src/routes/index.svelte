@@ -10,23 +10,20 @@
     });
 
     let input = "";
-    let suggestion = "";
+    let suggestions = [];
     let showSort = false;
 
     $: {
-        getSuggestion(input);
-    }
-
-    const getSuggestion = () => {
-        if (input != "" && $products.length > 1) {
-            for (var i = 0; i < $products.length - 1; i++) {
-                var title = $products[i].title;
-                if (title.toLowerCase().startsWith(input.toLowerCase())) {
-                    suggestion = title;
-                }
+        if (input !== "" && $products.length >= 1) {
+            let productsTitles = []
+            for (let i = 0; i <= $products.length - 1; i++) {
+                productsTitles = [...productsTitles, $products[i].title];
             }
+            suggestions = productsTitles.filter((titles) => {
+                return titles.toLowerCase().startsWith(input.toLowerCase());
+            })
         } else {
-            suggestion = "";
+            suggestions = [];
         }
     }
 
@@ -76,7 +73,9 @@
             <input class="m-0 w-3/4 h-8 px-2 bg-primary border-none text-lg text-black font-semibold rounded-xl" type="text" bind:value={input}>
             <button class="shadow-xl text-lg font-semibold px-2 ml-1.5 bg-primary text-black rounded-xl" type="submit">Add</button>
         </form>
-        <div class="suggestion cursor-pointer underline text-lg text-primary" on:click={() => {addProduct(suggestion); input = "";}}>{suggestion}</div>
+        {#each suggestions as suggestion}
+            <div class="suggestion cursor-pointer underline text-lg text-primary" on:click={() => {addProduct(suggestion); input = "";}}>{suggestion}</div>
+        {/each}
         <div class="products">
             {#each $products as product}
                 {#if !product.checked && product.title !== undefined}
