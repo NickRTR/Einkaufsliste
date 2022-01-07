@@ -3,7 +3,7 @@
     import {onMount} from "svelte";
     import {getProducts, addProduct, logout, setTheme} from "$lib/supabase.js";
 
-    import ProductCard from "$lib/components/ProductCard.svelte";
+    import ProductCard from "$lib/components/productCard.svelte";
 
     onMount(() => {
         getProducts();
