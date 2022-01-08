@@ -114,14 +114,15 @@
 
     h4 {
         margin: 0;
-        padding-top: 1rem;
-        padding-left: .5rem;
+        margin-top: .5rem;
+        margin-left: .5rem;
         font-weight: 400;
     }
 
     .user > p {
-        margin-top: 1rem;
+        margin-top: .5rem;
         margin-left: auto;
+        margin-right: .5rem;
         text-decoration: underline;
         cursor: pointer;
     }
