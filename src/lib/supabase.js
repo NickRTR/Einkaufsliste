@@ -13,9 +13,13 @@ export const getProducts = async () => {
     let {data: dbProducts} = await supabase.from('products').select("*").order("category", {ascending: true});
     products.update(products => [...dbProducts]);
 
-    let {data: color} = await supabase.from('userdata').select("theme");
-    let dbTheme = color[0].theme;
-    theme.update(theme => dbTheme);
+    try {
+        let {data: color} = await supabase.from('userdata').select("theme");
+        let dbTheme = color[0].theme;
+        theme.update(theme => dbTheme);
+    } catch (error) {
+        createUserData(userId);
+    }
 
     let {data: dbCategories} = await supabase.from('userdata').select("categories");
     categories.update(categories => dbCategories[0].categories);

@@ -6,8 +6,6 @@
     if (browser) {
         if ($user === false) {
             goto("/login");
-        } else {
-            goto("/");
         }
     }
 </script>
