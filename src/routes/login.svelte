@@ -15,8 +15,13 @@
             password: passwordInput,
         });
         if (error) {
-            console.log(error);
-            alert(error.message);
+            console.log(error.message);
+            if (error.message === "User already registered") {
+                alert("Benutzer ist bereits registriert. Bitte anmelden!");
+                isNewRegistration = false;
+            } else {
+                alert(error.message);
+            }
         } else {
             $user = userDetails;
             createUserData($user.id);
@@ -30,8 +35,11 @@
             password: passwordInput,
         });
         if (error) {
-            console.log(error);
-            alert(error.message);
+            if (error.message === "Invalid login credentials") {
+                alert("Falsche E-mail Adresse oder falsches Passwort. Sind Sie bereits registriert?")
+            } else {
+                alert(error.message);
+            }
         } else {
             $user = userDetails;
             goto("/");
@@ -43,21 +51,21 @@
     {#if isNewRegistration}
         <h1 on:click={() => {isNewRegistration = !isNewRegistration}}>Registrieren</h1>
     {:else}
-        <h1 on:click={() => {isNewRegistration = !isNewRegistration}}>Login</h1>
+        <h1 on:click={() => {isNewRegistration = !isNewRegistration}}>Einloggen</h1>
     {/if}
     
 
     <form on:submit|preventDefault>
         <label for="email">E-mail: </label><br>
-        <input type="email" id="email" placeholder="email@email.com" bind:value={emailInput}><br>
+        <input type="email" id="email" placeholder="email@email.de" bind:value={emailInput}><br>
         <label for="password">Passwort: </label><br>
-        <input type="password" id="password" placeholder="password" minlength="8" bind:value={passwordInput}><br>
+        <input type="password" id="password" placeholder="Passwort" minlength="8" bind:value={passwordInput}><br>
 
         {#if isNewRegistration}
-            <button on:click={signUp}>signup</button>
-            <p on:click={() => {isNewRegistration = !isNewRegistration}}>Besitzt du schon einen Account?</p>
+            <button on:click={signUp}>registrieren</button>
+            <p on:click={() => {isNewRegistration = !isNewRegistration}}>Besitzen Sie bereits einen Account?</p>
         {:else}
-            <button  on:click={logIn}>login</button>
+            <button  on:click={logIn}>einloggen</button>
             <p on:click={() => {isNewRegistration = !isNewRegistration}}>Neuen Account erstellen?</p>
         {/if}
     </form>

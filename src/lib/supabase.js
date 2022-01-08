@@ -26,11 +26,24 @@ export const getProducts = async () => {
     priorities = dbPrioritytoCategory[0].priorityToCategory;
 }
 
-export const addProduct = async (input) => {     
-    if (input != "") {
+export const addProduct = async (input) => {
+    if (input !== "") {
+        let currentProducts = get(products);
+        let titles = []
+        for (let i = 0; i < currentProducts.length; i++) {
+            titles = [...titles, currentProducts[i]]
+            if (input === currentProducts[i].title) {
+                let result = confirm(`"${currentProducts[i].title}" ist bereits vorhanden. Möchten Sie die Anzahl verdoppeln?`)
+                if (result) {
+                    let product = currentProducts[i];
+                    updateQuantity(product.amount * 2, product.type, product.id);
+                }
+                return;
+            }
+        }
         await supabase.from('products').insert([{title: input, category: getCategory(input), user_id: supabase.auth.user().id}]);
+        getProducts();
     }
-    getProducts();
 }
 
 export const toggleChecked = async (id, created, checked) => {
