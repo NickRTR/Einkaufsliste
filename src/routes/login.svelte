@@ -72,13 +72,9 @@
 </body>
 
 <style>
-    :root {
-        --primary: #EEE;
-    }
-
     body {
         text-align: center;
-        color: var(--primary);
+        color: #EEE;
     }
 
     h1 {
@@ -114,7 +110,7 @@
         border: none;
         padding: .4rem .75rem;
         margin-top: 0.5rem;
-        background-color: var(--primary);
+        background-color: #EEE;
         color: black;
         font-weight: 600;
         border-radius: 1rem;
