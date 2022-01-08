@@ -5,35 +5,16 @@
     export let product;
     let showChangeCategory = false;
 
-    $: updateAmount(product.amount);
-    $: updateType(product.type);
-
-    const updateAmount = (updatedAmount) => {
-        amount = updatedAmount;
-    }
-
-    const updateType = (updatedType) => {
-        type = updatedType;
-    }
-
     let amount = product.amount;
     let type = product.type;
 
-    $: checkInput(amount);
-    $: getSelection(type);
-
-    const checkInput = (input) => {
-        if (/^\d+$/.test(input)) {
-            amount = input;
-        } else if (input == "") {
-            amount = 1;
-        } else {
-            input = input.toString();
-            amount = input.substring(0, input.length - 1);
+    $: {
+        if (!(/^\d+$/.test(amount))) {
+            amount = amount.substring(0, amount.length - 1);
         }
     }
 
-    const getSelection = (type) => {
+    $: {
         if (type != product.type) {
             updateQuantity(amount, type, product.id);
         }

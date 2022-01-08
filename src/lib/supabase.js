@@ -59,7 +59,11 @@ export const deleteProduct = async (id) => {
 }
 
 export const updateQuantity = async (amount, type, id) => {
-    await supabase.from('products').update({"amount": amount, "type": type}).eq("id", id);
+    if (amount === "") {
+        await supabase.from('products').update({"amount": 1, "type": type}).eq("id", id);
+    } else {
+        await supabase.from('products').update({"amount": amount, "type": type}).eq("id", id);
+    }
 }
 
 // categories
