@@ -50,7 +50,7 @@
     <form on:submit|preventDefault>
         <label for="email">E-mail: </label><br>
         <input type="email" id="email" placeholder="email@email.com" bind:value={emailInput}><br>
-        <label for="password">password: </label><br>
+        <label for="password">Passwort: </label><br>
         <input type="password" id="password" placeholder="password" minlength="8" bind:value={passwordInput}><br>
 
         {#if isNewRegistration}
@@ -74,7 +74,8 @@
     }
 
     h1 {
-        font-size: 2.75rem;
+        margin: 0ch;
+        font-size: 2.25rem;
         padding: .75rem 0;
         font-weight: 600;
         cursor: pointer;
@@ -82,24 +83,29 @@
 
     form {
         margin-top: .5rem;
-        font-size: 1.4rem;
         font-weight: 600;
     }
 
     input {
+        border: none;
         border-radius: 1rem;
         color: black;
+        font-size: 1.25rem;
         font-weight: 600;
         padding: 0 0.75rem;
         margin: 0.5rem 0;
-        height: 2.25rem;
+        height: 2rem;
+    }
+
+    input::placeholder {
+        font-size: 1rem;
     }
 
     button {
-        padding: 0 0.5rem;
-        padding-bottom: .12rem;
+        font-size: 1rem;
+        border: none;
+        padding: .4rem .75rem;
         margin-top: 0.5rem;
-        height: 2.3rem;
         background-color: var(--primary);
         color: black;
         font-weight: 600;
@@ -107,9 +113,9 @@
     }
 
     p {
-        margin-bottom: 0.5rem;
-        margin-top: 0.25rem;
+        margin-top: 0.7rem;
         cursor: pointer;
         text-decoration: underline;
+        font-weight: 400;
     }
 </style>
