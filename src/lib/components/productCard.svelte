@@ -83,6 +83,10 @@
 </div>
 
 <style>
+    .container {
+        color: black;
+    }
+
     .Card {
         display: flex;
         align-items: center;
@@ -114,28 +118,30 @@
     }
 
     input[type=text] {
-        width: 2.5rem;
+        width: 2rem;
         border-radius: .75rem;
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
         background-color: black;
         color: white;
         border: none;
-        padding: 0 .25rem;
-        font-size: 1rem;
+        padding: .1rem .25rem;
+        padding-top: .2rem;
+        font-size: 1.1rem;
         line-height: 1.5rem;
+        border: none;
     }
 
     select {
-        padding-right: .25rem;
+        border: none;
+        padding: .125rem 0;
+        padding-right: .4rem;
         border-radius: .5rem;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
         background-color: black;
         color: white;
-        font-weight: 600;
-        font-size: 1rem;
-        padding-bottom: .125rem;
+        font-size: 1.1rem;
     }
 
     .status {
@@ -174,13 +180,15 @@
     }
 
     .changeCategory > div > p {
-        font-size: 1.125rem;
-        line-height: 1.75rem;
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.5rem;
         font-weight: 600;
     }
 
     .changeCategory > div > img {
-        width: 2.5rem;
+        height: 2.5rem;
         margin: 0 auto;
+        margin-bottom: .2rem;
     }
 </style>

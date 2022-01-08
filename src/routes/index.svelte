@@ -51,12 +51,12 @@
 <body style="--primary: {primaryColor}">
     <div class="user">
         <h4>Willkommen {$user?.email ? $user.email : ""}!</h4>
-        <button on:click={logout}>logout</button>
+        <p on:click={logout}>logout</p>
     </div>
 
     <div class="body">
         <h1 on:click={() => {changePrimary()}}>Einkaufsliste</h1>
-        <button class="showSort" on:click={() => {showSort = !showSort}}>Kategorien sortieren</button>
+        <p class="showSort" on:click={() => {showSort = !showSort}}>Kategorien sortieren</p>
 
         {#if showSort}
             <div class="sort">
@@ -113,28 +113,32 @@
     }
 
     h4 {
-        padding-top: .5rem;
+        margin: 0;
+        padding-top: 1rem;
         padding-left: .5rem;
+        font-weight: 400;
     }
 
-    .user > button {
+    .user > p {
+        margin-top: 1rem;
         margin-left: auto;
         text-decoration: underline;
-        padding-top: .5rem;
-        padding-right: .5rem;
+        cursor: pointer;
     }
 
     h1 {
+        margin: 1rem 0;
         font-size: 2.25rem;
         line-height: 2.5rem;
-        padding-top: 1rem;
         font-weight: 600;
         cursor: pointer;
     }
 
     .showSort {
+        background-color: black;
+        color: var(--primary);
         text-decoration: underline;
-        padding-top: .5rem;
+        cursor: pointer;
     }
 
     .sort {
@@ -156,15 +160,15 @@
     }
 
     .sort > div > p {
-        font-size: 1.125rem;
-        line-height: 1.75rem;
+        margin: 0;
+        line-height: 1.5rem;
         font-weight: 600;
     }
 
     .sort > div > img {
         height: 2.5rem;
         margin: 0 auto;
-        margin-bottom: .25rem;
+        margin-bottom: .2rem;
     }
 
     form {
@@ -179,11 +183,14 @@
         width: 75%;
         height: 2rem;
         padding: 0 .5rem;
+        padding-top: .2rem;
         color: black;
         font-size: 1.125rem;
         line-height: 1.75rem;
         font-weight: 600;
         border-radius: .75rem;
+        border: none;
+        background-color: var(--primary);
     }
 
     form > button {
@@ -191,10 +198,12 @@
         line-height: 1.75rem; 
         font-weight: 600;
         padding: 0 .5rem;
+        padding-top: .1rem;
         margin-left: .375rem;
         background-color: var(--primary);
         color: black;
         border-radius: .75rem;
+        border: none;
     }
 
     .suggestion {

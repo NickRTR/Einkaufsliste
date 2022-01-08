@@ -19,9 +19,7 @@
 <style>
     * {
         -webkit-appearance:none;
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
     }
-
-    @tailwind base;
-    @tailwind components;
-    @tailwind utilities;
 </style>
