@@ -49,14 +49,14 @@
     }
 </script>
  
-<div class="container mx-auto">
-    <div class="Card p-1.5 m-2.5 bg-primary rounded-xl flex items-center break-words">
-        <img class="h-14 w:14 mr-1 md:mr-2" type="image" src="/category/{category}.svg" alt={category} title={category} on:click={() => {showChangeCategory = !showChangeCategory}}>
-        <p class="text-2xl" on:click={() => {showChangeCategory = !showChangeCategory}}>{product.title}</p>
-        <div class="quantity ml-auto ">
-            <div class="flex mb-1">
-                <input class="w-10 rounded-xl rounded-r-none m-0 bg-black text-white border-none px-1 text-base md:text-lg md:font-semibold" type="text" maxlength="3" bind:value={amount} on:input={() => {updateQuantity(amount, type, product.id)}}>
-                <select class="rounded-xl rounded-l-none m-0 bg-black text-white font-semibold" bind:value={type}>
+<div class="container">
+    <div class="Card">
+        <img type="image" src="/category/{category}.svg" alt={category} title={category} on:click={() => {showChangeCategory = !showChangeCategory}}>
+        <p on:click={() => {showChangeCategory = !showChangeCategory}}>{product.title}</p>
+        <div class="stats">
+            <div class="quantity">
+                <input type="text" maxlength="3" bind:value={amount} on:input={() => {updateQuantity(amount, type, product.id)}}>
+                <select bind:value={type}>
                     <option value="stk">stk</option>
                     <option value="gr">gr</option>
                     <option value="kg">kg</option>
@@ -64,18 +64,123 @@
                     <option value="l">l</option>
                 </select>
             </div>
-                <input class="w-7 h-7 align-middle" type="checkbox" bind:checked={product.checked} on:click={() => {toggleChecked(product.id, product.created, product.checked)}}>
-                <input class="h-8 align-middle" type="image" src="/delete.svg" alt="delete" on:click={() => {deleteProduct(product.id)}}>
+            <div class="status">
+                <input type="checkbox" bind:checked={product.checked} on:click={() => {toggleChecked(product.id, product.created, product.checked)}}>
+                <input type="image" src="/delete.svg" alt="delete" on:click={() => {deleteProduct(product.id)}}>
+            </div>
         </div>
     </div>
     {#if showChangeCategory}
-        <div class="changeCategory grid grid-cols-3 justify-center rounded-xl mx-2.5 mt-1 p-1 pb-0 bg-primary">
+        <div class="changeCategory">
             {#each categories as category}
-                <div class="border-b-2 border-black" on:click={() => {showChangeCategory = !showChangeCategory; changeCategory(product.title, product.category, category, product.id)}}>
-                    <p class="my-auto text-lg font-semibold break-all">{category}</p>
-                    <img class="h-10 w-10 mb-1 mx-auto" src="/category/{category}.svg" alt={category} title={category}>
+                <div on:click={() => {showChangeCategory = !showChangeCategory; changeCategory(product.title, product.category, category, product.id)}}>
+                    <p>{category}</p>
+                    <img src="/category/{category}.svg" alt={category} title={category}>
                 </div>
             {/each}
         </div>
     {/if}
 </div>
+
+<style>
+    .Card {
+        display: flex;
+        align-items: center;
+        word-break: break-all;
+        padding: .375rem;
+        margin: .625rem;
+        background-color: var(--primary);
+        border-radius: .75rem;
+    }
+
+    img {
+        height: 3.5rem;
+    }
+
+    p {
+        font-size: 1.5rem;
+        line-height: 2rem;
+        margin: 0 .5rem;
+        font-weight: 500;
+    }
+
+    .stats {
+        margin-left: auto;
+    }
+
+    .quantity {
+        display: flex;
+        margin-bottom: 0.25rem;
+    }
+
+    input[type=text] {
+        width: 2.5rem;
+        border-radius: .75rem;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        background-color: black;
+        color: white;
+        border: none;
+        padding: 0 .25rem;
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    select {
+        padding-right: .25rem;
+        border-radius: .5rem;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        background-color: black;
+        color: white;
+        font-weight: 600;
+        font-size: 1rem;
+        padding-bottom: .125rem;
+    }
+
+    .status {
+        display: flex;
+        margin-top: .25rem;
+        align-items: center;
+    }
+
+    input[type=checkbox] {
+        margin-left: auto;
+        margin-right: .25rem;
+        width: 1.75rem;
+        height: 1.75rem;
+        /* vertical-align: middle; */
+    }
+
+    input[type=image] {
+        margin-right: auto;
+        height: 2rem;
+    }
+
+    .changeCategory {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        justify-content: center;
+        border-radius: .75rem;
+        margin: 0 .625rem;
+        background-color: var(--primary);
+        padding: .2rem;
+    }
+
+    .changeCategory > div {
+        margin: .2rem;
+        border-radius: .5rem;
+        border: 2px solid black;
+    }
+
+    .changeCategory > div > p {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+        font-weight: 600;
+    }
+
+    .changeCategory > div > img {
+        width: 2.5rem;
+        margin: 0 auto;
+    }
+</style>

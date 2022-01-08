@@ -12,7 +12,7 @@
     }
 </script>
 
-<body class="text-black">
+<body>
     <slot></slot>
 </body>
 

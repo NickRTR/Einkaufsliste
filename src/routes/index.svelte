@@ -48,33 +48,33 @@
     <title>Einkaufsliste</title>
 </svelte:head>
 
-<main class="bg-black min-h-screen text-center md:px-40 lg:px-64 xl:px-96" style="--primary: {primaryColor}">
-    <div class="user text-primary flex">
-        <h4 class="pt-2 pl-2">Willkommen {$user?.email ? $user.email : ""}!</h4>
-        <button class="ml-auto underline pt-2 pr-2" on:click={logout}>logout</button>
+<body style="--primary: {primaryColor}">
+    <div class="user">
+        <h4>Willkommen {$user?.email ? $user.email : ""}!</h4>
+        <button on:click={logout}>logout</button>
     </div>
 
-    <div class="pb-1">
-        <h1 class="text-4xl pt-4 text-primary font-semibold cursor-pointer" on:click={() => {changePrimary()}}>Einkaufsliste</h1>
-        <button class="text-primary underline pt-2" on:click={() => {showSort = !showSort}}>Kategorien sortieren</button>
+    <div class="body">
+        <h1 on:click={() => {changePrimary()}}>Einkaufsliste</h1>
+        <button class="showSort" on:click={() => {showSort = !showSort}}>Kategorien sortieren</button>
 
         {#if showSort}
-            <div class="sort bg-primary text-black grid grid-cols-3 justify-center rounded-xl mx-2.5 mt-1 p-1 pb-0">
+            <div class="sort">
                 {#each priorities as category}
-                    <div class="border-b-2 border-black">
-                        <p class="my-auto text-lg font-semibold break-all">{category}</p>
-                        <img class="h-10 w-10 mb-1 mx-auto" src="/category/{category}.svg" alt={category} title={category}>
+                    <div>
+                        <p>{category}</p>
+                        <img src="/category/{category}.svg" alt={category} title={category}>
                     </div>
                 {/each}
             </div>
         {/if}
 
-        <form class="flex mt-4 mb-2 justify-center" on:submit|preventDefault={() => {addProduct(input); input = "";}}>
-            <input class="m-0 w-3/4 h-8 px-2 bg-primary border-none text-lg text-black font-semibold rounded-xl" type="text" bind:value={input}>
-            <button class="shadow-xl text-lg font-semibold px-2 ml-1.5 bg-primary text-black rounded-xl" type="submit">Add</button>
+        <form on:submit|preventDefault={() => {addProduct(input); input = "";}}>
+            <input type="text" bind:value={input}>
+            <button type="submit">Add</button>
         </form>
         {#each suggestions as suggestion}
-            <div class="suggestion cursor-pointer underline text-lg text-primary" on:click={() => {addProduct(suggestion); input = "";}}>{suggestion}</div>
+            <div class="suggestion" on:click={() => {addProduct(suggestion); input = "";}}>{suggestion}</div>
         {/each}
         <div class="products">
             {#each $products as product}
@@ -82,11 +82,11 @@
                     <ProductCard product={product}/>
                 {/if}
             {:else}
-            <p class="text-primary">Keine Produkte vorhanden.</p>
+            <p>Keine Produkte vorhanden.</p>
             {/each}
         </div>
         <div class="checkedProducts">
-            <p class="divider border-t-2 border-primary mx-2.5 mt-2.5"></p>
+            <p class="divider"></p>
             {#each $products as product}
                 {#if product.checked && product.title !== undefined}
                     <ProductCard product={product}/>
@@ -94,11 +94,142 @@
             {/each}
         </div>
     </div>
-    <p class="text-primary">©2022 Nick Reutlinger</p>
-</main>
+    <p class="footer">©2022 Nick Reutlinger</p>
+</body>
 
 <style>
-    :root {
+    :global(:root) {
         --primary: primaryColor;
+    }
+
+    body {
+        background-color: black;
+        text-align: center;
+        color: var(--primary);
+    }
+
+    .user {
+        display: flex;
+    }
+
+    h4 {
+        padding-top: .5rem;
+        padding-left: .5rem;
+    }
+
+    .user > button {
+        margin-left: auto;
+        text-decoration: underline;
+        padding-top: .5rem;
+        padding-right: .5rem;
+    }
+
+    h1 {
+        font-size: 2.25rem;
+        line-height: 2.5rem;
+        padding-top: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .showSort {
+        text-decoration: underline;
+        padding-top: .5rem;
+    }
+
+    .sort {
+        background-color: var(--primary);
+        color: black;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        justify-content: center;
+        border-radius: .75rem;
+        margin: 0 .625rem;
+        margin-top: .25rem;
+        padding: .2rem;
+    }
+
+    .sort > div {
+        margin: .2rem;
+        border-radius: .5rem;
+        border: 2px solid black;
+    }
+
+    .sort > div > p {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+        font-weight: 600;
+    }
+
+    .sort > div > img {
+        height: 2.5rem;
+        margin: 0 auto;
+        margin-bottom: .25rem;
+    }
+
+    form {
+        display: flex;
+        margin-top: 1rem;
+        margin-bottom: .5rem;
+        justify-content: center;
+    }
+
+    input {
+        margin: 0;
+        width: 75%;
+        height: 2rem;
+        padding: 0 .5rem;
+        color: black;
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+        font-weight: 600;
+        border-radius: .75rem;
+    }
+
+    form > button {
+        font-size: 1.125rem;
+        line-height: 1.75rem; 
+        font-weight: 600;
+        padding: 0 .5rem;
+        margin-left: .375rem;
+        background-color: var(--primary);
+        color: black;
+        border-radius: .75rem;
+    }
+
+    .suggestion {
+        cursor: pointer;
+        text-decoration: underline;
+        font-size: 1.125rem;
+        line-height: 1.75rem; 
+    }
+
+    .divider {
+        border-top: 2px solid var(--primary);
+        margin: .6rem;
+    }
+
+    @media only screen and (max-width: 600px) {
+        body {
+            margin: 0 ;
+        }
+    }
+
+    @media (min-width: 768px) {
+        body {
+            margin: 0 10rem;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        body {
+            margin: 0 16rem;
+        }
+    }
+    
+    @media (min-width: 1280px) {
+        body {
+            margin: 0 24rem;
+        }
     }
 </style>
