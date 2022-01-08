@@ -127,12 +127,15 @@
         border: none;
         padding: .1rem .25rem;
         padding-top: .2rem;
+        margin: 0;
         font-size: 1.1rem;
         line-height: 1.5rem;
-        border: 1px solid black;
+        border: none;
     }
 
     select {
+        border: none;
+        margin: 0;
         padding: .125rem 0;
         padding-right: .4rem;
         border-radius: .5rem;
@@ -141,7 +144,6 @@
         background-color: black;
         color: white;
         font-size: 1.1rem;
-        border: 1px solid black;
     }
 
     .status {
