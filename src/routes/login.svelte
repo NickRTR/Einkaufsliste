@@ -39,32 +39,77 @@
     }
 </script>
 
-<body class="bg-black min-h-screen text-center md:px-40 lg:px-64 xl:px-96 text-primary" style="--primary: #EEE">
+<body>
     {#if isNewRegistration}
-        <h1 class="text-4xl pt-5 text-primary font-semibold cursor-pointer" on:click={() => {isNewRegistration = !isNewRegistration}}>Registrieren</h1>
+        <h1 on:click={() => {isNewRegistration = !isNewRegistration}}>Registrieren</h1>
     {:else}
-        <h1 class="text-4xl pt-5 text-primary font-semibold cursor-pointer" on:click={() => {isNewRegistration = !isNewRegistration}}>Login</h1>
+        <h1 on:click={() => {isNewRegistration = !isNewRegistration}}>Login</h1>
     {/if}
     
 
-    <form class="mx-10 rounded-2xl mt-6 text-primary text-xl mb-2 justify-center" on:submit|preventDefault>
-        <label class="font-semibold text-xl" for="email">E-mail: </label><br>
-        <input class="h-8 px-2 my-2 bg-primary text-black font-semibold rounded-xl" type="email" id="email" placeholder="email@email.com" bind:value={emailInput}><br>
-        <label class="font-semibold text-xl" for="password">password: </label><br>
-        <input class="h-8 px-2 my-2 bg-primary text-black font-semibold rounded-xl" type="password" id="password" placeholder="password" minlength="8" bind:value={passwordInput}><br>
+    <form on:submit|preventDefault>
+        <label for="email">E-mail: </label><br>
+        <input type="email" id="email" placeholder="email@email.com" bind:value={emailInput}><br>
+        <label for="password">password: </label><br>
+        <input type="password" id="password" placeholder="password" minlength="8" bind:value={passwordInput}><br>
 
         {#if isNewRegistration}
-            <button class="shadow-xl text-xl font-semibold px-2 h-8 pb-0.5 mt-2 ml-1.5 bg-primary text-black rounded-2xl" on:click={signUp}>signup</button>
-            <p class="switchMethod mb-2 mt-1 cursor-pointer underline" on:click={() => {isNewRegistration = !isNewRegistration}}>Besitzt du schon einen Account?</p>
+            <button on:click={signUp}>signup</button>
+            <p on:click={() => {isNewRegistration = !isNewRegistration}}>Besitzt du schon einen Account?</p>
         {:else}
-            <button class="shadow-xl text-xl font-semibold px-2 h-8 pb-0.5 mt-2 ml-1.5 bg-primary text-black rounded-2xl" on:click={logIn}>login</button>
-            <p class="switchMethod mb-2 mt-1 cursor-pointer underline" on:click={() => {isNewRegistration = !isNewRegistration}}>Neuen Account erstellen?</p>
+            <button  on:click={logIn}>login</button>
+            <p on:click={() => {isNewRegistration = !isNewRegistration}}>Neuen Account erstellen?</p>
         {/if}
     </form>
 </body>
 
 <style>
     :root {
-        --primary: primaryColor;
+        --primary: #EEE;
+    }
+
+    body {
+        text-align: center;
+        color: var(--primary);
+    }
+
+    h1 {
+        font-size: 2.75rem;
+        padding: .75rem 0;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    form {
+        margin-top: .5rem;
+        font-size: 1.4rem;
+        font-weight: 600;
+    }
+
+    input {
+        border-radius: 1rem;
+        color: black;
+        font-weight: 600;
+        padding: 0 0.75rem;
+        margin: 0.5rem 0;
+        height: 2.25rem;
+    }
+
+    button {
+        padding: 0 0.5rem;
+        padding-bottom: .12rem;
+        margin-top: 0.5rem;
+        height: 2.3rem;
+        background-color: var(--primary);
+        color: black;
+        font-weight: 600;
+        border-radius: 1rem;
+    }
+
+    p {
+        margin-bottom: 0.5rem;
+        margin-top: 0.25rem;
+        cursor: pointer;
+        text-decoration: underline;
     }
 </style>
