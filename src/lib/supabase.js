@@ -103,6 +103,7 @@ export const codeCategory = (input) => {
 }
 
 export const changeCategory = async (input, oldCategory, category, id) => {
+
     await supabase.from('products').update({"category": codeCategory(category)}).eq("id", id);
 
     if (oldCategory !== 0) {
