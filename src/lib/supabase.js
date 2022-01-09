@@ -56,10 +56,12 @@ export const toggleChecked = async (id, created, checked) => {
         now = new Date();
     }
     await supabase.from('products').update({"checked": !checked, "created_at": now}).eq("id", id);
+    getProducts();
 }
 
 export const deleteProduct = async (id) => {
     await supabase.from('products').delete().eq("id", id);
+    getProducts();
 }
 
 export const updateQuantity = async (amount, type, id) => {
@@ -103,7 +105,6 @@ export const codeCategory = (input) => {
 }
 
 export const changeCategory = async (input, oldCategory, category, id) => {
-
     await supabase.from('products').update({"category": codeCategory(category)}).eq("id", id);
 
     if (oldCategory !== 0) {
@@ -112,6 +113,8 @@ export const changeCategory = async (input, oldCategory, category, id) => {
     }
     updatedCategories[category] = [input.toLowerCase(), ...updatedCategories[category]];
     await supabase.from('userdata').update({"categories": updatedCategories}).eq("user_id", get(user).id);
+
+    getProducts();
 }
 
 export const setTheme = async (color) => {
