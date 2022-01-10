@@ -128,7 +128,8 @@
     }
 
     h1 {
-        margin: 1rem 0;
+        margin: 0;
+        margin-top: .1rem;
         font-size: 2.25rem;
         line-height: 2.5rem;
         font-weight: 600;
@@ -136,6 +137,7 @@
     }
 
     .showSort {
+        margin: .4rem 0;
         background-color: black;
         color: var(--primary);
         text-decoration: underline;
@@ -144,14 +146,14 @@
 
     .sort {
         background-color: var(--primary);
-        margin: 0 .625rem;
+        margin: 0 3rem;
         padding: .625rem;
         border-radius: 1rem;
     }
 
     .submitSort {
         margin-top: .5rem;
-        font-size: 1.125rem;
+        font-size: 1.1rem;
         line-height: 1.75rem; 
         font-weight: 600;
         background-color: black;
