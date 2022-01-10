@@ -3,49 +3,47 @@ import {get} from "svelte/store";
 import {goto} from "$app/navigation";
 import {products, theme, user, categories, priorityToCategory} from "$lib/stores.js";
 
-const dbSubscribe = supabase.from('products').on('*', payload => {getProducts()}).subscribe();
+// const dbSubscribe = supabase.from('products').on('*', payload => {getProducts()}).subscribe();
 
 const userId = get(user).id;
 var updatedCategories;
 var priorities;
+let updatedProducts;
+
+let sort;
 
 export const getProducts = async () => {
-    let {data: dbProducts} = await supabase.from('products').select("*").order("category", {ascending: true});
+    let {data: dbProducts} = await supabase.from('products').select("*").order("sort", {ascending: true});
     products.update(products => [...dbProducts]);
+    updatedProducts = dbProducts;
 
-    try {
-        let {data: color} = await supabase.from('userdata').select("theme");
-        let dbTheme = color[0].theme;
-        theme.update(theme => dbTheme);
-    } catch (error) {
-        createUserData(userId);
-    }
+    let {data: userdata} = await supabase.from('userdata').select('*');
+    userdata = userdata[0];
 
-    let {data: dbCategories} = await supabase.from('userdata').select("categories");
-    categories.update(categories => dbCategories[0].categories);
-    updatedCategories = dbCategories[0].categories
+    theme.update(theme => userdata.theme);
 
-    let {data: dbPrioritytoCategory} = await supabase.from('userdata').select("priorityToCategory");
-    priorityToCategory.update(priorities => dbPrioritytoCategory[0].priorityToCategory);
-    priorities = dbPrioritytoCategory[0].priorityToCategory;
+    categories.update(categories => userdata.categories);
+    updatedCategories = userdata.categories;
+
+    priorities = userdata.priorityToCategory;
+    priorityToCategory.update(priorityToCategory => Object.values(priorities));
 }
 
 export const addProduct = async (input) => {
     if (input !== "") {
-        let currentProducts = get(products);
         let titles = []
-        for (let i = 0; i < currentProducts.length; i++) {
-            titles = [...titles, currentProducts[i]]
-            if (input === currentProducts[i].title) {
-                let result = confirm(`"${currentProducts[i].title}" ist bereits vorhanden. Möchten Sie die Anzahl verdoppeln?`)
+        for (let i = 0; i < updatedProducts.length; i++) {
+            titles = [...titles, updatedProducts[i]]
+            if (input === updatedProducts[i].title) {
+                let result = confirm(`"${updatedProducts[i].title}" ist bereits vorhanden. Möchten Sie die Anzahl verdoppeln?`)
                 if (result) {
-                    let product = currentProducts[i];
+                    let product = updatedProducts[i];
                     updateQuantity(product.amount * 2, product.type, product.id);
                 }
                 return;
             }
         }
-        await supabase.from('products').insert([{title: input, category: getCategory(input), user_id: supabase.auth.user().id}]);
+        await supabase.from('products').insert([{title: input, category: getCategory(input), sort: sort, user_id: supabase.auth.user().id}]);
         getProducts();
     }
 }
@@ -78,37 +76,21 @@ export const getCategory = (input) => {
     input = input.toLowerCase();
     input = input.trim();
 
-    let category;
     for (let i = 0; i < categoryList.length; i++) {
         if (updatedCategories[categoryList[i]].includes(input)) {
-            category = categoryList[i];
-            for (let i = 0; i <= Object.keys(priorities).length; i++) {
-                if (priorities[i] == category) {
-                    return i;
-                }
-            }
+            let category = categoryList[i];
+            getSort(category)
+            return category;
         }
     }
-    return 0;
-}
-
-export const decodeCategory = (input) => {
-    return priorities[input];
-}
-
-export const codeCategory = (input) => {
-    for (let i = 0; i <= Object.keys(priorities).length; i++) {
-        if (priorities[i] == input) {
-            return i;
-        }
-    }
+    return "choose";
 }
 
 export const changeCategory = async (input, oldCategory, category, id) => {
-    await supabase.from('products').update({"category": codeCategory(category)}).eq("id", id);
+    await supabase.from('products').update({"category": category}).eq("id", id);
+    await supabase.from('products').update({"sort": await getSort(category)}).eq("id", id);
 
-    if (oldCategory !== 0) {
-        oldCategory = decodeCategory(oldCategory);
+    if (oldCategory !== "choose") {
         updatedCategories[oldCategory] = updatedCategories[oldCategory].filter(value => value != input.toLowerCase());
     }
     updatedCategories[category] = [input.toLowerCase(), ...updatedCategories[category]];
@@ -126,7 +108,27 @@ export const createUserData = async (userId) => {
     await supabase.from('userdata').insert([
         {user_id: userId}
     ]);
-    location.reload();
+}
+
+export const changePriorities = async (changedPriorities) => {
+    priorityToCategory.update(old => changedPriorities);
+    await supabase.from('userdata').update({"priorityToCategory": changedPriorities}).eq("user_id", userId);
+    priorities = changedPriorities;
+
+    for (let i = 0; i < updatedProducts.length; i++) {
+        let id = updatedProducts[i].id;
+        let sort = await getSort(updatedProducts[i].category);
+        await supabase.from('products').update({"sort": sort}).eq("id", id);
+    }
+    getProducts();
+}
+
+const getSort = async (category) => {
+    for (let i = 0; i <= Object.keys(priorities).length; i++) {
+        if (priorities[i] === category) {
+            return i;
+        }
+    }
 }
 
 // auth

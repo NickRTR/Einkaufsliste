@@ -1,9 +1,10 @@
 <script>
     import {products, user, theme, priorityToCategory} from "$lib/stores.js";
     import {onMount} from "svelte";
-    import {getProducts, addProduct, logout, setTheme} from "$lib/supabase.js";
+    import {getProducts, addProduct, logout, setTheme, changePriorities} from "$lib/supabase.js";
 
     import ProductCard from "$lib/components/productCard.svelte";
+    import DragDropList from "$lib/components/DragDropList.svelte";
 
     onMount(() => {
         getProducts();
@@ -27,12 +28,9 @@
         }
     }
 
-    let priorities = Object.values($priorityToCategory);
-
     // Weiß, lightpink, purple, babyblue, babygreen, orange
-    $: primaryColor = colors[$theme];
-
     const colors = ["#EEE", "#F2CCC3", "#B7D3F2", "#a1c181", "#e9c46a"];
+    $: primaryColor = colors[$theme];
 
     const changePrimary = () => {
         let currentColor = $theme;
@@ -41,6 +39,12 @@
             currentColor = 0;
         }
         setTheme(currentColor, $user.id);
+    }
+
+    let priorities = $priorityToCategory;
+
+    $: if ($priorityToCategory !== undefined && priorities === undefined) {
+        priorities = $priorityToCategory;
     }
 </script>
 
@@ -60,16 +64,12 @@
 
         {#if showSort}
             <div class="sort">
-                {#each priorities as category}
-                    <div>
-                        <p>{category}</p>
-                        <img src="/category/{category}.svg" alt={category} title={category}>
-                    </div>
-                {/each}
+                <DragDropList bind:data={priorities}/>
+                <button class="submitSort" type="submit" on:click|preventDefault={() => {changePriorities(priorities); showSort = !showSort}}>Sortierung anpassen</button>
             </div>
         {/if}
 
-        <form on:submit|preventDefault={() => {addProduct(input); input = "";}}>
+        <form class="addProduct" on:submit|preventDefault={() => {addProduct(input); input = "";}}>
             <input type="text" bind:value={input}>
             <button type="submit">Add</button>
         </form>
@@ -144,35 +144,24 @@
 
     .sort {
         background-color: var(--primary);
-        color: black;
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        justify-content: center;
-        border-radius: .75rem;
         margin: 0 .625rem;
-        margin-top: .25rem;
-        padding: .2rem;
+        padding: .625rem;
+        border-radius: 1rem;
     }
 
-    .sort > div {
-        margin: .2rem;
-        border-radius: .5rem;
-        border: 2px solid black;
-    }
-
-    .sort > div > p {
-        margin: 0;
-        line-height: 1.5rem;
+    .submitSort {
+        margin-top: .5rem;
+        font-size: 1.125rem;
+        line-height: 1.75rem; 
         font-weight: 600;
+        background-color: black;
+        color: var(--primary);
+        border-radius: .75rem;
+        border: none;
+        cursor: pointer;
     }
 
-    .sort > div > img {
-        height: 2.5rem;
-        margin: 0 auto;
-        margin-bottom: .2rem;
-    }
-
-    form {
+    .addProduct {
         display: flex;
         margin-top: 1rem;
         margin-bottom: .5rem;

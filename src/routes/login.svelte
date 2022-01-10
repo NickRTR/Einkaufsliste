@@ -24,7 +24,8 @@
             }
         } else {
             $user = userDetails;
-            alert("Bestätigen Sie ihre E-mail Adresse, um die Registrierung abzuschließen.")
+            createUserData(userDetails.id);
+            goto("/");
         }
     }
 

@@ -21,18 +21,11 @@
     }
 
     const categories = ["Vorrat", "Gemüse", "Obst", "Kühlregal", "Gefriertruhe", "Fleisch", "Süßigkeiten", "Haushalt", "Getränke"];
-
-    let category;
-    $: if (product.category === 0) {
-        category = 0;
-    } else {
-        category = $priorityToCategory[product.category];
-    }
 </script>
  
 <div class="container">
     <div class="Card">
-        <img type="image" src="/category/{category}.svg" alt={category} title={category} on:click={() => {showChangeCategory = !showChangeCategory}}>
+        <img type="image" src="/category/{product.category}.svg" alt={product.category} title={product.category} on:click={() => {showChangeCategory = !showChangeCategory}}>
         <p on:click={() => {showChangeCategory = !showChangeCategory}}>{product.title}</p>
         <div class="stats">
             <div class="quantity">
