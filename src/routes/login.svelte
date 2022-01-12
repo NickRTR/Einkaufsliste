@@ -15,10 +15,11 @@
             password: passwordInput,
         });
         if (error) {
-            console.log(error.message);
             if (error.message === "User already registered") {
                 alert("Benutzer ist bereits registriert. Bitte anmelden!");
                 isNewRegistration = false;
+            } else if (error.message === "Password should be at least 6 characters") {
+                alert("Bitte geben Sie ein Passwort mit mindestens 6 Zeichen ein.");
             } else {
                 alert(error.message);
             }
@@ -59,7 +60,7 @@
         <label for="email">E-mail: </label><br>
         <input type="email" id="email" placeholder="email@email.de" bind:value={emailInput}><br>
         <label for="password">Passwort: </label><br>
-        <input type="password" id="password" placeholder="Passwort" minlength="8" bind:value={passwordInput}><br>
+        <input type="password" id="password" placeholder="Passwort" bind:value={passwordInput}><br>
 
         {#if isNewRegistration}
             <button on:click={signUp}>registrieren</button>

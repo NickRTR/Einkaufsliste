@@ -46,10 +46,12 @@
     $: if ($priorityToCategory !== undefined && priorities === undefined) {
         priorities = $priorityToCategory;
     }
+
+    $: console.table($products)
 </script>
 
 <svelte:head>
-    <title>Einkaufsliste</title>
+    <title>Schoppy-Einkaufsliste</title>
 </svelte:head>
 
 <body style="--primary: {primaryColor}">

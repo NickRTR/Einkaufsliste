@@ -10,8 +10,6 @@ var updatedCategories;
 var priorities;
 let updatedProducts;
 
-let sort;
-
 export const getProducts = async () => {
     let {data: dbProducts} = await supabase.from('products').select("*").order("sort", {ascending: true});
     products.update(products => [...dbProducts]);
@@ -43,7 +41,9 @@ export const addProduct = async (input) => {
                 return;
             }
         }
-        await supabase.from('products').insert([{title: input, category: getCategory(input), sort: sort, user_id: supabase.auth.user().id}]);
+        let category = getCategory(input);
+        let sort = await getSort(category);
+        await supabase.from('products').insert([{title: input, category: category, sort: sort, user_id: supabase.auth.user().id}]);
         getProducts();
     }
 }

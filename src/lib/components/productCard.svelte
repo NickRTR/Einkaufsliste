@@ -1,6 +1,5 @@
 <script>
     import {deleteProduct, toggleChecked, changeCategory, updateQuantity} from "$lib/supabase.js";
-    import {priorityToCategory} from "$lib/stores.js";
 
     export let product;
     let showChangeCategory = false;
@@ -20,7 +19,7 @@
         }
     }
 
-    const categories = ["Vorrat", "Gemüse", "Obst", "Kühlregal", "Gefriertruhe", "Fleisch", "Süßigkeiten", "Haushalt", "Getränke"];
+    const categories = ["Gemüse", "Obst", "Vorrat", "Fleisch", "Gefriertruhe", "Kühlregal", "Haushalt", "Süßigkeiten", "Getränke"];
 </script>
  
 <div class="container">
