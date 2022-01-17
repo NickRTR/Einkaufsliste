@@ -46,8 +46,6 @@
     $: if ($priorityToCategory !== undefined && priorities === undefined) {
         priorities = $priorityToCategory;
     }
-
-    $: console.table($products)
 </script>
 
 <svelte:head>
