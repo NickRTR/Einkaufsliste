@@ -1,8 +1,16 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from '@supabase/supabase-js';
+
+let URL = import.meta.env.VITE_SUPABASE_URL;
+let KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+// if production, get KEY from Vercel
+if (process.env.NODE_ENV === 'production') {
+    URL = process.env.URL;
+    KEY = process.env.KEY;
+}
 
 const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_ANON_KEY
+  URL,
+  KEY
 )
 
 export default supabase

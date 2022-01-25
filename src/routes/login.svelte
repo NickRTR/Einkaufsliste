@@ -10,6 +10,10 @@
     let isNewRegistration = false;
 
     const signUp = async () => {
+        if (emailInput === "" || passwordInput === "") {
+            return;
+        }
+
         let { user: userDetails, error } = await supabase.auth.signUp({
             email: emailInput,
             password: passwordInput,
@@ -31,6 +35,10 @@
     }
 
     const logIn = async () => {
+        if (emailInput === "" || passwordInput === "") {
+            return;
+        }
+
         let { user: userDetails, error } = await supabase.auth.signIn({
             email: emailInput,
             password: passwordInput,
