@@ -1,23 +1,8 @@
 <script>
-    import {deleteProduct, toggleChecked, changeCategory, updateQuantity} from "$lib/supabase.js";
+    import { deleteProduct, toggleChecked, changeCategory, updateAmount, updateType } from "$lib/supabase.js";
 
     export let product;
     let showChangeCategory = false;
-
-    let amount = product.amount;
-    let type = product.type;
-
-    $: {
-        if (!(/^\d+$/.test(amount))) {
-            amount = amount.substring(0, amount.length - 1);
-        }
-    }
-
-    $: {
-        if (type != product.type) {
-            updateQuantity(amount, type, product.id);
-        }
-    }
 
     const categories = ["Gemüse", "Obst", "Vorrat", "Fleisch", "Gefriertruhe", "Kühlregal", "Haushalt", "Süßigkeiten", "Getränke"];
 </script>
@@ -28,8 +13,9 @@
         <p on:click={() => {showChangeCategory = !showChangeCategory}}>{product.title}</p>
         <div class="stats">
             <div class="quantity">
-                <input type="text" maxlength="3" bind:value={amount} on:input={() => {updateQuantity(amount, type, product.id)}}>
-                <select bind:value={type}>
+                <input type="text" maxlength="3" value={product.amount} on:input={(event) => {updateAmount(event.target.value, product.id)}}>
+                <select value={product.type} on:change={(event) => {updateType(event.target.value, product.id);
+                }}>
                     <option value="stk">stk</option>
                     <option value="gr">gr</option>
                     <option value="kg">kg</option>

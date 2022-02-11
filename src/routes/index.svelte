@@ -28,7 +28,7 @@
         }
     }
 
-    // Weiß, lightpink, purple, babyblue, babygreen, orange
+    // white, lightpink, purple, babyblue, babygreen, orange
     const colors = ["#EEE", "#F2CCC3", "#B7D3F2", "#a1c181", "#e9c46a"];
     $: primaryColor = colors[$theme];
 
@@ -78,8 +78,8 @@
         {/each}
         <div class="products">
             {#each $products as product}
-                {#if !product.checked && product.title !== undefined}
-                    <ProductCard product={product}/>
+                {#if !product.checked}
+                    <ProductCard {product}/>
                 {/if}
             {:else}
             <p>Keine Produkte vorhanden.</p>
@@ -88,8 +88,8 @@
         <div class="checkedProducts">
             <p class="divider"></p>
             {#each $products as product}
-                {#if product.checked && product.title !== undefined}
-                    <ProductCard product={product}/>
+                {#if product.checked}
+                    <ProductCard {product}/>
                 {/if}
             {/each}
         </div>

@@ -3,8 +3,6 @@ import {get} from "svelte/store";
 import {goto} from "$app/navigation";
 import {products, theme, user, categories, priorityToCategory} from "$lib/stores.js";
 
-// const dbSubscribe = supabase.from('products').on('*', payload => {getProducts()}).subscribe();
-
 const userId = get(user).id;
 var updatedCategories;
 var priorities;
@@ -17,7 +15,6 @@ export const getProducts = async () => {
 
     let {data: userdata} = await supabase.from('userdata').select('*');
     userdata = userdata[0];
-
     theme.update(theme => userdata.theme);
 
     categories.update(categories => userdata.categories);
@@ -29,16 +26,19 @@ export const getProducts = async () => {
 
 export const addProduct = async (input) => {
     if (input !== "") {
-        let titles = []
         for (let i = 0; i < updatedProducts.length; i++) {
-            titles = [...titles, updatedProducts[i]]
             if (input === updatedProducts[i].title) {
-                let result = confirm(`"${updatedProducts[i].title}" ist bereits vorhanden. Möchten Sie die Anzahl verdoppeln?`)
-                if (result) {
-                    let product = updatedProducts[i];
-                    updateQuantity(product.amount * 2, product.type, product.id);
+                if (updatedProducts[i].checked === false) {
+                    let result = confirm(`"${updatedProducts[i].title}" ist bereits vorhanden. Möchten Sie die Anzahl um 1 erhöhen?`)
+                    if (result) {
+                        let product = updatedProducts[i];
+                        updateAmount(product.amount + 1, product.id);
+                    }
+                    return;
+                } else {
+                    toggleChecked(updatedProducts[i].id, updatedProducts[i].created, updatedProducts[i].checked);
+                    return;
                 }
-                return;
             }
         }
         let category = getCategory(input);
@@ -62,12 +62,18 @@ export const deleteProduct = async (id) => {
     getProducts();
 }
 
-export const updateQuantity = async (amount, type, id) => {
+export const updateAmount = async (amount, id) => {
     if (amount === "") {
-        await supabase.from('products').update({"amount": 1, "type": type}).eq("id", id);
+        await supabase.from('products').update({"amount": 1}).eq("id", id);
     } else {
-        await supabase.from('products').update({"amount": amount, "type": type}).eq("id", id);
+        await supabase.from('products').update({"amount": amount}).eq("id", id);
     }
+    getProducts();
+}
+
+export const updateType = async (type, id) => {
+    await supabase.from('products').update({"type": type}).eq("id", id);
+    getProducts();
 }
 
 // categories
@@ -95,7 +101,6 @@ export const changeCategory = async (input, oldCategory, category, id) => {
     }
     updatedCategories[category] = [input.toLowerCase(), ...updatedCategories[category]];
     await supabase.from('userdata').update({"categories": updatedCategories}).eq("user_id", get(user).id);
-
     getProducts();
 }
 
