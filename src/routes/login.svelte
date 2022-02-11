@@ -6,6 +6,7 @@
 
     let emailInput = "";
     let passwordInput = "";
+    let showPassword = false;
 
     let isNewRegistration = false;
 
@@ -68,7 +69,11 @@
         <label for="email">E-mail: </label><br>
         <input type="email" id="email" placeholder="email@email.de" bind:value={emailInput}><br>
         <label for="password">Passwort: </label><br>
-        <input type="password" id="password" placeholder="Passwort" bind:value={passwordInput}><br>
+        <div class="password">
+            <input type="password" id="password" placeholder="Passwort" bind:value={passwordInput}>
+            <input type="checkbox" id="togglePassword" class:show={showPassword} bind:checked={showPassword} on:change={() => {document.querySelector('#password').type = showPassword ? 'text' : 'password'}}>
+            <label class="viewPasswordLabel" for="togglePassword"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5c-4.027 0-7.484 2.881-9 7 1.516 4.119 4.973 7 9 7s7.484-2.881 9-7c-1.516-4.119-4.973-7-9-7zm0 10a3 3 0 1 1 3-3 3 3 0 0 1-3 3z"/></svg></label><br>
+        </div>
 
         {#if isNewRegistration}
             <button on:click={signUp}>registrieren</button>
@@ -113,6 +118,32 @@
     input::placeholder {
         font-size: 1rem;
     }
+
+    .password {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    input[type=checkbox] {
+		display: none;
+	}
+
+    .viewPasswordLabel {
+		filter: opacity(50%);
+        position: absolute;
+        margin-left: 250px;
+	}
+
+    input[type=checkbox]:checked + .viewPasswordLabel {
+		filter: opacity(100%);
+	}
+
+	svg {
+		width: 2rem;
+		margin-top: .2rem;
+		cursor: pointer;
+	}
 
     button {
         font-size: 1rem;
