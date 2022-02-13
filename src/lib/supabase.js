@@ -121,7 +121,7 @@ export const changePriorities = async (changedPriorities) => {
     await supabase.from('userdata').update({"priorityToCategory": changedPriorities}).eq("user_id", userId);
     priorities = changedPriorities;
 
-    updatedProducts.forEach(updatedProduct => {
+    updatedProducts.forEach(async updatedProduct => {
         let id = updatedProduct.id;
         let sort = await getSort(updatedProduct.category);
         await supabase.from('products').update({"sort": sort}).eq("id", id);
@@ -136,10 +136,6 @@ const getSort = async (category) => {
         }
     }
 }
-
-array.forEach(element => {
-    
-});
 
 // auth
 export const logout = async () => {

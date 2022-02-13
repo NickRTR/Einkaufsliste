@@ -72,7 +72,7 @@
         <div class="password">
             <input type="password" id="password" placeholder="Passwort" bind:value={passwordInput}>
             <input type="checkbox" id="togglePassword" class:show={showPassword} bind:checked={showPassword} on:change={() => {document.querySelector('#password').type = showPassword ? 'text' : 'password'}}>
-            <label class="viewPasswordLabel" for="togglePassword"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5c-4.027 0-7.484 2.881-9 7 1.516 4.119 4.973 7 9 7s7.484-2.881 9-7c-1.516-4.119-4.973-7-9-7zm0 10a3 3 0 1 1 3-3 3 3 0 0 1-3 3z"/></svg></label><br>
+            <label class="viewPasswordLabel" for="togglePassword"><img src="showPassword.svg" alt="show"></label><br>
         </div>
 
         {#if isNewRegistration}
@@ -112,7 +112,13 @@
         font-weight: 600;
         padding: 0 0.75rem;
         margin: 0.5rem 0;
+        width: 80%;
+        max-width: 300px;
         height: 2rem;
+    }
+
+    #password {
+        width: auto;
     }
 
     input::placeholder {
@@ -131,15 +137,13 @@
 
     .viewPasswordLabel {
 		filter: opacity(50%);
-        position: absolute;
-        margin-left: 250px;
 	}
 
     input[type=checkbox]:checked + .viewPasswordLabel {
 		filter: opacity(100%);
 	}
 
-	svg {
+	img {
 		width: 2rem;
 		margin-top: .2rem;
 		cursor: pointer;
