@@ -26,21 +26,21 @@ export const getProducts = async () => {
 
 export const addProduct = async (input) => {
     if (input !== "") {
-        for (let i = 0; i < updatedProducts.length; i++) {
-            if (input === updatedProducts[i].title) {
-                if (updatedProducts[i].checked === false) {
-                    let result = confirm(`"${updatedProducts[i].title}" ist bereits vorhanden. Möchten Sie die Anzahl um 1 erhöhen?`)
+        updatedProducts.forEach(updatedProduct => {
+            if (input === updatedProduct.title) {
+                if (updatedProduct.checked === false) {
+                    let result = confirm(`"${updatedProduct.title}" ist bereits vorhanden. Möchten Sie die Anzahl um 1 erhöhen?`)
                     if (result) {
-                        let product = updatedProducts[i];
+                        let product = updatedProduct;
                         updateAmount(product.amount + 1, product.id);
                     }
                     return;
                 } else {
-                    toggleChecked(updatedProducts[i].id, updatedProducts[i].created, updatedProducts[i].checked);
+                    toggleChecked(updatedProduct.id, updatedProduct.created, updatedProduct.checked);
                     return;
                 }
             }
-        }
+        });
         let category = getCategory(input);
         let sort = await getSort(category);
         await supabase.from('products').insert([{title: input, category: category, sort: sort, user_id: supabase.auth.user().id}]);
@@ -89,6 +89,7 @@ export const getCategory = (input) => {
             return category;
         }
     }
+
     return "choose";
 }
 
@@ -120,11 +121,11 @@ export const changePriorities = async (changedPriorities) => {
     await supabase.from('userdata').update({"priorityToCategory": changedPriorities}).eq("user_id", userId);
     priorities = changedPriorities;
 
-    for (let i = 0; i < updatedProducts.length; i++) {
-        let id = updatedProducts[i].id;
-        let sort = await getSort(updatedProducts[i].category);
+    updatedProducts.forEach(updatedProduct => {
+        let id = updatedProduct.id;
+        let sort = await getSort(updatedProduct.category);
         await supabase.from('products').update({"sort": sort}).eq("id", id);
-    }
+    });
     getProducts();
 }
 
@@ -135,6 +136,10 @@ const getSort = async (category) => {
         }
     }
 }
+
+array.forEach(element => {
+    
+});
 
 // auth
 export const logout = async () => {

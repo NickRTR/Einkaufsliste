@@ -17,9 +17,9 @@
     $: {
         if (input !== "" && $products.length >= 1) {
             let productsTitles = []
-            for (let i = 0; i <= $products.length - 1; i++) {
-                productsTitles = [...productsTitles, $products[i].title];
-            }
+            $products.forEach(product => {
+                productsTitles = [...productsTitles, product.title];
+            });
             suggestions = productsTitles.filter((titles) => {
                 return titles.toLowerCase().startsWith(input.toLowerCase());
             })
