@@ -15,13 +15,15 @@ export const getProducts = async () => {
     let {data: dbProducts} = await supabase.from('products').select("*").order("sort", {ascending: true});
     products.set([...dbProducts]);
     updatedProducts = dbProducts;
+}
 
-    let {data: userdata} = await supabase.from('userdata').select('*');
+export const getUserData = async () => {
+    let {data: userdata} = await supabase.from('userdata').select('*'); // get userdata
     userdata = userdata[0];
-
+    // set categories
     categories.set(userdata.categories);
     updatedCategories = userdata.categories;
-
+    // set category order
     priorities = userdata.priorityToCategory;
     priorityToCategory.set(Object.values(priorities));
 }
@@ -43,10 +45,11 @@ export const setTheme = async () => {
 
 export const addProduct = async (input) => {
     if (input !== "") {
-        updatedProducts.forEach(updatedProduct => {
+        for (let i = 0; i < updatedProducts.length; i++) {
+            let updatedProduct = updatedProducts[i];
             if (input === updatedProduct.title) {
                 if (updatedProduct.checked === false) {
-                    let result = confirm(`"${updatedProduct.title}" ist bereits vorhanden. Möchten Sie die Anzahl um 1 erhöhen?`)
+                    let result = confirm(`"${updatedProduct.title}" ist bereits vorhanden. Möchten Sie die Anzahl um 1 erhöhen?`);
                     if (result) {
                         let product = updatedProduct;
                         updateAmount(product.amount + 1, product.id);
@@ -57,7 +60,7 @@ export const addProduct = async (input) => {
                     return;
                 }
             }
-        });
+        }
         let category = getCategory(input);
         let sort = await getSort(category);
         await supabase.from('products').insert([{title: input, category: category, sort: sort, user_id: supabase.auth.user().id}]);
@@ -120,6 +123,7 @@ export const changeCategory = async (input, oldCategory, category, id) => {
     updatedCategories[category] = [input.toLowerCase(), ...updatedCategories[category]];
     await supabase.from('userdata').update({"categories": updatedCategories}).eq("user_id", get(user).id);
     getProducts();
+    getUserData();
 }
 
 
@@ -138,8 +142,8 @@ export const changePriorities = async (changedPriorities) => {
         let id = updatedProduct.id;
         let sort = await getSort(updatedProduct.category);
         await supabase.from('products').update({"sort": sort}).eq("id", id);
+        location.reload();
     });
-    getProducts();
 }
 
 const getSort = async (category) => {

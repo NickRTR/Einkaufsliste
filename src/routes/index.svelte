@@ -1,7 +1,7 @@
 <script>
     import {products, user, theme, priorityToCategory} from "$lib/stores.js";
     import {onMount} from "svelte";
-    import {getProducts, addProduct, logout, getTheme, setTheme, changePriorities} from "$lib/supabase.js";
+    import {getProducts, addProduct, logout, getTheme, setTheme, getUserData, changePriorities} from "$lib/supabase.js";
 
     import ProductCard from "$lib/components/productCard.svelte";
     import DragDropList from "$lib/components/DragDropList.svelte";
@@ -9,6 +9,7 @@
     onMount(() => {
         getProducts();
         getTheme();
+        getUserData();
     });
 
     let input = "";
@@ -28,12 +29,6 @@
             suggestions = [];
         }
     }
-
-    let priorities = $priorityToCategory;
-
-    $: if ($priorityToCategory !== undefined && priorities === undefined) {
-        priorities = $priorityToCategory;
-    }
 </script>
 
 <svelte:head>
@@ -52,8 +47,8 @@
 
         {#if showSort}
             <div class="sort">
-                <DragDropList bind:data={priorities}/>
-                <button class="submitSort" type="submit" on:click|preventDefault={() => {changePriorities(priorities); showSort = !showSort}}>Sortierung anpassen</button>
+                <DragDropList bind:data={$priorityToCategory}/>
+                <button class="submitSort" type="submit" on:click|preventDefault={() => {changePriorities($priorityToCategory); showSort = !showSort}}>Sortierung anpassen</button>
             </div>
         {/if}
 
