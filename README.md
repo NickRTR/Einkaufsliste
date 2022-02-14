@@ -1,4 +1,4 @@
-# Einkaufsliste
+# Schoppy
 
 Eine simple Einkaufsliste mit Echtzeit Datenbank.
 
