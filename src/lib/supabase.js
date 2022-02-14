@@ -33,7 +33,7 @@ export const getTheme = async () => {
 
 export const setTheme = async () => {
     let index = colors.findIndex(color => get(theme) === color);
-    if (index === colors.length) {
+    if (index === colors.length - 1 || index === -1) {
         theme.set(colors[0]);
     } else {
         theme.set(colors[index + 1]);
