@@ -1,7 +1,7 @@
 <script>
-    import {products, user, theme, priorityToCategory} from "$lib/stores.js";
-    import {onMount} from "svelte";
-    import {getProducts, addProduct, logout, getTheme, setTheme, getUserData, changePriorities} from "$lib/supabase.js";
+    import { products, user, theme, priorityToCategory } from "$lib/stores.js";
+    import { onMount } from "svelte";
+    import { getProducts, addProduct, logout, getTheme, setTheme, getUserData, changePriorities } from "$lib/supabase.js";
 
     import ProductCard from "$lib/components/productCard.svelte";
     import DragDropList from "$lib/components/DragDropList.svelte";

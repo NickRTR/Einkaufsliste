@@ -18,7 +18,7 @@ export const getProducts = async () => {
 }
 
 export const getUserData = async () => {
-    let {data: userdata} = await supabase.from('userdata').select('*'); // get userdata
+    let {data: userdata} = await supabase.from('userdata').select('categories, priorityToCategory'); // get userdata
     userdata = userdata[0];
     // set categories
     categories.set(userdata.categories);
@@ -109,7 +109,6 @@ export const getCategory = (input) => {
             return category;
         }
     }
-
     return "choose";
 }
 
