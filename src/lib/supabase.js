@@ -1,7 +1,10 @@
 import supabase from "$lib/db.js";
-import {get} from "svelte/store";
-import {goto} from "$app/navigation";
-import {products, theme, user, categories, priorityToCategory} from "$lib/stores.js";
+import { get } from "svelte/store";
+import { goto } from "$app/navigation";
+import { products, theme, user, categories, priorityToCategory } from "$lib/stores";
+
+// white, lightpink, purple, babyblue, babygreen, orange
+const colors = ["#EEE", "#F2CCC3", "#B7D3F2", "#a1c181", "#e9c46a"];
 
 const userId = get(user).id;
 var updatedCategories;
@@ -10,18 +13,32 @@ let updatedProducts;
 
 export const getProducts = async () => {
     let {data: dbProducts} = await supabase.from('products').select("*").order("sort", {ascending: true});
-    products.update(products => [...dbProducts]);
+    products.set([...dbProducts]);
     updatedProducts = dbProducts;
 
     let {data: userdata} = await supabase.from('userdata').select('*');
     userdata = userdata[0];
-    theme.update(theme => userdata.theme);
 
-    categories.update(categories => userdata.categories);
+    categories.set(userdata.categories);
     updatedCategories = userdata.categories;
 
     priorities = userdata.priorityToCategory;
-    priorityToCategory.update(priorityToCategory => Object.values(priorities));
+    priorityToCategory.set(Object.values(priorities));
+}
+
+export const getTheme = async () => {
+    let {data: dbTheme} = await supabase.from('userdata').select('theme');
+    theme.set(colors[dbTheme[0].theme]);
+}
+
+export const setTheme = async () => {
+    let index = colors.findIndex(color => get(theme) === color);
+    if (index === colors.length) {
+        theme.set(colors[0]);
+    } else {
+        theme.set(colors[index + 1]);
+    }
+    await supabase.from('userdata').update({"theme": index + 1}).eq("user_id", userId);
 }
 
 export const addProduct = async (input) => {
@@ -105,10 +122,6 @@ export const changeCategory = async (input, oldCategory, category, id) => {
     getProducts();
 }
 
-export const setTheme = async (color) => {
-    theme.update(old => color);
-    await supabase.from('userdata').update({"theme": color}).eq("user_id", userId);
-}
 
 export const createUserData = async (userId) => {
     await supabase.from('userdata').insert([
@@ -117,7 +130,7 @@ export const createUserData = async (userId) => {
 }
 
 export const changePriorities = async (changedPriorities) => {
-    priorityToCategory.update(old => changedPriorities);
+    priorityToCategory.set(changedPriorities);
     await supabase.from('userdata').update({"priorityToCategory": changedPriorities}).eq("user_id", userId);
     priorities = changedPriorities;
 
@@ -140,7 +153,7 @@ const getSort = async (category) => {
 // auth
 export const logout = async () => {
     let {error} = await supabase.auth.signOut();
-    user.update(user => false)
+    user.set(false)
     localStorage.clear();
     if (error) {
         console.log(error);

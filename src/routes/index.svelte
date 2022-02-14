@@ -1,13 +1,14 @@
 <script>
     import {products, user, theme, priorityToCategory} from "$lib/stores.js";
     import {onMount} from "svelte";
-    import {getProducts, addProduct, logout, setTheme, changePriorities} from "$lib/supabase.js";
+    import {getProducts, addProduct, logout, getTheme, setTheme, changePriorities} from "$lib/supabase.js";
 
     import ProductCard from "$lib/components/productCard.svelte";
     import DragDropList from "$lib/components/DragDropList.svelte";
 
     onMount(() => {
         getProducts();
+        getTheme();
     });
 
     let input = "";
@@ -28,19 +29,6 @@
         }
     }
 
-    // white, lightpink, purple, babyblue, babygreen, orange
-    const colors = ["#EEE", "#F2CCC3", "#B7D3F2", "#a1c181", "#e9c46a"];
-    $: primaryColor = colors[$theme];
-
-    const changePrimary = () => {
-        let currentColor = $theme;
-        currentColor++;
-        if (currentColor == colors.length) {
-            currentColor = 0;
-        }
-        setTheme(currentColor, $user.id);
-    }
-
     let priorities = $priorityToCategory;
 
     $: if ($priorityToCategory !== undefined && priorities === undefined) {
@@ -52,14 +40,14 @@
     <title>Schoppy-Einkaufsliste</title>
 </svelte:head>
 
-<body style="--primary: {primaryColor}">
+<body style="--primary: {$theme}">
     <div class="user">
         <h4>Willkommen {$user?.email ? $user.email : ""}!</h4>
         <p on:click={logout}>logout</p>
     </div>
 
     <div class="body">
-        <h1 on:click={() => {changePrimary()}}>Einkaufsliste</h1>
+        <h1 on:click={setTheme}>Einkaufsliste</h1>
         <p class="showSort" on:click={() => {showSort = !showSort}}>Kategorien sortieren</p>
 
         {#if showSort}
