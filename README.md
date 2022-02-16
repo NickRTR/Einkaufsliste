@@ -1,7 +1,13 @@
 # Schoppy
 
-Eine simple Einkaufsliste mit Echtzeit Datenbank.
+A simple, yet feature packed and powerful shopping list.
 
-Easter Egg: Drückt man auf den Titel (Einkaufsliste), ändert sich das Farbschema.
+Easter Egg: To change the color scheme, just click the title ("Schoppy").
 
-Möchte man die gleiche Liste mit mehreren Familienmitgliedern benutzen, kann man sich mit der gleichen email Adresse und dem gleichen Passwort anmelden.
+# Functionality
+
+- Login and Signup with email and password
+- Add Products with title, quantity and category (fruits, vegetables, milk, ...)
+- Delete, check and edit Products
+- Change product category
+- Change product category sort order
