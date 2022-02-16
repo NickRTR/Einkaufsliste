@@ -42,7 +42,7 @@
     </div>
 
     <div class="body">
-        <h1 on:click={setTheme}>Einkaufsliste</h1>
+        <h1 on:click={setTheme}>Schoppy</h1>
         <p class="showSort" on:click={() => {showSort = !showSort}}>Kategorien sortieren</p>
 
         {#if showSort}
