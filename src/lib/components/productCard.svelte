@@ -2,6 +2,7 @@
     import { deleteProduct, toggleChecked, changeCategory, updateAmount, updateType } from "$lib/supabase.js";
 
     export let product;
+    export let wordList;
     let showChangeCategory = false;
 
     const categories = ["Gemüse", "Obst", "Vorrat", "Fleisch", "Gefriertruhe", "Kühlregal", "Haushalt", "Süßigkeiten", "Getränke"];
@@ -9,18 +10,18 @@
  
 <div class="container">
     <div class="Card">
-        <img type="image" src="/category/{product.category}.svg" alt={product.category} title={product.category} on:click={() => {showChangeCategory = !showChangeCategory}}>
+        <img type="image" src="/category/{product.category}.svg" alt={wordList.categories[product.category]} title={wordList.categories[product.category]} on:click={() => {showChangeCategory = !showChangeCategory}}>
         <p on:click={() => {showChangeCategory = !showChangeCategory}}>{product.title}</p>
         <div class="stats">
             <div class="quantity">
                 <input type="text" maxlength="3" value={product.amount} on:input={(event) => {updateAmount(event.target.value, product.id)}}>
                 <select value={product.type} on:change={(event) => {updateType(event.target.value, product.id);
                 }}>
-                    <option value="stk">stk</option>
-                    <option value="gr">gr</option>
-                    <option value="kg">kg</option>
-                    <option value="ml">ml</option>
-                    <option value="l">l</option>
+                    <option value="stk">{wordList.index["pcs"]}</option>
+                    <option value="gr">{wordList.index["gr"]}</option>
+                    <option value="kg">{wordList.index["kg"]}</option>
+                    <option value="ml">{wordList.index["ml"]}</option>
+                    <option value="l">{wordList.index["l"]}</option>
                 </select>
             </div>
             <div class="status">
@@ -33,8 +34,8 @@
         <div class="changeCategory">
             {#each categories as category}
                 <div on:click={() => {showChangeCategory = !showChangeCategory; changeCategory(product.title, product.category, category, product.id)}}>
-                    <p>{category}</p>
-                    <img src="/category/{category}.svg" alt={category} title={category}>
+                    <p>{wordList.categories[category]}</p>
+                    <img src="/category/{category}.svg" alt={wordList.categories[category]} title={wordList.categories[category]}>
                 </div>
             {/each}
         </div>

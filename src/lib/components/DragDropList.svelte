@@ -2,6 +2,9 @@
     import {flip} from "svelte/animate";
     
     export let data = [];
+    export let wordList;
+
+    
 
     let ghost;
     let grabbed;
@@ -195,7 +198,7 @@
                     {:else if datum.text}
                         <p>{datum.text}</p>
                     {:else}
-                        <p>{datum}</p>
+                        <p>{wordList[datum]}</p>
                     {/if}
                 </div>
             </div>

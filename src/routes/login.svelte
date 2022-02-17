@@ -1,8 +1,17 @@
 <script>
-    import {goto} from "$app/navigation";
+    import { goto } from "$app/navigation";
     import supabase from "$lib/db.js";
-    import {user} from "$lib/stores.js";
-    import {createUserData} from "$lib/supabase.js";
+    import { user } from "$lib/stores.js";
+    import { createUserData } from "$lib/supabase.js";
+    import { onMount } from "svelte";
+    import { translate } from "$lib/translations/translate";
+    import { translation } from "$lib/translations/en";
+
+    let wordList = translation;
+
+    onMount(async () => {
+        wordList = await translate(navigator.language);
+    });
 
     let emailInput = "";
     let passwordInput = "";
@@ -59,28 +68,28 @@
 
 <body>
     {#if isNewRegistration}
-        <h1 on:click={() => {isNewRegistration = !isNewRegistration}}>Registrieren</h1>
+        <h1 on:click={() => {isNewRegistration = !isNewRegistration}}>{wordList.login.unregistered.title}</h1>
     {:else}
-        <h1 on:click={() => {isNewRegistration = !isNewRegistration}}>Einloggen</h1>
+        <h1 on:click={() => {isNewRegistration = !isNewRegistration}}>{wordList.login.registered.title}</h1>
     {/if}
     
 
     <form on:submit|preventDefault>
         <label for="email">E-mail: </label><br>
-        <input type="email" id="email" placeholder="email@email.de" bind:value={emailInput}><br>
+        <input type="email" id="email" placeholder="email@email.com" bind:value={emailInput}><br>
         <label for="password">Passwort: </label><br>
         <div class="password">
-            <input type="password" id="password" placeholder="Passwort" bind:value={passwordInput}>
+            <input type="password" id="password" placeholder={wordList.login.password} bind:value={passwordInput}>
             <input type="checkbox" id="togglePassword" class:show={showPassword} bind:checked={showPassword} on:change={() => {document.querySelector('#password').type = showPassword ? 'text' : 'password'}}>
             <label class="viewPasswordLabel" for="togglePassword"><img src="showPassword.svg" alt="show"></label><br>
         </div>
 
         {#if isNewRegistration}
-            <button on:click={signUp}>registrieren</button>
-            <p on:click={() => {isNewRegistration = !isNewRegistration}}>Besitzen Sie bereits einen Account?</p>
+            <button on:click={signUp}>{wordList.login.unregistered.title}</button>
+            <p on:click={() => {isNewRegistration = !isNewRegistration}}>{wordList.login.unregistered.switch}</p>
         {:else}
-            <button  on:click={logIn}>einloggen</button>
-            <p on:click={() => {isNewRegistration = !isNewRegistration}}>Neuen Account erstellen?</p>
+            <button  on:click={logIn}>{wordList.login.registered.title}</button>
+            <p on:click={() => {isNewRegistration = !isNewRegistration}}>{wordList.login.registered.switch}</p>
         {/if}
     </form>
 </body>

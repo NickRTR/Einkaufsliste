@@ -1,12 +1,18 @@
 <script>
     import { products, user, theme, priorityToCategory } from "$lib/stores.js";
     import { onMount } from "svelte";
+    import { translate } from "$lib/translations/translate";
+    import { translation } from "$lib/translations/en";
     import { getProducts, addProduct, logout, getTheme, setTheme, getUserData, changePriorities } from "$lib/supabase.js";
 
     import ProductCard from "$lib/components/productCard.svelte";
     import DragDropList from "$lib/components/DragDropList.svelte";
 
-    onMount(() => {
+    let wordList = translation;
+
+    onMount(async () => {
+        wordList = await translate(navigator.language);
+
         getProducts();
         getTheme();
         getUserData();
@@ -32,29 +38,29 @@
 </script>
 
 <svelte:head>
-    <title>Schoppy-Einkaufsliste</title>
+    <title>Schoppy</title>
 </svelte:head>
 
 <body style="--primary: {$theme}">
     <div class="user">
-        <h4>Willkommen {$user?.email ? $user.email : ""}!</h4>
-        <p on:click={logout}>logout</p>
+        <h4>{wordList.index.welcome} {$user?.email ? $user.email : ""}!</h4>
+        <p on:click={logout}>{wordList.index.logout}</p>
     </div>
 
     <div class="body">
         <h1 on:click={setTheme}>Schoppy</h1>
-        <p class="showSort" on:click={() => {showSort = !showSort}}>Kategorien sortieren</p>
+        <p class="showSort" on:click={() => {showSort = !showSort}}>{wordList.index.sort}</p>
 
         {#if showSort}
             <div class="sort">
-                <DragDropList bind:data={$priorityToCategory}/>
-                <button class="submitSort" type="submit" on:click|preventDefault={() => {changePriorities($priorityToCategory); showSort = !showSort}}>Sortierung anpassen</button>
+                <DragDropList bind:data={$priorityToCategory} wordList={wordList.categories} />
+                <button class="submitSort" type="submit" on:click|preventDefault={() => {changePriorities($priorityToCategory); showSort = !showSort}}>{wordList.index.sort}</button>
             </div>
         {/if}
 
         <form class="addProduct" on:submit|preventDefault={() => {addProduct(input); input = "";}}>
             <input type="text" bind:value={input}>
-            <button type="submit">Add</button>
+            <button type="submit">{wordList.index.add}</button>
         </form>
         {#each suggestions as suggestion}
             <div class="suggestion" on:click={() => {addProduct(suggestion); input = "";}}>{suggestion}</div>
@@ -62,7 +68,7 @@
         <div class="products">
             {#each $products as product}
                 {#if !product.checked}
-                    <ProductCard {product}/>
+                    <ProductCard {product} wordList={wordList} />
                 {/if}
             {:else}
             <p>Keine Produkte vorhanden.</p>
@@ -72,7 +78,7 @@
             <p class="divider"></p>
             {#each $products as product}
                 {#if product.checked}
-                    <ProductCard {product}/>
+                    <ProductCard {product} wordList={wordList}/>
                 {/if}
             {/each}
         </div>
