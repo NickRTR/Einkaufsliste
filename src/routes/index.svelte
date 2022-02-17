@@ -160,7 +160,7 @@
 
     input {
         margin: 0;
-        width: 75%;
+        width: 55%;
         height: 2rem;
         padding: 0 .5rem;
         padding-top: .2rem;
