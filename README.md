@@ -12,3 +12,17 @@ Easter Egg: To change the color scheme, just click the title ("Schoppy").
 - Change product category
 - Change product category sort order
 - Support for multiple languages including English, German and France.
+
+---
+
+<p>
+    <img src="./static/category/Fleisch.svg" width=100>
+    <img src="./static/category/Gefriertruhe.svg" width=100>
+    <img src="./static/category/Gemüse.svg" width=100>
+    <img src="./static/category/Getränke.svg" width=100>
+    <img src="./static/category/Haushalt.svg" width=100>
+    <img src="./static/category/Kühlregal.svg" width=100>
+    <img src="./static/category/Obst.svg" width=100>
+    <img src="./static/category/Süßigkeiten.svg" width=100>
+    <img src="./static/category/Vorrat.svg" width=100>
+</p>
