@@ -12,7 +12,6 @@
 
     onMount(async () => {
         wordList = await translate(navigator.language);
-
         getProducts();
         getTheme();
         getUserData();

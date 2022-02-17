@@ -8,6 +8,9 @@ export const translate = async (language) => {
         case "en":
             languageTranslation = await import("$lib/translations/en");
             return languageTranslation.translation;
+        case "fr":
+            languageTranslation = await import("$lib/translations/fr");
+            return languageTranslation.translation;
         default:
             languageTranslation = await import("$lib/translations/en");
             return languageTranslation.translation;

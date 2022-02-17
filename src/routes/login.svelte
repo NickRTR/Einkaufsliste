@@ -66,13 +66,16 @@
     }
 </script>
 
+<svelte:head>
+    <title>Schoppy - Login</title>
+</svelte:head>
+
 <body>
     {#if isNewRegistration}
         <h1 on:click={() => {isNewRegistration = !isNewRegistration}}>{wordList.login.unregistered.title}</h1>
     {:else}
         <h1 on:click={() => {isNewRegistration = !isNewRegistration}}>{wordList.login.registered.title}</h1>
     {/if}
-    
 
     <form on:submit|preventDefault>
         <label for="email">E-mail: </label><br>

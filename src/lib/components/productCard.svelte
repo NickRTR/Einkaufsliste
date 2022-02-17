@@ -59,6 +59,7 @@
 
     img {
         height: 3.5rem;
+        cursor: pointer;
     }
 
     p {
@@ -133,6 +134,7 @@
         margin: 0 .625rem;
         background-color: var(--primary);
         padding: .2rem;
+        cursor: pointer;
     }
 
     .changeCategory > div {
