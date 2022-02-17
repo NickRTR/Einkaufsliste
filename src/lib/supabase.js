@@ -103,10 +103,20 @@ export const getCategory = (input) => {
     input = input.trim();
 
     for (let i = 0; i < categoryList.length; i++) {
+        // first, check if there's an explicit fit
         if (updatedCategories[categoryList[i]].includes(input)) {
             let category = categoryList[i];
-            getSort(category)
+            console.log("yeah");
             return category;
+        }
+
+        // then check if there's an other not perfect fitting entry
+        for (let y = 0; y < updatedCategories[categoryList[i]].length; y++) {
+            let product = updatedCategories[categoryList[i]];
+            if (product[y].includes(input)) {
+                let category = categoryList[i];
+                return category;
+            }
         }
     }
     return "choose";
