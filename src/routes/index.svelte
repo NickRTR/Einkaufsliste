@@ -91,26 +91,23 @@
     }
 
     body {
-        background-color: black;
         text-align: center;
         color: var(--primary);
     }
 
     .user {
         display: flex;
+        justify-content: space-between;
+        padding: .5rem;
     }
 
     h4 {
         margin: 0;
-        margin-top: .5rem;
-        margin-left: .5rem;
         font-weight: 400;
     }
 
     .user > p {
-        margin-top: .5rem;
-        margin-left: auto;
-        margin-right: .5rem;
+        margin: 0;
         text-decoration: underline;
         cursor: pointer;
     }
@@ -163,10 +160,8 @@
         width: 55%;
         height: 2rem;
         padding: 0 .5rem;
-        padding-top: .2rem;
         color: black;
-        font-size: 1.125rem;
-        line-height: 1.75rem;
+        font-size: 1.25rem;
         font-weight: 600;
         border-radius: .75rem;
         border: none;
