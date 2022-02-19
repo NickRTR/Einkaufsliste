@@ -1,5 +1,10 @@
 export const translate = async (language) => {
     let languageTranslation;
+    
+    if (language === "en-US") {
+        languageTranslation = await import("$lib/translations/en_us");
+        return languageTranslation.translation;
+    }
 
     switch (language.substr(0,2)) {
         case "de":
