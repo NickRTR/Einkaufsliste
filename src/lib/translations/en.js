@@ -4,7 +4,7 @@ export const translation = {
         logout: "logout",
         sort: "sort categories",
         add: "Add",
-        pcs: "pcs",
+        pcs: "pc(s)",
         gr: "gr",
         kg: "kg",
         ml: "ml",
@@ -13,13 +13,13 @@ export const translation = {
     categories: {
         Gemüse: "vegetables",
         Obst: "fruits",
-        Vorrat: "reserve",
+        Vorrat: "pantry",
         Fleisch: "meat",
         Gefriertruhe: "frozen",
         Kühlregal: "cooled",
         Haushalt: "household",
         Süßigkeiten: "sweets",
-        Getränke: "drinks"
+        Getränke: "beverage"
     },
     login: {
         registered: {
