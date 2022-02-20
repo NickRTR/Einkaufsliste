@@ -30,6 +30,6 @@ export const translation = {
             title: "Register",
             switch: "Have you already created an account?"
         },
-        password: "Password"
+        password: "password"
     }
 }
