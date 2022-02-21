@@ -23,5 +23,6 @@
 
     :global(button) {
         cursor: pointer;
+        color: black;
     }
 </style>

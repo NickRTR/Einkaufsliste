@@ -74,6 +74,7 @@
     }
 
     #amount {
+        margin: 0;
         width: 2rem;
         border-radius: .75rem;
         border-top-right-radius: 0;
@@ -88,6 +89,7 @@
     }
 
     select {
+        margin: 0;
         border: none;
         padding: .125rem 0;
         padding-right: .4rem;
