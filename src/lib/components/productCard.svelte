@@ -1,5 +1,5 @@
 <script>
-    import { deleteProduct, toggleChecked, changeCategory, updateAmount, updateType } from "$lib/supabase.js";
+    import { updateTitle, deleteProduct, toggleChecked, changeCategory, updateAmount, updateType } from "$lib/supabase.js";
 
     export let product;
     export let wordList;
@@ -11,10 +11,11 @@
 <div class="container">
     <div class="Card">
         <img type="image" src="/category/{product.category}.svg" alt={wordList.categories[product.category]} title={wordList.categories[product.category]} on:click={() => {showChangeCategory = !showChangeCategory}}>
-        <p on:click={() => {showChangeCategory = !showChangeCategory}}>{product.title}</p>
+        <!-- <p on:click={() => {showChangeCategory = !showChangeCategory}}>{product.title}</p> -->
+        <input type="text" id="title" value={product.title} on:input={(event) => {updateTitle(product.id, event.target.value)}} >
         <div class="stats">
             <div class="quantity">
-                <input type="text" maxlength="3" value={product.amount} on:input={(event) => {updateAmount(event.target.value, product.id)}}>
+                <input type="text" id="amount" maxlength="3" value={product.amount} on:input={(event) => {updateAmount(event.target.value, product.id)}}>
                 <select value={product.type} on:change={(event) => {updateType(event.target.value, product.id);
                 }}>
                     <option value="stk">{wordList.index["pcs"]}</option>
@@ -62,11 +63,15 @@
         cursor: pointer;
     }
 
-    p {
+    #title {
+        width:100%;
+        outline: none;
         font-size: 1.5rem;
         line-height: 2rem;
         margin: 0 .5rem;
         font-weight: 500;
+        background-color:var(--primary);
+        border: none;
     }
 
     .stats {
@@ -78,7 +83,7 @@
         margin-bottom: 0.25rem;
     }
 
-    input[type=text] {
+    #amount {
         width: 2rem;
         border-radius: .75rem;
         border-top-right-radius: 0;
@@ -91,7 +96,6 @@
         margin: 0;
         font-size: 1.1rem;
         line-height: 1.5rem;
-        border: none;
     }
 
     select {

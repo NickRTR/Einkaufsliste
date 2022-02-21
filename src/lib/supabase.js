@@ -72,6 +72,13 @@ export const addProduct = async (input) => {
     }
 }
 
+export const updateTitle = async (id, title) => {
+    if (title !== "") {
+        await supabase.from('products').update({"title": title}).eq("id", id);
+    }
+    getProducts();
+}
+
 export const toggleChecked = async (id, created, checked) => {
     let now = created;
     if (checked == true) {

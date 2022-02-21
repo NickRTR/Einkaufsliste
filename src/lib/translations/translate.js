@@ -19,7 +19,6 @@ export const translate = async (language) => {
         case "de":
             languageTranslation = await import("$lib/translations/de");
             return languageTranslation.translation;
-        // no english needed, because default is english
         default:
             languageTranslation = await import("$lib/translations/en");
             return languageTranslation.translation;
