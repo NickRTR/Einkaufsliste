@@ -12,7 +12,7 @@
     <div class="Card">
         <img type="image" src="/category/{product.category}.svg" alt={wordList.categories[product.category]} title={wordList.categories[product.category]} on:click={() => {showChangeCategory = !showChangeCategory}}>
         <!-- <p on:click={() => {showChangeCategory = !showChangeCategory}}>{product.title}</p> -->
-        <input type="text" id="title" value={product.title} on:input={(event) => {updateTitle(product.id, event.target.value)}} >
+        <input type="text" id="title" value={product.title} on:change={(event) => {updateTitle(product.id, event.target.value, product.category)}}>
         <div class="stats">
             <div class="quantity">
                 <input type="text" id="amount" maxlength="3" value={product.amount} on:input={(event) => {updateAmount(event.target.value, product.id)}}>
