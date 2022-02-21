@@ -124,7 +124,7 @@ export const getCategory = (input) => {
     for (let i = 0; i < priorities.length; i++) {
         for (let y = 0; y < updatedCategories[priorities[i]].length; y++) {
             let product = updatedCategories[priorities[i]];
-            if (product[y].includes(input)) {
+            if (product[y].includes(input) || input.includes(product[y])) {
                 let category = priorities[i];
                 return category;
             }
