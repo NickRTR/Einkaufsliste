@@ -20,4 +20,8 @@
         font-family: Arial, Helvetica, sans-serif;
         margin: 0;
     }
+
+    :global(button) {
+        cursor: pointer;
+    }
 </style>

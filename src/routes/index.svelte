@@ -103,7 +103,7 @@
 
     h4 {
         margin: 0;
-        font-weight: 400;
+        font-weight: normal;
     }
 
     .user > p {
@@ -116,15 +116,12 @@
         margin: 0;
         margin-top: .1rem;
         font-size: 2.25rem;
-        line-height: 2.5rem;
         font-weight: 600;
         cursor: pointer;
     }
 
     .showSort {
         margin: .4rem 0;
-        background-color: black;
-        color: var(--primary);
         text-decoration: underline;
         cursor: pointer;
     }
@@ -145,7 +142,6 @@
         color: var(--primary);
         border-radius: .75rem;
         border: none;
-        cursor: pointer;
     }
 
     .addProduct {
@@ -156,11 +152,9 @@
     }
 
     input {
-        margin: 0;
         width: 55%;
         height: 2rem;
         padding: 0 .5rem;
-        color: black;
         font-size: 1.25rem;
         font-weight: 600;
         border-radius: .75rem;
@@ -170,13 +164,11 @@
 
     form > button {
         font-size: 1.125rem;
-        line-height: 1.75rem; 
-        font-weight: 600;
+        line-height: 1.75rem; font-weight: 600;
         padding: 0 .5rem;
         padding-top: .1rem;
         margin-left: .375rem;
         background-color: var(--primary);
-        color: black;
         border-radius: .75rem;
         border: none;
     }
@@ -185,7 +177,7 @@
         cursor: pointer;
         text-decoration: underline;
         font-size: 1.125rem;
-        line-height: 1.75rem; 
+        line-height: 1.5rem; 
     }
 
     .divider {
@@ -195,7 +187,7 @@
 
     @media only screen and (max-width: 600px) {
         body {
-            margin: 0 ;
+            margin: 0;
         }
     }
 

@@ -104,7 +104,7 @@
     }
 
     h1 {
-        margin: 0ch;
+        margin: 0;
         font-size: 2.25rem;
         padding: .75rem 0;
         font-weight: 600;
@@ -119,10 +119,9 @@
     input {
         border: none;
         border-radius: 1rem;
-        color: black;
         font-size: 1.25rem;
         font-weight: 600;
-        padding: 0 0.75rem;
+        padding: 0 0.5rem;
         margin: 0.5rem 0;
         width: 80%;
         max-width: 300px;
@@ -167,7 +166,6 @@
         padding: .4rem .75rem;
         margin-top: 0.5rem;
         background-color: #EEE;
-        color: black;
         font-weight: 600;
         border-radius: 1rem;
     }

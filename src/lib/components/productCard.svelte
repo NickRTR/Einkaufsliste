@@ -44,10 +44,6 @@
 </div>
 
 <style>
-    .container {
-        color: black;
-    }
-
     .Card {
         display: flex;
         align-items: center;
@@ -68,19 +64,13 @@
         outline: none;
         font-size: 1.5rem;
         line-height: 2rem;
-        margin: 0 .5rem;
         font-weight: 500;
         background-color:var(--primary);
         border: none;
     }
 
-    .stats {
-        margin-left: auto;
-    }
-
     .quantity {
         display: flex;
-        margin-bottom: 0.25rem;
     }
 
     #amount {
@@ -93,14 +83,12 @@
         border: none;
         padding: .1rem .25rem;
         padding-top: .2rem;
-        margin: 0;
         font-size: 1.1rem;
         line-height: 1.5rem;
     }
 
     select {
         border: none;
-        margin: 0;
         padding: .125rem 0;
         padding-right: .4rem;
         border-radius: .5rem;
@@ -122,7 +110,6 @@
         margin-right: .25rem;
         width: 1.75rem;
         height: 1.75rem;
-        /* vertical-align: middle; */
     }
 
     input[type=image] {
@@ -133,18 +120,18 @@
     .changeCategory {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        justify-content: center;
         border-radius: .75rem;
         margin: 0 .625rem;
         background-color: var(--primary);
         padding: .2rem;
-        cursor: pointer;
+        color: black;
     }
-
+    
     .changeCategory > div {
         margin: .2rem;
         border-radius: .5rem;
         border: 2px solid black;
+        cursor: pointer;
     }
 
     .changeCategory > div > p {
@@ -156,7 +143,5 @@
 
     .changeCategory > div > img {
         height: 2.5rem;
-        margin: 0 auto;
-        margin-bottom: .2rem;
     }
 </style>
