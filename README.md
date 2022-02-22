@@ -11,7 +11,7 @@ Easter Egg: To change the color scheme, just click the title ("Schoppy").
 - Delete, check and edit Products
 - Change product category
 - Change product category sort order
-- Support for multiple languages including English, German and France.
+- Support for multiple languages including English, German, Spanish, France, Chinese and Arabic.
 
 ---
 
