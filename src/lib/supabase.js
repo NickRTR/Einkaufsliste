@@ -3,7 +3,7 @@ import { get } from "svelte/store";
 import { goto } from "$app/navigation";
 import { products, theme, user, categories, priorityToCategory } from "$lib/stores";
 
-// white, lightpink, purple, babyblue, babygreen, orange
+// white, lightpink, babyblue, babygreen, orange
 const colors = ["#EEE", "#F2CCC3", "#B7D3F2", "#a1c181", "#e9c46a"];
 
 // stringify Categories for Supabase
@@ -120,6 +120,9 @@ export const getCategory = (input) => {
             let category = priorities[i];
             return category;
         }
+    }
+    if (input.length <= 3) {
+        return "choose";
     }
 
     //then check if there's an other not perfect fitting entry

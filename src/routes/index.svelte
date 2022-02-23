@@ -5,7 +5,7 @@
     import { translation } from "$lib/translations/en";
     import { getProducts, addProduct, logout, getTheme, setTheme, getUserData, changePriorities } from "$lib/supabase.js";
 
-    import ProductCard from "$lib/components/productCard.svelte";
+    import ProductCard from "$lib/components/ProductCard.svelte";
     import DragDropList from "$lib/components/DragDropList.svelte";
 
     let wordList = translation;
@@ -86,10 +86,6 @@
 </body>
 
 <style>
-    :global(:root) {
-        --primary: primaryColor;
-    }
-
     body {
         text-align: center;
         color: var(--primary);
@@ -181,7 +177,8 @@
     }
 
     .divider {
-        border-top: 2px solid var(--primary);
+        border-radius: 1rem;
+        border-top: 4px solid var(--primary);
         margin: .6rem;
     }
 

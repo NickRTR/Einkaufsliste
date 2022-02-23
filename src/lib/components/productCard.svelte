@@ -11,7 +11,6 @@
 <div class="container">
     <div class="Card">
         <img type="image" src="/category/{product.category}.svg" alt={wordList.categories[product.category]} title={wordList.categories[product.category]} on:click={() => {showChangeCategory = !showChangeCategory}}>
-        <!-- <p on:click={() => {showChangeCategory = !showChangeCategory}}>{product.title}</p> -->
         <input type="text" id="title" value={product.title} on:change={(event) => {updateTitle(product.id, event.target.value, product.category)}}>
         <div class="stats">
             <div class="quantity">
@@ -82,6 +81,7 @@
         background-color: black;
         color: white;
         border: none;
+        outline: none;
         padding: .1rem .25rem;
         padding-top: .2rem;
         font-size: 1.1rem;
@@ -99,6 +99,7 @@
         background-color: black;
         color: white;
         font-size: 1.1rem;
+        outline: none;
     }
 
     .status {
