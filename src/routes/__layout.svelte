@@ -16,9 +16,13 @@
 
 <style>
     * {
-        -webkit-appearance:none;
+        -webkit-appearance: none;
         font-family: Arial, Helvetica, sans-serif;
         margin: 0;
+    }
+
+    :global(:root) {
+        --primary: "#EEE";
     }
 
     :global(button) {
