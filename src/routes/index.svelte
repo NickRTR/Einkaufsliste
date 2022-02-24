@@ -1,6 +1,7 @@
 <script>
     import { products, user, theme, priorityToCategory } from "$lib/stores.js";
     import { onMount } from "svelte";
+    import { slide } from "svelte/transition";
     import { translate } from "$lib/translations/translate";
     import { translation } from "$lib/translations/en";
     import { getProducts, addProduct, logout, getTheme, setTheme, getUserData, changePriorities } from "$lib/supabase.js";
@@ -51,7 +52,7 @@
         <p class="showSort" on:click={() => {showSort = !showSort}}>{wordList.index.sort}</p>
 
         {#if showSort}
-            <div class="sort">
+            <div class="sort" transition:slide|local="{{duration: 800}}">
                 <DragDropList bind:data={$priorityToCategory} wordList={wordList.categories} />
                 <button class="submitSort" type="submit" on:click|preventDefault={() => {changePriorities($priorityToCategory); showSort = !showSort}}>{wordList.index.sort}</button>
             </div>

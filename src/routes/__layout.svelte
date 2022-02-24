@@ -21,10 +21,6 @@
         margin: 0;
     }
 
-    :global(:root) {
-        --primary: "#EEE";
-    }
-
     :global(button) {
         cursor: pointer;
         color: black;

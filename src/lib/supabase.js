@@ -41,10 +41,11 @@ export const setTheme = async () => {
     let index = colors.findIndex(color => get(theme) === color);
     if (index === colors.length - 1 || index === -1) {
         theme.set(colors[0]);
+        await supabase.from('userdata').update({"theme": 0}).eq("user_id", userId);
     } else {
         theme.set(colors[index + 1]);
+        await supabase.from('userdata').update({"theme": index + 1}).eq("user_id", userId);
     }
-    await supabase.from('userdata').update({"theme": index + 1}).eq("user_id", userId);
 }
 
 export const addProduct = async (input) => {
