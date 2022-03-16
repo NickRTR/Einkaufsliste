@@ -41,7 +41,7 @@
 
         for (let i = 0; i < $products.length; i++) {
             let product = $products[i]
-            data += `( ) ${product.title} (${product.amount} ${product.type}) (${wordList.categories[product.category]}) \n`
+            data += `◯ ${product.title} (${product.amount} ${product.type}) (${wordList.categories[product.category]}) \n`
         }
 
         if (navigator.share) {
