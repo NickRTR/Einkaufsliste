@@ -35,6 +35,27 @@
             suggestions = [];
         }
     }
+
+    const shareList = () => {
+        let data = "Schoppy\n\n";
+
+        for (let i = 0; i < $products.length; i++) {
+            let product = $products[i]
+            data += `- ${product.title} (${product.amount} ${product.type}) \n`
+        }
+
+        if (navigator.share) {
+            navigator.share({
+                title: 'WebShare API Demo',
+                text: data
+            }).then(() => {
+                console.log('Thanks for sharing!');
+            })
+            .catch(console.error);
+        } else {
+            shareDialog.classList.add('is-open');
+        }
+    }
 </script>
 
 <svelte:head>
@@ -50,6 +71,7 @@
     <div class="body">
         <h1 on:click={setTheme}>Schoppy</h1>
         <p class="showSort" on:click={() => {showSort = !showSort}}>{wordList.index.sort}</p>
+        <p class="showSort" on:click={shareList}>{wordList.index.share}</p>
 
         {#if showSort}
             <div class="sort" transition:slide|local="{{duration: 800}}">
@@ -90,6 +112,7 @@
     body {
         text-align: center;
         color: var(--primary);
+        margin: 0;
     }
 
     .user {

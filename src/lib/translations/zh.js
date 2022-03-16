@@ -3,6 +3,7 @@ export const translation = {
         welcome: "歡迎",
         logout: "登出",
         sort: "排序類別",
+        share: "分享",
         add: "添加",
         pcs: "片",
         gr: "克",

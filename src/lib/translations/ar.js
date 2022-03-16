@@ -3,6 +3,7 @@ export const translation = {
         welcome: "أهلا بك",
         logout: "تسجيل خروج",
         sort: "تصنيف الفئات",
+        share: "شارك",
         add: "يضيف",
         pcs: "قطع",
         gr: "غرام",

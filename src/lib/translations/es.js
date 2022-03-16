@@ -3,6 +3,7 @@ export const translation = {
         welcome: "Bienvenidos",
         logout: "cerrar sesión",
         sort: "ordenar categorías",
+        share: "Cuota",
         add: "Agregar",
         pcs: "pc(s)",
         gr: "gr",
