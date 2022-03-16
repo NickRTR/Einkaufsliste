@@ -41,19 +41,16 @@
 
         for (let i = 0; i < $products.length; i++) {
             let product = $products[i]
-            data += `- ${product.title} (${product.amount} ${product.type}) \n`
+            data += `( ) ${product.title} (${product.amount} ${product.type}) (${wordList.categories[product.category]}) \n`
         }
 
         if (navigator.share) {
             navigator.share({
-                title: 'WebShare API Demo',
+                title: wordList.index.share,
                 text: data
-            }).then(() => {
-                console.log('Thanks for sharing!');
-            })
-            .catch(console.error);
+            }).catch(console.error);
         } else {
-            shareDialog.classList.add('is-open');
+            alert("Your device/browser isn't able to share this list.");
         }
     }
 </script>
