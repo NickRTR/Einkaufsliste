@@ -46,7 +46,7 @@
 
         if (navigator.share) {
             navigator.share({
-                title: wordList.index.share,
+                title: `Schoppy - ${wordList.index.share}`,
                 text: data
             }).catch(console.error);
         } else {

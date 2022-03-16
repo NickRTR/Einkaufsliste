@@ -1,5 +1,6 @@
 <script>
     import { updateTitle, deleteProduct, toggleChecked, changeCategory, updateAmount, updateType } from "$lib/supabase.js";
+    import { slide } from "svelte/transition";
 
     export let product;
     export let wordList;
@@ -31,7 +32,7 @@
         </div>
     </div>
     {#if showChangeCategory}
-        <div class="changeCategory">
+        <div class="changeCategory" transition:slide>
             {#each categories as category}
                 <div on:click={() => {showChangeCategory = !showChangeCategory; changeCategory(product.title, product.category, category, product.id)}}>
                     <p>{wordList.categories[category]}</p>
