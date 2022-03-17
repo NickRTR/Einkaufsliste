@@ -91,9 +91,20 @@ export const toggleChecked = async (id, created, checked) => {
     getProducts();
 }
 
-export const deleteProduct = async (id) => {
+export const deleteProduct = async (id, confirmMessage) => {
+    if (confirm(confirmMessage)) {
     await supabase.from('products').delete().eq("id", id);
-    getProducts();
+        getProducts();
+    }    
+}
+
+export const deleteAll = async (confirmMessage) => {
+    if (confirm(confirmMessage)) {
+        for (let i = 0; i < updatedProducts.length; i++) {
+            await supabase.from('products').delete().eq("id", updatedProducts[i].id);
+        }
+        getProducts();
+    }
 }
 
 export const updateAmount = async (amount, id) => {

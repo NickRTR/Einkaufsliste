@@ -4,6 +4,8 @@ export const translation = {
         logout: "cerrar sesión",
         sort: "ordenar categorías",
         share: "Cuota",
+        deleteAll: "Elimina todo",
+        deleteMessage: "¿Está seguro? Esta acción no se puede deshacer.",
         add: "Agregar",
         pcs: "pc(s)",
         gr: "gr",

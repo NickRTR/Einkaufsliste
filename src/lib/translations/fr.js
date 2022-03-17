@@ -4,6 +4,8 @@ export const translation = {
         logout: "se déconnecter",
         sort: "trier les catégories",
         share: "partager",
+        deleteAll: "Tout supprimer",
+        deleteMessage: "Êtes-vous sûr? Cette action ne peut pas être annulée.",
         add: "ajouter",
         pcs: "stk",
         gr: "gr",

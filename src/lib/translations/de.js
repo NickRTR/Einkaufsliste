@@ -4,6 +4,8 @@ export const translation = {
         logout: "ausloggen",
         sort: "Kategorien sortieren",
         share: "Teilen",
+        deleteAll: "Alles löschen",
+        deleteMessage: "Sind Sie sicher? Dieser Vorgang kann nicht rückgängig gemacht werden.",
         add: "Hinzufügen",
         pcs: "stk",
         gr: "gr",

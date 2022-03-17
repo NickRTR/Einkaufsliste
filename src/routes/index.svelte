@@ -4,7 +4,7 @@
     import { slide } from "svelte/transition";
     import { translate } from "$lib/translations/translate";
     import { translation } from "$lib/translations/en";
-    import { getProducts, addProduct, logout, getTheme, setTheme, getUserData, changePriorities } from "$lib/supabase.js";
+    import { getProducts, addProduct, logout, getTheme, setTheme, getUserData, changePriorities, deleteAll } from "$lib/supabase.js";
 
     import ProductCard from "$lib/components/ProductCard.svelte";
     import DragDropList from "$lib/components/DragDropList.svelte";
@@ -67,8 +67,8 @@
 
     <div class="body">
         <h1 on:click={setTheme}>Schoppy</h1>
-        <p class="showSort" on:click={() => {showSort = !showSort}}>{wordList.index.sort}</p>
-        <p class="showSort" on:click={shareList}>{wordList.index.share}</p>
+        <p class="linkButton" on:click={() => {showSort = !showSort}}>{wordList.index.sort}</p>
+        <p class="linkButton" on:click={shareList}>{wordList.index.share}</p>
 
         {#if showSort}
             <div class="sort" transition:slide|local="{{duration: 800}}">
@@ -102,6 +102,7 @@
             {/each}
         </div>
     </div>
+    <p class="linkButton" on:click={() => {deleteAll(wordList.index.deleteMessage)}}>{wordList.index.deleteAll}</p>
     <p class="footer">©2022 Nick Reutlinger</p>
 </body>
 
@@ -135,8 +136,9 @@
         cursor: pointer;
     }
 
-    .showSort {
-        margin: .4rem 0;
+    .linkButton {
+        margin: 0;
+        margin-top: .5rem;
         text-decoration: underline;
         cursor: pointer;
     }
@@ -199,6 +201,10 @@
         border-radius: 1rem;
         border-top: 4px solid var(--primary);
         margin: .6rem;
+    }
+
+    .footer {
+        margin-top: .5rem;
     }
 
     @media only screen and (max-width: 600px) {

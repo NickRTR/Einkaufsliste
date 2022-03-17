@@ -27,7 +27,7 @@
             </div>
             <div class="status">
                 <input type="checkbox" bind:checked={product.checked} on:click={() => {toggleChecked(product.id, product.created, product.checked)}}>
-                <input type="image" src="/delete.svg" alt="delete" on:click={() => {deleteProduct(product.id)}}>
+                <input type="image" src="/delete.svg" alt="delete" on:click={() => {deleteProduct(product.id, wordList.index.deleteMessage)}}>
             </div>
         </div>
     </div>

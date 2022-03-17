@@ -4,6 +4,8 @@ export const translation = {
         logout: "تسجيل خروج",
         sort: "تصنيف الفئات",
         share: "شارك",
+        deleteAll: "احذف كل شيء",
+        deleteMessage: "هل أنت واثق؟ لا يمكن التراجع عن هذا الإجراء.",
         add: "يضيف",
         pcs: "قطع",
         gr: "غرام",

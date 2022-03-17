@@ -4,6 +4,8 @@ export const translation = {
         logout: "登出",
         sort: "排序類別",
         share: "分享",
+        deleteAll: "删除所有内容",
+        deleteMessage: "你确定吗？ 此操作无法撤消。",
         add: "添加",
         pcs: "片",
         gr: "克",
