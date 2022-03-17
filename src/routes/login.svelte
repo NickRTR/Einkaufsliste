@@ -99,7 +99,6 @@
 
 <style>
     body {
-        text-align: center;
         color: #EEE;
     }
 
@@ -137,7 +136,9 @@
     }
 
     .password {
+        display: flex;
         align-items: center;
+        justify-content: center;
     }
 
     input[type=checkbox] {
@@ -154,9 +155,8 @@
 
 	img {
 		width: 2rem;
-		margin-bottom: .2rem;
+		margin-top: .2rem;
 		cursor: pointer;
-        vertical-align: middle;
 	}
 
     button {

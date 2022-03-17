@@ -107,7 +107,6 @@
 
 <style>
     body {
-        text-align: center;
         color: var(--primary);
         margin: 0;
     }

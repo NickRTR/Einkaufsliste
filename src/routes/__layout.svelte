@@ -19,6 +19,7 @@
         -webkit-appearance: none;
         font-family: Arial, Helvetica, sans-serif;
         margin: 0;
+        text-align: center;
     }
 
     :global(button) {
