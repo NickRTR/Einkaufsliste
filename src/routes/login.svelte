@@ -7,7 +7,7 @@
     import { translate } from "$lib/translations/translate";
     import { translation } from "$lib/translations/en";
 
-    let wordList = translation;
+    let wordList = translation; // initialize worldList with Englisch until right language is being loaded
 
     onMount(async () => {
         wordList = await translate(navigator.language);
@@ -98,10 +98,6 @@
 </body>
 
 <style>
-    body {
-        color: #EEE;
-    }
-
     h1 {
         margin: 0;
         font-size: 2.25rem;
