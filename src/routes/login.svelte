@@ -118,13 +118,15 @@
         font-weight: 600;
         padding: 0 0.5rem;
         margin: 0.5rem 0;
-        width: 80%;
-        max-width: 300px;
         height: 2rem;
     }
 
-    #password {
-        width: auto;
+    input[type=email] {
+        width: 300px;
+    }
+
+    input[type=password] {
+        width: 268px;
     }
 
     input::placeholder {
