@@ -80,7 +80,7 @@
     <form on:submit|preventDefault>
         <label for="email">E-mail: </label><br>
         <input type="email" id="email" placeholder="email@email.com" bind:value={emailInput}><br>
-        <label for="password">{wordList.login.password}</label><br>
+        <label for="password">{wordList.login.password}:</label><br>
         <div class="password">
             <input type="password" id="password" placeholder={wordList.login.password} bind:value={passwordInput}>
             <input type="checkbox" id="togglePassword" class:show={showPassword} bind:checked={showPassword} on:change={() => {document.querySelector('#password').type = showPassword ? 'text' : 'password'}}>
@@ -137,9 +137,7 @@
     }
 
     .password {
-        display: flex;
         align-items: center;
-        justify-content: center;
     }
 
     input[type=checkbox] {
@@ -156,8 +154,9 @@
 
 	img {
 		width: 2rem;
-		margin-top: .2rem;
+		margin-bottom: .2rem;
 		cursor: pointer;
+        vertical-align: middle;
 	}
 
     button {
