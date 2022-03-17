@@ -114,7 +114,6 @@
         display: flex;
         justify-content: space-between;
         padding: .5rem;
-        padding-top: 0;
     }
 
     h4 {

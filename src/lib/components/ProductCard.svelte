@@ -12,7 +12,7 @@
 <div class="container">
     <div class="Card">
         <img type="image" src="/category/{product.category}.svg" alt={wordList.categories[product.category]} title={wordList.categories[product.category]} on:click={() => {showChangeCategory = !showChangeCategory}}>
-        <input type="text" id="title" value={product.title} on:change={(event) => {updateTitle(product.id, event.target.value, product.category)}}>
+        <div id="title" contenteditable="true" on:blur={(event) => {updateTitle(product.id, event.target.innerText, product.category)}}>{product.title}</div>
         <div class="stats">
             <div class="quantity">
                 <input type="text" id="amount" maxlength="3" value={product.amount} on:input={(event) => {updateAmount(event.target.value, product.id)}}>
@@ -47,11 +47,11 @@
     .Card {
         display: flex;
         align-items: center;
-        word-break: break-all;
         padding: .375rem;
         margin: .625rem;
         background-color: var(--primary);
         border-radius: .75rem;
+        word-break: break-word;
     }
 
     img {
@@ -60,13 +60,16 @@
     }
 
     #title {
-        width:100%;
+        margin-left: .2rem;
+        text-align: left;
+        width: 100%;
         outline: none;
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         line-height: 2rem;
         font-weight: 500;
-        background-color:var(--primary);
+        background-color: var(--primary);
         border: none;
+        color: black;
     }
 
     .quantity {
