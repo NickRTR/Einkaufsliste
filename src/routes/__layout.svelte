@@ -18,9 +18,13 @@
     * {
         -webkit-appearance: none;
         font-family: Arial, Helvetica, sans-serif;
-        margin: 0;
         text-align: center;
         color: white;
+    }
+
+    body {
+        margin-left: 0;
+        margin-right: 0;
     }
 
     :global(button) {

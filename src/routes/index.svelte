@@ -108,13 +108,13 @@
 <style>
     body {
         color: var(--primary);
-        margin: 0;
     }
 
     .user {
         display: flex;
         justify-content: space-between;
         padding: .5rem;
+        padding-top: 0;
     }
 
     h4 {
