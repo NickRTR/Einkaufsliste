@@ -1,5 +1,3 @@
-![wakatime](https://wakatime.com/badge/user/3461ef7a-9b64-4a90-a1a4-741f1105bfb5/project/bd660468-dbbe-4012-bbab-fd65d54bea4c.svg)
-
 # Schoppy
 
 A simple, yet feature packed and powerful shopping list.
