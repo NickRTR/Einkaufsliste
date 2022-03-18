@@ -2,6 +2,8 @@
     import { products, user, theme, priorityToCategory } from "$lib/stores.js";
     import { onMount } from "svelte";
     import { slide } from "svelte/transition";
+    import { flip } from "svelte/animate";
+    import { fade, fly } from 'svelte/transition';
     import { translate } from "$lib/translations/translate";
     import { translation } from "$lib/translations/en";
     import { getProducts, addProduct, logout, getTheme, setTheme, getUserData, changePriorities, deleteAll } from "$lib/supabase.js";
@@ -85,20 +87,24 @@
             <div class="suggestion" on:click={() => {addProduct(suggestion); input = "";}}>{suggestion}</div>
         {/each}
         <div class="products">
-            {#each $products as product}
-                {#if !product.checked}
-                    <ProductCard {product} wordList={wordList} />
-                {/if}
+            {#each $products as product (product.id)}
+                <div animate:flip in:fade out:fly={{x:100}}>
+                    {#if !product.checked}
+                        <ProductCard {product} wordList={wordList}/>
+                    {/if}
+                </div>
             {:else}
             <p>Keine Produkte vorhanden.</p>
             {/each}
         </div>
         <div class="checkedProducts">
             <p class="divider"></p>
-            {#each $products as product}
-                {#if product.checked}
-                    <ProductCard {product} wordList={wordList}/>
-                {/if}
+            {#each $products as product (product.id)}
+                <div in:fade out:fly={{x:100}}>
+                    {#if product.checked}
+                        <ProductCard {product} wordList={wordList}/>
+                    {/if}
+                </div>
             {/each}
         </div>
     </div>
