@@ -94,7 +94,7 @@
                     {/if}
                 </div>
             {:else}
-            <p>Keine Produkte vorhanden.</p>
+                <p>Keine Produkte vorhanden.</p>
             {/each}
         </div>
         <div class="checkedProducts">
