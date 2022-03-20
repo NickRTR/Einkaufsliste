@@ -11,7 +11,8 @@ export const translation = {
         gr: "克",
         kg: "公斤",
         ml: "毫升",
-        l: "升"
+        l: "升",
+        checked: "完全的"
     },
     categories: {
         Gemüse: "蔬菜",

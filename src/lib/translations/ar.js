@@ -11,7 +11,8 @@ export const translation = {
         gr: "غرام",
         kg: "كيلوغرام",
         ml: "مليلتر",
-        l: "لتر"
+        l: "لتر",
+        checked: "مكتمل"
     },
     categories: {
         Gemüse: "خضروات",

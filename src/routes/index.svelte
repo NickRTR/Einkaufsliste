@@ -98,7 +98,7 @@
             {/each}
         </div>
         <div class="checkedProducts">
-            <p class="divider"></p>
+            <p class="divider"><span>{wordList.index.checked}</span></p>
             {#each $products as product (product.id)}
                 <div in:fade out:fly={{x:100}}>
                     {#if product.checked}
@@ -204,9 +204,17 @@
     }
 
     .divider {
-        border-radius: 1rem;
+        text-align: center; 
+        border-bottom: 4px solid var(--primary); 
         border-top: 4px solid var(--primary);
-        margin: .6rem;
+        border-radius: .5rem;
+        line-height: 0;
+        margin: 1rem .7rem;
+    }
+
+    .divider span {
+        background-color: black;
+        padding: 0 7px;
     }
 
     .footer {

@@ -11,7 +11,8 @@ export const translation = {
         gr: "oz",
         kg: "lb(s)",
         ml: "fl oz",
-        l: "gal"
+        l: "gal",
+        checked: "done"
     },
     categories: {
         Gemüse: "vegetables",

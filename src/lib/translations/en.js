@@ -11,7 +11,8 @@ export const translation = {
         gr: "gr",
         kg: "kg",
         ml: "ml",
-        l: "l"
+        l: "l",
+        checked: "done"
     },
     categories: {
         Gemüse: "vegetables",
