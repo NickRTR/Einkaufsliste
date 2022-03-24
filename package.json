@@ -9,9 +9,12 @@
   },
   "devDependencies": {
     "@supabase/supabase-js": "^1.29.1",
-    "@sveltejs/adapter-auto": "next",
+    "@sveltejs/adapter-vercel": "next",
     "@sveltejs/kit": "next",
     "svelte": "^3.44.0"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^16.0.0"
+  }
 }
