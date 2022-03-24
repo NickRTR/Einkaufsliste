@@ -73,10 +73,12 @@ export const addProduct = async (input) => {
     }
 }
 
-export const updateTitle = async (id, title, oldCategory) => {
+export const updateTitle = async (id, title, oldTitle, oldCategory) => {
+    if (title === oldTitle) return;
+    console.log("changed");
     let newCategory = getCategory(title);
     changeCategory(title, oldCategory, newCategory, id);
-    if (title !== "") {
+    if (title !== "" ) {
         await supabase.from('products').update({"title": title}).eq("id", id);
     }
     getProducts();
