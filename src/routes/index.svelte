@@ -205,8 +205,8 @@
 
     .divider {
         text-align: center; 
-        border-bottom: 4px solid var(--primary); 
-        border-top: 4px solid var(--primary);
+        border-bottom: 5px solid royalblue; 
+        border-top: 5px solid royalblue;
         border-radius: .5rem;
         line-height: 0;
         margin: 1rem .7rem;
@@ -215,6 +215,10 @@
     .divider span {
         background-color: black;
         padding: 0 7px;
+    }
+
+    .checkedProducts div {
+        filter: opacity(80%);
     }
 
     .footer {
