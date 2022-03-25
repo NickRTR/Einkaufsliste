@@ -1,7 +1,7 @@
 <script>
-    import {user} from "$lib/stores.js";
-    import {goto} from '$app/navigation';
-    import {browser} from "$app/env";
+    import { user, theme } from "$lib/stores.js";
+    import { goto } from '$app/navigation';
+    import { browser } from "$app/env";
 
     if (browser) {
         if ($user === false) {
@@ -10,7 +10,7 @@
     }
 </script>
 
-<body>
+<body style="--primary: {$theme}">
     <slot></slot>
 </body>
 
@@ -25,5 +25,9 @@
     :global(button) {
         cursor: pointer;
         color: black;
+    }
+
+    :global(:root) {
+        --primary: var(--primary);
     }
 </style>

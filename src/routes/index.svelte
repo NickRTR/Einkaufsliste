@@ -1,5 +1,5 @@
 <script>
-    import { products, user, theme, priorityToCategory } from "$lib/stores.js";
+    import { products, user, priorityToCategory } from "$lib/stores.js";
     import { onMount } from "svelte";
     import { slide } from "svelte/transition";
     import { flip } from "svelte/animate";
@@ -61,7 +61,7 @@
     <title>Schoppy</title>
 </svelte:head>
 
-<body style="--primary: {$theme}">
+<body >
     <div class="user">
         <h4>{wordList.index.welcome} {$user?.email ? $user.email : ""}!</h4>
         <p on:click={logout}>{wordList.index.logout}</p>
@@ -113,10 +113,6 @@
 </body>
 
 <style>
-    body {
-        color: var(--primary);
-    }
-
     .user {
         display: flex;
         justify-content: space-between;
