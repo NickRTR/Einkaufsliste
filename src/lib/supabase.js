@@ -1,7 +1,7 @@
 import supabase from "$lib/db.js";
 import { get } from "svelte/store";
 import { goto } from "$app/navigation";
-import { products, theme, user, categories, priorityToCategory } from "$lib/stores";
+import { products, theme, user, categories, priorityToCategory, wordList } from "$lib/stores";
 
 // white, lightpink, babyblue, babygreen, orange
 const colors = ["#EEE", "#F2CCC3", "#B7D3F2", "#a1c181", "#e9c46a"];
@@ -54,7 +54,7 @@ export const addProduct = async (input) => {
             let updatedProduct = updatedProducts[i];
             if (input === updatedProduct.title) {
                 if (updatedProduct.checked === false) {
-                    let result = confirm(`"${updatedProduct.title}" ist bereits vorhanden. Möchten Sie die Anzahl um 1 erhöhen?`);
+                    let result = confirm(`"${updatedProduct.title}" ${get(wordList).index.productAlreadyListed}`);
                     if (result) {
                         let product = updatedProduct;
                         updateAmount(product.amount + 1, product.id);

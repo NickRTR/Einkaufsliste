@@ -1,9 +1,9 @@
 <script>
     import { updateTitle, deleteProduct, toggleChecked, changeCategory, updateAmount, updateType } from "$lib/supabase.js";
     import { slide } from "svelte/transition";
+    import { wordList } from "$lib/stores";
 
     export let product;
-    export let wordList;
     let showChangeCategory = false;
 
     const categories = ["Gemüse", "Obst", "Vorrat", "Fleisch", "Gefriertruhe", "Kühlregal", "Haushalt", "Süßigkeiten", "Getränke"];
@@ -11,23 +11,23 @@
  
 <div class="container">
     <div class="Card">
-        <img type="image" src="/category/{product.category}.svg" alt={wordList.categories[product.category]} title={wordList.categories[product.category]} on:click={() => {showChangeCategory = !showChangeCategory}}>
+        <img type="image" src="/category/{product.category}.svg" alt={$wordList.categories[product.category]} title={$wordList.categories[product.category]} on:click={() => {showChangeCategory = !showChangeCategory}}>
         <div id="title" contenteditable="true" on:blur={(event) => {updateTitle(product.id, event.target.innerText, product.title, product.category)}}>{product.title}</div>
         <div class="stats">
             <div class="quantity">
-                <input type="text" id="amount" maxlength="3" value={product.amount} on:input={(event) => {updateAmount(event.target.value, product.id)}}>
+                <input type="text" class="amount" maxlength="3" value={product.amount} on:input={(event) => {updateAmount(event.target.value, product.id)}}>
                 <select value={product.type} on:change={(event) => {updateType(event.target.value, product.id);
                 }}>
-                    <option value="stk">{wordList.index["pcs"]}</option>
-                    <option value="gr">{wordList.index["gr"]}</option>
-                    <option value="kg">{wordList.index["kg"]}</option>
-                    <option value="ml">{wordList.index["ml"]}</option>
-                    <option value="l">{wordList.index["l"]}</option>
+                    <option value="stk">{$wordList.index["pcs"]}</option>
+                    <option value="gr">{$wordList.index["gr"]}</option>
+                    <option value="kg">{$wordList.index["kg"]}</option>
+                    <option value="ml">{$wordList.index["ml"]}</option>
+                    <option value="l">{$wordList.index["l"]}</option>
                 </select>
             </div>
             <div class="status">
                 <input type="checkbox" bind:checked={product.checked} on:click={() => {toggleChecked(product.id, product.created, product.checked)}}>
-                <input type="image" src="/delete.svg" alt="delete" on:click={() => {deleteProduct(product.id, wordList.index.deleteMessage)}}>
+                <input type="image" src="/delete.svg" alt="delete" on:click={() => {deleteProduct(product.id, $wordList.index.deleteMessage)}}>
             </div>
         </div>
     </div>
@@ -35,8 +35,8 @@
         <div class="changeCategory" transition:slide>
             {#each categories as category}
                 <div on:click={() => {showChangeCategory = !showChangeCategory; changeCategory(product.title, product.category, category, product.id)}}>
-                    <p>{wordList.categories[category]}</p>
-                    <img src="/category/{category}.svg" alt={wordList.categories[category]} title={wordList.categories[category]}>
+                    <p>{$wordList.categories[category]}</p>
+                    <img src="/category/{category}.svg" alt={$wordList.categories[category]} title={$wordList.categories[category]}>
                 </div>
             {/each}
         </div>
@@ -76,7 +76,7 @@
         display: flex;
     }
 
-    #amount {
+    .amount {
         margin: 0;
         width: 2rem;
         border-radius: .75rem;

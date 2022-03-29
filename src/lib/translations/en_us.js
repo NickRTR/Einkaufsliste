@@ -7,6 +7,7 @@ export const translation = {
         deleteAll: "delete all",
         deleteMessage: "Are you sure? This action can not be undone.",
         add: "Add",
+        productAlreadyListed: "already exists. Do you want to increase the amount by 1?",
         pcs: "pc(s)",
         gr: "oz",
         kg: "lb(s)",

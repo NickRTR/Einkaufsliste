@@ -1,20 +1,17 @@
 <script>
-    import { products, user, priorityToCategory } from "$lib/stores.js";
+    import { products, user, priorityToCategory, wordList } from "$lib/stores.js";
     import { onMount } from "svelte";
     import { slide } from "svelte/transition";
     import { flip } from "svelte/animate";
-    import { fade, fly } from 'svelte/transition';
+    import { fade, fly } from "svelte/transition";
     import { translate } from "$lib/translations/translate";
-    import { translation } from "$lib/translations/en";
     import { getProducts, addProduct, logout, getTheme, setTheme, getUserData, changePriorities, deleteAll } from "$lib/supabase.js";
 
     import ProductCard from "$lib/components/ProductCard.svelte";
     import DragDropList from "$lib/components/DragDropList.svelte";
 
-    let wordList = translation;
-
     onMount(async () => {
-        wordList = await translate(navigator.language);
+        wordList.set(await translate(navigator.language));
         getProducts();
         getTheme();
         getUserData();
@@ -44,12 +41,12 @@
 
         for (let i = 0; i < $products.length; i++) {
             let product = $products[i]
-            data += `◯ ${product.title} (${product.amount} ${product.type}) (${wordList.categories[product.category]}) \n`
+            data += `◯ ${product.title} (${product.amount} ${product.type}) (${$wordList.categories[product.category]}) \n`
         }
 
         if (navigator.share) {
             navigator.share({
-                title: `Schoppy - ${wordList.index.share}`,
+                title: `Schoppy - ${$wordList.index.share}`,
                 text: data
             }).catch(console.error);
         } else {
@@ -64,25 +61,25 @@
 
 <body >
     <div class="user">
-        <h4>{wordList.index.welcome} {$user?.email ? $user.email : ""}!</h4>
-        <p on:click={logout}>{wordList.index.logout}</p>
+        <h4>{$wordList.index.welcome} {$user?.email ? $user.email : ""}!</h4>
+        <p on:click={logout}>{$wordList.index.logout}</p>
     </div>
 
     <div class="body">
         <h1 on:click={setTheme}>Schoppy</h1>
-        <p class="linkButton" on:click={() => {showSort = !showSort}}>{wordList.index.sort}</p>
-        <p class="linkButton" on:click={shareList}>{wordList.index.share}</p>
+        <p class="linkButton" on:click={() => {showSort = !showSort}}>{$wordList.index.sort}</p>
+        <p class="linkButton" on:click={shareList}>{$wordList.index.share}</p>
 
         {#if showSort}
             <div class="sort" transition:slide|local="{{duration: 800}}">
-                <DragDropList bind:data={$priorityToCategory} wordList={wordList.categories} />
-                <button class="submitSort" type="submit" on:click|preventDefault={() => {changePriorities($priorityToCategory); showSort = !showSort}}>{wordList.index.sort}</button>
+                <DragDropList bind:data={$priorityToCategory} $wordList={$wordList.categories} />
+                <button class="submitSort" type="submit" on:click|preventDefault={() => {changePriorities($priorityToCategory); showSort = !showSort}}>{$wordList.index.sort}</button>
             </div>
         {/if}
 
         <form class="addProduct" on:submit|preventDefault={() => {addProduct(input); input = "";}}>
             <input type="text" bind:value={input}>
-            <button type="submit">{wordList.index.add}</button>
+            <button type="submit">{$wordList.index.add}</button>
         </form>
         {#each suggestions as suggestion}
             <div class="suggestion" on:click={() => {addProduct(suggestion); input = "";}}>{suggestion}</div>
@@ -91,7 +88,7 @@
             {#each $products as product (product.id)}
                 <div animate:flip in:fade out:fly={{x:100}}>
                     {#if !product.checked}
-                        <ProductCard {product} wordList={wordList}/>
+                        <ProductCard {product}/>
                     {/if}
                 </div>
             {:else}
@@ -99,21 +96,25 @@
             {/each}
         </div>
         <div class="checkedProducts">
-            <p class="divider"><span>{wordList.index.checked}</span></p>
+            <p class="divider"><span>{$wordList.index.checked}</span></p>
             {#each $products as product (product.id)}
                 <div in:fade out:fly={{x:100}}>
                     {#if product.checked}
-                        <ProductCard {product} wordList={wordList}/>
+                        <ProductCard {product}/>
                     {/if}
                 </div>
             {/each}
         </div>
     </div>
-    <p class="linkButton" on:click={() => {deleteAll(wordList.index.deleteMessage)}}>{wordList.index.deleteAll}</p>
+    <p class="linkButton" on:click={() => {deleteAll($wordList.index.deleteMessage)}}>{$wordList.index.deleteAll}</p>
     <p class="footer">©2022 Nick Reutlinger</p>
 </body>
 
 <style>
+    body {
+        color: var(--primary);
+    }
+
     .user {
         display: flex;
         justify-content: space-between;
@@ -159,7 +160,6 @@
         line-height: 1.75rem; 
         font-weight: 600;
         background-color: black;
-        color: var(--primary);
         border-radius: .75rem;
         border: none;
     }

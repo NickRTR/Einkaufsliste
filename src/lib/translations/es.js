@@ -7,6 +7,7 @@ export const translation = {
         deleteAll: "Elimina todo",
         deleteMessage: "¿Está seguro? Esta acción no se puede deshacer.",
         add: "Agregar",
+        productAlreadyListed: "ya existe. ¿Quieres aumentar el conteo en 1?",
         pcs: "pc(s)",
         gr: "gr",
         kg: "kg",

@@ -1,5 +1,7 @@
 import { writable } from "svelte/store";
+import { translation } from "./translations/en";
 import supabase from "$lib/db";
+import { onMount } from "svelte";
 
 export const user = writable(supabase.auth.user() || false);
 
@@ -10,6 +12,8 @@ export const theme = writable("#EEE");
 export const categories = writable();
 
 export const priorityToCategory = writable();
+
+export const wordList = writable(translation); // initialize worldList with Englisch until right language is being loaded
 
 // {
 //     1: "Gemüse",
