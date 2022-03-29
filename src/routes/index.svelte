@@ -33,6 +33,7 @@
             suggestions = productsTitles.filter((titles) => {
                 return titles.toLowerCase().startsWith(input.toLowerCase());
             })
+            if (suggestions.length > 5) suggestions.length = 5; // limit suggestions to 5
         } else {
             suggestions = [];
         }
