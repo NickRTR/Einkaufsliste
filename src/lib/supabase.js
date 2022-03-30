@@ -10,10 +10,18 @@ const colors = ["#EEE", "#F2CCC3", "#B7D3F2", "#a1c181", "#e9c46a"];
 // import { stringifyCategories } from "./categories";
 // stringifyCategories();
 
-const userId = get(user).id;
-var updatedCategories;
-var priorities;
+let userId;
+user.subscribe((user) => {
+    userId = user.id;
+})
+
+let updatedCategories;
+let priorities;
 let updatedProducts;
+
+products.subscribe((user) => {
+    console.log(user);
+})
 
 export const getProducts = async () => {
     let {data: dbProducts} = await supabase.from('products').select("*").order("sort", {ascending: true});
@@ -34,6 +42,7 @@ export const getUserData = async () => {
 
 export const getTheme = async () => {
     let {data: dbTheme} = await supabase.from('userdata').select('theme');
+    console.log(dbTheme);
     theme.set(colors[dbTheme[0].theme]);
 }
 
@@ -195,7 +204,7 @@ const getSort = async (category) => {
 // auth
 export const logout = async () => {
     let {error} = await supabase.auth.signOut();
-    user.set(false)
+    user.set(false);
     localStorage.clear();
     if (error) {
         console.log(error);

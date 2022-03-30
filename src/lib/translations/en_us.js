@@ -36,5 +36,10 @@ export const translation = {
             switch: "Have you already created an account?"
         },
         password: "password"
+    },
+    error: {
+        userAlreadyRegistered: "You are already registered. Please login!",
+        toShortPassword: "Please enter a password with at least 6 characters.",
+        wrongCredentials: "Wrong credentials. Are you already registered?"
     }
 }

@@ -36,5 +36,10 @@ export const translation = {
             switch: "هل قمت بالفعل بإنشاء حساب؟"
         },
         password: "كلمه السر"
+    },
+    error: {
+        userAlreadyRegistered: "انت مسجل مسبقا. الرجاء تسجيل الدخول!",
+        toShortPassword: "الرجاء إدخال كلمة مرور مكونة من 6 أحرف على الأقل.",
+        wrongCredentials: "أوراق اعتماد خاطئة. هل انت مسجل بالفعل؟"
     }
 }

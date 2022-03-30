@@ -4,6 +4,7 @@
     import { user, wordList } from "$lib/stores.js";
     import { createUserData } from "$lib/supabase.js";
     import { onMount } from "svelte";
+    import { get } from "svelte/store";
     import { translate } from "$lib/translations/translate";
 
     onMount(async () => {
@@ -27,15 +28,15 @@
         });
         if (error) {
             if (error.message === "User already registered") {
-                alert("Benutzer ist bereits registriert. Bitte anmelden!");
+                alert(get(wordList).error.userAlreadyRegistered);
                 isNewRegistration = false;
             } else if (error.message === "Password should be at least 6 characters") {
-                alert("Bitte geben Sie ein Passwort mit mindestens 6 Zeichen ein.");
+                alert(get(wordList).error.toShortPassword);
             } else {
                 alert(error.message);
             }
         } else {
-            $user = userDetails;
+            user.set(userDetails);
             createUserData(userDetails.id);
             goto("/");
         }
@@ -52,12 +53,12 @@
         });
         if (error) {
             if (error.message === "Invalid login credentials") {
-                alert("Falsche E-mail Adresse oder falsches Passwort. Sind Sie bereits registriert?")
+                alert(get(wordList).error.wrongCredentials);
             } else {
                 alert(error.message);
             }
         } else {
-            $user = userDetails;
+            user.set(userDetails);
             goto("/");
         }
     }

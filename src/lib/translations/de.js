@@ -36,5 +36,10 @@ export const translation = {
             switch: "Besitzen Sie bereits einen Account?"
         },
         password: "Passwort"
+    },
+    error: {
+        userAlreadyRegistered: "Sie sind bereits registriert. Bitte anmelden!",
+        toShortPassword: "Bitte geben Sie ein Passwort mit mindestens 6 Zeichen ein.",
+        wrongCredentials: "Falsche E-mail Adresse oder falsches Passwort. Sind Sie bereits registriert?"
     }
 }

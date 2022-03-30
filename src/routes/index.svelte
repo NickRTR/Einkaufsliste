@@ -86,7 +86,7 @@
         {/each}
         <div class="products">
             {#each $products as product (product.id)}
-                <div animate:flip in:fade out:fly={{x:100}}>
+                <div animate:flip|local in:fade|local out:fly|local={{x:100}}>
                     {#if !product.checked}
                         <ProductCard {product}/>
                     {/if}
@@ -98,7 +98,7 @@
         <div class="checkedProducts">
             <p class="divider"><span>{$wordList.index.checked}</span></p>
             {#each $products as product (product.id)}
-                <div in:fade out:fly={{x:100}}>
+                <div in:fade|local out:fly|local={{x:100}}>
                     {#if product.checked}
                         <ProductCard {product}/>
                     {/if}
