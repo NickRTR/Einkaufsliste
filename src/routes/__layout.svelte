@@ -1,9 +1,9 @@
 <script>
-    import { theme } from "$lib/stores";
+    import { theme, session } from "$lib/stores";
     import { goto } from '$app/navigation';
     import { onMount } from "svelte";
-    import { session } from "$lib/stores";
     import supabase from "$lib/db";
+    import { page } from "$app/stores";
 
     onMount(() => {
         $session = supabase.auth.session();
@@ -12,10 +12,23 @@
             setTimeout(() => $session ? goto("/") : goto("/login")); // redirect
         })
     })
+
+    function settings() {
+        if ($page.url.pathname === "/settings") {
+            goto("/");
+        } else {
+            goto("/settings");
+        }
+    }
 </script>
 
 <body style="--primary: {$theme}">
-    <slot></slot>
+    <header>
+        <a href="/" sveltekit:prefetch><h1>Schoppy</h1></a>
+        <img src="/settings.svg" alt="⚙" title="settings" on:click={settings}>
+    </header>      
+
+    <main><slot></slot></main>
 </body>
 
 <style>
@@ -23,8 +36,39 @@
         -webkit-appearance: none;
         font-family: Arial, Helvetica, sans-serif;
         text-align: center;
-        color: white;
-        margin: .5rem .25rem;
+        color: var(--primary);
+        margin: .5rem .75rem;
+    }
+    
+    body {
+        max-width: 700px;
+        margin: auto;
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: .5rem 0;
+    }
+
+    h1 {
+        margin: 0;
+        cursor: pointer;
+    }
+
+    a {
+        text-decoration: none;
+        cursor: pointer;
+        line-height: 0;
+    }
+
+    img {
+        background-color: var(--primary);
+        border-radius: 100%;
+        margin: 0;
+        padding: .5rem;
+        width: 2.2rem;
     }
 
     :global(button) {
