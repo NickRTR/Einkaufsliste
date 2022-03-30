@@ -1,7 +1,6 @@
 <script>
-    import { goto } from "$app/navigation";
     import supabase from "$lib/db.js";
-    import { user, wordList } from "$lib/stores.js";
+    import { wordList } from "$lib/stores.js";
     import { createUserData } from "$lib/supabase.js";
     import { onMount } from "svelte";
     import { get } from "svelte/store";
@@ -22,7 +21,7 @@
             return;
         }
 
-        let { user: userDetails, error } = await supabase.auth.signUp({
+        let { error } = await supabase.auth.signUp({
             email: emailInput,
             password: passwordInput,
         });
@@ -36,9 +35,7 @@
                 alert(error.message);
             }
         } else {
-            user.set(userDetails);
-            createUserData(userDetails.id);
-            goto("/");
+            createUserData();
         }
     }
 
@@ -47,7 +44,7 @@
             return;
         }
 
-        let { user: userDetails, error } = await supabase.auth.signIn({
+        let { error } = await supabase.auth.signIn({
             email: emailInput,
             password: passwordInput,
         });
@@ -57,9 +54,6 @@
             } else {
                 alert(error.message);
             }
-        } else {
-            user.set(userDetails);
-            goto("/");
         }
     }
 </script>

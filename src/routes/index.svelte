@@ -1,11 +1,12 @@
 <script>
-    import { products, user, priorityToCategory, wordList } from "$lib/stores.js";
+    import { products, priorityToCategory, wordList } from "$lib/stores.js";
     import { onMount } from "svelte";
     import { slide } from "svelte/transition";
     import { flip } from "svelte/animate";
     import { fade, fly } from "svelte/transition";
     import { translate } from "$lib/translations/translate";
     import { getProducts, addProduct, logout, getTheme, setTheme, getUserData, changePriorities, deleteAll } from "$lib/supabase.js";
+    import { session } from "$lib/stores";
 
     import ProductCard from "$lib/components/ProductCard.svelte";
     import DragDropList from "$lib/components/DragDropList.svelte";
@@ -61,7 +62,7 @@
 
 <body >
     <div class="user">
-        <h4>{$wordList.index.welcome} {$user?.email ? $user.email : ""}!</h4>
+        <h4>{$wordList.index.welcome} {$session?.user.email ? $session.user.email : ""}!</h4>
         <p on:click={logout}>{$wordList.index.logout}</p>
     </div>
 

@@ -1,13 +1,17 @@
 <script>
-    import { user, theme } from "$lib/stores.js";
+    import { theme } from "$lib/stores";
     import { goto } from '$app/navigation';
-    import { browser } from "$app/env";
+    import { onMount } from "svelte";
+    import { session } from "$lib/stores";
+    import supabase from "$lib/db";
 
-    if (browser) {
-        if ($user === false) {
-            goto("/login");
-        }
-    }
+    onMount(() => {
+        $session = supabase.auth.session();
+        supabase.auth.onAuthStateChange((event, authSession) => {
+            $session = authSession;
+            setTimeout(() => $session ? goto("/") : goto("/login")); // redirect
+        })
+    })
 </script>
 
 <body style="--primary: {$theme}">
