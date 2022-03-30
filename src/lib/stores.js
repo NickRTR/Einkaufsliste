@@ -1,5 +1,4 @@
 import { writable } from "svelte/store";
-import supabase from "./db";
 import { translation } from "./translations/en";
 
 export const products = writable([]);
