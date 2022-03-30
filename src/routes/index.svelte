@@ -22,18 +22,25 @@
     let suggestions = [];
     let showSort = false;
 
+    let processedProducts = $products; // if there is something searched, the products are being updated
+
     $: {
+        let preSuggestions = [];
         if (input !== "" && $products.length >= 1) {
-            let productsTitles = []
-            $products.forEach(product => {
-                productsTitles = [...productsTitles, product.title];
-            });
-            suggestions = productsTitles.filter((titles) => {
-                return titles.toLowerCase().startsWith(input.toLowerCase());
-            })
-            if (suggestions.length > 5) suggestions.length = 5; // limit suggestions to 5
+            let filteredProducts = [];
+            for (let i in $products) {
+                let product = $products[i]
+                if (product.title.toLowerCase().startsWith(input.toLowerCase())) {
+                    preSuggestions = [...preSuggestions, product.title];
+                    filteredProducts = [...filteredProducts, product];
+                }
+            }
+            if (preSuggestions.length > 5) preSuggestions.length = 5; // limit suggestions to 5
+            suggestions = preSuggestions;
+            processedProducts = filteredProducts;
         } else {
             suggestions = [];
+            processedProducts = $products;
         }
     }
 
@@ -86,8 +93,8 @@
             <div class="suggestion" on:click={() => {addProduct(suggestion); input = "";}}>{suggestion}</div>
         {/each}
         <div class="products">
-            {#each $products as product (product.id)}
-                <div animate:flip|local in:fade|local out:fly|local={{x:100}}>
+            {#each processedProducts as product (product.id)}
+                <div animate:flip in:fade out:fly|local={{x:100}}>
                     {#if !product.checked}
                         <ProductCard {product}/>
                     {/if}
@@ -98,8 +105,8 @@
         </div>
         <div class="checkedProducts">
             <p class="divider"><span>{$wordList.index.checked}</span></p>
-            {#each $products as product (product.id)}
-                <div in:fade|local out:fly|local={{x:100}}>
+            {#each processedProducts as product (product.id)}
+                <div in:fade out:fly={{x:100}}>
                     {#if product.checked}
                         <ProductCard {product}/>
                     {/if}

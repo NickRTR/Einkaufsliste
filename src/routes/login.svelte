@@ -75,7 +75,9 @@
         <label for="password">{$wordList.login.password}:</label><br>
         <div class="password">
             <input type="password" id="password" placeholder={$wordList.login.password} bind:value={passwordInput}>
-            <input type="checkbox" id="togglePassword" class:show={showPassword} bind:checked={showPassword} on:change={() => {document.querySelector('#password').type = showPassword ? 'text' : 'password'}}>
+            <input type="checkbox" id="togglePassword" class:show={showPassword} bind:checked={showPassword} on:change={() => {
+                // @ts-ignore
+                document.querySelector('#password').type = showPassword ? 'text' : 'password'}}>
             <label class="viewPasswordLabel" for="togglePassword"><img src="showPassword.svg" alt="show"></label><br>
         </div>
 
