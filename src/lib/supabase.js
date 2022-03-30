@@ -163,7 +163,6 @@ export const changeCategory = async (input, oldCategory, category, id) => {
     getUserData();
 }
 
-
 export const createUserData = async () => {
     await supabase.from('userdata').insert([
         {user_id: get(session).user.id}
@@ -185,17 +184,12 @@ export const changePriorities = async (changedPriorities) => {
 
 const getSort = async (category) => {
     for (let i = 0; i <= Object.keys(priorities).length; i++) {
-        if (priorities[i] === category) {
-            return i;
-        }
+        if (priorities[i] === category) return i;
     }
 }
 
 // auth
 export const logout = async () => {
     let {error} = await supabase.auth.signOut();
-    localStorage.clear();
-    if (error) {
-        console.log(error);
-    }
+    if (error) console.log(error);
 }

@@ -73,7 +73,7 @@
 
         {#if showSort}
             <div class="sort" transition:slide|local="{{duration: 800}}">
-                <DragDropList bind:data={$priorityToCategory} $wordList={$wordList.categories} />
+                <DragDropList bind:data={$priorityToCategory} wordList={$wordList.categories} />
                 <button class="submitSort" type="submit" on:click|preventDefault={() => {changePriorities($priorityToCategory); showSort = !showSort}}>{$wordList.index.sort}</button>
             </div>
         {/if}
@@ -151,6 +151,7 @@
     .sort {
         background-color: var(--primary);
         margin: 0 3rem;
+        margin-top: .5rem;
         padding: .625rem;
         border-radius: 1rem;
     }
@@ -163,6 +164,7 @@
         background-color: black;
         border-radius: .75rem;
         border: none;
+        color: var(--primary);
     }
 
     .addProduct {

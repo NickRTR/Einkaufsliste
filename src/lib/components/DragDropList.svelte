@@ -4,8 +4,6 @@
     export let data = [];
     export let wordList;
 
-    
-
     let ghost;
     let grabbed;
 
