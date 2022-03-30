@@ -24,6 +24,7 @@
         font-family: Arial, Helvetica, sans-serif;
         text-align: center;
         color: white;
+        margin: .5rem .25rem;
     }
 
     :global(button) {

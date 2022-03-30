@@ -35,9 +35,8 @@
                     filteredProducts = [...filteredProducts, product];
                 }
             }
-            if (preSuggestions.length > 5) preSuggestions.length = 5; // limit suggestions to 5
             suggestions = preSuggestions;
-            processedProducts = filteredProducts;
+            if (filteredProducts.length !== 0) processedProducts = filteredProducts; // only filter products if there are some according to the filter
         } else {
             suggestions = [];
             processedProducts = $products;
@@ -89,9 +88,11 @@
             <input type="text" bind:value={input}>
             <button type="submit">{$wordList.index.add}</button>
         </form>
-        {#each suggestions as suggestion}
-            <div class="suggestion" on:click={() => {addProduct(suggestion); input = "";}}>{suggestion}</div>
-        {/each}
+        <div class="suggestions">
+            {#each suggestions as suggestion}
+                <div class="suggestion" on:click={() => {addProduct(suggestion); input = "";}}>{suggestion}</div>
+            {/each}
+        </div>
         <div class="products">
             {#each processedProducts as product (product.id)}
                 <div animate:flip in:fade out:fly|local={{x:100}}>
@@ -126,7 +127,6 @@
     .user {
         display: flex;
         justify-content: space-between;
-        padding: .5rem;
     }
 
     h4 {
@@ -195,12 +195,17 @@
     form > button {
         font-size: 1.125rem;
         line-height: 1.75rem; font-weight: 600;
-        padding: 0 .5rem;
         padding-top: .1rem;
         margin-left: .375rem;
         background-color: var(--primary);
         border-radius: .75rem;
         border: none;
+    }
+
+    .suggestions {
+        max-height: 3rem;
+        overflow-y: scroll;
+        overscroll-behavior: auto;
     }
 
     .suggestion {
@@ -254,5 +259,25 @@
         body {
             margin: 0 24rem;
         }
+    }
+
+    /* Scroll Bar */
+
+    /* width */
+    ::-webkit-scrollbar {
+        width: 15px;
+        margin-right: 2.5rem;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey;
+        border-radius: 7px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: var(--primary);
+        border-radius: 7px;
     }
 </style>
