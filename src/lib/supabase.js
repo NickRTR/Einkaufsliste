@@ -1,3 +1,4 @@
+// @ts-nocheck
 import supabase from "$lib/db.js";
 import { get } from "svelte/store";
 import { products, theme, categories, priorityToCategory, wordList } from "$lib/stores";

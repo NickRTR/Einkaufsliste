@@ -1,8 +1,15 @@
 <script>
+    // @ts-nocheck
     import { wordList, session, products, priorityToCategory} from "$lib/stores";
-    import { logout, changePriorities, deleteAll, setTheme } from "$lib/supabase";
+    import { logout, changePriorities, deleteAll, setTheme, getTheme, getProducts } from "$lib/supabase";
     import { slide } from "svelte/transition";
     import DragDropList from "$lib/components/DragDropList.svelte";
+    import { onMount } from "svelte";
+
+    onMount(async () => {
+        getProducts();
+        getTheme();
+    });
     
     let showSort = false;
 
@@ -26,57 +33,65 @@
 </script>
 
 <main>
-    <h2>Authentication</h2>
-    <div class="user">
-        <h4>{$wordList.index.welcome} {$session?.user.email ? $session.user.email : ""}!</h4>
-        <p on:click={logout}>{$wordList.index.logout}</p>
-    </div>
-    
-    <hr>
-
-    <h2>Theme</h2>
-    <p on:click={setTheme}>Change Theme</p>
-
-    <hr>
-    
-    <h2>List</h2>
-    <h3>Share List</h3>
-    <p class="linkButton" on:click={shareList}>{$wordList.index.share}</p>
-
-    <h3>Sort Categories</h3>
-    <p class="linkButton" on:click={() => {showSort = !showSort}}>{$wordList.index.sort}</p>
-    {#if showSort}
-        <div class="sort" transition:slide|local="{{duration: 800}}">
-            <DragDropList bind:data={$priorityToCategory} wordList={$wordList.categories} />
-            <button class="submitSort" type="submit" on:click|preventDefault={() => {changePriorities($priorityToCategory); showSort = !showSort}}>{$wordList.index.sort}</button>
+    <div class="general">
+        <div class="theme" title={$wordList.settings.changeTheme} on:click={setTheme}>
+            <p>{$wordList.settings.theme}</p>
         </div>
-    {/if}
+        <div class="user">
+            <h3>{$session?.user.email ? $session.user.email : ""}</h3>
+            <button on:click={logout} title={$wordList.index.logout}>{$wordList.index.logout}</button>
+        </div>
+    </div>
 
-    <h3>Manage Products</h3>
-    <p class="linkButton" on:click={() => {deleteAll($wordList.index.deleteMessage)}}>{$wordList.index.deleteAll}</p>
+    <div class="list">
+        <h2>{$wordList.settings.list}</h2>
+        <button on:click={shareList} title={$wordList.index.share}>{$wordList.index.share}</button>
+        <button on:click={() => {deleteAll($wordList.index.deleteMessage)}} title={$wordList.index.deleteAll}>{$wordList.index.deleteAll}</button>
+        <br>
+        <button id="sortButton" on:click={() => {showSort = !showSort}} title={$wordList.index.sort}>{$wordList.index.sort}</button>
+        {#if showSort}
+            <div class="sort" transition:slide|local="{{duration: 800}}">
+                <DragDropList bind:data={$priorityToCategory} wordList={$wordList.categories} />
+                <button class="submitSort" type="submit" on:click|preventDefault={() => {changePriorities($priorityToCategory); showSort = !showSort}}>{$wordList.index.sort}</button>
+            </div>
+        {/if}
+    </div>
+
 </main>
 
 <style>
     main {
         color: var(--primary);
+        margin: 0 1rem;
     }
 
-    h4 {
-        margin: 0;
-        font-weight: normal;
+    button {
+        border-radius: 2rem;
+        border: none;
+        padding: .5rem 1rem;
+        font-size: 1rem;
+        font-weight: bold;
+        background-color: var(--primary);
     }
 
-    .user > p {
-        margin: 0;
-        text-decoration: underline;
+    .general {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .theme {
+        background-color: var(--primary);
+        color: black;
+        width: 10rem;
+        height: 10rem;
+        border-radius: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         cursor: pointer;
-    }
-
-    .linkButton {
-        margin: 0;
-        margin-top: .5rem;
-        text-decoration: underline;
-        cursor: pointer;
+        font-size: 2rem;
+        font-weight: bold;
     }
 
     .sort {
@@ -96,5 +111,34 @@
         border-radius: .75rem;
         border: none;
         color: var(--primary);
+    }
+
+    .list {
+        margin-top: 2rem;
+        border-top: 5px solid var(--primary);
+    }
+
+    .list h2 {
+        margin-bottom: 1rem;
+    }
+
+    .list button {
+        margin: .5rem .25rem;
+    }
+
+    @media only screen and (max-width: 400px) {
+        .theme {
+            width: 7rem;
+            height: 7rem;
+            font-size: 1.5rem;
+        }
+    }
+
+    @media only screen and (max-width: 330px) {
+        .theme {
+            width: 6rem;
+            height: 6rem;
+            font-size: 1.2rem;
+        }
     }
 </style>

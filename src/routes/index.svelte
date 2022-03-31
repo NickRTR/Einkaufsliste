@@ -3,13 +3,11 @@
     import { onMount } from "svelte";
     import { flip } from "svelte/animate";
     import { fade, fly } from "svelte/transition";
-    import { translate } from "$lib/translations/translate";
     import { getProducts, addProduct, getTheme, getUserData } from "$lib/supabase.js";
 
     import ProductCard from "$lib/components/ProductCard.svelte";
 
     onMount(async () => {
-        wordList.set(await translate(navigator.language));
         getProducts();
         getTheme();
         getUserData();
@@ -57,7 +55,7 @@
 
     <div class="products">
         {#each processedProducts as product (product.id)}
-            <div animate:flip in:fade out:fly|local={{x:100}}>
+            <div animate:flip={{duration: 1000}} in:fade|local out:fly|local={{x:100}}>
                 {#if !product.checked}
                     <ProductCard {product}/>
                 {/if}
@@ -70,7 +68,7 @@
     <div class="checkedProducts">
         <p class="divider"><span>{$wordList.index.checked}</span></p>
         {#each processedProducts as product (product.id)}
-            <div in:fade out:fly={{x:100}}>
+            <div in:fade|local out:fly|local={{x:100}}>
                 {#if product.checked}
                     <ProductCard {product}/>
                 {/if}

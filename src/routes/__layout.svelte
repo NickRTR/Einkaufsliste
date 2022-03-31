@@ -1,31 +1,27 @@
 <script>
-    import { theme, session } from "$lib/stores";
+    import { theme, session, wordList } from "$lib/stores";
+    import { translate } from "$lib/translations/translate";
     import { goto } from '$app/navigation';
     import { onMount } from "svelte";
     import supabase from "$lib/db";
     import { page } from "$app/stores";
 
-    onMount(() => {
+    onMount(async () => {
+        // @ts-ignore
+        wordList.set(await translate(navigator.language));
+
         $session = supabase.auth.session();
         supabase.auth.onAuthStateChange((event, authSession) => {
             $session = authSession;
             setTimeout(() => $session ? goto("/") : goto("/login")); // redirect
         })
     })
-
-    function settings() {
-        if ($page.url.pathname === "/settings") {
-            goto("/");
-        } else {
-            goto("/settings");
-        }
-    }
 </script>
 
 <body style="--primary: {$theme}">
     <header>
         <a href="/" sveltekit:prefetch><h1>Schoppy</h1></a>
-        <img src="/settings.svg" alt="⚙" title="settings" on:click={settings}>
+        <a href={($page.url.pathname === "/settings") ? "/" : "/settings"}><img src="/settings.svg" alt="⚙" title="settings"></a>
     </header>      
 
     <main><slot></slot></main>
@@ -54,6 +50,7 @@
 
     h1 {
         margin: 0;
+        margin-bottom: .5rem;
         cursor: pointer;
     }
 
@@ -69,6 +66,7 @@
         margin: 0;
         padding: .5rem;
         width: 2.2rem;
+        cursor: pointer;
     }
 
     :global(button) {
