@@ -44,6 +44,7 @@ export const translation = {
     error: {
         userAlreadyRegistered: "Sie sind bereits registriert. Bitte anmelden!",
         toShortPassword: "Bitte geben Sie ein Passwort mit mindestens 6 Zeichen ein.",
-        wrongCredentials: "Falsche E-mail Adresse oder falsches Passwort. Sind Sie bereits registriert?"
+        wrongCredentials: "Falsche E-mail Adresse oder falsches Passwort. Sind Sie bereits registriert?",
+        shareError: "Dein Gerät/Browser kann die Liste nicht teilen."
     }
 }

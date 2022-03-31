@@ -44,6 +44,7 @@ export const translation = {
     error: {
         userAlreadyRegistered: "Ya estás registrado. ¡Por favor Iniciar sesión!",
         toShortPassword: "Introduzca una contraseña de al menos 6 caracteres.",
-        wrongCredentials: "Credenciales incorrectas. ¿Ya estás registrado?"
+        wrongCredentials: "Credenciales incorrectas. ¿Ya estás registrado?",
+        shareError: "Su dispositivo/navegador no puede compartir esta lista."
     }
 }

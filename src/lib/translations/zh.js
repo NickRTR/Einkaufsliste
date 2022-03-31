@@ -44,6 +44,7 @@ export const translation = {
     error: {
         userAlreadyRegistered: "你已经注册过了。 请登录！",
         toShortPassword: "请输入至少 6 个字符的密码。",
-        wrongCredentials: "错误的凭据。 你已经注册了吗？"
+        wrongCredentials: "错误的凭据。 你已经注册了吗？",
+        shareError: "您的设备/浏览器无法共享此列表。"
     }
 }

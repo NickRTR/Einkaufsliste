@@ -44,6 +44,7 @@ export const translation = {
     error: {
         userAlreadyRegistered: "انت مسجل مسبقا. الرجاء تسجيل الدخول!",
         toShortPassword: "الرجاء إدخال كلمة مرور مكونة من 6 أحرف على الأقل.",
-        wrongCredentials: "أوراق اعتماد خاطئة. هل انت مسجل بالفعل؟"
+        wrongCredentials: "أوراق اعتماد خاطئة. هل انت مسجل بالفعل؟",
+        shareError: "جهازك / متصفحك غير قادر على مشاركة هذه القائمة."
     }
 }

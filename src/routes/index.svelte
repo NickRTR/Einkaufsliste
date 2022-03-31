@@ -18,6 +18,7 @@
 
     let processedProducts = $products; // if there is something searched, the products are being updated
 
+    // filter products to get suggestions and filtered products
     $: {
         let preSuggestions = [];
         if (input !== "" && $products.length >= 1) {
@@ -44,8 +45,8 @@
 
 <body>
     <form class="addProduct" on:submit|preventDefault={() => {addProduct(input); input = "";}}>
-        <input type="text" bind:value={input}>
-        <button type="submit">{$wordList.index.add}</button>
+        <input type="text" bind:value={input} title={$wordList.index.add}>
+        <button type="submit" title={$wordList.index.add}>{$wordList.index.add}</button>
     </form>
     <div class="suggestions">
         {#each suggestions as suggestion}
