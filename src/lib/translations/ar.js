@@ -1,6 +1,5 @@
 export const translation = {
     index: {
-        welcome: "أهلا بك",
         logout: "تسجيل خروج",
         sort: "تصنيف الفئات",
         share: "شارك",
@@ -36,6 +35,11 @@ export const translation = {
             switch: "هل قمت بالفعل بإنشاء حساب؟"
         },
         password: "كلمه السر"
+    },
+    settings: {
+        theme: "التصميم",
+        changeTheme: "تخصيص الموضوع",
+        list: "قائمة",
     },
     error: {
         userAlreadyRegistered: "انت مسجل مسبقا. الرجاء تسجيل الدخول!",

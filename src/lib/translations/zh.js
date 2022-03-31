@@ -1,6 +1,5 @@
 export const translation = {
     index: {
-        welcome: "歡迎",
         logout: "登出",
         sort: "排序類別",
         share: "分享",
@@ -36,6 +35,11 @@ export const translation = {
             switch: "您是否已經創建了一個帳戶?"
         },
         password: "密碼"
+    },
+    settings: {
+        theme: "设计",
+        changeTheme: "自定义主题",
+        list: "列表",
     },
     error: {
         userAlreadyRegistered: "你已经注册过了。 请登录！",

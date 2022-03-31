@@ -1,6 +1,5 @@
 export const translation = {
     index: {
-        welcome: "Willkommen",
         logout: "ausloggen",
         sort: "Kategorien sortieren",
         share: "Teilen",
@@ -36,6 +35,11 @@ export const translation = {
             switch: "Besitzen Sie bereits einen Account?"
         },
         password: "Passwort"
+    },
+    settings: {
+        theme: "Design",
+        changeTheme: "Design anpassen",
+        list: "Liste",
     },
     error: {
         userAlreadyRegistered: "Sie sind bereits registriert. Bitte anmelden!",
