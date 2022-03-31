@@ -109,7 +109,6 @@
         background-color: black;
         color: white;
         font-size: 1.1rem;
-        outline: none;
     }
 
     .status {
