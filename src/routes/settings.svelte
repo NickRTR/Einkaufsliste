@@ -62,7 +62,6 @@
 <style>
     main {
         color: var(--primary);
-        margin: 0 1rem;
     }
 
     button {
@@ -114,6 +113,7 @@
     }
 
     .list {
+        margin: 0 1rem;
         margin-top: 2rem;
         border-top: 5px solid var(--primary);
     }
