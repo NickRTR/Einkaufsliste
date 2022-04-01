@@ -4,8 +4,8 @@ import { get } from "svelte/store";
 import { products, theme, categories, priorityToCategory, wordList } from "$lib/stores";
 import { session } from "$lib/stores";
 
-// white, lightpink, babyblue, babygreen, orange
-const colors = ["#EEE", "#F2CCC3", "#B7D3F2", "#a1c181", "#e9c46a"];
+// white, orange, babyblue, babygreen
+const colors = ["#EEE", "#F6C90E", "#B7D3F2", "#a1c181"];
 
 // stringify Categories for Supabase
 // import { stringifyCategories } from "./categories";
