@@ -159,7 +159,7 @@ export const changeCategory = async (input, oldCategory, category, id) => {
         updatedCategories[oldCategory] = updatedCategories[oldCategory].filter(value => value != input.toLowerCase());
     }
     updatedCategories[category] = [input.toLowerCase(), ...updatedCategories[category]];
-    await supabase.from('userdata').update({"categories": updatedCategories}).eq("user_id", get(user).id);
+    await supabase.from('userdata').update({"categories": updatedCategories}).eq("user_id", get(session).user.id);
     getProducts();
     getUserData();
 }
