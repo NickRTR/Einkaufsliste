@@ -2,14 +2,8 @@
     import supabase from "$lib/db.js";
     import { wordList } from "$lib/stores.js";
     import { createUserData } from "$lib/supabase.js";
-    import { onMount } from "svelte";
     import { get } from "svelte/store";
-    import { translate } from "$lib/translations/translate";
     import { goto } from "$app/navigation";
-
-    onMount(async () => {
-        wordList.set(await translate(navigator.language));
-    });
 
     let emailInput = "";
     let passwordInput = "";

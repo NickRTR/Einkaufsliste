@@ -40,6 +40,16 @@ export const translation = {
         theme: "设计",
         changeTheme: "自定义主题",
         list: "列表",
+        language: {
+            language: "语言",
+            German: "德语",
+            English: "英语",
+            AmericanEnglish: "美式英语",
+            Spanish: "西班牙语",
+            French: "法语",
+            Chinese: "中国人",
+            Arabic: "阿拉伯"
+        }
     },
     error: {
         userAlreadyRegistered: "你已经注册过了。 请登录！",

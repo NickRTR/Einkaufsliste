@@ -40,6 +40,16 @@ export const translation = {
         theme: "التصميم",
         changeTheme: "تخصيص الموضوع",
         list: "قائمة",
+        language: {
+            language: "لغة",
+            German: "ألمانية",
+            English: "إنجليزي",
+            AmericanEnglish: "الإنجليزية الأمريكية",
+            Spanish: "الأسبانية",
+            France: "فرنسا",
+            Chinese: "صينى",
+            Arabic: "صينى"
+        }
     },
     error: {
         userAlreadyRegistered: "انت مسجل مسبقا. الرجاء تسجيل الدخول!",

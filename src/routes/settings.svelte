@@ -5,6 +5,7 @@
     import { slide } from "svelte/transition";
     import DragDropList from "$lib/components/DragDropList.svelte";
     import { onMount } from "svelte";
+    import { browser } from "$app/env";
 
     onMount(async () => {
         getProducts();
@@ -12,6 +13,16 @@
     });
     
     let showSort = false;
+    let language;
+    if (browser) {
+        language = navigator.language == "en-US" ? "en-US" : navigator.language.substring(0,2);
+        if (localStorage.getItem("language")) language = localStorage.getItem("language");
+    }
+
+    function changeLanguage() {
+        localStorage.setItem("language", language);
+        location.reload();
+    }
 
     function shareList() {
         let data = "Schoppy\n\n";
@@ -40,6 +51,15 @@
         </div>
         <div class="user">
             <h3>{$session?.user.email ? $session.user.email : ""}</h3>
+            <h4>{$wordList.settings.language.language}: <select name="language" id="language" bind:value={language} on:change={changeLanguage}>
+                <option value="de">{$wordList.settings.language.German}</option>
+                <option value="en">{$wordList.settings.language.English}</option>
+                <option value="en-US">{$wordList.settings.language.AmericanEnglish}</option>
+                <option value="es">{$wordList.settings.language.Spanish}</option>
+                <option value="fr">{$wordList.settings.language.French}</option>
+                <option value="zh">{$wordList.settings.language.Chinese}</option>
+                <option value="ar">{$wordList.settings.language.Arabic}</option>
+            </select></h4>
             <button on:click={logout} title={$wordList.index.logout}>{$wordList.index.logout}</button>
         </div>
     </div>
@@ -90,6 +110,14 @@
         justify-content: center;
         cursor: pointer;
         font-size: 2rem;
+        font-weight: bold;
+    }
+
+    select {
+        background-color: var(--primary);
+        border: none;
+        border-radius: 1rem;
+        padding: .2rem .5rem;
         font-weight: bold;
     }
 

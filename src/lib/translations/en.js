@@ -40,6 +40,16 @@ export const translation = {
         theme: "theme",
         changeTheme: "change theme",
         list: "list",
+        language: {
+            language: "language",
+            German: "German",
+            English: "English",
+            AmericanEnglish: "American English",
+            Spanish: "Spanish",
+            French: "French",
+            Chinese: "Chinese",
+            Arabic: "Arabic"
+        }
     },
     error: {
         userAlreadyRegistered: "You are already registered. Please login!",

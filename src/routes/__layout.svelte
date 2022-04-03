@@ -1,15 +1,11 @@
 <script>
-    import { theme, session, wordList } from "$lib/stores";
-    import { translate } from "$lib/translations/translate";
+    import { theme, session } from "$lib/stores";
     import { goto } from '$app/navigation';
     import { onMount } from "svelte";
     import { page } from "$app/stores";
     import supabase from "$lib/db";
 
     onMount(async () => {
-        // @ts-ignore
-        wordList.set(await translate(navigator.language));
-
         $session = supabase.auth.session();
         supabase.auth.onAuthStateChange((event, authSession) => {
             $session = authSession;
