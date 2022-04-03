@@ -1,10 +1,10 @@
 <script>
     import supabase from "$lib/db.js";
     import { wordList } from "$lib/stores.js";
-    import { createUserData } from "$lib/supabase.js";
     import { onMount } from "svelte";
     import { get } from "svelte/store";
     import { translate } from "$lib/translations/translate";
+    import { goto } from "$app/navigation";
 
     onMount(async () => {
         wordList.set(await translate(navigator.language));
@@ -13,31 +13,6 @@
     let emailInput = "";
     let passwordInput = "";
     let showPassword = false;
-
-    let isNewRegistration = false;
-
-    const signUp = async () => {
-        if (emailInput === "" || passwordInput === "") {
-            return;
-        }
-
-        let { error } = await supabase.auth.signUp({
-            email: emailInput,
-            password: passwordInput,
-        });
-        if (error) {
-            if (error.message === "User already registered") {
-                alert(get(wordList).error.userAlreadyRegistered);
-                isNewRegistration = false;
-            } else if (error.message === "Password should be at least 6 characters") {
-                alert(get(wordList).error.toShortPassword);
-            } else {
-                alert(error.message);
-            }
-        } else {
-            createUserData();
-        }
-    }
 
     const logIn = async () => {
         if (emailInput === "" || passwordInput === "") {
@@ -59,17 +34,12 @@
 </script>
 
 <svelte:head>
-    <title>Schoppy - Login</title>
+    <title>Schoppy - {$wordList.login.registered.title}</title>
 </svelte:head>
 
 <body>
-    {#if isNewRegistration}
-        <h1 on:click={() => {isNewRegistration = !isNewRegistration}}>{$wordList.login.unregistered.title}</h1>
-    {:else}
-        <h1 on:click={() => {isNewRegistration = !isNewRegistration}}>{$wordList.login.registered.title}</h1>
-    {/if}
-
-    <form on:submit|preventDefault>
+    <h1>Schoppy - {$wordList.login.registered.title}</h1>
+    <form on:submit|preventDefault={logIn}>
         <label for="email">E-mail: </label><br>
         <input type="email" id="email" placeholder="email@email.com" bind:value={emailInput}><br>
         <label for="password">{$wordList.login.password}:</label><br>
@@ -78,16 +48,10 @@
             <input type="checkbox" id="togglePassword" class:show={showPassword} bind:checked={showPassword} on:change={() => {
                 // @ts-ignore
                 document.querySelector('#password').type = showPassword ? 'text' : 'password'}}>
-            <label class="viewPasswordLabel" for="togglePassword"><img src="showPassword.svg" alt="show"></label><br>
+            <label class="viewPasswordLabel" for="togglePassword"><img src="/showPassword.svg" alt="show"></label><br>
         </div>
-
-        {#if isNewRegistration}
-            <button on:click={signUp}>{$wordList.login.unregistered.title}</button>
-            <p on:click={() => {isNewRegistration = !isNewRegistration}}>{$wordList.login.unregistered.switch}</p>
-        {:else}
-            <button  on:click={logIn}>{$wordList.login.registered.title}</button>
-            <p on:click={() => {isNewRegistration = !isNewRegistration}}>{$wordList.login.registered.switch}</p>
-        {/if}
+        <button type="submit">{$wordList.login.registered.title}</button>
+        <p on:click={() => {goto("/auth/signup")}}>{$wordList.login.registered.switch}</p>
     </form>
 </body>
 
@@ -95,7 +59,8 @@
     h1 {
         margin: 0;
         font-size: 2.25rem;
-        padding: .75rem 0;
+        padding-top: 1.5rem;
+        padding-bottom: .75rem;
         font-weight: 600;
         cursor: pointer;
     }

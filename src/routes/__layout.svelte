@@ -3,8 +3,8 @@
     import { translate } from "$lib/translations/translate";
     import { goto } from '$app/navigation';
     import { onMount } from "svelte";
-    import supabase from "$lib/db";
     import { page } from "$app/stores";
+    import supabase from "$lib/db";
 
     onMount(async () => {
         // @ts-ignore
@@ -13,7 +13,7 @@
         $session = supabase.auth.session();
         supabase.auth.onAuthStateChange((event, authSession) => {
             $session = authSession;
-            setTimeout(() => $session ? goto("/") : goto("/login")); // redirect
+            setTimeout(() => $session ? goto("/") : goto("/auth/login")); // redirect
         })
     })
 </script>
