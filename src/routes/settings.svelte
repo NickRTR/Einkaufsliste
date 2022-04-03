@@ -51,7 +51,7 @@
         </div>
         <div class="user">
             <h3>{$session?.user.email ? $session.user.email : ""}</h3>
-            <h4>{$wordList.settings.language.language}: <select name="language" id="language" bind:value={language} on:change={changeLanguage}>
+            <h4>{$wordList.settings.language.language}: <br><select name="language" id="language" bind:value={language} on:change={changeLanguage}>
                 <option value="de">{$wordList.settings.language.German}</option>
                 <option value="en">{$wordList.settings.language.English}</option>
                 <option value="en-US">{$wordList.settings.language.AmericanEnglish}</option>
@@ -85,6 +85,7 @@
     }
 
     button {
+        margin-top: 1rem;
         border-radius: 2rem;
         border: none;
         padding: .5rem 1rem;
@@ -113,8 +114,19 @@
         font-weight: bold;
     }
 
+    h3 {
+        margin: 0;
+        margin-bottom: .5rem;
+    }
+
+    h4 {
+        margin: 0;
+        line-height: 1.5rem;
+    }
+
     select {
         background-color: var(--primary);
+        color: black;
         border: none;
         border-radius: 1rem;
         padding: .2rem .5rem;
