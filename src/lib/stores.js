@@ -16,13 +16,17 @@ export const session = writable();
 
 export const wordList = writable(translation); // initialize worldList with Englisch until right language is being loaded
 
-if (browser) {
-    if (localStorage.getItem("language")) {
-        wordList.set(await translate(localStorage.getItem("language")))
-    } else {
-        wordList.set(await translate(navigator.language));
+async function getTranslation() {
+    if (browser) {
+        if (localStorage.getItem("language")) {
+            wordList.set(await translate(localStorage.getItem("language")))
+        } else {
+            wordList.set(await translate(navigator.language));
+        }
     }
 }
+
+getTranslation();
 
 // {
 //     1: "Gemüse",
