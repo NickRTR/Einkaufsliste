@@ -111,7 +111,7 @@
     }
 
     .suggestions {
-        max-height: 3rem;
+        max-height: 4rem;
         overflow-y: scroll;
         overscroll-behavior: auto;
     }

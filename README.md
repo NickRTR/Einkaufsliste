@@ -8,6 +8,7 @@ Easter Egg: To change the color scheme, just click the title ("Schoppy").
 
 - Login and Signup with email and password
 - Add Products with title, quantity and category (fruits, vegetables, milk, ...)
+- Input Suggestions
 - Delete, check and edit Products
 - Change product category
 - Change product category sort order
