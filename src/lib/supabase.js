@@ -61,6 +61,8 @@ export const addProduct = async (input) => {
                     }
                     return;
                 } else {
+                    updateAmount(1, updatedProduct.id);
+                    updateType("stk", updatedProduct.id);
                     toggleChecked(updatedProduct.id, updatedProduct.created, updatedProduct.checked);
                     return;
                 }
