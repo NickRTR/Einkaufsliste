@@ -2,8 +2,6 @@
 
 A simple, yet feature packed and powerful shopping list.
 
-Easter Egg: To change the color scheme, just click the title ("Schoppy").
-
 # Functionality
 
 - Login and Signup with email and password
@@ -14,6 +12,7 @@ Easter Egg: To change the color scheme, just click the title ("Schoppy").
 - Change product category sort order
 - Export the list via the navigator.share API
 - Support for multiple languages including English, German, Spanish, France, Chinese and Arabic.
+- Settings
 
 ---
 
