@@ -9,9 +9,7 @@
     let showPassword = false;
 
     const logIn = async () => {
-        if (emailInput === "" || passwordInput === "") {
-            return;
-        }
+        if (emailInput === "" || passwordInput === "") return;
 
         let { error } = await supabase.auth.signIn({
             email: emailInput,

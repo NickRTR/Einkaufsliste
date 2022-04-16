@@ -1,17 +1,10 @@
 <script>
-    import { theme, session } from "$lib/stores";
-    import { goto } from '$app/navigation';
+    import { theme } from "$lib/stores";
     import { onMount } from "svelte";
     import { page } from "$app/stores";
-    import supabase from "$lib/db";
+    import { listenToAuthChanges } from "$lib/auth";
 
-    onMount(async () => {
-        $session = supabase.auth.session();
-        supabase.auth.onAuthStateChange((event, authSession) => {
-            $session = authSession;
-            setTimeout(() => $session ? goto("/") : goto("/auth/login")); // redirect
-        })
-    })
+    onMount(() => listenToAuthChanges()); // listen to auth state changes to login and logout
 </script>
 
 <body style="--primary: {$theme}">

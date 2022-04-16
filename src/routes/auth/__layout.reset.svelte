@@ -1,3 +1,10 @@
+<script>
+    import { onMount } from "svelte";
+    import { listenToAuthChanges } from "$lib/auth";
+
+    onMount(() => listenToAuthChanges()); // listen to auth state changes to login and logout
+</script>
+
 <body>
     <slot></slot>
 </body>
