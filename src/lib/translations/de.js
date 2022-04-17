@@ -5,6 +5,7 @@ export const translation = {
         share: "Teilen",
         deleteAll: "Alles löschen",
         deleteMessage: "Sind Sie sicher? Dieser Vorgang kann nicht rückgängig gemacht werden.",
+        placeholder: "suchen / hinzufügen",
         add: "Hinzufügen",
         productAlreadyListed: "ist bereits vorhanden. Möchten Sie die Anzahl um 1 erhöhen?",
         pcs: "stk",

@@ -5,6 +5,7 @@ export const translation = {
         share: "شارك",
         deleteAll: "احذف كل شيء",
         deleteMessage: "هل أنت واثق؟ لا يمكن التراجع عن هذا الإجراء.",
+        placeholder: "بحث / إضافة",
         add: "يضيف",
         productAlreadyListed: "موجود أصلا. هل تريد زيادة العد بمقدار 1؟",
         pcs: "قطع",

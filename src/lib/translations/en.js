@@ -5,6 +5,7 @@ export const translation = {
         share: "share",
         deleteAll: "delete all",
         deleteMessage: "Are you sure? This action can not be undone.",
+        placeholder: "search / add",
         add: "Add",
         productAlreadyListed: "already exists. Do you want to increase the amount by 1?",
         pcs: "pc(s)",

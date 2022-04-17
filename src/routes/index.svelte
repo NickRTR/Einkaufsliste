@@ -25,7 +25,7 @@
             let filteredProducts = [];
             for (let i in $products) {
                 let product = $products[i]
-                if (product.title.toLowerCase().startsWith(input.toLowerCase())) {
+                if (product.title.toLowerCase().startsWith(input.toLowerCase()) || product.title.toLowerCase().includes(input.toLocaleLowerCase())) {
                     preSuggestions = [...preSuggestions, product.title];
                     filteredProducts = [...filteredProducts, product];
                 }
@@ -45,7 +45,7 @@
 
 <body>
     <form class="addProduct" on:submit|preventDefault={() => {addProduct(input); input = "";}}>
-        <input type="text" bind:value={input} title={$wordList.index.add}>
+        <input type="text" bind:value={input} title={$wordList.index.add} placeholder={$wordList.index.placeholder}>
         <button type="submit" title={$wordList.index.add}>{$wordList.index.add}</button>
     </form>
     <div class="suggestions">
@@ -98,6 +98,10 @@
         border-radius: .75rem;
         border: none;
         background-color: var(--primary);
+    }
+
+    input::placeholder {
+        font-weight: normal;
     }
 
     form > button {
