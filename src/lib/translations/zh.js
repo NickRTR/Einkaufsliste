@@ -5,6 +5,7 @@ export const translation = {
         share: "分享",
         deleteAll: "删除所有内容",
         deleteMessage: "你确定吗？ 此操作无法撤消。",
+        placeholder: "搜索/添加",
         add: "添加",
         productAlreadyListed: "已经存在。 您想将计数增加 1 吗？",
         pcs: "片",

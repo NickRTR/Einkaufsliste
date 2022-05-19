@@ -16,6 +16,7 @@ let priorities;
 let updatedProducts;
 
 export const getProducts = async () => {
+    console.log("get4te");
     let {data: dbProducts} = await supabase.from('products').select("*").order("sort", {ascending: true});
     products.set([...dbProducts]);
     updatedProducts = dbProducts;

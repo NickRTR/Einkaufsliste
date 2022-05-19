@@ -17,7 +17,7 @@
             updateTitle(product.id, event.target.innerText, product.title, product.category)}}>{product.title}</div>
         <div class="stats">
             <div class="quantity">
-                <input type="text" class="amount" maxlength="3" value={product.amount} on:input={(event) => {
+                <input type="text" class="amount" maxlength="3" value={product.amount} on:blur={(event) => {
                     // @ts-ignore
                     updateAmount(event.target.value, product.id)}}>
                 <select value={product.type} on:change={(event) => {
