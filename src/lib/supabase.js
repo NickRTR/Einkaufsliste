@@ -186,8 +186,9 @@ export const changePriorities = async (changedPriorities) => {
 }
 
 const getSort = async (category) => {
+    if (category === "choose") return 0;
     for (let i = 0; i <= Object.keys(priorities).length; i++) {
-        if (priorities[i] === category) return i;
+        if (priorities[i] === category) return i + 1;
     }
 }
 
