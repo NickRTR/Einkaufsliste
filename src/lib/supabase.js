@@ -16,7 +16,6 @@ let priorities;
 let updatedProducts;
 
 export const getProducts = async () => {
-    console.log("get4te");
     let {data: dbProducts} = await supabase.from('products').select("*").order("sort", {ascending: true});
     products.set([...dbProducts]);
     updatedProducts = dbProducts;
@@ -187,9 +186,8 @@ export const changePriorities = async (changedPriorities) => {
 }
 
 const getSort = async (category) => {
-    if (category === "choose") return 1;
     for (let i = 0; i <= Object.keys(priorities).length; i++) {
-        if (priorities[i] === category) return i + 1;
+        if (priorities[i] === category) return i;
     }
 }
 
