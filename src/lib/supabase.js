@@ -140,7 +140,7 @@ export const getCategory = (input) => {
         return "choose";
     }
 
-    //then check if there's an other not perfect fitting entry
+    // then check if there's an other not perfect fitting entry
     for (let i = 0; i < priorities.length; i++) {
         for (let y = 0; y < updatedCategories[priorities[i]].length; y++) {
             let product = updatedCategories[priorities[i]];
@@ -186,8 +186,9 @@ export const changePriorities = async (changedPriorities) => {
 }
 
 const getSort = async (category) => {
+    if (category === "choose") return 1;
     for (let i = 0; i <= Object.keys(priorities).length; i++) {
-        if (priorities[i] === category) return i;
+        if (priorities[i] === category) return i + 1;
     }
 }
 
