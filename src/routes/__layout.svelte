@@ -39,7 +39,7 @@
 
     h1 {
         margin: 0;
-        margin-bottom: .5rem;
+        padding-bottom: .5rem;
         cursor: pointer;
     }
 
