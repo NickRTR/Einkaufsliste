@@ -8,6 +8,7 @@ export const translation = {
         placeholder: "suchen / hinzufügen",
         add: "Hinzufügen",
         productAlreadyListed: "ist bereits vorhanden. Möchten Sie die Anzahl um 1 erhöhen?",
+        noFittingProducts: "Keine passenden Produkte vorhanden.",
         pcs: "stk",
         gr: "gr",
         kg: "kg",

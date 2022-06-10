@@ -8,6 +8,7 @@ export const translation = {
         placeholder: "بحث / إضافة",
         add: "يضيف",
         productAlreadyListed: "موجود أصلا. هل تريد زيادة العد بمقدار 1؟",
+        noFittingProducts: "لا توجد منتجات مطابقة في القائمة.",
         pcs: "قطع",
         gr: "غرام",
         kg: "كيلوغرام",

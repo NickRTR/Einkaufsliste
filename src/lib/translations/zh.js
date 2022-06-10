@@ -8,6 +8,7 @@ export const translation = {
         placeholder: "搜索/添加",
         add: "添加",
         productAlreadyListed: "已经存在。 您想将计数增加 1 吗？",
+        noFittingProducts: "没有适合的产品。",
         pcs: "片",
         gr: "克",
         kg: "公斤",
