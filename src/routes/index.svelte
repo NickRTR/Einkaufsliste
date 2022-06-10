@@ -25,10 +25,15 @@
             let filteredProducts = [];
             for (let i in $products) {
                 let product = $products[i]
-                if (product.title.toLowerCase().startsWith(input.toLowerCase()) || product.title.toLowerCase().includes(input.toLocaleLowerCase())) {
+                if ((product.title.toLowerCase().startsWith(input.toLowerCase()) && product.checked === false) || (product.title.toLowerCase().includes(input.toLocaleLowerCase()) && product.checked === false)) {
                     preSuggestions = [...preSuggestions, product.title];
                     filteredProducts = [...filteredProducts, product];
                 }
+            }
+            // reset suggestions and filtered products
+            if (preSuggestions.length === 0) {
+                suggestions = [];
+                processedProducts = [];
             }
             suggestions = preSuggestions;
             if (filteredProducts.length !== 0) processedProducts = filteredProducts; // only filter products if there are some according to the filter
@@ -62,7 +67,7 @@
                 {/if}
             </div>
         {:else}
-            <p>Keine Produkte vorhanden.</p>
+            <p>Keine passenden Produkte vorhanden.</p>
         {/each}
     </div>
 
