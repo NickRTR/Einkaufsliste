@@ -6,7 +6,6 @@
     import { getProducts, addProduct, getTheme, getUserData } from "$lib/supabase.js";
 
     import ProductCard from "$lib/components/ProductCard.svelte";
-import { translation } from "$lib/translations/en";
 
     onMount(async () => {
         getProducts();
