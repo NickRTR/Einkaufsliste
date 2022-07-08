@@ -48,7 +48,7 @@
     <title>Schoppy</title>
 </svelte:head>
 
-<body>
+<main>
     <form class="addProduct" on:submit|preventDefault={() => {addProduct(input); input = "";}}>
         <input type="text" bind:value={input} title={$wordList.index.add} placeholder={$wordList.index.placeholder}>
         <button type="submit" title={$wordList.index.add}>{$wordList.index.add}</button>
@@ -85,7 +85,7 @@
     <footer>
         <p>©2022 Nick Reutlinger</p>
     </footer>
-</body>
+</main>
 
 <style>
     .addProduct {
@@ -101,8 +101,8 @@
         font-size: 1.25rem;
         font-weight: 600;
         border-radius: .75rem;
-        border: none;
-        background-color: var(--primary);
+        border: 4px solid var(--minor);
+        background-color: var(--major);
     }
 
     input::placeholder {
@@ -114,7 +114,6 @@
         line-height: 1.75rem; font-weight: 600;
         padding-top: .1rem;
         margin-left: .375rem;
-        background-color: var(--primary);
         border-radius: .75rem;
         border: none;
     }
@@ -134,15 +133,15 @@
 
     .divider {
         text-align: center; 
-        border-bottom: 5px solid red; 
-        border-top: 5px solid red;
+        border-bottom: 5px solid var(--accent); 
+        border-top: 5px solid var(--accent);
         border-radius: .5rem;
         line-height: 0;
         margin: 1rem .7rem;
     }
 
     .divider span {
-        background-color: black;
+        background-color: var(--major);
         padding: 0 7px;
     }
 

@@ -11,26 +11,27 @@
  
 <div class="container">
     <div class="Card">
-        <img type="image" src="/category/{product.category}.svg" alt={$wordList.categories[product.category]} title={$wordList.categories[product.category]} on:click={() => {showChangeCategory = !showChangeCategory}}>
-        <div id="title" contenteditable="true" on:blur={(event) => {
-            // @ts-ignore
-            updateTitle(product.id, event.target.innerText, product.title, product.category)}}>{product.title}</div>
-        <div class="stats">
-            <div class="quantity">
-                <input type="text" class="amount" maxlength="3" value={product.amount} on:blur={(event) => {
-                    // @ts-ignore
-                    updateAmount(event.target.value, product.id)}}>
-                <select value={product.type} on:change={(event) => {
-                    // @ts-ignore
-                    updateType(event.target.value, product.id);
-                }}>
-                    <option value="stk">{$wordList.index["pcs"]}</option>
-                    <option value="gr">{$wordList.index["gr"]}</option>
-                    <option value="kg">{$wordList.index["kg"]}</option>
-                    <option value="ml">{$wordList.index["ml"]}</option>
-                    <option value="l">{$wordList.index["l"]}</option>
-                </select>
+        <div class="ImageTitleQuantity">
+            <img type="image" src="/category/{product.category}.svg" alt={$wordList.categories[product.category]} title={$wordList.categories[product.category]} on:click={() => {showChangeCategory = !showChangeCategory}}>
+            <div class="TitleAndQuantity">
+                <div id="title" contenteditable="true" on:blur={(event) => {
+                    updateTitle(product.id, event.target.innerText, product.title, product.category)}}>{product.title}</div>
+                <div class="quantity">
+                    <input type="text" class="amount" maxlength="3" value={product.amount} on:blur={(event) => {
+                        updateAmount(event.target.value, product.id)}}>
+                    <select value={product.type} on:change={(event) => {
+                        updateType(event.target.value, product.id);
+                    }}>
+                        <option value="stk">{$wordList.index["pcs"]}</option>
+                        <option value="gr">{$wordList.index["gr"]}</option>
+                        <option value="kg">{$wordList.index["kg"]}</option>
+                        <option value="ml">{$wordList.index["ml"]}</option>
+                        <option value="l">{$wordList.index["l"]}</option>
+                    </select>
+                </div>
             </div>
+        </div>
+        <div class="stats">
             <div class="status">
                 <input type="checkbox" bind:checked={product.checked} on:click={() => {toggleChecked(product.id, product.created, product.checked)}}>
                 <input type="image" src="/delete.svg" alt="delete" on:click={() => {deleteProduct(product.id, $wordList.index.deleteMessage)}}>
@@ -52,30 +53,34 @@
 <style>
     .Card {
         display: flex;
+        justify-content: space-between;
         align-items: center;
         padding: .375rem;
         margin: .625rem 0;
-        background-color: var(--primary);
         border-radius: .75rem;
         word-break: break-word;
     }
 
+    .ImageTitleQuantity {
+        display: flex;
+    }
+
     img {
         height: 3.5rem;
+        width: 3.5rem;
         cursor: pointer;
     }
 
+    .TitleAndQuantity {
+        margin-left: .4rem;
+    }
+
     #title {
-        margin-left: .2rem;
         text-align: left;
-        width: 100%;
         outline: none;
         font-size: 1.3rem;
         line-height: 2rem;
         font-weight: 500;
-        background-color: var(--primary);
-        border: none;
-        color: black;
     }
 
     .quantity {
@@ -85,12 +90,6 @@
     .amount {
         margin: 0;
         width: 2rem;
-        border-radius: .75rem;
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-        background-color: black;
-        color: white;
-        border: none;
         outline: none;
         padding: .1rem .25rem;
         padding-top: .2rem;
@@ -100,21 +99,30 @@
 
     select {
         margin: 0;
-        border: none;
         padding: .125rem 0;
         padding-right: .4rem;
         border-radius: .5rem;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
-        background-color: black;
-        color: white;
         font-size: 1.1rem;
+        outline: none;
+    }
+
+    .amount:hover, .amount:focus, #title:hover, #title:focus, select:hover, select:focus {
+        border-color: var(--accent);
+    }
+
+    .amount, #title, select {
+        border: 3px solid transparent;
+        border-radius: 5px;
+        transition: .2s ease-in-out all;
     }
 
     .status {
         display: flex;
         margin-top: .25rem;
         align-items: center;
+        margin-left: auto;
     }
 
     input[type=checkbox] {
@@ -134,15 +142,13 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
         border-radius: .75rem;
         margin: 0 .625rem;
-        background-color: var(--primary);
         padding: .2rem;
-        color: black;
+        border: 4px solid var(--minor);
     }
     
     .changeCategory > div {
         margin: .2rem;
         border-radius: .5rem;
-        border: 2px solid black;
         cursor: pointer;
     }
 
