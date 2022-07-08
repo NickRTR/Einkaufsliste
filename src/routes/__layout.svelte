@@ -7,7 +7,8 @@
     onMount(() => listenToAuthChanges()); // listen to auth state changes to login and logout
 </script>
 
-<body style="--primary: {$theme}">
+<!-- <body style="--primary: {$theme}"> -->
+<body>
     <header>
         <a href="/" sveltekit:prefetch><h1>Schoppy</h1></a>
         <a href={($page.url.pathname === "/settings") ? "/" : "/settings"}><img src="/settings.svg" alt="⚙" title="settings"></a>
@@ -21,7 +22,8 @@
         -webkit-appearance: none;
         font-family: Arial, Helvetica, sans-serif;
         text-align: center;
-        color: var(--primary);
+        color: var(--minor);
+        background-color: var(--major);
         margin: .5rem .75rem;
     }
     
@@ -50,7 +52,6 @@
     }
 
     img {
-        background-color: var(--primary);
         border-radius: 100%;
         margin: 0;
         padding: .5rem;
@@ -59,11 +60,15 @@
     }
 
     :global(button) {
+        background-color: var(--accent);
+        color: var(--major);
         cursor: pointer;
-        color: black;
     }
 
     :global(:root) {
-        --primary: var(--primary);
+        /* --primary: var(--primary); */
+        --major: white;
+        --minor: black;
+        --accent: #0047FF;
     }
 </style>
