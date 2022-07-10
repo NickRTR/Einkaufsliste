@@ -41,8 +41,6 @@
             alert("Your device/browser isn't able to share this list.");
         }
     }
-
-    $: console.log($priorityToCategory);
 </script>
 
 <main>
