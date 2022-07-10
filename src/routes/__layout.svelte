@@ -72,6 +72,7 @@
         background-color: var(--accent);
         color: var(--major);
         cursor: pointer;
+        user-select: none;
     }
 
     :global(:root) {
