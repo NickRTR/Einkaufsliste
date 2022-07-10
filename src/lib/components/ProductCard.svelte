@@ -17,7 +17,7 @@
                 <div id="title" contenteditable="true" on:blur={(event) => {
                     updateTitle(product.id, event.target.innerText, product.title, product.category)}}>{product.title}</div>
                 <div class="quantity">
-                    <input type="text" class="amount" maxlength="3" value={product.amount} on:blur={(event) => {
+                    <input type="text" class="amount" style="width: {product.amount}ch" maxlength="3" value={product.amount} on:blur={(event) => {
                         updateAmount(event.target.value, product.id)}}>
                     <select value={product.type} on:change={(event) => {
                         updateType(event.target.value, product.id);
@@ -59,10 +59,12 @@
         margin: .625rem 0;
         border-radius: .75rem;
         word-break: break-word;
+        width: 100%;
     }
 
     .ImageTitleQuantity {
         display: flex;
+        width: 100%;
     }
 
     img {
@@ -72,14 +74,15 @@
     }
 
     .TitleAndQuantity {
-        margin-left: .4rem;
+        margin-inline: .4rem;
+        width: 100%;
     }
 
     #title {
         text-align: left;
         outline: none;
         font-size: 1.3rem;
-        line-height: 2rem;
+        line-height: 1.5rem;
         font-weight: 500;
     }
 
@@ -89,18 +92,17 @@
 
     .amount {
         margin: 0;
-        width: 2rem;
         outline: none;
         padding: .1rem .25rem;
+        padding-left: 0;
         padding-top: .2rem;
-        font-size: 1.1rem;
-        line-height: 1.5rem;
+        font-size: 1rem;
     }
 
     select {
         margin: 0;
-        padding: .125rem 0;
-        padding-right: .4rem;
+        padding: .125rem .4rem;
+        padding-left: 0;
         border-radius: .5rem;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
@@ -130,6 +132,7 @@
         margin-right: .25rem;
         width: 1.75rem;
         height: 1.75rem;
+        outline-color: var(--accent);
     }
 
     input[type=image] {
@@ -150,6 +153,10 @@
         margin: .2rem;
         border-radius: .5rem;
         cursor: pointer;
+    }
+
+    .changeCategory > div:hover p {
+        color: var(--accent);
     }
 
     .changeCategory > div > p {
