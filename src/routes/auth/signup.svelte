@@ -37,7 +37,7 @@
 </svelte:head>
 
 <body>
-    <h1>Schoppy - {$wordList.login.unregistered.title}</h1>
+    <h1>{$wordList.login.unregistered.title}</h1>
 
     <form on:submit|preventDefault>
         <label for="email">E-mail: </label><br>
@@ -58,26 +58,28 @@
 <style>
     h1 {
         margin: 0;
-        font-size: 2.25rem;
-        padding-top: 1.5rem;
-        padding-bottom: .75rem;
-        font-weight: 600;
         cursor: pointer;
     }
 
     form {
-        margin-top: .5rem;
+        margin-top: 1rem;
         font-weight: 600;
     }
 
     input {
-        border: none;
+        outline: none;
+        border: 2px solid transparent;
+        transition: all .1s ease-in-out;
         border-radius: 1rem;
         font-size: 1.25rem;
         font-weight: 600;
         padding: 0 0.5rem;
         margin: 0.5rem 0;
         height: 2rem;
+    }
+
+    input:hover, input:focus {
+        border-color: var(--accent);
     }
 
     input[type=email] {
@@ -101,29 +103,35 @@
     input[type=checkbox] {
 		display: none;
 	}
-
+    
     .viewPasswordLabel {
-		filter: opacity(50%);
+        filter: opacity(50%);
+        border-radius: 100%;
 	}
-
+    
     input[type=checkbox]:checked + .viewPasswordLabel {
-		filter: opacity(100%);
+        filter: opacity(100%);
 	}
-
+    
 	img {
-		width: 2rem;
-		margin-top: .2rem;
+        width: 2rem;
 		cursor: pointer;
 	}
 
     button {
         font-size: 1rem;
-        border: none;
-        padding: .4rem .75rem;
+        outline: none;
+        border: 3px solid transparent;
+        transition: all .1s ease-in-out;
+        padding: .3rem .7rem;
         margin-top: 0.5rem;
-        background-color: #EEE;
+        background-color: var(--accent);
         font-weight: 600;
         border-radius: 1rem;
+    }
+
+    button:hover, button:focus {
+        border-color: var(--minor);
     }
 
     p {
