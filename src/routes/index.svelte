@@ -99,10 +99,14 @@
         height: 2rem;
         padding: 0 .5rem;
         font-size: 1.25rem;
-        font-weight: 600;
         border-radius: .75rem;
-        border: 4px solid var(--minor);
+        border: 3px solid var(--minor);
         background-color: var(--major);
+        outline: none;
+    }
+
+    input:hover, input:focus {
+        border-color: var(--accent);
     }
 
     input::placeholder {
@@ -111,11 +115,15 @@
 
     form > button {
         font-size: 1.125rem;
-        line-height: 1.75rem; font-weight: 600;
-        padding-top: .1rem;
+        font-weight: bold;
         margin-left: .375rem;
         border-radius: .75rem;
-        border: none;
+        border: 3px solid var(--accent);
+        outline: none;
+    }
+
+    form > button:focus, form > button:hover {
+        border-color: var(--minor);
     }
 
     .suggestions {

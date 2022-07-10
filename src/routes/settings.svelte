@@ -51,6 +51,7 @@
         </div>
         <div class="user">
             <h3>{$session?.user.email ? $session.user.email : ""}</h3>
+            <button on:click={logout} title={$wordList.index.logout}>{$wordList.index.logout}</button>
             <h4>{$wordList.settings.language.language}: <br><select name="language" id="language" bind:value={language} on:change={changeLanguage}>
                 <option value="de">{$wordList.settings.language.German}</option>
                 <option value="en">{$wordList.settings.language.English}</option>
@@ -60,7 +61,6 @@
                 <option value="zh">{$wordList.settings.language.Chinese}</option>
                 <option value="ar">{$wordList.settings.language.Arabic}</option>
             </select></h4>
-            <button on:click={logout} title={$wordList.index.logout}>{$wordList.index.logout}</button>
         </div>
     </div>
 
@@ -80,18 +80,19 @@
 </main>
 
 <style>
-    main {
-        color: var(--primary);
-    }
-
     button {
         margin-top: 1rem;
         border-radius: 2rem;
-        border: none;
-        padding: .5rem 1rem;
+        padding: .3em .8rem;
         font-size: 1rem;
         font-weight: bold;
-        background-color: var(--primary);
+        background-color: var(--accent);
+        border: 3px solid var(--accent);
+        outline: none;
+    }
+
+    button:hover, button:focus {
+        border-color: var(--minor);
     }
 
     .general {
@@ -101,8 +102,6 @@
     }
 
     .theme {
-        background-color: var(--primary);
-        color: black;
         width: 10rem;
         height: 10rem;
         border-radius: 100%;
@@ -112,29 +111,27 @@
         cursor: pointer;
         font-size: 2rem;
         font-weight: bold;
+        border: 5px solid var(--minor);
     }
 
     h3 {
         margin: 0;
-        margin-bottom: .5rem;
+        margin-bottom: -.5rem;
     }
 
     h4 {
         margin: 0;
         line-height: 1.5rem;
+        margin-top: 1rem;
     }
 
     select {
-        background-color: var(--primary);
-        color: black;
-        border: none;
         border-radius: 1rem;
         padding: .2rem .5rem;
         font-weight: bold;
     }
 
     .sort {
-        background-color: var(--primary);
         margin: 0 3rem;
         margin-top: .5rem;
         padding: .625rem;
@@ -146,16 +143,14 @@
         font-size: 1.1rem;
         line-height: 1.75rem; 
         font-weight: 600;
-        background-color: black;
         border-radius: .75rem;
         border: none;
-        color: var(--primary);
     }
 
     .list {
         margin: 0 1rem;
         margin-top: 2rem;
-        border-top: 5px solid var(--primary);
+        border-top: 5px solid var(--minor);
     }
 
     .list h2 {

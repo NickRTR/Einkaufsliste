@@ -11,7 +11,8 @@
 <body>
     <header>
         <a href="/" sveltekit:prefetch><h1>Schoppy</h1></a>
-        <a href={($page.url.pathname === "/settings") ? "/" : "/settings"}><img src="/settings.svg" alt="⚙" title="settings"></a>
+        <!-- <a href={($page.url.pathname === "/settings") ? "/" : "/settings"}><img src="/settings.svg" alt="⚙" title="settings"></a> -->
+        <a href="/settings"><img src="/settings.svg" alt="⚙" title="settings"></a>
     </header>      
 
     <main><slot></slot></main>
@@ -43,12 +44,20 @@
         margin: 0;
         padding-bottom: .5rem;
         cursor: pointer;
+        line-height: 2rem;
     }
 
     a {
         text-decoration: none;
         cursor: pointer;
         line-height: 0;
+        outline: none;
+        border-bottom: 4px solid var(--major);
+        transition: .2s all ease-in-out;
+    }
+
+    a:focus, a:hover {
+        border-color: var(--accent);
     }
 
     img {
