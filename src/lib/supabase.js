@@ -1,11 +1,8 @@
 // @ts-nocheck
 import supabase from "$lib/db.js";
 import { get } from "svelte/store";
-import { products, theme, categories, priorityToCategory, wordList } from "$lib/stores";
+import { products, categories, priorityToCategory, wordList } from "$lib/stores";
 import { session } from "$lib/stores";
-
-// white, orange, babyblue, babygreen
-const colors = ["#EEE", "#F6C90E", "#B7D3F2", "#a1c181"];
 
 // stringify Categories for Supabase
 // import { stringifyCategories } from "./categories";
@@ -30,22 +27,6 @@ export const getUserData = async () => {
     // set category order
     priorities = userdata.priorityToCategory;
     priorityToCategory.set(Object.values(priorities));
-}
-
-export const getTheme = async () => {
-    let {data: dbTheme} = await supabase.from('userdata').select('theme');
-    theme.set(colors[dbTheme[0].theme]);
-}
-
-export const setTheme = async () => {
-    let index = colors.findIndex(color => get(theme) === color);
-    if (index === colors.length - 1 || index === -1) {
-        theme.set(colors[0]);
-        await supabase.from('userdata').update({"theme": 0}).eq("user_id", get(session).user.id);
-    } else {
-        theme.set(colors[index + 1]);
-        await supabase.from('userdata').update({"theme": index + 1}).eq("user_id", get(session).user.id);
-    }
 }
 
 export const addProduct = async (input) => {

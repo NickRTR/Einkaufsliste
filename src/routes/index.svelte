@@ -3,13 +3,12 @@
     import { onMount } from "svelte";
     import { flip } from "svelte/animate";
     import { fade, fly } from "svelte/transition";
-    import { getProducts, addProduct, getTheme, getUserData } from "$lib/supabase.js";
+    import { getProducts, addProduct, getUserData } from "$lib/supabase.js";
 
     import ProductCard from "$lib/components/ProductCard.svelte";
 
     onMount(async () => {
         getProducts();
-        getTheme();
         getUserData();
     });
 

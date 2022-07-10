@@ -39,8 +39,6 @@ export const translation = {
         password: "Passwort"
     },
     settings: {
-        theme: "Design",
-        changeTheme: "Design anpassen",
         list: "Liste",
         language: {
             language: "Sprache",
