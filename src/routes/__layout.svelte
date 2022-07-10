@@ -1,5 +1,4 @@
 <script>
-    import { theme } from "$lib/stores";
     import { onMount } from "svelte";
     import { page } from "$app/stores";
     import { listenToAuthChanges } from "$lib/auth";
@@ -7,12 +6,10 @@
     onMount(() => listenToAuthChanges()); // listen to auth state changes to login and logout
 </script>
 
-<!-- <body style="--primary: {$theme}"> -->
 <body>
     <header>
         <a href="/" sveltekit:prefetch><h1>Schoppy</h1></a>
-        <!-- <a href={($page.url.pathname === "/settings") ? "/" : "/settings"}><img src="/settings.svg" alt="⚙" title="settings"></a> -->
-        <a href="/settings"><img src="/settings.svg" alt="⚙" title="settings"></a>
+        <a href={($page.url.pathname === "/settings") ? "/" : "/settings"}><img src="/settings.svg" alt="⚙" title="settings"></a>
     </header>      
 
     <main><slot></slot></main>
@@ -76,7 +73,6 @@
     }
 
     :global(:root) {
-        /* --primary: var(--primary); */
         --major: white;
         --minor: black;
         --accent: #0047FF;

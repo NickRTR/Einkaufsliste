@@ -1,7 +1,7 @@
 <script>
     // @ts-nocheck
     import { wordList, session, products, priorityToCategory} from "$lib/stores";
-    import { logout, changePriorities, deleteAll, setTheme, getTheme, getProducts } from "$lib/supabase";
+    import { logout, changePriorities, deleteAll, getProducts } from "$lib/supabase";
     import { slide } from "svelte/transition";
     import DragDropList from "$lib/components/DragDropList.svelte";
     import { onMount } from "svelte";
@@ -9,7 +9,6 @@
 
     onMount(async () => {
         getProducts();
-        getTheme();
     });
     
     let showSort = false;
@@ -42,30 +41,26 @@
             alert("Your device/browser isn't able to share this list.");
         }
     }
+
+    $: console.log($priorityToCategory);
 </script>
 
 <main>
-    <div class="general">
-        <div class="theme" title={$wordList.settings.changeTheme} on:click={setTheme}>
-            <p>{$wordList.settings.theme}</p>
-        </div>
-        <div class="user">
-            <h3>{$session?.user.email ? $session.user.email : ""}</h3>
-            <button on:click={logout} title={$wordList.index.logout}>{$wordList.index.logout}</button>
-            <h4>{$wordList.settings.language.language}: <br><select name="language" id="language" bind:value={language} on:change={changeLanguage}>
-                <option value="de">{$wordList.settings.language.German}</option>
-                <option value="en">{$wordList.settings.language.English}</option>
-                <option value="en-US">{$wordList.settings.language.AmericanEnglish}</option>
-                <option value="es">{$wordList.settings.language.Spanish}</option>
-                <option value="fr">{$wordList.settings.language.French}</option>
-                <option value="zh">{$wordList.settings.language.Chinese}</option>
-                <option value="ar">{$wordList.settings.language.Arabic}</option>
-            </select></h4>
-        </div>
+    <div class="language">
+        <h2>{$wordList.settings.language.language}: <br></h2>
+        <select name="language" id="language" bind:value={language} on:change={changeLanguage}>
+            <option value="de">{$wordList.settings.language.German}</option>
+            <option value="en">{$wordList.settings.language.English}</option>
+            <option value="en-US">{$wordList.settings.language.AmericanEnglish}</option>
+            <option value="es">{$wordList.settings.language.Spanish}</option>
+            <option value="fr">{$wordList.settings.language.French}</option>
+            <option value="zh">{$wordList.settings.language.Chinese}</option>
+            <option value="ar">{$wordList.settings.language.Arabic}</option>
+        </select>
     </div>
 
     <div class="list">
-        <h2>{$wordList.settings.list}</h2>
+        <h2>{$wordList.settings.list}:</h2>
         <button on:click={shareList} title={$wordList.index.share}>{$wordList.index.share}</button>
         <button on:click={() => {deleteAll($wordList.index.deleteMessage)}} title={$wordList.index.deleteAll}>{$wordList.index.deleteAll}</button>
         <br>
@@ -77,11 +72,15 @@
             </div>
         {/if}
     </div>
+
+    <div class="user">
+        <h2>{$session?.user.email ? $session.user.email : ""}</h2>
+        <button on:click={logout} title={$wordList.index.logout}>{$wordList.index.logout}</button>
+    </div>
 </main>
 
 <style>
     button {
-        margin-top: 1rem;
         border-radius: 2rem;
         padding: .3em .8rem;
         font-size: 1rem;
@@ -95,36 +94,6 @@
         border-color: var(--minor);
     }
 
-    .general {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-    }
-
-    .theme {
-        width: 10rem;
-        height: 10rem;
-        border-radius: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        font-size: 2rem;
-        font-weight: bold;
-        border: 5px solid var(--minor);
-    }
-
-    h3 {
-        margin: 0;
-        margin-bottom: -.5rem;
-    }
-
-    h4 {
-        margin: 0;
-        line-height: 1.5rem;
-        margin-top: 1rem;
-    }
-
     select {
         border-radius: 1rem;
         padding: .2rem .5rem;
@@ -133,47 +102,14 @@
 
     .sort {
         margin: 0 3rem;
-        margin-top: .5rem;
         padding: .625rem;
-        border-radius: 1rem;
-    }
-
-    .submitSort {
-        margin-top: .5rem;
-        font-size: 1.1rem;
-        line-height: 1.75rem; 
-        font-weight: 600;
-        border-radius: .75rem;
-        border: none;
-    }
-
-    .list {
-        margin: 0 1rem;
-        margin-top: 2rem;
-        border-top: 5px solid var(--minor);
     }
 
     .list h2 {
-        margin-bottom: 1rem;
+        margin-bottom: .8rem;
     }
 
     .list button {
         margin: .5rem .25rem;
-    }
-
-    @media only screen and (max-width: 400px) {
-        .theme {
-            width: 7rem;
-            height: 7rem;
-            font-size: 1.5rem;
-        }
-    }
-
-    @media only screen and (max-width: 330px) {
-        .theme {
-            width: 6rem;
-            height: 6rem;
-            font-size: 1.2rem;
-        }
     }
 </style>
