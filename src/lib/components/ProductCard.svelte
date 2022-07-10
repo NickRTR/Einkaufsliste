@@ -17,7 +17,7 @@
                 <div id="title" contenteditable="true" on:blur={(event) => {
                     updateTitle(product.id, event.target.innerText, product.title, product.category)}}>{product.title}</div>
                 <div class="quantity">
-                    <input type="text" class="amount" style="width: {product.amount}ch" maxlength="3" value={product.amount} on:blur={(event) => {
+                    <input type="text" class="amount" style="width: {product.amount.toString().length}ch" maxlength="3" value={product.amount} on:blur={(event) => {
                         updateAmount(event.target.value, product.id)}}>
                     <select value={product.type} on:change={(event) => {
                         updateType(event.target.value, product.id);
