@@ -1,11 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
 
-let URL = import.meta.env.VITE_SUPABASE_URL;
-let KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const res = await fetch("/api/getSession");
+const data = await res.json();
 
-const supabase = createClient(
-  URL,
-  KEY
-)
+const supabase = createClient(data.URL, data.KEY);
 
-export default supabase
+export default supabase;

@@ -1,8 +1,7 @@
 // @ts-nocheck
-import supabase from "$lib/db.js";
+import supabase from "$lib/db";
 import { get } from "svelte/store";
 import { products, categories, priorityToCategory, wordList } from "$lib/stores";
-import { session } from "$lib/stores";
 
 // stringify Categories for Supabase
 // import { stringifyCategories } from "./categories";
