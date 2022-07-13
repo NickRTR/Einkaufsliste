@@ -11,7 +11,9 @@ function production() {
 let URL = import.meta.env.VITE_SUPABASE_URL;
 let KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 // if production, get KEY from Vercel
-if (import.meta.env.MODE === 'production') production();
+if (import.meta.env.MODE === 'production') {
+    production();
+}
 
 const supabase = createClient(URL, KEY);
 
