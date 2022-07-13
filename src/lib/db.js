@@ -6,7 +6,6 @@ let KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 if (import.meta.env.MODE === 'production' || process.env.MODE === 'production') {
     URL = process.env.SUPABASE_URL;
     KEY = process.env.SUPABASE_ANON_KEY;
-    production();
 }
 
 const supabase = createClient(URL, KEY);
