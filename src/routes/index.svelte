@@ -24,7 +24,7 @@
             let filteredProducts = [];
             for (let i in $products) {
                 let product = $products[i]
-                if ((product.title.toLowerCase().startsWith(input.toLowerCase()) && product.checked === false) || (product.title.toLowerCase().includes(input.toLocaleLowerCase()) && product.checked === false)) {
+                if (product.title.toLowerCase().startsWith(input.toLowerCase()) || product.title.toLowerCase().includes(input.toLocaleLowerCase())) {
                     preSuggestions = [...preSuggestions, product.title];
                     filteredProducts = [...filteredProducts, product];
                 }

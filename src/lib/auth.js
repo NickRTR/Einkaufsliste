@@ -12,7 +12,7 @@ export function listenToAuthChanges() {
 
     supabase.auth.onAuthStateChange((event, authSession) => {
         session.set(authSession);
-        redirect()
+        redirect();
     })
 }
 
