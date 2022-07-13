@@ -5,7 +5,11 @@ let URL = import.meta.env.VITE_SUPABASE_URL;
 let KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 // if production, get KEY from Vercel
 if (import.meta.env.MODE === 'production') {
-    dotenv.config()
+    console.log("production mode");
+
+    dotenv.config();
+
+    console.log(process.env);
 
     URL = process.env["SUPABASE_URL"];
     KEY = process.env["SUPABASE_ANON_KEY"];
