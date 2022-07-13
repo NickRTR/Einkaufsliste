@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 
-function production() {
+async function production() {
     const res = await fetch("/api/getEnv");
     const data = await res.json();
 
