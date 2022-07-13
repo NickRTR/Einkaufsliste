@@ -7,8 +7,8 @@ let KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 if (import.meta.env.MODE === 'production') {
     dotenv.config()
 
-    URL = process.env.SUPABASE_URL;
-    KEY = process.env.SUPABASE_ANON_KEY;
+    URL = process.env["SUPABASE_URL"];
+    KEY = process.env["SUPABASE_ANON_KEY"];
 }
 
 const supabase = createClient(URL, KEY);
