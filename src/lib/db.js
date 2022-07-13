@@ -12,6 +12,7 @@ let URL = import.meta.env.VITE_SUPABASE_URL;
 let KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 // if production, get KEY from Vercel
 if (import.meta.env.MODE === 'production') {
+    console.log(process.env.SUPABASE_URL);
     production();
 }
 
