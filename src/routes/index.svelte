@@ -17,13 +17,15 @@
 
     let processedProducts = $products; // if there is something searched, the products are being updated
 
+    // TODO: Improve performance
     // filter products to get suggestions and filtered products
     $: {
+        console.time("suggestions and search");
         let preSuggestions = [];
         if (input !== "" && $products.length >= 1) {
             let filteredProducts = [];
             for (let i in $products) {
-                let product = $products[i]
+                let product = $products[i];
                 if (product.title.toLowerCase().startsWith(input.toLowerCase()) || product.title.toLowerCase().includes(input.toLocaleLowerCase())) {
                     preSuggestions = [...preSuggestions, product.title];
                     filteredProducts = [...filteredProducts, product];
@@ -31,8 +33,7 @@
             }
             // reset suggestions and filtered products
             if (preSuggestions.length === 0) {
-                suggestions = [];
-                processedProducts = [];
+                suggestions, processedProducts = [];
             }
             suggestions = preSuggestions;
             if (filteredProducts.length !== 0) processedProducts = filteredProducts; // only filter products if there are some according to the filter
@@ -40,6 +41,7 @@
             suggestions = [];
             processedProducts = $products;
         }
+        console.timeEnd("suggestions and search");
     }
 </script>
 
