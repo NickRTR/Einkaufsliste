@@ -1,9 +1,7 @@
 import supabase from "$lib/supabase";
 
 export async function get() {
-    let { error } = await supabase.auth.signOut();
-
-    console.error(error);
+    await supabase.auth.signOut();
 
     return {
         status: 303,
