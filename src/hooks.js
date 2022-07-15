@@ -17,7 +17,7 @@ export function getSession({ locals }) {
 
     return {
         user: {
-            username: locals.user.email
+            email: locals.user.email
         }
     }
 }
