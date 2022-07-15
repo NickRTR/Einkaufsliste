@@ -68,6 +68,10 @@
         user-select: none;
     }
 
+    :global(.error) {
+        color: tomato;
+    }
+
     :global(:root) {
         --major: white;
         --minor: black;

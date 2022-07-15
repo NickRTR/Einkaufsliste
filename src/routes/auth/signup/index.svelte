@@ -139,10 +139,6 @@
 		cursor: pointer;
 	}
 
-    .error {
-        color: tomato;
-    }
-
     button {
         font-size: 1rem;
         outline: none;
