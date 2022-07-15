@@ -1,27 +1,46 @@
+<script context="module">
+    export function load({ session, props }) {
+        if (session.user) {
+            return {
+                status: 302,
+                redirect: "/"
+            }
+        }
+
+        return { props }
+    }
+</script>
+
 <script>
-    import supabase from "$lib/db.js";
+    import { send } from '$lib/api';
     import { wordList } from "$lib/stores.js";
     import { get } from "svelte/store";
     import { goto } from "$app/navigation";
+    import { session } from "$app/stores";
 
     let emailInput = "";
     let passwordInput = "";
     let showPassword = false;
 
-    const logIn = async () => {
-        if (emailInput === "" || passwordInput === "") return;
+    export let error;
 
-        let { error } = await supabase.auth.signIn({
-            email: emailInput,
-            password: passwordInput,
-        });
-        if (error) {
-            if (error.message === "Invalid login credentials") {
-                alert(get(wordList).error.wrongCredentials);
-            } else {
-                alert(error.message);
-            }
+    $: {
+        if (error === "Invalid login credentials") {
+            error = get(wordList).err.wrongCredentials;
         }
+    }
+
+    async function login(event) {
+        const formEl = event.target;
+        const response = await send(formEl);
+    
+        if (response.error) {
+            error = response.error;
+        }
+    
+        $session.user = response.user;
+    
+        formEl.reset();
     }
 </script>
 
@@ -31,17 +50,21 @@
 
 <body>
     <h1> {$wordList.login.registered.title}</h1>
-    <form on:submit|preventDefault={logIn}>
+    <form on:submit|preventDefault={login} method="post" autocomplete="off">
         <label for="email">E-mail: </label><br>
-        <input type="email" id="email" placeholder="email@email.com" bind:value={emailInput}><br>
+        <input type="email" id="email" name="email" placeholder="email@email.com" bind:value={emailInput}><br>
         <label for="password">{$wordList.login.password}:</label><br>
         <div class="password">
-            <input type="password" id="password" placeholder={$wordList.login.password} bind:value={passwordInput}>
+            <input type="password" id="password" name="password" placeholder={$wordList.login.password} bind:value={passwordInput}>
             <input type="checkbox" id="togglePassword" class:show={showPassword} bind:checked={showPassword} on:change={() => {
-                // @ts-ignore
                 document.querySelector('#password').type = showPassword ? 'text' : 'password'}}>
             <label class="viewPasswordLabel" for="togglePassword"><img src="/showPassword.svg" alt="show"></label><br>
         </div>
+
+        {#if error}
+            <p class="error">{error}</p>
+        {/if}
+
         <button type="submit">{$wordList.login.registered.title}</button>
         <p on:click={() => {goto("/auth/signup")}}>{$wordList.login.registered.switch}</p>
     </form>
@@ -109,6 +132,10 @@
         width: 2rem;
 		cursor: pointer;
 	}
+
+    .error {
+        color: tomato;
+    }
 
     button {
         font-size: 1rem;

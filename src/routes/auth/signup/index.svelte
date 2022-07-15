@@ -1,34 +1,47 @@
+<script context="module">
+    export function load({ session, props }) {
+        if (session.user) {
+            return {
+                status: 302,
+                redirect: "/"
+            }
+        }
+
+        return { props }
+    }
+</script>
+
 <script>
-    import supabase from "$lib/db.js";
+    import { send } from '$lib/api';
     import { wordList } from "$lib/stores.js";
-    import { createUserData } from "$lib/supabase.js";
     import { get } from "svelte/store";
     import { goto } from "$app/navigation";
+    import { session } from "$app/stores";
 
     let emailInput = "";
     let passwordInput = "";
     let showPassword = false;
 
-    const signUp = async () => {
-        if (emailInput === "" || passwordInput === "") {
-            return;
-        }
+    export let error;
+    export let success;
 
-        let { error } = await supabase.auth.signUp({
-            email: emailInput,
-            password: passwordInput,
-        });
-        if (error) {
-            if (error.message === "User already registered") {
-                alert(get(wordList).error.userAlreadyRegistered);
-            } else if (error.message === "Password should be at least 6 characters") {
-                alert(get(wordList).error.toShortPassword);
-            } else {
-                alert(error.message);
-            }
-        } else {
-            createUserData();
+    $: {
+        if (error === "Invalid login credentials") {
+            error = get(wordList).err.wrongCredentials;
         }
+    }
+
+    async function register(event) {
+        const formEl = event.target;
+        const response = await send(formEl);
+    
+        if (response.error) {
+            error = response.error;
+        }
+    
+        $session.user = response.user;
+    
+        formEl.reset();
     }
 </script>
 
@@ -37,20 +50,28 @@
 </svelte:head>
 
 <body>
-    <h1>{$wordList.login.unregistered.title}</h1>
-
-    <form on:submit|preventDefault>
+    <h1> {$wordList.login.unregistered.title}</h1>
+    <form on:submit|preventDefault={register} method="post" autocomplete="off">
         <label for="email">E-mail: </label><br>
-        <input type="email" id="email" placeholder="email@email.com" bind:value={emailInput}><br>
+        <input type="email" id="email" name="email" placeholder="email@email.com" bind:value={emailInput}><br>
         <label for="password">{$wordList.login.password}:</label><br>
         <div class="password">
-            <input type="password" id="password" placeholder={$wordList.login.password} bind:value={passwordInput}>
+            <input type="password" id="password" name="password" placeholder={$wordList.login.password} bind:value={passwordInput}>
             <input type="checkbox" id="togglePassword" class:show={showPassword} bind:checked={showPassword} on:change={() => {
-                // @ts-ignore
                 document.querySelector('#password').type = showPassword ? 'text' : 'password'}}>
             <label class="viewPasswordLabel" for="togglePassword"><img src="/showPassword.svg" alt="show"></label><br>
         </div>
-        <button on:click={signUp}>{$wordList.login.unregistered.title}</button>
+
+        {#if error}
+            <p class="error">{error}</p>
+        {/if}
+
+        {#if success}
+            <p>Thank you for signing up!</p>
+            <p><a href="/auth/login">You can log in.</a></p>
+        {/if}
+
+        <button type="submit">{$wordList.login.registered.title}</button>
         <p on:click={() => {goto("/auth/login")}}>{$wordList.login.unregistered.switch}</p>
     </form>
 </body>
@@ -118,6 +139,10 @@
 		cursor: pointer;
 	}
 
+    .error {
+        color: tomato;
+    }
+
     button {
         font-size: 1rem;
         outline: none;
@@ -135,7 +160,7 @@
     }
 
     p {
-        margin-top: 0.7rem;
+        margin-top: .7rem;
         cursor: pointer;
         text-decoration: underline;
         font-weight: 400;

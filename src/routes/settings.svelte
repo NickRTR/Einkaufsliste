@@ -1,7 +1,7 @@
 <script>
     // @ts-nocheck
     import { wordList, session, products, priorityToCategory} from "$lib/stores";
-    import { logout, changePriorities, deleteAll, getProducts } from "$lib/supabase";
+    import { logout, changePriorities, deleteAll, getProducts } from "$lib/supabaseOld";
     import { slide } from "svelte/transition";
     import DragDropList from "$lib/components/DragDropList.svelte";
     import { onMount } from "svelte";
