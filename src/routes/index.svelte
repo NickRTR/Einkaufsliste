@@ -67,7 +67,7 @@
 </svelte:head>
 
 <main>
-    <form class="addProduct" on:submit|preventDefault={addProduct}>
+    <form class="addProduct" on:submit|preventDefault={() => {error = addProduct(input); input = ""}}>
         <input type="text" bind:value={input} title={$wordList.index.add} placeholder={$wordList.index.placeholder} on:input={processInput}>
         <button type="submit" title={$wordList.index.add}>{$wordList.index.add}</button>
     </form>

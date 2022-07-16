@@ -7,6 +7,18 @@
     let showChangeCategory = false;
 
     const categories = ["Gemüse", "Obst", "Vorrat", "Fleisch", "Gefriertruhe", "Kühlregal", "Haushalt", "Süßigkeiten", "Getränke"];
+
+    async function toggleChecked(id, checked) {
+        console.log(product.checked);
+        const res = await fetch(`/api/toggleChecked-${id}-${checked}`);
+        const data = await res.json();
+        
+        console.log(data);
+
+        if (data.error) {
+            console.log(error);
+        }
+    }
 </script>
  
 <div class="container">
@@ -33,7 +45,7 @@
         </div>
         <div class="stats">
             <div class="status">
-                <input type="checkbox" bind:checked={product.checked} on:click={() => {toggleChecked(product.id, product.created, product.checked)}}>
+                <input type="checkbox" bind:checked={product.checked} on:click={() => {toggleChecked(product.id, product.checked)}}>
                 <input type="image" src="/delete.svg" alt="delete" on:click={() => {deleteProduct(product.id, $wordList.index.deleteMessage)}}>
             </div>
         </div>
