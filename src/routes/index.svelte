@@ -10,7 +10,6 @@
         return {
             status: 200,
             props: {
-                user: session.user.email,
                 products: props.products
             }
         }
