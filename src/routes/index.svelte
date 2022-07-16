@@ -10,7 +10,8 @@
         return {
             status: 200,
             props: {
-                products: props.products
+                products: props.products,
+                error: props.error
             }
         }
     }
