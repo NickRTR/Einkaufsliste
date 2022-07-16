@@ -27,6 +27,8 @@
     export let error;
     export let products;
 
+    let input = "";
+
     let processedProducts = products;
 
     async function processInput() {
@@ -45,7 +47,19 @@
         }
     }
 
-    let input = "";
+    async function addProduct() {
+        // check if string is empty
+        if (input.trim().length !== 0) {
+            const res = await fetch("/api/addProduct-" + input);
+            const data = await res.json();
+
+            if (data.error) {
+                error = data.error;
+            }
+            input = "";
+            processInput();
+        }
+    }
 </script>
 
 <svelte:head>
@@ -53,8 +67,8 @@
 </svelte:head>
 
 <main>
-    <form class="addProduct" on:submit|preventDefault={() => {addProduct(input); input = "";}}>
-        <input type="text" bind:value={input} title={$wordList.index.add} placeholder={$wordList.index.placeholder} on:input={async () => {await processInput()}}>
+    <form class="addProduct" on:submit|preventDefault={addProduct}>
+        <input type="text" bind:value={input} title={$wordList.index.add} placeholder={$wordList.index.placeholder} on:input={processInput}>
         <button type="submit" title={$wordList.index.add}>{$wordList.index.add}</button>
     </form>
 
