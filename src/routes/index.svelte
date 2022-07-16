@@ -27,7 +27,23 @@
     export let error;
     export let products;
 
-    console.log(products);
+    let processedProducts = products;
+
+    async function processInput() {
+        if (input === "" || products.length === 0) {
+            processedProducts = products;
+            return;
+        } else {
+            const res = await fetch("/api/filterProducts-" + input);
+            const data = await res.json();
+    
+            if (data.error) {
+                error = data.error;
+            } else {
+                processedProducts = data.filteredProducts;
+            }
+        }
+    }
 
     let input = "";
 </script>
@@ -36,19 +52,14 @@
     <title>Schoppy</title>
 </svelte:head>
 
-<!-- <main>
+<main>
     <form class="addProduct" on:submit|preventDefault={() => {addProduct(input); input = "";}}>
-        <input type="text" bind:value={input} title={$wordList.index.add} placeholder={$wordList.index.placeholder}>
+        <input type="text" bind:value={input} title={$wordList.index.add} placeholder={$wordList.index.placeholder} on:input={async () => {await processInput()}}>
         <button type="submit" title={$wordList.index.add}>{$wordList.index.add}</button>
     </form>
-    <div class="suggestions">
-        {#each suggestions as suggestion}
-            <div class="suggestion" on:click={() => {addProduct(suggestion); input = "";}}>{suggestion}</div>
-        {/each}
-    </div>
 
     <div class="products">
-        {#each products as product (product.id)}
+        {#each processedProducts as product (product.id)}
             <div animate:flip={{duration: 1000}} in:fade|local out:fly|local={{x:100}}>
                 {#if !product.checked}
                     <ProductCard {product}/>
@@ -61,7 +72,7 @@
 
     <div class="checkedProducts">
         <p class="divider"><span>{$wordList.index.checked}</span></p>
-        {#each products as product (product.id)}
+        {#each processedProducts as product (product.id)}
             <div in:fade|local out:fly|local={{x:100}}>
                 {#if product.checked}
                     <ProductCard {product}/>
@@ -77,7 +88,7 @@
     <footer>
         <p>©2022 Nick Reutlinger</p>
     </footer>
-</main> -->
+</main>
 
 <style>
     .addProduct {
@@ -116,19 +127,6 @@
 
     form > button:focus, form > button:hover {
         border-color: var(--minor);
-    }
-
-    .suggestions {
-        max-height: 4rem;
-        overflow-y: scroll;
-        overscroll-behavior: auto;
-    }
-
-    .suggestion {
-        cursor: pointer;
-        text-decoration: underline;
-        font-size: 1.125rem;
-        line-height: 1.5rem; 
     }
 
     .divider {
