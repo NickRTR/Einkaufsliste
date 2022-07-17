@@ -19,6 +19,19 @@
 
         await getProducts();
     }
+
+    async function deleteProduct(id) {
+        if (confirm($wordList.index.deleteMessage)) {
+            const res = await fetch(`/api/deleteProduct-${id}`);
+            const data = await res.json();
+            
+            if (data.error) {
+                error.set(data.error);
+            }
+    
+            await getProducts();
+        }
+    }
 </script>
  
 <div class="container">
