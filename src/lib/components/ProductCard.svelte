@@ -32,6 +32,17 @@
             await getProducts();
         }
     }
+
+    async function editTitle(id, newTitle, oldTitle, category) {
+        if (newTitle === oldTitle || newTitle.trim().length === 0) return;
+
+        const res = await fetch(`/api/editTitle-${id}-${newTitle}-${category}`);
+        const data = await res.json();
+        
+        if (data.error) {
+            error.set(data.error);
+        }
+    }
 </script>
  
 <div class="container">
@@ -40,7 +51,7 @@
             <img type="image" src="/category/{product.category}.svg" alt={$wordList.categories[product.category]} title={$wordList.categories[product.category]} on:click={() => {showChangeCategory = !showChangeCategory}}>
             <div class="TitleAndQuantity">
                 <div id="title" contenteditable="true" on:blur={(event) => {
-                    updateTitle(product.id, event.target.innerText, product.title, product.category)}}>{product.title}</div>
+                    editTitle(product.id, event.target.innerText, product.title, product.category)}}>{product.title}</div>
                 <div class="quantity">
                     <input type="text" class="amount" style="width: {product.amount.toString().length}ch" maxlength="3" value={product.amount} on:blur={(event) => {
                         updateAmount(event.target.value, product.id)}}>
