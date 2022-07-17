@@ -1,5 +1,5 @@
 <script context="module">
-    export function load({ session, props }) {
+    export async function load({ session, fetch }) {
         if (!session.user) {
             return {
                 status: 302,
@@ -7,11 +7,14 @@
             }
         }
 
+        const res = await fetch("/api/getProducts");
+        const data = await res.json();
+
         return {
             status: 200,
             props: {
-                products: props.products,
-                error: props.error
+                products: data.products,
+                error: data.error
             }
         }
     }
