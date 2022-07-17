@@ -63,6 +63,19 @@
             error.set(data.error);
         }
     }
+
+    async function changeCategory(id, category, title) {
+        if (category === product.category) return;
+
+        const res = await fetch(`/api/changeCategory-${id}-${category}-${title}`);
+        const data = await res.json();
+        
+        if (data.error) {
+            error.set(data.error);
+        }
+
+        await getProducts();
+    }
 </script>
  
 <div class="container">
@@ -97,7 +110,7 @@
     {#if showChangeCategory}
         <div class="changeCategory" transition:slide>
             {#each categories as category}
-                <div on:click={() => {showChangeCategory = !showChangeCategory; changeCategory(product.title, product.category, category, product.id)}}>
+                <div on:click={() => {showChangeCategory = !showChangeCategory; changeCategory(product.id, category, product.title)}}>
                     <p>{$wordList.categories[category]}</p>
                     <img src="/category/{category}.svg" alt={$wordList.categories[category]} title={$wordList.categories[category]}>
                 </div>
