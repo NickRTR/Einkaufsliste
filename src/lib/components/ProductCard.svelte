@@ -33,10 +33,30 @@
         }
     }
 
-    async function editTitle(id, newTitle, oldTitle, category) {
-        if (newTitle === oldTitle || newTitle.trim().length === 0) return;
+    async function editTitle(id, newTitle, category) {
+        if (newTitle === product.title || newTitle.trim().length === 0) return;
 
         const res = await fetch(`/api/editTitle-${id}-${newTitle}-${category}`);
+        const data = await res.json();
+        
+        if (data.error) {
+            error.set(data.error);
+        }
+    }
+
+    async function editAmount(id, amount) {
+        if (amount === product.amount || amount.trim().length === 0) return;
+
+        const res = await fetch(`/api/editAmount-${id}-${amount}`);
+        const data = await res.json();
+        
+        if (data.error) {
+            error.set(data.error);
+        }
+    }
+
+    async function editType(id, type) {
+        const res = await fetch(`/api/editType-${id}-${type}`);
         const data = await res.json();
         
         if (data.error) {
@@ -51,12 +71,12 @@
             <img type="image" src="/category/{product.category}.svg" alt={$wordList.categories[product.category]} title={$wordList.categories[product.category]} on:click={() => {showChangeCategory = !showChangeCategory}}>
             <div class="TitleAndQuantity">
                 <div id="title" contenteditable="true" on:blur={(event) => {
-                    editTitle(product.id, event.target.innerText, product.title, product.category)}}>{product.title}</div>
+                    editTitle(product.id, event.target.innerText, product.category)}}>{product.title}</div>
                 <div class="quantity">
-                    <input type="text" class="amount" style="width: {product.amount.toString().length}ch" maxlength="3" value={product.amount} on:blur={(event) => {
-                        updateAmount(event.target.value, product.id)}}>
+                    <input type="text" class="amount" style="width: 3ch" maxlength="3" value={product.amount} on:blur={(event) => {
+                        editAmount(product.id, event.target.value)}}>
                     <select value={product.type} on:change={(event) => {
-                        updateType(event.target.value, product.id);
+                        editType(product.id, event.target.value);
                     }}>
                         <option value="stk">{$wordList.index["pcs"]}</option>
                         <option value="gr">{$wordList.index["gr"]}</option>

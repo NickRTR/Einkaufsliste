@@ -1,11 +1,9 @@
 import supabase from "$lib/supabase";   
 
 export async function get({ params }) {
-    let { id, title, category } = params;
+    let { id, amount } = params;
 
-    // TODO: change category
-
-    const { error } = await supabase.from("products").update({title}).eq("id", id);
+    const { error } = await supabase.from("products").update({amount}).eq("id", id);
 
     if (error) {
         return {

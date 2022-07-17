@@ -1,7 +1,7 @@
 import supabase from "$lib/supabase";
 
 export async function get() {
-    let { data: products, error } = await supabase.from('products').select('*');
+    let { data: products, error } = await supabase.from("products").select('*');
 
     if (error) {
         return {
