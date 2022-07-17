@@ -6,6 +6,8 @@ import { browser } from "$app/env";
 
 export const products = writable([]);
 
+export const error = writable();
+
 export const categories = writable();
 
 export const priorityToCategory = writable();

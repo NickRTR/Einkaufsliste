@@ -1,5 +1,5 @@
 <script context="module">
-    import { products } from "$lib/stores";
+    import { products, error } from "$lib/stores";
     import { getProducts } from "$lib/api";
 
     export async function load({ session, fetch }) {
@@ -10,16 +10,7 @@
             }
         }
 
-        const error = await getProducts(fetch);
-
-        if (error) {
-            return {
-                status: 403,
-                props: {
-                    error: data.error
-                }
-            }
-        }
+        await getProducts(fetch);
 
         return {
             status: 200
@@ -34,8 +25,6 @@
 
     import ProductCard from "$lib/components/ProductCard.svelte";
 
-    export let error;
-
     let input = "";
 
     $: processedProducts = $products;
@@ -49,7 +38,7 @@
             const data = await res.json();
     
             if (data.error) {
-                error = data.error;
+                $error = data.error;
             } else {
                 processedProducts = data.filteredProducts;
             }
@@ -62,12 +51,11 @@
             const res = await fetch("/api/addProduct-" + input);
             const data = await res.json();
 
-            if (data.error) {
-                error = data.error;
-            }
+            $error = data.error;
+
             input = "";
         }
-        await getProducts(fetch);
+        await getProducts();
     }
 </script>
 
@@ -76,7 +64,7 @@
 </svelte:head>
 
 <main>
-    <form class="addProduct" on:submit|preventDefault={async () => {error = await addProduct(input); input = ""}}>
+    <form class="addProduct" on:submit|preventDefault={async () => {await addProduct(input); input = ""}}>
         <input type="text" bind:value={input} title={$wordList.index.add} placeholder={$wordList.index.placeholder} on:input={processInput}>
         <button type="submit" title={$wordList.index.add}>{$wordList.index.add}</button>
     </form>
@@ -104,8 +92,8 @@
         {/each}
     </div>
 
-    {#if error}
-        <p class="error">{error}</p>
+    {#if $error}
+        <p class="error">{$error}</p>
     {/if}
     
     <footer>
