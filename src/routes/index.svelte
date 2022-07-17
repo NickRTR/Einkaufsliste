@@ -1,4 +1,7 @@
 <script context="module">
+    import { products } from "$lib/stores";
+    import { getProducts } from "$lib/api";
+
     export async function load({ session, fetch }) {
         if (!session.user) {
             return {
@@ -7,15 +10,19 @@
             }
         }
 
-        const res = await fetch("/api/getProducts");
-        const data = await res.json();
+        const error = await getProducts(fetch);
+
+        if (error) {
+            return {
+                status: 403,
+                props: {
+                    error: data.error
+                }
+            }
+        }
 
         return {
-            status: 200,
-            props: {
-                products: data.products,
-                error: data.error
-            }
+            status: 200
         }
     }
 </script>
@@ -28,15 +35,14 @@
     import ProductCard from "$lib/components/ProductCard.svelte";
 
     export let error;
-    export let products;
 
     let input = "";
 
-    let processedProducts = products;
+    $: processedProducts = $products;
 
     async function processInput() {
-        if (input === "" || products.length === 0) {
-            processedProducts = products;
+        if (input === "" || $products.length === 0) {
+            processedProducts = $products;
             return;
         } else {
             const res = await fetch("/api/filterProducts-" + input);
@@ -60,8 +66,8 @@
                 error = data.error;
             }
             input = "";
-            processInput();
         }
+        await getProducts(fetch);
     }
 </script>
 
@@ -70,7 +76,7 @@
 </svelte:head>
 
 <main>
-    <form class="addProduct" on:submit|preventDefault={() => {error = addProduct(input); input = ""}}>
+    <form class="addProduct" on:submit|preventDefault={async () => {error = await addProduct(input); input = ""}}>
         <input type="text" bind:value={input} title={$wordList.index.add} placeholder={$wordList.index.placeholder} on:input={processInput}>
         <button type="submit" title={$wordList.index.add}>{$wordList.index.add}</button>
     </form>
