@@ -50,13 +50,19 @@
         // check if string is empty
         input = input.trim();
         if (input.length !== 0) {
-            const res = await fetch(`/api/addProduct-${input}-${"choose"}`);
-            const data = await res.json();
+            const categoryRes = await fetch(`/api/getCategory-${input}`);
+            const categoryData = await categoryRes.json();
 
-            if (data.error) {
-                toast.push(error);
+            if (categoryData.error) {
+                toast.push("An error occured while processing the product's category: " + categoryData.error);
+            } else {
+                const res = await fetch(`/api/addProduct-${input}-${categoryData.category}`);
+                const data = await res.json();
+
+                if (data.error) {
+                    toast.push(error);
+                }
             }
-
             input = "";
         }
         await getProducts();

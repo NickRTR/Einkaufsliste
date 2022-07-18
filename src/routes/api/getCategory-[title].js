@@ -1,43 +1,62 @@
 import supabase from "$lib/supabase";
 
 export async function get({ params }) {
-    const { title } = params;
-
-    
-    
+    let { title } = params;
     title = title.toLowerCase();
-    // first, check if there's an explicit fit
-    for (let i = 0; i < priorities.length; i++) {
-        if (updatedCategories[priorities[i]].includes(input)) {
-            let category = priorities[i];
-            return category;
+
+    // TODO: cache categories and priorities
+
+    let { data: categories, error: categoryError } = await supabase.from("userdata").select("categories");    
+
+    if (categoryError) {
+        return {
+            status: categoryError.status,
+            body: {
+                error: categoryError.message
+            }
         }
     }
-    if (input.length <= 3) {
-        return "choose";
+
+    let { data: priorities, error: priorityError } = await supabase.from("userdata").select("priorities");
+
+    if (priorityError) {
+        return {
+            status: priorityError.status,
+            body: {
+                error: priorityError.message
+            }
+        }
+    }
+
+    priorities = priorities[0].priorities;
+    categories = categories[0].categories;
+
+    // first, check if there's an explicit fit
+    for (let i = 0; i < priorities.length; i++) {
+        // console.log(priorities[i]);
+        if (categories[priorities[i]].includes(title)) {
+            let category = priorities[i];
+            return {
+                status: 200,
+                body: {
+                    category
+                }
+            }
+        }
     }
 
     // then check if there's an other not perfect fitting entry
     for (let i = 0; i < priorities.length; i++) {
-        for (let y = 0; y < updatedCategories[priorities[i]].length; y++) {
-            let product = updatedCategories[priorities[i]];
-            if (product[y].includes(input) || input.includes(product[y])) {
+        for (let y = 0; y < categories[priorities[i]].length; y++) {
+            let product = categories[priorities[i]];
+            if (product[y].includes(title) || title.includes(product[y])) {
                 let category = priorities[i];
-                return category;
-            }
-        }
-    }
-    return "choose";
-
-
-
-    const { data, error } = await supabase.from("products").insert([{title, uuid: supabase.auth.user().id, category}]);
-
-    if (error) {
-        return {
-            status: error.status,
-            body: {
-                error: error.message
+                return {
+                    status: 200,
+                    body: {
+                        category
+                    }
+                }
             }
         }
     }
@@ -45,7 +64,7 @@ export async function get({ params }) {
     return {
         status: 200,
         body: {
-            data
+            category: "choose"
         }
     }
 }

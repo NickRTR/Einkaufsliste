@@ -34,7 +34,6 @@
     }
 
     async function editTitle(id, title) {
-        // TODO: get category
         const categoryRes = await fetch(`/api/getCategory-${title}`);
         const categoryData = await categoryRes.json();
 
@@ -44,8 +43,10 @@
 
         if (title === product.title || title.trim().length === 0) return;
 
-        const res = await fetch(`/api/editTitle-${id}-${title}-${category}`);
+        const res = await fetch(`/api/editTitle-${id}-${title}-${categoryData.category}`);
         const data = await res.json();
+
+        await getProducts();
         
         if (data.error) {
             toast.push("An error occured while editing the product's title: " + data.error);
