@@ -28,19 +28,26 @@
     $: {
         if (error === "Invalid login credentials") {
             error = get(wordList).err.wrongCredentials;
+        } else if (error === "Password should be at least 6 characters") {
+            error = get(wordList).err.toShortPassword;
         }
     }
 
     async function register(event) {
         const formEl = event.target;
         const response = await send(formEl);
-    
+
         if (response.error) {
             error = response.error;
+        } else {
+            const res = await fetch("/auth/createUserdata-" + response.user.id);
+            const data = await res.json();
+
+            if (!data.error) {
+                $session.user = response.user;
+            }
         }
-    
-        $session.user = response.user;
-    
+
         formEl.reset();
     }
 </script>
@@ -67,11 +74,12 @@
         {/if}
 
         {#if success}
+            <!-- TODO: Translate -->
             <p>Thank you for signing up!</p>
             <p><a href="/auth/login">You can log in.</a></p>
         {/if}
 
-        <button type="submit">{$wordList.login.registered.title}</button>
+        <button type="submit">{$wordList.login.unregistered.title}</button>
         <p on:click={() => {goto("/auth/login")}}>{$wordList.login.unregistered.switch}</p>
     </form>
 </body>

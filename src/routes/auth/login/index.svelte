@@ -36,9 +36,9 @@
     
         if (response.error) {
             error = response.error;
+        } else {
+            $session.user = response.user;
         }
-    
-        $session.user = response.user;
     
         formEl.reset();
     }

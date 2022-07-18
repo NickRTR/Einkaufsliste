@@ -1,11 +1,9 @@
 import supabase from "$lib/supabase";
 
 export async function get({ params }) {
-    const { title, category } = params;
+    const { uuid } = params;
 
-    console.log(supabase.auth.user().id);
-
-    const { data, error } = await supabase.from("products").insert([{title, uuid: supabase.auth.user().id}]);
+    let { error } = await supabase.from("userdata").insert([{uuid}]);
 
     if (error) {
         return {
@@ -17,9 +15,6 @@ export async function get({ params }) {
     }
 
     return {
-        status: 200,
-        body: {
-            data
-        }
+        status: 200
     }
 }

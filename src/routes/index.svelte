@@ -50,7 +50,7 @@
         // check if string is empty
         input = input.trim();
         if (input.length !== 0) {
-            const res = await fetch(`/api/addProduct-${input}-${category}`);
+            const res = await fetch(`/api/addProduct-${input}-${"choose"}`);
             const data = await res.json();
 
             if (data.error) {

@@ -23,7 +23,7 @@ export async function post({ request }) {
         }
     }
 
-    let { user, error } = await supabase.auth.signIn({ email, password })
+    let { user, error } = await supabase.auth.signIn({ email, password });
 
     if (error) {
         return {
