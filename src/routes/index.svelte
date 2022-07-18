@@ -48,8 +48,9 @@
 
     async function addProduct() {
         // check if string is empty
-        if (input.trim().length !== 0) {
-            const res = await fetch("/api/addProduct-" + input);
+        input = input.trim();
+        if (input.length !== 0) {
+            const res = await fetch(`/api/addProduct-${input}-${category}`);
             const data = await res.json();
 
             if (data.error) {

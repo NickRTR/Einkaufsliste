@@ -17,15 +17,15 @@ export const translation = {
         checked: "完全的"
     },
     categories: {
-        Gemüse: "蔬菜",
-        Obst: "蔬菜",
-        Vorrat: "蔬菜",
-        Fleisch: "蔬菜",
-        Gefriertruhe: "冷凍",
-        Kühlregal: "冷藏",
-        Haushalt: "冷藏",
-        Süßigkeiten: "糖果",
-        Getränke: "飲料"
+        vegetables: "蔬菜",
+        fruits: "蔬菜",
+        pantry: "蔬菜",
+        meat: "蔬菜",
+        frozen: "冷凍",
+        cooled: "冷藏",
+        household: "冷藏",
+        sweets: "糖果",
+        beverage: "飲料"
     },
     login: {
         registered: {

@@ -7,7 +7,7 @@
     export let product;
     let showChangeCategory = false;
 
-    const categories = ["Gemüse", "Obst", "Vorrat", "Fleisch", "Gefriertruhe", "Kühlregal", "Haushalt", "Süßigkeiten", "Getränke"];
+    const categories = ["vegetables", "fruits", "pantry", "meat", "frozen", "cooled", "household", "sweets", "beverage"];
 
     async function toggleChecked(id, checked) {
         const res = await fetch(`/api/toggleChecked-${id}-${checked}`);
@@ -36,9 +36,11 @@
     async function editTitle(id, title) {
         // TODO: get category
         const categoryRes = await fetch(`/api/getCategory-${title}`);
-        const categoryData = await res.json();
+        const categoryData = await categoryRes.json();
 
-        if (categoryData.error) 
+        if (categoryData.error) {
+            toast.push("An error occured while processing the product's category: " + categoryData.error);
+        }
 
         if (title === product.title || title.trim().length === 0) return;
 
@@ -46,7 +48,7 @@
         const data = await res.json();
         
         if (data.error) {
-            toast.push("An error occured while editing the product title: " + data.error);
+            toast.push("An error occured while editing the product's title: " + data.error);
         }
     }
 

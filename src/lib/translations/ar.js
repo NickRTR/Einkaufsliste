@@ -17,15 +17,15 @@ export const translation = {
         checked: "مكتمل"
     },
     categories: {
-        Gemüse: "خضروات",
-        Obst: "الفاكهة",
-        Vorrat: "المخزن",
-        Fleisch: "لحم",
-        Gefriertruhe: "مجمدة",
-        Kühlregal: "مبردة",
-        Haushalt: "أسرة",
-        Süßigkeiten: "حلويات",
-        Getränke: "شراب"
+        vegetables: "خضروات",
+        fruits: "الفاكهة",
+        pantry: "المخزن",
+        meat: "لحم",
+        frozen: "مجمدة",
+        cooled: "مبردة",
+        household: "أسرة",
+        sweets: "حلويات",
+        beverage: "شراب"
     },
     login: {
         registered: {

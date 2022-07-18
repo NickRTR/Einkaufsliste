@@ -17,15 +17,15 @@ export const translation = {
         checked: "Terminado"
     },
     categories: {
-        Gemüse: "vegetales",
-        Obst: "fruta",
-        Vorrat: "reserva",
-        Fleisch: "carne",
-        Gefriertruhe: "congelado",
-        Kühlregal: "enfriado",
-        Haushalt: "casa",
-        Süßigkeiten: "dulces",
-        Getränke: "bebidas"
+        vegetables: "vegetales",
+        fruits: "fruta",
+        pantry: "reserva",
+        meat: "carne",
+        frozen: "congelado",
+        cooled: "enfriado",
+        household: "casa",
+        sweets: "dulces",
+        beverage: "bebidas"
     },
     login: {
         registered: {

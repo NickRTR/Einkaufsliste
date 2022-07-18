@@ -17,15 +17,15 @@ export const translation = {
         checked: "done"
     },
     categories: {
-        Gemüse: "vegetables",
-        Obst: "fruits",
-        Vorrat: "pantry",
-        Fleisch: "meat",
-        Gefriertruhe: "frozen",
-        Kühlregal: "cooled",
-        Haushalt: "household",
-        Süßigkeiten: "sweets",
-        Getränke: "beverage"
+        vegetables: "vegetables",
+        fruits: "fruits",
+        pantry: "pantry",
+        meat: "meat",
+        frozen: "frozen",
+        cooled: "cooled",
+        household: "household",
+        sweets: "sweets",
+        beverage: "beverage"
     },
     login: {
         registered: {
