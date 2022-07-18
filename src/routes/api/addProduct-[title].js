@@ -6,6 +6,7 @@ export async function get({ params }) {
     const { data, error } = await supabase.from("products").insert([{title, uuid: supabase.auth.user().id}]);
 
     if (error) {
+        console.error(error.message);
         return {
             status: error.status,
             body: {

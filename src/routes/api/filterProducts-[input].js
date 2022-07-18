@@ -6,6 +6,7 @@ export async function get({ params }) {
     const { data: productTitles, error } = await supabase.from("products").select("title");
 
     if (error) {
+        console.error(error.message);
         return {
             status: error.status,
             body: {

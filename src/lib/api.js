@@ -9,6 +9,7 @@ export async function send(form) {
 
 import { products, error } from "$lib/stores";
 import { browser } from "$app/env";
+import { get } from "svelte/store";
 
 export async function getProducts(serverFetch) {
     let res;
