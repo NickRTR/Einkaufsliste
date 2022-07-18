@@ -1,5 +1,5 @@
 <script context="module">
-    import { products, error } from "$lib/stores";
+    import { products } from "$lib/stores";
     import { getProducts } from "$lib/api";
 
     export async function load({ session, fetch }) {
@@ -20,6 +20,7 @@
 
 <script>
     import { wordList } from "$lib/stores.js";
+    import { toast } from "@zerodevx/svelte-toast";
     import { flip } from "svelte/animate";
     import { fade, fly } from "svelte/transition";
 
@@ -38,7 +39,7 @@
             const data = await res.json();
     
             if (data.error) {
-                $error = data.error;
+                toast.push(error);
             } else {
                 processedProducts = data.filteredProducts;
             }
@@ -51,7 +52,9 @@
             const res = await fetch("/api/addProduct-" + input);
             const data = await res.json();
 
-            $error = data.error;
+            if (data.error) {
+                toast.push(error);
+            }
 
             input = "";
         }
@@ -91,14 +94,6 @@
             </div>
         {/each}
     </div>
-
-    {#if $error}
-        <p class="error">{$error}</p>
-    {/if}
-    
-    <footer>
-        <p>©2022 Nick Reutlinger</p>
-    </footer>
 </main>
 
 <style>
@@ -156,10 +151,6 @@
 
     .checkedProducts div {
         filter: opacity(80%);
-    }
-
-    footer {
-        margin-top: .5rem;
     }
 
     /* Scroll Bar */

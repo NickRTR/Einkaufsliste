@@ -1,5 +1,4 @@
 import supabase from "$lib/supabase";
-import * as cookie from "cookie";
 
 export async function post({ request }) {
     const form = await request.formData();
@@ -28,10 +27,10 @@ export async function post({ request }) {
 
     if (error) {
         return {
-            status: 400,
+            status: error.status,
             body: {
-                error
-            },
+                error: error.message
+            }
         }
     }
 

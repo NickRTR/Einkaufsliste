@@ -7,22 +7,23 @@ export async function send(form) {
     return await res.json();
 }
 
-import { products, error } from "$lib/stores";
-import { browser } from "$app/env";
-import { get } from "svelte/store";
+import { products } from "$lib/stores";
+import { toast } from "@zerodevx/svelte-toast";
 
-export async function getProducts(serverFetch) {
+export async function getProducts(specialFetch) {
     let res;
-
-    if (browser) {
-        res = await fetch("/api/getProducts");
+    
+    if (specialFetch) {
+        res = await specialFetch("/api/getProducts");
     } else {
-        res = await serverFetch("/api/getProducts");
+        res = await fetch("/api/getProducts");
     }
     
     const data = await res.json();
 
-    error.set(data.error);
+    if (data.error) {
+        toast.push("An error occured while fetching products: " + data.error);
+    }
 
     if (data.products) {
         products.set(data.products);

@@ -26,7 +26,7 @@
 
     $: {
         if (error === "Invalid login credentials") {
-            error = get(wordList).err.wrongCredentials;
+            error = get(wordList).error.wrongCredentials;
         }
     }
 
@@ -66,7 +66,7 @@
         {/if}
 
         <button type="submit">{$wordList.login.registered.title}</button>
-        <p on:click={() => {goto("/auth/signup")}}>{$wordList.login.registered.switch}</p>
+        <p class="link" on:click={() => {goto("/auth/signup")}}>{$wordList.login.registered.switch}</p>
     </form>
 </body>
 
@@ -149,10 +149,14 @@
         border-color: var(--minor);
     }
 
-    p {
+    .link {
         margin-top: .7rem;
         cursor: pointer;
         text-decoration: underline;
         font-weight: 400;
+    }
+
+    .error {
+        color: tomato;
     }
 </style>

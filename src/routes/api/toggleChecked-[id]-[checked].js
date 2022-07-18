@@ -1,4 +1,5 @@
 import supabase from "$lib/supabase";
+import { toast } from "@zerodevx/svelte-toast";
 
 export async function get({ params }) {
     let { id, checked } = params;
@@ -6,7 +7,6 @@ export async function get({ params }) {
     let { error } = await supabase.from("products").update({"checked": (checked == "false")}).eq("id", id);
 
     if (error) {
-        console.error(error.message);
         return {
             status: error.status,
             body: {

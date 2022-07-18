@@ -161,4 +161,8 @@
         text-decoration: underline;
         font-weight: 400;
     }
+
+    .error {
+        color: tomato;
+    }
 </style>

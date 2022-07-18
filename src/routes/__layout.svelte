@@ -1,14 +1,24 @@
 <script>
     import { page } from "$app/stores";
+
+    // TODO: style toast
+
+    import { SvelteToast } from "@zerodevx/svelte-toast";
 </script>
 
 <body>
+    <SvelteToast /> 
+
     <header>
         <a href="/" sveltekit:prefetch><h1>Schoppy</h1></a>
         <a href={($page.url.pathname === "/settings") ? "/" : "/settings"}><img src="/settings.svg" alt="⚙" title="settings"></a>
     </header>      
 
     <main><slot></slot></main>
+
+    <footer>
+        <p>©2022 Nick Reutlinger</p>
+    </footer>
 </body>
 
 <style>
@@ -66,10 +76,6 @@
         color: var(--major);
         cursor: pointer;
         user-select: none;
-    }
-
-    :global(.error) {
-        color: tomato;
     }
 
     :global(:root) {

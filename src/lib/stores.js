@@ -6,8 +6,6 @@ import { browser } from "$app/env";
 
 export const products = writable([]);
 
-export const error = writable();
-
 export const categories = writable();
 
 export const priorityToCategory = writable();
@@ -27,6 +25,7 @@ async function getTranslation() {
 getTranslation();
 
 // {
+//     0: "choose",
 //     1: "Gemüse",
 //     2: "Obst",
 //     3: "Vorrat",

@@ -1,8 +1,9 @@
 <script>
     // import { updateTitle, deleteProduct, toggleChecked, changeCategory, updateAmount, updateType } from "$lib/supabaseOld.js";
     import { slide } from "svelte/transition";
-    import { error, wordList } from "$lib/stores";
+    import { wordList } from "$lib/stores";
     import { getProducts } from "$lib/api";
+    import { toast } from "@zerodevx/svelte-toast";
 
     export let product;
     let showChangeCategory = false;
@@ -14,7 +15,7 @@
         const data = await res.json();
         
         if (data.error) {
-            error.set(data.error);
+            toast.push("An error occured while toggling the product's state: " + data.error);
         }
 
         await getProducts();
@@ -26,21 +27,27 @@
             const data = await res.json();
             
             if (data.error) {
-                error.set(data.error);
+                toast.push("An error occured while deleting the product: " + data.error);
             }
     
             await getProducts();
         }
     }
 
-    async function editTitle(id, newTitle, category) {
-        if (newTitle === product.title || newTitle.trim().length === 0) return;
+    async function editTitle(id, title) {
+        // TODO: get category
+        const categoryRes = await fetch(`/api/getCategory-${title}`);
+        const categoryData = await res.json();
 
-        const res = await fetch(`/api/editTitle-${id}-${newTitle}-${category}`);
+        if (categoryData.error) 
+
+        if (title === product.title || title.trim().length === 0) return;
+
+        const res = await fetch(`/api/editTitle-${id}-${title}-${category}`);
         const data = await res.json();
         
         if (data.error) {
-            error.set(data.error);
+            toast.push("An error occured while editing the product title: " + data.error);
         }
     }
 
@@ -51,7 +58,7 @@
         const data = await res.json();
         
         if (data.error) {
-            error.set(data.error);
+            toast.push("An error occured while editing the quantity amount: " + data.error);
         }
     }
 
@@ -60,7 +67,7 @@
         const data = await res.json();
         
         if (data.error) {
-            error.set(data.error);
+            toast.push("An error occured while editing the quantity type: " + data.error);
         }
     }
 
@@ -71,7 +78,7 @@
         const data = await res.json();
         
         if (data.error) {
-            error.set(data.error);
+            toast.push("An error occured while changing the product's category: " + data.error);
         }
 
         await getProducts();
@@ -84,7 +91,7 @@
             <img type="image" src="/category/{product.category}.svg" alt={$wordList.categories[product.category]} title={$wordList.categories[product.category]} on:click={() => {showChangeCategory = !showChangeCategory}}>
             <div class="TitleAndQuantity">
                 <div id="title" contenteditable="true" on:blur={(event) => {
-                    editTitle(product.id, event.target.innerText, product.category)}}>{product.title}</div>
+                    editTitle(product.id, event.target.innerText)}}>{product.title}</div>
                 <div class="quantity">
                     <input type="text" class="amount" style="width: 3ch" maxlength="3" value={product.amount} on:blur={(event) => {
                         editAmount(product.id, event.target.value)}}>
