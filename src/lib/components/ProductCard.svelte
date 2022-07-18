@@ -1,5 +1,4 @@
 <script>
-    // import { updateTitle, deleteProduct, toggleChecked, changeCategory, updateAmount, updateType } from "$lib/supabaseOld.js";
     import { slide } from "svelte/transition";
     import { wordList } from "$lib/stores";
     import { getProducts } from "$lib/api";
