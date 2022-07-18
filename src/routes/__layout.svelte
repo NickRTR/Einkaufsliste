@@ -83,4 +83,16 @@
         --minor: black;
         --accent: #0047FF;
     }
+
+    /* Toast styles */
+    :root {
+        --toastContainerTop: auto;
+        --toastContainerRight: auto;
+        --toastContainerBottom: 2rem;
+        --toastContainerLeft: calc(50vw - 8rem);
+        --toastBackground: rgb(245, 245, 245);
+        --toastBarBackground: tomato;
+        --toastColor: var(--minor);
+        --toastBorderRadius: .5rem;
+    }
 </style>
