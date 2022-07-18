@@ -3,7 +3,7 @@ import supabase from "$lib/supabase";
 export async function get({ params }) {
     let { id, checked } = params;
 
-    const { error } = await supabase.from("products").update({"checked": !checked}).eq("id", id);
+    let { error } = await supabase.from("products").update({"checked": (checked == "false")}).eq("id", id);
 
     if (error) {
         return {

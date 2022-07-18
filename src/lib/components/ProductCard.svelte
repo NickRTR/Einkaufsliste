@@ -102,7 +102,7 @@
         </div>
         <div class="stats">
             <div class="status">
-                <input type="checkbox" bind:checked={product.checked} on:click={async () => {await toggleChecked(product.id, product.checked)}}>
+                <input type="checkbox" checked={product.checked} on:click={() => {toggleChecked(product.id, product.checked)}}>
                 <input type="image" src="/delete.svg" alt="delete" on:click={() => {deleteProduct(product.id, $wordList.index.deleteMessage)}}>
             </div>
         </div>
