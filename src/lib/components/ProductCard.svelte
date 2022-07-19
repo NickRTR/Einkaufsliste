@@ -73,17 +73,25 @@
         }
     }
 
-    async function changeCategory(id, category, title) {
+    async function changeCategory(id, category) {
         if (category === product.category) return;
 
-        const res = await fetch(`/api/changeCategory-${id}-${category}-${title}`);
-        const data = await res.json();
+        const sortRes = await fetch(`/api/getSort-${category}`);
+        const sortData = await sortRes.json();
         
-        if (data.error) {
-            toast.push("An error occured while changing the product's category: " + data.error);
+        if (sortData.error) {
+            toast.push("An error occured while changing the product's category: " + sortData.error);
+        } else {
+            const res = await fetch(`/api/changeCategory-${id}-${category}-${sortData.sort}`);
+            const data = await res.json();
+            
+            if (data.error) {
+                toast.push("An error occured while changing the product's category: " + data.error);
+            }
+    
+            await getProducts();
         }
 
-        await getProducts();
     }
 </script>
  

@@ -56,12 +56,20 @@
             if (categoryData.error) {
                 toast.push("An error occured while processing the product's category: " + categoryData.error);
             } else {
-                const res = await fetch(`/api/addProduct-${input}-${categoryData.category}`);
-                const data = await res.json();
-
-                if (data.error) {
-                    toast.push(error);
+                const sortRes = await fetch(`/api/getSort-${categoryData.category}`);
+                const sortData = await sortRes.json();
+                
+                if (sortData.error) {
+                    toast.push("An error occured while processing the product's sort position: " + sortData.error);
+                } else {
+                    const res = await fetch(`/api/addProduct-${input}-${categoryData.category}-${sortData.sort}`);
+                    const data = await res.json();
+    
+                    if (data.error) {
+                        toast.push(data.error);
+                    }
                 }
+
             }
             input = "";
         }

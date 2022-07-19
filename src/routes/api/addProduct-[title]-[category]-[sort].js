@@ -1,9 +1,9 @@
 import supabase from "$lib/supabase";
 
 export async function get({ params }) {
-    const { title, category } = params;
+    const { title, category, sort } = params;
 
-    const { data, error } = await supabase.from("products").insert([{title, uuid: supabase.auth.user().id, category}]);
+    const { data, error } = await supabase.from("products").insert([{title, uuid: supabase.auth.user().id, category, sort}]);
 
     if (error) {
         return {

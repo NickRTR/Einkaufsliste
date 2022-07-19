@@ -1,11 +1,9 @@
 import supabase from "$lib/supabase";   
 
 export async function get({ params }) {
-    let { id, category, title } = params;
+    let { id, category, sort } = params;
 
-    // TODO: update sort
-
-    const { error } = await supabase.from("products").update({category}).eq("id", id);
+    const { error } = await supabase.from("products").update({category, sort}).eq("id", id);
 
     if (error) {
         return {
