@@ -1,15 +1,47 @@
+<script context="module">
+    import { getProducts } from "$lib/api";
+    import { toast } from "@zerodevx/svelte-toast";
+
+    export async function load({ session, fetch }) {
+        if (!session.user) {
+            return {
+                status: 302,
+                redirect: "/auth/login"
+            }
+        }
+
+        await getProducts(fetch);
+
+        const res = await fetch("/api/getPriorities");
+        const data = await res.json();
+        
+        if (data.error) {
+            toast.push("An error occured while fetching priorities: " + data.error);
+        } else {
+            return {
+                status: 200,
+                props: {
+                    priorities: data.priorities,
+                    session
+                }
+            }
+        }
+
+        return {
+            status: 500
+        }
+    }
+</script>
+
 <script>
     // @ts-nocheck
-    import { wordList, products, priorityToCategory} from "$lib/stores";
-    import { logout, changePriorities, deleteAll, getProducts } from "$lib/supabaseOld";
+    import { wordList, products} from "$lib/stores";
     import { slide } from "svelte/transition";
-    import DragDropList from "$lib/components/DragDropList.svelte";
-    import { onMount } from "svelte";
     import { browser } from "$app/env";
+    import DragDropList from "$lib/components/DragDropList.svelte";
 
-    onMount(async () => {
-        getProducts();
-    });
+    export let priorities;
+    export let session;
     
     let showSort = false;
     let language;
@@ -36,9 +68,31 @@
             navigator.share({
                 title: `Schoppy - ${$wordList.index.share}`,
                 text: data
-            }).catch(console.error);
+            }).catch((error) => {
+                toast.push(error);
+            });
         } else {
-            alert("Your device/browser isn't able to share this list.");
+            toast.push("Your device/browser isn't able to share this list.");
+        }
+    }
+
+    async function deleteAll(confirmMessage) {
+        if (confirm(confirmMessage)) {
+            const res = await fetch("/api/deleteAllProducts");
+            const data = await res.json();
+            
+            if (data.error) {
+                toast.push("An error occured while deleting all products: " + data.error);
+            }
+        }
+    }
+
+    async function changePriorities(changedPriorities) {
+        const res = await fetch(`/api/changePriorities-${changedPriorities}`);
+        const data = await res.json();
+        
+        if (data.error) {
+            toast.push("An error occured while changing priority order: " + data.error);
         }
     }
 </script>
@@ -65,15 +119,15 @@
         <button id="sortButton" on:click={() => {showSort = !showSort}} title={$wordList.index.sort}>{$wordList.index.sort}</button>
         {#if showSort}
             <div class="sort" transition:slide|local="{{duration: 800}}">
-                <DragDropList bind:data={$priorityToCategory} wordList={$wordList.categories} />
-                <button class="submitSort" type="submit" on:click|preventDefault={() => {changePriorities($priorityToCategory); showSort = !showSort}}>{$wordList.index.sort}</button>
+                <DragDropList bind:data={priorities} wordList={$wordList.categories} />
+                <button class="submitSort" type="submit" on:click|preventDefault={() => {changePriorities(priorities); showSort = !showSort}}>{$wordList.index.sort}</button>
             </div>
         {/if}
     </div>
 
     <div class="user">
-        <h2>{$session?.user.email ? $session.user.email : ""}</h2>
-        <button on:click={logout} title={$wordList.index.logout}>{$wordList.index.logout}</button>
+        <h2>{session?.user.email ? session.user.email : ""}</h2>
+        <button title={$wordList.index.logout}><a href="/auth/logout">{$wordList.index.logout}</a></button>
     </div>
 </main>
 
@@ -90,6 +144,11 @@
 
     button:hover, button:focus {
         border-color: var(--minor);
+    }
+
+    a {
+        color: var(--major);
+        text-decoration: none;
     }
 
     select {

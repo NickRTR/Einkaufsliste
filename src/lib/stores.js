@@ -6,10 +6,6 @@ import { browser } from "$app/env";
 
 export const products = writable([]);
 
-export const categories = writable();
-
-export const priorityToCategory = writable();
-
 export const wordList = writable(translation); // initialize worldList with English until right language is being loaded
 
 async function getTranslation() {

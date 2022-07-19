@@ -1,8 +1,6 @@
 <script>
     import { page } from "$app/stores";
 
-    // TODO: style toast
-
     import { SvelteToast } from "@zerodevx/svelte-toast";
 </script>
 
