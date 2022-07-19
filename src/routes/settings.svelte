@@ -127,7 +127,7 @@
 
     <div class="user">
         <h2>{session?.user.email ? session.user.email : ""}</h2>
-        <button title={$wordList.index.logout}><a href="/auth/logout">{$wordList.index.logout}</a></button>
+        <a href="/auth/logout" title={$wordList.index.logout}><button>{$wordList.index.logout}</button></a>
     </div>
 </main>
 
@@ -144,11 +144,6 @@
 
     button:hover, button:focus {
         border-color: var(--minor);
-    }
-
-    a {
-        color: var(--major);
-        text-decoration: none;
     }
 
     select {
