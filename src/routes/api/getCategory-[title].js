@@ -28,8 +28,8 @@ export async function get({ params }) {
         }
     }
 
-    priorities = priorities[0].priorities;
     categories = categories[0].categories;
+    priorities = priorities[0].priorities;
 
     // first, check if there's an explicit fit
     for (let i = 0; i < priorities.length; i++) {
