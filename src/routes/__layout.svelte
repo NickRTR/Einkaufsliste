@@ -13,10 +13,6 @@
     </header>      
 
     <main><slot></slot></main>
-
-    <footer>
-        <p>©2022 Nick Reutlinger</p>
-    </footer>
 </body>
 
 <style>
