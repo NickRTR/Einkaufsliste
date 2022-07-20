@@ -1,11 +1,9 @@
 import supabase from "$lib/supabase";   
 
 export async function get({ params }) {
-    const { changedPriorities } = params;
+    let { id, sort } = params;
 
-    const priorities = changedPriorities.split(",");
-
-    const { error } = await supabase.from("userdata").update({priorities}).eq("uuid", supabase.auth.user().id);
+    const { error } = await supabase.from("products").update({sort}).eq("id", id);
 
     if (error) {
         return {

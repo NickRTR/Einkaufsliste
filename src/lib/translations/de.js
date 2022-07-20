@@ -20,7 +20,7 @@ export const translation = {
         vegetables: "Gemüse",
         fruits: "Obst",
         pantry: "Vorrat",
-        meat: "meat",
+        meat: "Fleisch",
         frozen: "Gefriertruhe",
         cooled: "Kühlregal",
         household: "Haushalt",

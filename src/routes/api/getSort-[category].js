@@ -5,8 +5,6 @@ export async function get({ params }) {
 
     // TODO: cache priorities
 
-    console.time("fetch priorities");
-
     let { data: priorities, error: priorityError } = await supabase.from("userdata").select("priorities");
 
     if (priorityError) {
@@ -17,8 +15,6 @@ export async function get({ params }) {
             }
         }
     }
-
-    console.timeEnd("fetch priorities");
 
     priorities = priorities[0].priorities;
 

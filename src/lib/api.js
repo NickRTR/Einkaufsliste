@@ -9,6 +9,7 @@ export async function send(form) {
 
 import { products } from "$lib/stores";
 import { toast } from "@zerodevx/svelte-toast";
+import { get } from "svelte/store";
 
 export async function getProducts(specialFetch) {
     let res;

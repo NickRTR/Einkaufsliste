@@ -93,6 +93,23 @@
         
         if (data.error) {
             toast.push("An error occured while changing priority order: " + data.error);
+        } else {
+            for (let i in $products) {
+                const product = $products[i];
+                const getSortRes = await fetch(`/api/getSort-${product.category}`);
+                const getSortData = await getSortRes.json();
+
+                if (!getSortData.error) {
+                    const setSortRes = await fetch(`/api/updateSort-${product.id}-${getSortData.sort}`);
+                    const data = await setSortRes.json();
+
+                    if (data.error) {
+                        toast.push("An error occured while updating sort order: " + data.error);
+                    }
+                } else {
+                    toast.push("An error occured while updating sort order: " + getSortData.error);
+                }
+            }
         }
     }
 </script>
