@@ -83,7 +83,7 @@
 
 <main>
     <form class="addProduct" on:submit|preventDefault={async () => {await addProduct(input); input = ""}}>
-        <input type="text" bind:value={input} title={$wordList.index.add} placeholder={$wordList.index.placeholder} on:input={processInput}>
+        <input type="text" autocomplete="off" bind:value={input} title={$wordList.index.add} placeholder={$wordList.index.placeholder} on:input={processInput}>
         <button type="submit" title={$wordList.index.add}>{$wordList.index.add}</button>
     </form>
 
