@@ -27,9 +27,9 @@
 
     $: {
         if (error === "Invalid login credentials") {
-            error = get(wordList).err.wrongCredentials;
+            error = get(wordList).error.wrongCredentials;
         } else if (error === "Password should be at least 6 characters") {
-            error = get(wordList).err.toShortPassword;
+            error = get(wordList).error.toShortPassword;
         }
     }
 
@@ -172,5 +172,6 @@
 
     .error {
         color: tomato;
+        text-decoration: none;
     }
 </style>
