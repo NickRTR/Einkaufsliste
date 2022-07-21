@@ -28,8 +28,6 @@ export async function get({ params }) {
         }
     }
 
-    // BUG: Works in development but not in production
-
     categories = categories[0].categories;
     priorities = priorities[0].priorities;
 
