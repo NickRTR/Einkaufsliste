@@ -3,8 +3,6 @@ import supabase from "$lib/supabase";
 export async function GET({ params }) {
 	let { category } = params;
 
-	// TODO: cache priorities
-
 	let { data: priorities, error: priorityError } = await supabase.from("userdata").select("priorities");
 
 	if (priorityError) {

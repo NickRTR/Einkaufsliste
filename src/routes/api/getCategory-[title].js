@@ -4,8 +4,6 @@ export async function GET({ params }) {
 	let { title } = params;
 	title = title.toLowerCase();
 
-	// TODO: cache categories and priorities
-
 	let { data: categories, error: categoryError } = await supabase.from("userdata").select("categories");
 
 	if (categoryError) {
