@@ -81,15 +81,30 @@
 	}
 
 	async function changeCategory(id, category) {
-		// TODO: add title to category dictionary
+		const categoryRes = await fetch("/api/getCategories");
+		const categoryData = await categoryRes.json();
 
-		// if (oldCategory !== "choose") {
-		//     updatedCategories[oldCategory] = updatedCategories[oldCategory].filter(value => value != input.toLowerCase());
-		// }
-		// updatedCategories[category] = [input.toLowerCase(), ...updatedCategories[category]];
-		// await supabase.from('userdata').update({"categories": updatedCategories}).eq("user_id", get(session).user.id);
+		if (categoryData.error) {
+			toast.push("An error occured while changing the product's category: " + categoryData.error);
+		} else {
+			let categories = categoryData.categories;
+			if (product.category !== "choose") {
+				categories[product.category] = categories[product.category].filter((value) => value != product.title.toLowerCase());
+			}
+			categories[category] = [product.title.toLowerCase(), ...categories[category]];
 
-		if (category === product.category) return;
+			const updateRes = await fetch("/api/updateCategories", {
+				method: "POST",
+				body: JSON.stringify({
+					categories
+				})
+			});
+			const updateData = await updateRes.json();
+
+			if (updateData.error) {
+				toast.push("An error occured while changing the product's category: " + updateData.error);
+			}
+		}
 
 		const sortRes = await fetch(`/api/getSort-${category}`);
 		const sortData = await sortRes.json();

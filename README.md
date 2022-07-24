@@ -4,15 +4,15 @@ A simple, yet feature packed and powerful shopping list.
 
 # Functionality
 
-- Login and Signup with email and password
-- Add Products with title, quantity and category (fruits, vegetables, milk, ...)
-- Input Suggestions
-- Delete, check and edit Products
-- Change product category
-- Change product category sort order
-- Export the list via the navigator.share API
-- Support for multiple languages including English, German, Spanish, France, Chinese and Arabic.
-- Settings
+-   Login and Signup with email and password
+-   Add Products with title, quantity and category (fruits, vegetables, milk, ...)
+-   Input Suggestions
+-   Delete, check and edit Products
+-   Change product category
+-   Change product category sort order
+-   Export the list via the navigator.share API
+-   Support for multiple languages including English, German, Spanish, France, Chinese and Arabic.
+-   Settings
 
 ---
 
