@@ -22,7 +22,6 @@
 	"type": "module",
 	"dependencies": {
 		"cookie": "^0.5.0",
-		"dotenv": "^16.0.1",
-		"jsonwebtoken": "^8.5.1"
+		"dotenv": "^16.0.1"
 	}
 }
