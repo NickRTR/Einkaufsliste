@@ -15,7 +15,7 @@ export async function GET() {
   return {
     status: 200,
     body: {
-      priorities: priorities,
+      priorities: priorities[0].priorities,
     },
   };
 }
