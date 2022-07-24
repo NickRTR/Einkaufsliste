@@ -1,12 +1,12 @@
 import supabase from "$lib/supabase";
 
-export async function get() {
-    await supabase.auth.signOut();
+export async function GET() {
+  await supabase.auth.signOut();
 
-    return {
-        status: 303,
-        headers: {
-            location: "/auth/login"
-        }
-    }
+  return {
+    status: 303,
+    headers: {
+      location: "/auth/login",
+    },
+  };
 }

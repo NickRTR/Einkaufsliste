@@ -1,23 +1,23 @@
 import supabase from "$lib/supabase";
 
-export async function get({ params }) {
-    const { title, category, sort } = params;
+export async function GET({ params }) {
+  const { title, category, sort } = params;
 
-    const { data, error } = await supabase.from("products").insert([{title, uuid: supabase.auth.user().id, category, sort}]);
+  const { data, error } = await supabase.from("products").insert([{ title, uuid: supabase.auth.user().id, category, sort }]);
 
-    if (error) {
-        return {
-            status: error.status,
-            body: {
-                error: error.message
-            }
-        }
-    }
-
+  if (error) {
     return {
-        status: 200,
-        body: {
-            data
-        }
-    }
+      status: error.status,
+      body: {
+        error: error.message,
+      },
+    };
+  }
+
+  return {
+    status: 200,
+    body: {
+      data,
+    },
+  };
 }
