@@ -9,13 +9,13 @@ export const products = writable([]);
 export const wordList = writable(translation); // initialize worldList with English until right language is being loaded
 
 async function getTranslation() {
-    if (browser) {
-        if (localStorage.getItem("language")) {
-            wordList.set(await translate(localStorage.getItem("language")))
-        } else {
-            wordList.set(await translate(navigator.language));
-        }
-    }
+	if (browser) {
+		if (localStorage.getItem("language")) {
+			wordList.set(await translate(localStorage.getItem("language")));
+		} else {
+			wordList.set(await translate(navigator.language));
+		}
+	}
 }
 
 getTranslation();
