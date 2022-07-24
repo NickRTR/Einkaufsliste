@@ -28,12 +28,11 @@ export async function GET({ params }) {
     };
   }
 
-  // categories = categories[0].categories;
+  categories = categories[0].categories;
   priorities = priorities[0].priorities;
 
   // first, check if there's an explicit fit
   for (let i = 0; i < priorities.length; i++) {
-    // console.log(priorities[i]);
     if (categories[priorities[i]].includes(title)) {
       let category = priorities[i];
       return {
