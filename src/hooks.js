@@ -1,9 +1,17 @@
 import supabase from "$lib/supabase";
+import * as cookie from "cookie";
 
 export async function handle({ event, resolve }) {
-	const user = supabase.auth.user();
+	const cookieHeader = event.request.headers.get("cookie");
+	const cookies = cookie.parse(cookieHeader ?? "");
 
-	if (!user) {
+	if (!cookies.session) {
+		return await resolve(event);
+	}
+
+	const { user, error } = await supabase.auth.api.getUser(cookies.session);
+
+	if (error) {
 		return await resolve(event);
 	}
 

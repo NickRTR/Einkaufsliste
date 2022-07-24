@@ -1,4 +1,5 @@
 import supabase from "$lib/supabase";
+import * as cookie from "cookie";
 
 export async function POST({ request }) {
 	const form = await request.formData();
@@ -23,14 +24,13 @@ export async function POST({ request }) {
 		};
 	}
 
-	let { user, error } = await supabase.auth.signUp({ email, password });
+	const response = await supabase.auth.signUp({ email, password });
 
-	if (error) {
-		console.log(error);
+	if (response.error) {
 		return {
-			status: error.status,
+			status: response.error.status,
 			body: {
-				error: error.message
+				error: response.error.message
 			}
 		};
 	}
@@ -38,8 +38,24 @@ export async function POST({ request }) {
 	return {
 		status: 200,
 		body: {
-			user,
+			user: response.user,
 			success: "Success."
+		},
+		headers: {
+			"Set-Cookie": cookie.serialize("session", response.session.access_token, {
+				// send cookie for every page
+				path: "/",
+				// server side only cookie so you can"t use `document.cookie`
+				httpOnly: true,
+				// only requests from same site can send cookies
+				// and serves to protect from CSRF
+				// https://developer.mozilla.org/en-US/docs/Glossary/CSRF
+				sameSite: "strict",
+				// only sent over HTTPS
+				secure: process.env.NODE_ENV === "production",
+				// set cookie to expire after two weeks
+				maxAge: 60 * 60 * 24 * 12
+			})
 		}
 	};
 }
