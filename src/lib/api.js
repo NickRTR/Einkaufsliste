@@ -22,10 +22,8 @@ export async function getProducts(specialFetch) {
 	const data = await res.json();
 
 	if (data.error) {
-		toast.push("An error occured while fetching products: " + data.error);
-	}
-
-	if (data.products) {
+		toast.push("An error occurred while fetching products: " + data.error);
+	} else if (data.products) {
 		products.set(data.products);
 	}
 }

@@ -16,7 +16,7 @@
 		const data = await res.json();
 
 		if (data.error) {
-			toast.push("An error occured while fetching priorities: " + data.error);
+			toast.push("An error ocurred while fetching priorities: " + data.error);
 		} else {
 			return {
 				status: 200,
@@ -84,7 +84,7 @@
 			const data = await res.json();
 
 			if (data.error) {
-				toast.push("An error occured while deleting all products: " + data.error);
+				toast.push("An error ocurred while deleting all products: " + data.error);
 			}
 		}
 	}
@@ -94,7 +94,7 @@
 		const data = await res.json();
 
 		if (data.error) {
-			toast.push("An error occured while changing priority order: " + data.error);
+			toast.push("An error ocurred while changing priority order: " + data.error);
 		} else {
 			for (let i in $products) {
 				const product = $products[i];
@@ -106,10 +106,10 @@
 					const data = await setSortRes.json();
 
 					if (data.error) {
-						toast.push("An error occured while updating sort order: " + data.error);
+						toast.push("An error ocurred while updating sort order: " + data.error);
 					}
 				} else {
-					toast.push("An error occured while updating sort order: " + getSortData.error);
+					toast.push("An error ocurred while updating sort order: " + getSortData.error);
 				}
 			}
 		}

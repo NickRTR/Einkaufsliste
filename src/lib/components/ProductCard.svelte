@@ -14,7 +14,7 @@
 		const data = await res.json();
 
 		if (data.error) {
-			toast.push("An error occured while toggling the product's state: " + data.error);
+			toast.push("An error ocurred while toggling the product's state: " + data.error);
 		}
 
 		await getProducts();
@@ -26,7 +26,7 @@
 			const data = await res.json();
 
 			if (data.error) {
-				toast.push("An error occured while deleting the product: " + data.error);
+				toast.push("An error ocurred while deleting the product: " + data.error);
 			}
 
 			await getProducts();
@@ -38,13 +38,13 @@
 		const categoryData = await categoryRes.json();
 
 		if (categoryData.error) {
-			toast.push("An error occured while processing the product's category: " + categoryData.error);
+			toast.push("An error ocurred while processing the product's category: " + categoryData.error);
 		} else {
 			const sortRes = await fetch(`/api/getSort-${categoryData.category}`);
 			const sortData = await sortRes.json();
 
 			if (sortData.error) {
-				toast.push("An error occured while processing the product's sort position: " + sortData.error);
+				toast.push("An error ocurred while processing the product's sort position: " + sortData.error);
 			} else {
 				if (title === product.title || title.trim().length === 0) return;
 
@@ -54,7 +54,7 @@
 				await getProducts();
 
 				if (data.error) {
-					toast.push("An error occured while editing the product's title: " + data.error);
+					toast.push("An error ocurred while editing the product's title: " + data.error);
 				}
 			}
 		}
@@ -67,7 +67,7 @@
 		const data = await res.json();
 
 		if (data.error) {
-			toast.push("An error occured while editing the quantity amount: " + data.error);
+			toast.push("An error ocurred while editing the quantity amount: " + data.error);
 		}
 	}
 
@@ -76,7 +76,7 @@
 		const data = await res.json();
 
 		if (data.error) {
-			toast.push("An error occured while editing the quantity type: " + data.error);
+			toast.push("An error ocurred while editing the quantity type: " + data.error);
 		}
 	}
 
@@ -85,7 +85,7 @@
 		const categoryData = await categoryRes.json();
 
 		if (categoryData.error) {
-			toast.push("An error occured while changing the product's category: " + categoryData.error);
+			toast.push("An error ocurred while changing the product's category: " + categoryData.error);
 		} else {
 			let categories = categoryData.categories;
 			if (product.category !== "choose") {
@@ -102,7 +102,7 @@
 			const updateData = await updateRes.json();
 
 			if (updateData.error) {
-				toast.push("An error occured while changing the product's category: " + updateData.error);
+				toast.push("An error ocurred while changing the product's category: " + updateData.error);
 			}
 		}
 
@@ -110,13 +110,13 @@
 		const sortData = await sortRes.json();
 
 		if (sortData.error) {
-			toast.push("An error occured while changing the product's category: " + sortData.error);
+			toast.push("An error ocurred while changing the product's category: " + sortData.error);
 		} else {
 			const res = await fetch(`/api/changeCategory-${id}-${category}-${sortData.sort}`);
 			const data = await res.json();
 
 			if (data.error) {
-				toast.push("An error occured while changing the product's category: " + data.error);
+				toast.push("An error ocurred while changing the product's category: " + data.error);
 			}
 
 			await getProducts();
