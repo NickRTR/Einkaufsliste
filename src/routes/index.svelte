@@ -31,11 +31,11 @@
 	$: processedProducts = $products;
 
 	async function processInput() {
-		if (input === "" || $products.length === 0) {
+		if (input === "") {
 			processedProducts = $products;
 			return;
 		} else {
-			const res = await fetch("/api/filterProducts-" + input);
+			const res = await fetch(`/api/userdata/filterProducts-${input}`);
 			const data = await res.json();
 
 			if (data.error) {
@@ -50,27 +50,25 @@
 		// check if string is empty
 		input = input.trim();
 		if (input.length !== 0) {
-			const categoryRes = await fetch(`/api/getCategory-${input}`);
-			const categoryData = await categoryRes.json();
+			try {
+				const categoryRes = await fetch(`/api/product/getCategory-${input}`);
+				const categoryData = await categoryRes.json();
 
-			if (categoryData.error) {
-				toast.push("An error occurred while processing the product's category: " + categoryData.error);
-			} else {
-				const sortRes = await fetch(`/api/getSort-${categoryData.category}`);
+				if (categoryData.error) throw new Error(categoryData.error);
+
+				const sortRes = await fetch(`/api/product/getSort-${categoryData.category}`);
 				const sortData = await sortRes.json();
 
-				if (sortData.error) {
-					toast.push("An error occurred while processing the product's sort position: " + sortData.error);
-				} else {
-					const res = await fetch(`/api/addProduct-${input}-${categoryData.category}-${sortData.sort}`);
-					const data = await res.json();
+				if (sortData.error) throw new Error(sortData.error);
 
-					if (data.error) {
-						toast.push(data.error);
-					}
-				}
+				const res = await fetch(`/api/product/addProduct-${input}-${categoryData.category}-${sortData.sort}`);
+				const data = await res.json();
+
+				if (data.error) throw new Error(data.error);
+				input = "";
+			} catch (error) {
+				toast.push("An error ocurred while adding a new product: " + error.message);
 			}
-			input = "";
 		}
 		await getProducts();
 	}

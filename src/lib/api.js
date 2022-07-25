@@ -14,9 +14,9 @@ export async function getProducts(specialFetch) {
 	let res;
 
 	if (specialFetch) {
-		res = await specialFetch("/api/getProducts");
+		res = await specialFetch("/api/product/getProducts");
 	} else {
-		res = await fetch("/api/getProducts");
+		res = await fetch("/api/product/getProducts");
 	}
 
 	const data = await res.json();

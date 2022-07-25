@@ -10,116 +10,118 @@
 	const categories = ["vegetables", "fruits", "pantry", "meat", "frozen", "cooled", "household", "sweets", "beverage"];
 
 	async function toggleChecked(id, checked) {
-		const res = await fetch(`/api/toggleChecked-${id}-${checked}`);
-		const data = await res.json();
+		try {
+			const res = await fetch(`/api/product/toggleChecked-${id}-${checked}`);
+			const data = await res.json();
 
-		if (data.error) {
-			toast.push("An error ocurred while toggling the product's state: " + data.error);
+			if (data.error) throw new Error(data.error);
+
+			await getProducts();
+		} catch (error) {
+			toast.push("An error ocurred while toggling the product's state: " + error.message);
 		}
-
-		await getProducts();
 	}
 
 	async function deleteProduct(id) {
 		if (confirm($wordList.index.deleteMessage)) {
-			const res = await fetch(`/api/deleteProduct-${id}`);
-			const data = await res.json();
+			try {
+				const res = await fetch(`/api/product/deleteProduct-${id}`);
+				const data = await res.json();
 
-			if (data.error) {
-				toast.push("An error ocurred while deleting the product: " + data.error);
+				if (data.error) throw new Error(data.error);
+
+				await getProducts();
+			} catch (error) {
+				toast.push("An error ocurred while deleting the product: " + error.message);
 			}
-
-			await getProducts();
 		}
 	}
 
 	async function editTitle(id, title) {
-		const categoryRes = await fetch(`/api/getCategory-${title}`);
-		const categoryData = await categoryRes.json();
+		try {
+			if (title === product.title || title.trim().length === 0) return;
 
-		if (categoryData.error) {
-			toast.push("An error ocurred while processing the product's category: " + categoryData.error);
-		} else {
-			const sortRes = await fetch(`/api/getSort-${categoryData.category}`);
+			const categoryRes = await fetch(`/api/product/getCategory-${title}`);
+			const categoryData = await categoryRes.json();
+			if (categoryData.error) throw new Error(categoryData.error);
+
+			const sortRes = await fetch(`/api/product/getSort-${categoryData.category}`);
 			const sortData = await sortRes.json();
+			if (sortData.error) throw new Error(sortData.error);
 
-			if (sortData.error) {
-				toast.push("An error ocurred while processing the product's sort position: " + sortData.error);
-			} else {
-				if (title === product.title || title.trim().length === 0) return;
+			const res = await fetch(`/api/product/editTitle-${id}-${title}-${categoryData.category}-${sortData.sort}`);
+			const data = await res.json();
+			if (data.error) throw new Error(data.error);
 
-				const res = await fetch(`/api/editTitle-${id}-${title}-${categoryData.category}-${sortData.sort}`);
-				const data = await res.json();
-
-				await getProducts();
-
-				if (data.error) {
-					toast.push("An error ocurred while editing the product's title: " + data.error);
-				}
-			}
+			await getProducts();
+		} catch (error) {
+			toast.push("An error occured while editing the product's title: " + error.message);
 		}
 	}
 
 	async function editAmount(id, amount) {
-		if (amount === product.amount || amount.trim().length === 0) return;
+		try {
+			if (amount === product.amount || amount.trim().length === 0) return;
 
-		const res = await fetch(`/api/editAmount-${id}-${amount}`);
-		const data = await res.json();
+			const res = await fetch(`/api/product/updateAmount-${id}-${amount}`);
+			const data = await res.json();
 
-		if (data.error) {
-			toast.push("An error ocurred while editing the quantity amount: " + data.error);
+			if (data.error) throw new Error(data.error);
+		} catch (error) {
+			toast.push("An error ocurred while editing the product's quantity amount: " + error.message);
 		}
 	}
 
 	async function editType(id, type) {
-		const res = await fetch(`/api/editType-${id}-${type}`);
-		const data = await res.json();
+		try {
+			const res = await fetch(`/api/product/editType-${id}-${type}`);
+			const data = await res.json();
 
-		if (data.error) {
-			toast.push("An error ocurred while editing the quantity type: " + data.error);
+			if (data.error) throw new Error(data.error);
+		} catch (error) {
+			toast.push("An error ocurred while editing the product's quantity type: " + error.message);
 		}
 	}
 
 	async function changeCategory(id, category) {
-		const categoryRes = await fetch("/api/getCategories");
-		const categoryData = await categoryRes.json();
+		try {
+			const categoriesRes = await fetch("/api/userdata/getCategories");
+			const categoriesData = await categoriesRes.json();
 
-		if (categoryData.error) {
-			toast.push("An error ocurred while changing the product's category: " + categoryData.error);
-		} else {
-			let categories = categoryData.categories;
+			if (categoriesData.error) throw new Error(categoriesData.error);
+
+			let categories = categoriesData.categories;
+
 			if (product.category !== "choose") {
 				categories[product.category] = categories[product.category].filter((value) => value != product.title.toLowerCase());
 			}
 			categories[category] = [product.title.toLowerCase(), ...categories[category]];
 
-			const updateRes = await fetch("/api/updateCategories", {
+			const updateRes = await fetch("/api/userdata/updateCategories", {
 				method: "POST",
 				body: JSON.stringify({
 					categories
 				})
 			});
+
 			const updateData = await updateRes.json();
 
-			if (updateData.error) {
-				toast.push("An error ocurred while changing the product's category: " + updateData.error);
-			}
-		}
+			if (updateData.error) throw new Error(updateData.error);
 
-		const sortRes = await fetch(`/api/getSort-${category}`);
-		const sortData = await sortRes.json();
+			const sortRes = await fetch(`/api/product/getSort-${category}`);
+			const sortData = await sortRes.json();
 
-		if (sortData.error) {
-			toast.push("An error ocurred while changing the product's category: " + sortData.error);
-		} else {
-			const res = await fetch(`/api/changeCategory-${id}-${category}-${sortData.sort}`);
+			if (sortData.error) throw new Error(sortData.error);
+
+			const res = await fetch(`/api/product/updateCategory-${id}-${category}-${sortData.sort}`);
 			const data = await res.json();
 
-			if (data.error) {
-				toast.push("An error ocurred while changing the product's category: " + data.error);
-			}
+			if (data.error) throw new Error(data.error);
 
 			await getProducts();
+		} catch (error) {
+			console.log(error);
+			toast.push("An error occured while changing the product's category: " + error.message);
 		}
 	}
 </script>
