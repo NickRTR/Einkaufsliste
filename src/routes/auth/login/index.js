@@ -2,8 +2,6 @@ import supabase from "$lib/supabase";
 import * as cookie from "cookie";
 
 export async function POST({ request }) {
-	console.log(request.headers);
-
 	const form = await request.formData();
 	const email = form.get("email");
 	const password = form.get("password");

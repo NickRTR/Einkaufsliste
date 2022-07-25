@@ -1,4 +1,5 @@
 import supabase from "$lib/supabase";
+import * as cookie from "cookie";
 
 export async function GET() {
 	await supabase.auth.signOut();
@@ -6,7 +7,11 @@ export async function GET() {
 	return {
 		status: 303,
 		headers: {
-			location: "/auth/login"
+			location: "/auth/login",
+			"Set-Cookie": cookie.serialize("session", "", {
+				path: "/",
+				expires: new Date(0)
+			})
 		}
 	};
 }
