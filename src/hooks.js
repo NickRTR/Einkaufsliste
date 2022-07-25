@@ -9,7 +9,7 @@ export async function handle({ event, resolve }) {
 		return await resolve(event);
 	}
 
-	const { user, error } = await supabase.auth.api.getUser(cookies.session);
+	const { user, error } = await supabase.auth.setAuth(cookies.session);
 
 	if (error) {
 		return await resolve(event);
