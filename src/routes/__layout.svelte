@@ -9,7 +9,7 @@
 
 	<header>
 		<a href="/" sveltekit:prefetch><h1>Schoppy</h1></a>
-		<a href={$page.url.pathname === "/settings" ? "/" : "/settings"}><img src="/settings.svg" alt="⚙" title="settings" /></a>
+		<a sveltekit:prefetch href={$page.url.pathname === "/settings" ? "/" : "/settings"}><img src="/settings.svg" alt="⚙" title="settings" /></a>
 	</header>
 
 	<main><slot /></main>
