@@ -1,5 +1,4 @@
 import supabase from "$lib/supabase";
-import { toast } from "@zerodevx/svelte-toast";
 
 export async function GET({ params }) {
 	let { id, checked } = params;
