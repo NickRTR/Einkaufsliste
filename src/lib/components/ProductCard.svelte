@@ -1,129 +1,13 @@
 <script>
 	import { slide } from "svelte/transition";
 	import { wordList } from "$lib/stores";
-	import { getProducts } from "$lib/api";
+	import { getProducts, toggleChecked, deleteProduct, editTitle, editAmount, editType, changeCategory } from "$lib/api";
 	import { toast } from "@zerodevx/svelte-toast";
 
 	export let product;
 	let showChangeCategory = false;
 
 	const categories = ["vegetables", "fruits", "pantry", "meat", "frozen", "cooled", "household", "sweets", "beverage"];
-
-	async function toggleChecked(id, checked) {
-		try {
-			const res = await fetch(`/api/product/toggleChecked-${id}-${checked}`);
-			const data = await res.json();
-
-			if (data.error) throw new Error(data.error);
-
-			await getProducts();
-		} catch (error) {
-			toast.push("An error ocurred while toggling the product's state: " + error.message);
-		}
-	}
-
-	async function deleteProduct(id) {
-		if (confirm($wordList.index.deleteMessage)) {
-			try {
-				const res = await fetch(`/api/product/deleteProduct-${id}`);
-				const data = await res.json();
-
-				if (data.error) throw new Error(data.error);
-
-				await getProducts();
-			} catch (error) {
-				toast.push("An error ocurred while deleting the product: " + error.message);
-			}
-		}
-	}
-
-	async function editTitle(id, title) {
-		try {
-			if (title === product.title || title.trim().length === 0) return;
-
-			const categoryRes = await fetch(`/api/product/getCategory-${title}`);
-			const categoryData = await categoryRes.json();
-			if (categoryData.error) throw new Error(categoryData.error);
-
-			const sortRes = await fetch(`/api/product/getSort-${categoryData.category}`);
-			const sortData = await sortRes.json();
-			if (sortData.error) throw new Error(sortData.error);
-
-			const res = await fetch(`/api/product/editTitle-${id}-${title}-${categoryData.category}-${sortData.sort}`);
-			const data = await res.json();
-			if (data.error) throw new Error(data.error);
-
-			await getProducts();
-		} catch (error) {
-			toast.push("An error occured while editing the product's title: " + error.message);
-		}
-	}
-
-	async function editAmount(id, amount) {
-		try {
-			if (amount === product.amount || amount.trim().length === 0) return;
-
-			const res = await fetch(`/api/product/updateAmount-${id}-${amount}`);
-			const data = await res.json();
-
-			if (data.error) throw new Error(data.error);
-		} catch (error) {
-			toast.push("An error ocurred while editing the product's quantity amount: " + error.message);
-		}
-	}
-
-	async function editType(id, type) {
-		try {
-			const res = await fetch(`/api/product/editType-${id}-${type}`);
-			const data = await res.json();
-
-			if (data.error) throw new Error(data.error);
-		} catch (error) {
-			toast.push("An error ocurred while editing the product's quantity type: " + error.message);
-		}
-	}
-
-	async function changeCategory(id, category) {
-		try {
-			const categoriesRes = await fetch("/api/userdata/getCategories");
-			const categoriesData = await categoriesRes.json();
-
-			if (categoriesData.error) throw new Error(categoriesData.error);
-
-			let categories = categoriesData.categories;
-
-			if (product.category !== "choose") {
-				categories[product.category] = categories[product.category].filter((value) => value != product.title.toLowerCase());
-			}
-			categories[category] = [product.title.toLowerCase(), ...categories[category]];
-
-			const updateRes = await fetch("/api/userdata/updateCategories", {
-				method: "POST",
-				body: JSON.stringify({
-					categories
-				})
-			});
-
-			const updateData = await updateRes.json();
-
-			if (updateData.error) throw new Error(updateData.error);
-
-			const sortRes = await fetch(`/api/product/getSort-${category}`);
-			const sortData = await sortRes.json();
-
-			if (sortData.error) throw new Error(sortData.error);
-
-			const res = await fetch(`/api/product/updateCategory-${id}-${category}-${sortData.sort}`);
-			const data = await res.json();
-
-			if (data.error) throw new Error(data.error);
-
-			await getProducts();
-		} catch (error) {
-			console.log(error);
-			toast.push("An error occured while changing the product's category: " + error.message);
-		}
-	}
 </script>
 
 <div class="container">
@@ -143,7 +27,7 @@
 					id="title"
 					contenteditable="true"
 					on:blur={(event) => {
-						editTitle(product.id, event.target.innerText);
+						editTitle(product.id, product.title, event.target.innerText);
 					}}
 				>
 					{product.title}
@@ -156,7 +40,7 @@
 						maxlength="3"
 						value={product.amount}
 						on:blur={(event) => {
-							editAmount(product.id, event.target.value);
+							editAmount(product.id, product.amount, event.target.value);
 						}}
 					/>
 					<select
@@ -200,7 +84,7 @@
 				<div
 					on:click={() => {
 						showChangeCategory = !showChangeCategory;
-						changeCategory(product.id, category, product.title);
+						changeCategory(product.id, product.category, category, product.title);
 					}}
 				>
 					<p>{$wordList.categories[category]}</p>
