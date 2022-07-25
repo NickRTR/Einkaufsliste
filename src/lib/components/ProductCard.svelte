@@ -1,8 +1,7 @@
 <script>
 	import { slide } from "svelte/transition";
 	import { wordList } from "$lib/stores";
-	import { getProducts, toggleChecked, deleteProduct, editTitle, editAmount, editType, changeCategory } from "$lib/api";
-	import { toast } from "@zerodevx/svelte-toast";
+	import { toggleChecked, deleteProduct, editTitle, editAmount, editType, changeCategory } from "$lib/api";
 
 	export let product;
 	let showChangeCategory = false;
