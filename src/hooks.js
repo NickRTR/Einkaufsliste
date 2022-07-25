@@ -10,7 +10,8 @@ export async function handle({ event, resolve }) {
 			return await resolve(event);
 		}
 
-		const { user, error } = await supabase.auth.setAuth(cookies.session);
+		await supabase.auth.setAuth(cookies.session);
+		const { user, error } = await supabase.auth.api.getUser(cookies.session);
 
 		if (error) {
 			return await resolve(event);
@@ -20,6 +21,7 @@ export async function handle({ event, resolve }) {
 
 		return await resolve(event);
 	} catch (err) {
+		console.log(err);
 		return await resolve(event);
 	}
 }
