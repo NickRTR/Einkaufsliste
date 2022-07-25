@@ -17,7 +17,8 @@ export async function handle({ event, resolve }) {
 			return await resolve(event);
 		}
 
-		event.locals.user = { email: user.email };
+		// provide id exclusively to endpoints via locals
+		event.locals.user = { email: user.email, id: user.id };
 
 		return await resolve(event);
 	} catch (err) {
