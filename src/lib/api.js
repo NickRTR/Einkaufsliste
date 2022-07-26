@@ -9,6 +9,8 @@ export async function send(form) {
 
 import { products } from "$lib/stores";
 import { toast } from "@zerodevx/svelte-toast";
+import { wordList } from "$lib/stores";
+import { get } from "svelte/store";
 
 export async function getProducts(specialFetch) {
 	let res;
@@ -42,7 +44,7 @@ export async function toggleChecked(id, checked) {
 }
 
 export async function deleteProduct(id) {
-	if (confirm($wordList.index.deleteMessage)) {
+	if (confirm(get(wordList).index.deleteMessage)) {
 		try {
 			const res = await fetch(`/api/product/deleteProduct-${id}`);
 			const data = await res.json();
@@ -74,7 +76,7 @@ export async function editTitle(id, oldTitle, title) {
 
 		await getProducts();
 	} catch (error) {
-		toast.push("An error occured while editing the product's title: " + error.message);
+		toast.push("An error occurred while editing the product's title: " + error.message);
 	}
 }
 
@@ -140,6 +142,6 @@ export async function changeCategory(id, oldCategory, category, title) {
 		await getProducts();
 	} catch (error) {
 		console.log(error);
-		toast.push("An error occured while changing the product's category: " + error.message);
+		toast.push("An error occurred while changing the product's category: " + error.message);
 	}
 }
