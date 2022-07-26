@@ -82,6 +82,7 @@ export async function editTitle(id, oldTitle, title) {
 
 export async function editAmount(id, oldAmount, amount) {
 	try {
+		amount = amount.toString();
 		if (amount === oldAmount || amount.trim().length === 0) return;
 
 		const res = await fetch(`/api/product/updateAmount-${id}-${amount}`);

@@ -23,6 +23,7 @@
 	import { toast } from "@zerodevx/svelte-toast";
 	import { flip } from "svelte/animate";
 	import { fade, fly } from "svelte/transition";
+	import { toggleChecked, editAmount } from "$lib/api";
 
 	import ProductCard from "$lib/components/ProductCard.svelte";
 
@@ -51,6 +52,25 @@
 		input = input.trim();
 		if (input.length !== 0) {
 			try {
+				const productRes = await fetch(`/api/product/getProduct-${input}`);
+				const productData = await productRes.json();
+
+				if (productData.error) throw new Error(productData.error);
+
+				if (productData.product.title === input) {
+					const product = productData.product;
+					if (product.checked === true) {
+						await toggleChecked(product.id, true);
+						return;
+					} else {
+						if (confirm(`${product.title}: ${$wordList.index.productAlreadyListed}`)) {
+							editAmount(product.id, product.amount, product.amount + 1);
+							await getProducts();
+							return;
+						}
+					}
+				}
+
 				const categoryRes = await fetch(`/api/product/getCategory-${input}`);
 				const categoryData = await categoryRes.json();
 
