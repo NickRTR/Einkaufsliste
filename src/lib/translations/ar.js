@@ -48,7 +48,7 @@ export const translation = {
 			English: "إنجليزي",
 			AmericanEnglish: "الإنجليزية الأمريكية",
 			Spanish: "الأسبانية",
-			France: "فرنسا",
+			French: "فرنسا",
 			Chinese: "صينى",
 			Arabic: "صينى"
 		}
