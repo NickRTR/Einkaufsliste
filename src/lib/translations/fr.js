@@ -50,7 +50,8 @@ export const translation = {
 			Spanish: "Espagnole",
 			French: "Français",
 			Chinese: "Chinoise",
-			Arabic: "Arabe"
+			Arabic: "Arabe",
+			Japanese: "japonais"
 		}
 	},
 	error: {

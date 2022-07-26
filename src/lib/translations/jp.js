@@ -48,7 +48,8 @@ export const translation = {
 			Spanish: "スパニッシュ",
 			French: "フレンチ",
 			Chinese: "唐",
-			Arabic: "アラビア語"
+			Arabic: "アラビア語",
+			Japanese: "倭国"
 		}
 	},
 	error: {
