@@ -126,6 +126,7 @@
 			<option value="es">{$wordList.settings.language.Spanish}</option>
 			<option value="fr">{$wordList.settings.language.French}</option>
 			<option value="zh">{$wordList.settings.language.Chinese}</option>
+			<option value="jp">{$wordList.settings.language.Japanese}</option>
 			<option value="ar">{$wordList.settings.language.Arabic}</option>
 		</select>
 	</div>
