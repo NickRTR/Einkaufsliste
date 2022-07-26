@@ -40,7 +40,7 @@
 		if (response.error) {
 			error = response.error;
 		} else {
-			const res = await fetch("/auth/createUserdata-" + response.user.id);
+			const res = await fetch("/auth/createUserdata");
 			const data = await res.json();
 
 			if (!data.error) {

@@ -57,16 +57,17 @@
 
 				if (productData.error) throw new Error(productData.error);
 
-				if (productData.product.title === input) {
-					const product = productData.product;
-					if (product.checked === true) {
-						await toggleChecked(product.id, true);
-						return;
-					} else {
-						if (confirm(`${product.title}: ${$wordList.index.productAlreadyListed}`)) {
-							editAmount(product.id, product.amount, product.amount + 1);
-							await getProducts();
+				if (productData.products.length !== 0) {
+					const product = productData.products[0];
+					if (product.title === input) {
+						if (product.checked === true) {
+							await toggleChecked(product.id, true);
 							return;
+						} else {
+							if (confirm(`${product.title}: ${$wordList.index.productAlreadyListed}`)) {
+								editAmount(product.id, product.amount, product.amount + 1);
+								return;
+							}
 						}
 					}
 				}

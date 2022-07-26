@@ -92,6 +92,7 @@ export async function editAmount(id, oldAmount, amount) {
 	} catch (error) {
 		toast.push("An error ocurred while editing the product's quantity amount: " + error.message);
 	}
+	await getProducts();
 }
 
 export async function editType(id, type) {

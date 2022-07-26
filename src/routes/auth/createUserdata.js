@@ -1,9 +1,7 @@
 import supabase from "$lib/supabase";
 
-export async function GET({ params }) {
-	const { uuid } = params;
-
-	let { error } = await supabase.from("userdata").insert([{ uuid }]);
+export async function GET({ locals }) {
+	let { error } = await supabase.from("userdata").insert([{ uuid: locals.user.id }]);
 
 	if (error) {
 		return {
