@@ -12,7 +12,7 @@
 
 		await getProducts(fetch);
 
-		const res = await fetch("/api/getPriorities");
+		const res = await fetch("/api/userdata/getPriorities");
 		const data = await res.json();
 
 		if (data.error) {
