@@ -61,7 +61,7 @@
 		// alle Produkte der Einkaufsliste zu einer zu teilenden Liste zusammenfassen.
 		for (let i = 0; i < $products.length; i++) {
 			let product = $products[i];
-			if (!product.checked) data += `◦ ${product.title} (${product.amount} ${product.type}) (${$wordList.categories[product.category]}) \n`; // only add if product is unchecked
+			if (!product.checked) data += `◯ ${product.title} (${product.amount} ${product.type}) (${$wordList.categories[product.category]}) \n`; // only add if product is unchecked
 		}
 
 		if (navigator.share) {
