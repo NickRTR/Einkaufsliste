@@ -52,7 +52,6 @@ export const translation = {
 			Chinese: "中国人",
 			Arabic: "阿拉伯",
 			Japanese: "日本"
-
 		}
 	},
 	error: {

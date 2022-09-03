@@ -51,7 +51,7 @@ export const translation = {
 			French: "فرنسا",
 			Chinese: "صينى",
 			Arabic: "صينى",
-			Japanese:"اليابانية"
+			Japanese: "اليابانية"
 		}
 	},
 	error: {

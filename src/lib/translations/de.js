@@ -49,7 +49,7 @@ export const translation = {
 			French: "Französisch",
 			Chinese: "Chinesisch",
 			Arabic: "Arabisch",
-			Japanese:"Japanisch"
+			Japanese: "Japanisch"
 		}
 	},
 	error: {
