@@ -5,7 +5,7 @@ export async function GET({ params, locals }) {
 
 	const priorities = changedPriorities.split(",");
 
-	const { error } = await supabase.from("userdata").update({ priorities }).eq("uuid", locals.user.id);
+	const { error } = await supabase.auth.api.updateUserById(locals.user.id, { user_metadata: { priorities } });
 
 	if (error) {
 		return {

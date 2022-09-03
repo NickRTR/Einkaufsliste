@@ -1,7 +1,15 @@
 import supabase from "$lib/supabase";
+import { categories } from "$lib/categories";
 
-export async function GET({ locals }) {
-	let { error } = await supabase.from("userdata").insert([{ uuid: locals.user.id }]);
+export async function POST({ request }) {
+	const { id } = await request.json();
+	console.log(id);
+	const { data, error } = await supabase.auth.api.updateUserById(id, {
+		user_metadata: {
+			categories,
+			priorities: ["fruits", "vegetables", "pantry", "meat", "frozen", "cooled", "household", "sweets", "beverage"]
+		}
+	});
 
 	if (error) {
 		return {
@@ -13,6 +21,9 @@ export async function GET({ locals }) {
 	}
 
 	return {
-		status: 200
+		status: 200,
+		body: {
+			user: data
+		}
 	};
 }

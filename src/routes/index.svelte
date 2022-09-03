@@ -34,9 +34,8 @@
 	async function processInput() {
 		if (input === "") {
 			processedProducts = $products;
-			return;
 		} else {
-			const res = await fetch(`/api/userdata/filterProducts-${input}`);
+			const res = await fetch(`/api/product/filterProducts-${input}`);
 			const data = await res.json();
 
 			if (data.error) {
@@ -66,6 +65,8 @@
 						} else {
 							if (confirm(`${product.title}: ${$wordList.index.productAlreadyListed}`)) {
 								editAmount(product.id, product.amount, product.amount + 1);
+								return;
+							} else {
 								return;
 							}
 						}

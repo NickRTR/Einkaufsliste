@@ -1,21 +1,10 @@
-import supabase from "$lib/supabase";
-
-export async function GET() {
-	let { data: categories, error } = await supabase.from("userdata").select("categories");
-
-	if (error) {
-		return {
-			status: error.status,
-			body: {
-				error: error.message
-			}
-		};
-	}
+export async function GET({ locals }) {
+	console.log(locals.user.userdata.categories);
 
 	return {
 		status: 200,
 		body: {
-			categories: categories[0].categories
+			categories: locals.user.userdata.categories
 		}
 	};
 }

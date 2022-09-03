@@ -1,33 +1,9 @@
-import supabase from "$lib/supabase";
-
-export async function GET({ params }) {
+export async function GET({ params, locals }) {
 	let { title } = params;
 	title = title.toLowerCase();
 
-	let { data: categories, error: categoryError } = await supabase.from("userdata").select("categories");
-
-	if (categoryError) {
-		return {
-			status: categoryError.status,
-			body: {
-				error: categoryError.message
-			}
-		};
-	}
-
-	let { data: priorities, error: priorityError } = await supabase.from("userdata").select("priorities");
-
-	if (priorityError) {
-		return {
-			status: priorityError.status,
-			body: {
-				error: priorityError.message
-			}
-		};
-	}
-
-	categories = categories[0].categories;
-	priorities = priorities[0].priorities;
+	const categories = locals.user.userdata.categories;
+	const priorities = locals.user.userdata.priorities;
 
 	// first, check if there's an explicit fit
 	for (let i = 0; i < priorities.length; i++) {

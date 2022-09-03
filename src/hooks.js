@@ -18,7 +18,7 @@ export async function handle({ event, resolve }) {
 		}
 
 		// provide id exclusively to endpoints via locals
-		event.locals.user = { email: user.email, id: user.id };
+		event.locals.user = { email: user.email, id: user.id, userdata: user.user_metadata };
 
 		return await resolve(event);
 	} catch (err) {
@@ -32,7 +32,9 @@ export function getSession({ locals }) {
 
 	return {
 		user: {
-			email: locals.user.email
+			email: locals.user.email,
+			id: locals.user.id,
+			userdata: locals.user.userdata
 		}
 	};
 }

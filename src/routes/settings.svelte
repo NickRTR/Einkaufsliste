@@ -80,7 +80,7 @@
 
 	async function deleteAll(confirmMessage) {
 		if (confirm(confirmMessage)) {
-			const res = await fetch("/api/deleteAllProducts");
+			const res = await fetch("/api/product/deleteAllProducts");
 			const data = await res.json();
 
 			if (data.error) {

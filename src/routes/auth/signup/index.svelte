@@ -40,11 +40,19 @@
 		if (response.error) {
 			error = response.error;
 		} else {
-			const res = await fetch("/auth/createUserdata");
+			console.log(response.user.id);
+			const res = await fetch("/auth/createUserdata", {
+				method: "POST",
+				body: JSON.stringify({
+					id: response.user.id
+				})
+			});
 			const data = await res.json();
 
+			console.log(data);
+
 			if (!data.error) {
-				$session.user = response.user;
+				$session.user = data.user;
 			}
 		}
 

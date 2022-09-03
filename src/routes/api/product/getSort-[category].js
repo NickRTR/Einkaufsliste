@@ -1,20 +1,7 @@
-import supabase from "$lib/supabase";
-
-export async function GET({ params }) {
+export async function GET({ params, locals }) {
 	let { category } = params;
 
-	let { data: priorities, error: priorityError } = await supabase.from("userdata").select("priorities");
-
-	if (priorityError) {
-		return {
-			status: priorityError.status,
-			body: {
-				error: priorityError.message
-			}
-		};
-	}
-
-	priorities = priorities[0].priorities;
+	const priorities = locals.user.userdata.priorities;
 
 	if (category === "choose") {
 		return {

@@ -1,5 +1,4 @@
 import supabase from "$lib/supabase";
-import { products } from "$lib/stores";
 
 export async function GET() {
 	let { data: products, error } = await supabase.from("products").delete().neq("id", 0);
