@@ -3,7 +3,6 @@ import { categories } from "$lib/categories";
 
 export async function POST({ request }) {
 	const { id } = await request.json();
-	console.log(id);
 	const { data, error } = await supabase.auth.api.updateUserById(id, {
 		user_metadata: {
 			categories,
