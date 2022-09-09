@@ -2,7 +2,7 @@
 import { writable } from "svelte/store";
 import { translation } from "$lib/translations/en";
 import { translate } from "$lib/translations/translate";
-import { browser } from "$app/env";
+import { browser } from "$app/environment";
 
 export const products = writable([]);
 
