@@ -8,12 +8,6 @@ export async function load({ request }) {
 		if (cookies.auth) {
 			const { user, error } = await supabase.auth.api.getUser(cookies.auth);
 
-			if (user.user_metadata !== {}) {
-				await supabase.auth.api.updateUserById(user.id, {
-					user_metadata: {}
-				});
-			}
-
 			if (error) {
 				console.log(error);
 			}
