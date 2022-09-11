@@ -1,8 +1,9 @@
 import supabase from "$lib/supabase";
 
 export async function POST({ request }) {
-	const { id } = await request.json();
-	let { error } = await supabase.from("userdata").insert([{ uuid: id }]);
+	const { priorities, id } = await request.json();
+
+	const { error } = await supabase.from("userdata").update({ priorities }).eq("uuid", id);
 
 	if (error) {
 		return new Response(JSON.stringify({ error: error.message }));

@@ -1,9 +1,11 @@
 import supabase from "$lib/supabase";
 
-export async function GET({ cookies }) {
-	const user = await supabase.auth.api.getUser(cookies.get("auth"));
+export async function GET() {
+	let { data: priorities, error } = await supabase.from("userdata").select("priorities");
 
-	const priorities = user.user.user_metadata.priorities;
+	if (error) {
+		return new Response(JSON.stringify({ error: error.message }));
+	}
 
-	return new Response(JSON.stringify({ priorities }));
+	return new Response(JSON.stringify({ priorities: priorities[0].priorities }));
 }

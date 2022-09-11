@@ -6,7 +6,9 @@
 	import { page } from "$app/stores";
 	import DragDropList from "$lib/components/DragDropList.svelte";
 
-	let categories = $page.data.user.userdata.priorities;
+	export let data;
+
+	let priorities = data.priorities;
 
 	let showSort = false;
 	let language;
@@ -55,7 +57,13 @@
 	}
 
 	async function changePriorities(changedPriorities) {
-		const res = await fetch(`/api/userdata/updatePriorities-${changedPriorities}`);
+		const res = await fetch("/api/userdata/updatePriorities", {
+			method: "POST",
+			body: JSON.stringify({
+				priorities: changedPriorities,
+				id: $page.data.user.id
+			})
+		});
 		const data = await res.json();
 
 		if (data.error) {
@@ -115,12 +123,12 @@
 		>
 		{#if showSort}
 			<div class="sort" transition:slide|local={{ duration: 800 }}>
-				<DragDropList bind:data={categories} wordList={$wordList.categories} />
+				<DragDropList bind:data={priorities} wordList={$wordList.categories} />
 				<button
 					class="submitSort"
 					type="submit"
 					on:click|preventDefault={() => {
-						changePriorities(categories);
+						changePriorities(priorities);
 						showSort = !showSort;
 					}}>{$wordList.index.sort}</button
 				>

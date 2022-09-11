@@ -11,6 +11,7 @@ import { products } from "$lib/stores";
 import { toast } from "@zerodevx/svelte-toast";
 import { wordList } from "$lib/stores";
 import { get } from "svelte/store";
+import { page } from "$app/stores";
 
 export async function getProducts(specialFetch) {
 	let res;
@@ -119,11 +120,11 @@ export async function changeCategory(id, oldCategory, category, title) {
 			categories[oldCategory] = categories[oldCategory].filter((value) => value != title.toLowerCase());
 		}
 		categories[category] = [title.toLowerCase(), ...categories[category]];
-
 		const updateRes = await fetch("/api/userdata/updateCategories", {
 			method: "POST",
 			body: JSON.stringify({
-				categories
+				categories,
+				id: get(page).data.user.id
 			})
 		});
 

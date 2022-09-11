@@ -23,14 +23,14 @@ async function getTranslation() {
 getTranslation();
 
 // {
-//     0: "choose",
-//     1: "Gemüse",
-//     2: "Obst",
-//     3: "Vorrat",
-//     4: "Fleisch",
-//     5: "Gefriertruhe",
-//     6: "Kühlregal",
-//     7: "Haushalt",
-//     8: "Süßigkeiten",
-//     9: "Getränke",
+//     "0": "choose",
+//     "1": "Gemüse",
+//     "2": "Obst",
+//     "3": "Vorrat",
+//     "4": "Fleisch",
+//     "5": "Gefriertruhe",
+//     "6": "Kühlregal",
+//     "7": "Haushalt",
+//     "8": "Süßigkeiten",
+//     "9": "Getränke",
 // }

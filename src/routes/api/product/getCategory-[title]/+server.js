@@ -1,13 +1,23 @@
 import supabase from "$lib/supabase";
 
-export async function GET({ params, cookies }) {
+export async function GET({ params }) {
 	let { title } = params;
 	title = title.toLowerCase();
 
-	const user = await supabase.auth.api.getUser(cookies.get("auth"));
+	let { data: categories, error: categoryError } = await supabase.from("userdata").select("categories");
 
-	const priorities = user.user.user_metadata.priorities;
-	const categories = user.user.user_metadata.categories;
+	if (categoryError) {
+		return new Response(JSON.stringify({ error: categoryError.message }));
+	}
+
+	let { data: priorities, error: priorityError } = await supabase.from("userdata").select("priorities");
+
+	if (priorityError) {
+		return new Response(JSON.stringify({ error: priorityError.message }));
+	}
+
+	categories = categories[0].categories;
+	priorities = priorities[0].priorities;
 
 	// first, check if there's an explicit fit
 	for (let i = 0; i < priorities.length; i++) {

@@ -3,9 +3,13 @@ import supabase from "$lib/supabase";
 export async function GET({ params, cookies }) {
 	let { category } = params;
 
-	const user = await supabase.auth.api.getUser(cookies.get("auth"));
+	let { data: priorities, error: priorityError } = await supabase.from("userdata").select("priorities");
 
-	const priorities = user.user.user_metadata.priorities;
+	if (priorityError) {
+		return new Response(JSON.stringify({ error: priorityError.message }));
+	}
+
+	priorities = priorities[0].priorities;
 
 	if (category === "choose") {
 		return new Response(JSON.stringify({ sort: 0 }));
