@@ -13,18 +13,18 @@
 	$: processedProducts = $products;
 
 	async function processInput() {
-		if (input === "") {
-			processedProducts = $products;
-		} else {
-			const res = await fetch(`/api/product/filterProducts-${input}`);
-			const data = await res.json();
-
-			if (data.error) {
-				toast.push(error);
-			} else {
-				processedProducts = data.filteredProducts;
-			}
-		}
+		// BUG: filtering products is inefficient
+		// if (input === "") {
+		// 	processedProducts = $products;
+		// } else {
+		// 	const res = await fetch(`/api/product/filterProducts-${input}`);
+		// 	const data = await res.json();
+		// 	if (data.error) {
+		// 		toast.push(error);
+		// 	} else {
+		// 		processedProducts = data.filteredProducts;
+		// 	}
+		// }
 	}
 
 	async function addProduct() {
