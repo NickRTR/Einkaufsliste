@@ -1,7 +1,7 @@
 import supabase from "$lib/supabase";
 
-export async function GET({ params }) {
-	let { id } = params;
+export async function DELETE({ request }) {
+	let { id } = await request.json();
 
 	const { error } = await supabase.from("products").delete().eq("id", id);
 

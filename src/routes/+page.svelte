@@ -65,7 +65,7 @@
 				if (sortData.error) throw new Error(sortData.error);
 
 				const res = await fetch(`/api/product/addProduct`, {
-					method: "POST",
+					method: "PUT",
 					body: JSON.stringify({
 						title: input,
 						category: categoryData.category,

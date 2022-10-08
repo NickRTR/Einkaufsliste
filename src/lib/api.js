@@ -33,7 +33,13 @@ export async function getProducts(specialFetch) {
 
 export async function toggleChecked(id, checked) {
 	try {
-		const res = await fetch(`/api/product/toggleChecked-${id}-${checked}`);
+		const res = await fetch("/api/product/toggleChecked", {
+			method: "PATCH",
+			body: JSON.stringify({
+				id,
+				checked
+			})
+		});
 		const data = await res.json();
 
 		if (data.error) throw new Error(data.error);
@@ -47,7 +53,12 @@ export async function toggleChecked(id, checked) {
 export async function deleteProduct(id) {
 	if (confirm(get(wordList).index.deleteMessage)) {
 		try {
-			const res = await fetch(`/api/product/deleteProduct-${id}`);
+			const res = await fetch("/api/product/deleteProduct", {
+				method: "DELETE",
+				body: JSON.stringify({
+					id
+				})
+			});
 			const data = await res.json();
 
 			if (data.error) throw new Error(data.error);
