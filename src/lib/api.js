@@ -169,7 +169,14 @@ export async function changeCategory(id, oldCategory, category, title) {
 
 		if (sortData.error) throw new Error(sortData.error);
 
-		const res = await fetch(`/api/product/updateCategory-${id}-${category}-${sortData.sort}`);
+		const res = await fetch("/api/product/updateCategory", {
+			method: "PATCH",
+			body: JSON.stringify({
+				id,
+				category,
+				sort: sortData.sort
+			})
+		});
 		const data = await res.json();
 
 		if (data.error) throw new Error(data.error);
