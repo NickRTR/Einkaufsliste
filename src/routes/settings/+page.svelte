@@ -75,7 +75,13 @@
 				const getSortData = await getSortRes.json();
 
 				if (!getSortData.error) {
-					const setSortRes = await fetch(`/api/updateSort-${product.id}-${getSortData.sort}`);
+					const setSortRes = await fetch("/api/updateSort", {
+						method: "PATCH",
+						body: JSON.stringify({
+							id: product.id,
+							sort: getSortData.sort
+						})
+					});
 					const data = await setSortRes.json();
 
 					if (data.error) {

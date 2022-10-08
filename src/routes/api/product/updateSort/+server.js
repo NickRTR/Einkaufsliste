@@ -1,8 +1,7 @@
-import { json } from "@sveltejs/kit";
 import supabase from "$lib/supabase";
 
-export async function GET({ params }) {
-	let { id, sort } = params;
+export async function PATCH({ request }) {
+	let { id, sort } = request.json();
 
 	const { error } = await supabase.from("products").update({ sort }).eq("id", id);
 
