@@ -1,7 +1,7 @@
 import supabase from "$lib/supabase";
 
-export async function GET({ params }) {
-	let { id, amount } = params;
+export async function PATCH({ request }) {
+	let { id, amount } = await request.json();
 
 	const { error } = await supabase.from("products").update({ amount }).eq("id", id);
 

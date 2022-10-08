@@ -102,10 +102,17 @@ export async function editTitle(id, oldTitle, title) {
 
 export async function editAmount(id, oldAmount, amount) {
 	try {
+		if (amount === oldAmount) return;
 		amount = amount.toString();
-		if (amount === oldAmount || amount.trim().length === 0) return;
+		if (amount.trim().length === 0) return;
 
-		const res = await fetch(`/api/product/updateAmount-${id}-${amount}`);
+		const res = await fetch("/api/product/updateAmount", {
+			method: "PATCH",
+			body: JSON.stringify({
+				id,
+				amount
+			})
+		});
 		const data = await res.json();
 
 		if (data.error) throw new Error(data.error);
