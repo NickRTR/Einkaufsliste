@@ -4,6 +4,7 @@
 	import { flip } from "svelte/animate";
 	import { fade, fly } from "svelte/transition";
 	import { toggleChecked, editAmount, getProducts } from "$lib/api";
+	import { page } from "$app/stores";
 
 	import ProductCard from "$lib/components/ProductCard.svelte";
 
@@ -63,7 +64,15 @@
 
 				if (sortData.error) throw new Error(sortData.error);
 
-				const res = await fetch(`/api/product/addProduct-${input}-${categoryData.category}-${sortData.sort}`);
+				const res = await fetch(`/api/product/addProduct`, {
+					method: "POST",
+					body: JSON.stringify({
+						title: input,
+						category: categoryData.category,
+						sort: sortData.sort,
+						id: $page.data.user.id
+					})
+				});
 				const data = await res.json();
 
 				if (data.error) throw new Error(data.error);

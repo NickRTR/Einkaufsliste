@@ -1,0 +1,15 @@
+import supabase from "$lib/supabase";
+
+export async function POST({ request }) {
+	const { title, category, sort, id } = await request.json();
+
+	const { data, error } = await supabase.from("products").insert([{ title, category, sort, uuid: id }]);
+
+	console.log(data);
+
+	if (error) {
+		return new Response(JSON.stringify({ error: error.message }));
+	}
+
+	return new Response(JSON.stringify({ data }));
+}
