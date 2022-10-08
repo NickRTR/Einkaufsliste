@@ -71,7 +71,7 @@ export async function editTitle(id, oldTitle, title) {
 		const sortData = await sortRes.json();
 		if (sortData.error) throw new Error(sortData.error);
 
-		const res = await fetch(`/api/product/editTitle`, {
+		const res = await fetch("/api/product/editTitle", {
 			method: "PATCH",
 			body: JSON.stringify({
 				id,
@@ -106,7 +106,13 @@ export async function editAmount(id, oldAmount, amount) {
 
 export async function editType(id, type) {
 	try {
-		const res = await fetch(`/api/product/editType-${id}-${type}`);
+		const res = await fetch("/api/product/editType", {
+			method: "PATCH",
+			body: JSON.stringify({
+				id,
+				type
+			})
+		});
 		const data = await res.json();
 
 		if (data.error) throw new Error(data.error);
