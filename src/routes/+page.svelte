@@ -20,10 +20,20 @@
 			$products.forEach((product) => {
 				const title = product.title.toLowerCase();
 				const i = input.toLowerCase();
-				if (title === i || title.startsWith(i) || title.includes(i)) {
+				if (title === i || title.startsWith(i)) {
 					processedProducts = [...processedProducts, product];
 				}
 			});
+
+			if (processedProducts.length === 0) {
+				$products.forEach((product) => {
+					const title = product.title.toLowerCase();
+					const i = input.toLowerCase();
+					if (title.includes(i)) {
+						processedProducts = [...processedProducts, product];
+					}
+				});
+			}
 		}
 	}
 
