@@ -13,18 +13,18 @@
 	$: processedProducts = $products;
 
 	async function processInput() {
-		// BUG: filtering products is inefficient
-		// if (input === "") {
-		// 	processedProducts = $products;
-		// } else {
-		// 	const res = await fetch(`/api/product/filterProducts-${input}`);
-		// 	const data = await res.json();
-		// 	if (data.error) {
-		// 		toast.push(error);
-		// 	} else {
-		// 		processedProducts = data.filteredProducts;
-		// 	}
-		// }
+		if (input === "") {
+			processedProducts = $products;
+		} else {
+			processedProducts = [];
+			$products.forEach((product) => {
+				const title = product.title.toLowerCase();
+				const i = input.toLowerCase();
+				if (title === i || title.startsWith(i) || title.includes(i)) {
+					processedProducts = [...processedProducts, product];
+				}
+			});
+		}
 	}
 
 	async function addProduct() {
