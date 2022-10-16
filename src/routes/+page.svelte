@@ -90,8 +90,8 @@
 			} catch (error) {
 				toast.push("An error ocurred while adding a new product: " + error.message);
 			}
+			await getProducts();
 		}
-		await getProducts();
 	}
 </script>
 
