@@ -5,7 +5,7 @@
 		"dev": "vite dev",
 		"build": "vite build",
 		"package": "svelte-kit package",
-		"preview": "vite preview",
+		"preview": "vite build && vite preview",
 		"prepare": "svelte-kit sync",
 		"format": "prettier --write --plugin-search-dir=. ."
 	},
