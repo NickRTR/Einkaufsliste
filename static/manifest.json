@@ -35,5 +35,7 @@
 	],
 	"description": "A powerful shopping list with themes, quantity, category icons, multiply languages and much more.",
 	"lang": "en",
-	"categories": ["food", "health", "lifestyle", "productivity", "shopping"]
+	"categories": ["food", "health", "lifestyle", "productivity", "shopping"],
+	"dir": "auto",
+	"prefer_related_applications": false
 }
