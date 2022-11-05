@@ -1,5 +1,5 @@
 {
-	"theme_color": "#ffffff",
+	"theme_color": "#0047ff",
 	"background_color": "#ffffff",
 	"name": "Schoppy",
 	"short_name": "Schoppy",
@@ -32,5 +32,8 @@
 			"type": "image/png",
 			"purpose": "maskable"
 		}
-	]
+	],
+	"description": "A powerful shopping list with themes, quantity, category icons, multiply languages and much more.",
+	"lang": "en",
+	"categories": ["food", "health", "lifestyle", "productivity", "shopping"]
 }
