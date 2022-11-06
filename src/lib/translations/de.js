@@ -50,7 +50,8 @@ export const translation = {
 			Chinese: "Chinesisch",
 			Arabic: "Arabisch",
 			Japanese: "Japanisch"
-		}
+		},
+		feedback: "Äußern Sie Verbesserungsmöglichkeiten"
 	},
 	error: {
 		userAlreadyRegistered: "Sie sind bereits registriert. Bitte anmelden!",

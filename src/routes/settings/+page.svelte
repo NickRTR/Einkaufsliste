@@ -142,6 +142,12 @@
 		{/if}
 	</div>
 
+	<!-- TODO: Feedback -->
+	<!-- <div class="feedback">
+		<h2>Feedback</h2>
+		<a href="/feedback" title={$wordList.settings.feedbackText}>{$wordList.settings.feedbackText}</a>
+	</div> -->
+
 	<div class="user">
 		<h2>{$page.data.user.email ? $page.data.user.email : ""}</h2>
 		<a href="/auth/logout" title={$wordList.index.logout}><button>{$wordList.index.logout}</button></a>
@@ -149,6 +155,9 @@
 </main>
 
 <style>
+	main {
+	}
+
 	button {
 		border-radius: 2rem;
 		padding: 0.3em 0.8rem;
