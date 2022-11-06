@@ -3,6 +3,8 @@
 	import { wordList } from "$lib/stores";
 	import { toggleChecked, deleteProduct, editTitle, editAmount, editType, changeCategory } from "$lib/api";
 
+	import autoselect from "svelte-autoselect";
+
 	export let product;
 	let showChangeCategory = false;
 
@@ -33,6 +35,7 @@
 				</div>
 				<div class="quantity">
 					<input
+						use:autoselect
 						type="text"
 						class="amount"
 						style="width: 3ch"
