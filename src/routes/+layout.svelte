@@ -77,6 +77,7 @@
 		--major: white;
 		--minor: black;
 		--accent: #0047ff;
+		--accentTransparent: #0047ff44;
 	}
 
 	/* Toast styles */

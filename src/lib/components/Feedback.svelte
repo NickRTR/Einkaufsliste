@@ -1,7 +1,8 @@
 <script>
 	import { wordList } from "$lib/stores";
+	import { page } from "$app/stores";
 
-	let submitted = false;
+	let submitted = $page.url.search === "?thanks=true";
 </script>
 
 <svelte:head>
@@ -17,13 +18,9 @@
 			<input type="text" name="name" id="name" placeholder={$wordList.settings.feedback.name} required />
 			<label for="message">{$wordList.settings.feedback.messageLabel}</label>
 			<textarea name="message" id="message" placeholder={$wordList.settings.feedback.message} required />
-			<button
-				type="submit"
-				on:click={() => {
-					submitted = true;
-				}}>{$wordList.settings.feedback.submit}</button
-			>
+			<button type="submit">{$wordList.settings.feedback.submit}</button>
 			<input type="hidden" name="_subject" value="Schoppy: New feedback submission!" />
+			<input type="hidden" name="_next" value="https://schoppy.vercel.app/settings?thanks=true" />
 		</form>
 	{/if}
 </main>
@@ -75,7 +72,7 @@
 	input:hover,
 	textarea:focus,
 	input:focus {
-		border-color: var(--accent);
+		background-color: var(--accentTransparent);
 	}
 
 	.thanks {
