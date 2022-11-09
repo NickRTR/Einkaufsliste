@@ -52,6 +52,10 @@ export const translation = {
 			Chinese: "Chinese",
 			Arabic: "Arabic",
 			Japanese: "Japanese"
+		},
+		feedback: {
+			title: "feedback:",
+			link: "Give feedback!"
 		}
 	},
 	error: {

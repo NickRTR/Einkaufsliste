@@ -5,6 +5,7 @@
 	import { browser } from "$app/environment";
 	import { page } from "$app/stores";
 	import DragDropList from "$lib/components/DragDropList.svelte";
+	import Feedback from "$lib/components/Feedback.svelte";
 
 	export let data;
 
@@ -142,20 +143,22 @@
 		{/if}
 	</div>
 
-	<!-- TODO: Feedback -->
-	<!-- <div class="feedback">
-		<h2>Feedback</h2>
-		<a href="/feedback" title={$wordList.settings.feedbackText}>{$wordList.settings.feedbackText}</a>
-	</div> -->
-
 	<div class="user">
 		<h2>{$page.data.user.email ? $page.data.user.email : ""}</h2>
-		<a href="/auth/logout" title={$wordList.index.logout}><button>{$wordList.index.logout}</button></a>
+		<button><a href="/auth/logout" title={$wordList.index.logout}>{$wordList.index.logout}</a></button>
+	</div>
+
+	<hr />
+
+	<div class="feedback">
+		<h2>{$wordList.settings.feedback.title}</h2>
+		<Feedback />
 	</div>
 </main>
 
 <style>
-	main {
+	hr {
+		margin-top: 2rem;
 	}
 
 	button {
@@ -171,6 +174,11 @@
 	button:hover,
 	button:focus {
 		border-color: var(--minor);
+	}
+
+	a {
+		color: white;
+		text-decoration: none;
 	}
 
 	select {

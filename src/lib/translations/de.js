@@ -51,7 +51,10 @@ export const translation = {
 			Arabic: "Arabisch",
 			Japanese: "Japanisch"
 		},
-		feedback: "Äußern Sie Verbesserungsmöglichkeiten"
+		feedback: {
+			title: "Feedback",
+			link: "Äußern Sie Verbesserungsmöglichkeiten"
+		}
 	},
 	error: {
 		userAlreadyRegistered: "Sie sind bereits registriert. Bitte anmelden!",
