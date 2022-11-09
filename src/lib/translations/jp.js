@@ -50,6 +50,15 @@ export const translation = {
 			Chinese: "唐",
 			Arabic: "アラビア語",
 			Japanese: "倭国"
+		},
+		feedback: {
+			title: "ご意見をお聞かせください。",
+			name: "名前",
+			nameLabel: "name (オプション)。",
+			messageLabel: "フィードバックメッセージ",
+			message: "メッセージ",
+			submit: "提出",
+			thanks: "投稿ありがとうございました。"
 		}
 	},
 	error: {

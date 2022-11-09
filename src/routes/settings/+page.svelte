@@ -1,5 +1,4 @@
 <script>
-	// @ts-nocheck
 	import { wordList, products } from "$lib/stores";
 	import { slide } from "svelte/transition";
 	import { browser } from "$app/environment";

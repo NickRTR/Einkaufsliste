@@ -52,6 +52,15 @@ export const translation = {
 			Chinese: "صينى",
 			Arabic: "صينى",
 			Japanese: "اليابانية"
+		},
+		feedback: {
+			title: "إعطاء ردود الفعل!",
+			name: "اسم",
+			nameLabel: "الاسم: (اختياري):",
+			messageLabel: "رسالة ملاحظات",
+			message: "رسالة",
+			submit: "يُقدِّم",
+			thanks: "شكرا للتقديم!"
 		}
 	},
 	error: {
