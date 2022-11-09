@@ -10,14 +10,14 @@
 
 <main>
 	{#if submitted}
-		<p class="thanks">Thank's for submitting!</p>
+		<p class="thanks">{$wordList.settings.feedback.thanks}</p>
 	{:else}
 		<form action="https://formsubmit.co/nickrtrrtr@gmail.com" method="POST">
-			<label for="email">Name (optional)</label>
-			<input type="email" name="email" id="email" placeholder="Your email" required />
-			<label for="message">Feedback message</label>
-			<textarea name="message" id="message" placeholder="Your message" required />
-			<button type="submit" on:click={(submitted = true)}>Submit</button>
+			<label for="email">{$wordList.settings.feedback.nameLabel}</label>
+			<input type="text" name="name" id="name" placeholder={$wordList.settings.feedback.name} required />
+			<label for="message">{$wordList.settings.feedback.messageLabel}</label>
+			<textarea name="message" id="message" placeholder={$wordList.settings.feedback.message} required />
+			<button type="submit" on:click={(submitted = true)}>{$wordList.settings.feedback.submit}</button>
 			<input type="hidden" name="_subject" value="Schoppy: New feedback submission!" />
 		</form>
 	{/if}

@@ -54,8 +54,13 @@ export const translation = {
 			Japanese: "Japanese"
 		},
 		feedback: {
-			title: "feedback:",
-			link: "Give feedback!"
+			title: "Give Feedback!",
+			name: "name",
+			nameLabel: "name (optional):",
+			messageLabel: "Feedback message",
+			message: "message",
+			submit: "Submit",
+			thanks: "Thank's for submitting!"
 		}
 	},
 	error: {
