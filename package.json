@@ -6,7 +6,6 @@
 		"build": "vite build",
 		"package": "svelte-kit package",
 		"preview": "vite build && vite preview",
-		"prepare": "svelte-kit sync",
 		"format": "prettier --write --plugin-search-dir=. ."
 	},
 	"devDependencies": {
