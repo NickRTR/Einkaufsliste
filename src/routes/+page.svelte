@@ -10,6 +10,19 @@
 
 	let input = "";
 
+	// Timer that checks when the user is done typing 
+	// to save resources by reducing the number of unnecessary search algorithm runs
+	let timer;
+
+	function startTimer() {
+		clearTimeout(timer);
+		timer = setTimeout(processInput, 250);
+	}
+
+	function stopTimer() {
+		clearTimeout(timer);
+	}
+
 	$: processedProducts = $products;
 
 	async function processInput() {
@@ -107,7 +120,7 @@
 			input = "";
 		}}
 	>
-		<input type="text" autocomplete="off" bind:value={input} title={$wordList.index.add} placeholder={$wordList.index.placeholder} on:input={processInput} />
+		<input type="text" autocomplete="off" on:keyup={startTimer} on:keydown={stopTimer} bind:value={input} title={$wordList.index.add} placeholder={$wordList.index.placeholder} />
 		<button type="submit" title={$wordList.index.add}>{$wordList.index.add}</button>
 	</form>
 
