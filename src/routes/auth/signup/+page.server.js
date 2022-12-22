@@ -1,5 +1,5 @@
 import supabase from "$lib/supabase";
-import { invalid } from "@sveltejs/kit";
+import { fail } from "@sveltejs/kit";
 
 export const actions = {
 	default: async ({ request, cookies }) => {
@@ -8,13 +8,13 @@ export const actions = {
 		const password = form.get("password");
 
 		if (typeof email !== "string" || typeof password !== "string" || !email || !password) {
-			return invalid(403, { error: "Enter a valid email and password." });
+			return fail(403, { error: "Enter a valid email and password." });
 		}
 
 		const response = await supabase.auth.signUp({ email, password });
 
 		if (response.error) {
-			return invalid(403, { error: response.error.message });
+			return fail(403, { error: response.error.message });
 		}
 
 		cookies.set("auth", response.session.access_token, {
