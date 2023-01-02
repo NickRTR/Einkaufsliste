@@ -10,6 +10,7 @@ export const translation = {
 		productAlreadyListed: "ya existe. ¿Quieres aumentar el conteo en 1?",
 		noFittingProducts: "No hay productos que coincidan en la lista.",
 		pcs: "pc(s)",
+		btl: "btl(s)",
 		gr: "gr",
 		kg: "kg",
 		ml: "ml",

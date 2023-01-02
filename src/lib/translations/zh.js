@@ -10,6 +10,7 @@ export const translation = {
 		productAlreadyListed: "已经存在。 您想将计数增加 1 吗？",
 		noFittingProducts: "没有适合的产品。",
 		pcs: "片",
+		btl: "瓶子",
 		gr: "克",
 		kg: "公斤",
 		ml: "毫升",

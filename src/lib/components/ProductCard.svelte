@@ -52,6 +52,7 @@
 						}}
 					>
 						<option value="stk">{$wordList.index["pcs"]}</option>
+						<option value="btl">{$wordList.index["btl"]}</option>
 						<option value="gr">{$wordList.index["gr"]}</option>
 						<option value="kg">{$wordList.index["kg"]}</option>
 						<option value="ml">{$wordList.index["ml"]}</option>
