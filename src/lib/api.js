@@ -104,6 +104,7 @@ export async function editAmount(id, oldAmount, amount) {
 	try {
 		if (amount === oldAmount) return;
 		amount = amount.toString();
+		amount = amount.replace(",", ".");
 		if (amount.trim().length === 0) return;
 
 		const res = await fetch("/api/product/updateAmount", {

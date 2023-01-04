@@ -38,8 +38,8 @@
 						use:autoselect
 						type="text"
 						class="amount"
-						style="width: 3ch"
-						maxlength="3"
+						style="width: 4ch"
+						maxlength="4"
 						value={product.amount}
 						on:blur={(event) => {
 							editAmount(product.id, product.amount, event.target.value);
