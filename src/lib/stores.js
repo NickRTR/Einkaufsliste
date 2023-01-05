@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { writable } from "svelte/store";
-import { translation } from "$lib/translations/en";
+import { translation } from "$lib/translations/de";
 import { translate } from "$lib/translations/translate";
 import { browser } from "$app/environment";
 
