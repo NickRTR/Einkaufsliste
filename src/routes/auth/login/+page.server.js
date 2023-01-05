@@ -17,7 +17,7 @@ export const actions = {
 			return fail(403, { error: response.error.message });
 		}
 
-		cookies.set("auth", response.session.access_token, {
+		cookies.set("access_token", response.session.access_token, {
 			path: "/",
 			// server side only cookie so you can"t use `document.cookie`
 			httpOnly: true,
@@ -29,6 +29,13 @@ export const actions = {
 			secure: process.env.NODE_ENV === "production",
 			// set cookie to expire after two weeks
 			maxAge: 60 * 60 * 24 * 12
+		});
+
+		cookies.set("refresh_token", response.session.refresh_token, {
+			path: "/",
+			httpOnly: true,
+			sameSite: "strict",
+			secure: process.env.NODE_ENV === "production"
 		});
 	}
 };

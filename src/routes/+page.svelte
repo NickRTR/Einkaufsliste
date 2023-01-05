@@ -10,7 +10,7 @@
 
 	let input = "";
 
-	// Timer that checks when the user is done typing 
+	// Timer that checks when the user is done typing
 	// to save resources by reducing the number of unnecessary search algorithm runs
 	let timer;
 
