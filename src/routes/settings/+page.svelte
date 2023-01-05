@@ -160,6 +160,10 @@
 		margin-top: 2rem;
 	}
 
+	select {
+		border: none;
+	}
+
 	button {
 		border-radius: 2rem;
 		padding: 0.3em 0.8rem;

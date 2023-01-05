@@ -38,8 +38,8 @@
 						use:autoselect
 						type="text"
 						class="amount"
-						style="width: 3ch"
-						maxlength="3"
+						style="width: 4ch"
+						maxlength="4"
 						value={product.amount}
 						on:blur={(event) => {
 							editAmount(product.id, product.amount, event.target.value);
@@ -52,6 +52,7 @@
 						}}
 					>
 						<option value="stk">{$wordList.index["pcs"]}</option>
+						<option value="btl">{$wordList.index["btl"]}</option>
 						<option value="gr">{$wordList.index["gr"]}</option>
 						<option value="kg">{$wordList.index["kg"]}</option>
 						<option value="ml">{$wordList.index["ml"]}</option>

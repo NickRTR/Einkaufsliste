@@ -10,6 +10,7 @@ export const translation = {
 		productAlreadyListed: "はすでに利用可能です。1だけ増やしたいですか？",
 		noFittingProducts: "適合する製品はありません。",
 		pcs: "ピース",
+		btl: "ボトル",
 		gr: "グラム数",
 		kg: "キログラム",
 		ml: "ミリリットル",
