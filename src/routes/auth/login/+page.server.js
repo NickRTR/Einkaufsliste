@@ -27,8 +27,8 @@ export const actions = {
 			sameSite: "strict",
 			// only sent over HTTPS
 			secure: process.env.NODE_ENV === "production",
-			// set cookie to expire after two weeks
-			maxAge: 60 * 60 * 24 * 12
+			// set cookie to expire after one week
+			maxAge: 60 * 60 * 24 * 7
 		});
 
 		cookies.set("refresh_token", response.session.refresh_token, {
