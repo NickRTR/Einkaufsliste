@@ -55,39 +55,16 @@
 	textarea,
 	input,
 	button {
-		border-radius: 1rem;
-		padding: 0.4rem;
-		font-size: 1rem;
-		transition: 0.1s ease-in-out;
 		width: unset !important;
-		margin-bottom: 0.5rem;
 	}
 
-	textarea,
-	input {
-		border: 2px solid black;
+	button {
+		margin-bottom: 1rem;
 	}
 
 	textarea {
 		height: 100px !important;
 		resize: none;
-	}
-
-	button {
-		font-weight: bold;
-		border: 3px solid var(--accent);
-	}
-
-	button:focus,
-	button:hover {
-		border-color: var(--minor);
-	}
-
-	textarea:hover,
-	input:hover,
-	textarea:focus,
-	input:focus {
-		background-color: var(--accentTransparent);
 	}
 
 	.thanks {

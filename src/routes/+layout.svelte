@@ -70,29 +70,31 @@
 		cursor: pointer;
 	}
 
-	:global(input) {
+	:global(input, textarea) {
 		outline: none;
-		border: 2px solid transparent;
+		border: 3px solid var(--minor);
 		transition: all 0.1s ease-in-out;
 		border-radius: 1rem;
-		font-size: 1.2rem;
+		font-size: 1rem;
 		font-weight: 600;
-		padding: 0 0.5rem;
+		padding: 0.4rem 0.5rem;
 		margin: 0.5rem 0;
-		height: 2rem;
 	}
 
-	:global(input:hover, input:focus) {
-		border-color: var(--accent);
+	:global(textarea) {
+		padding: 0.5rem;
+	}
+
+	:global(input:hover, input:focus, textarea:hover, textarea:focus) {
+		border-color: var(--accent) !important;
 	}
 
 	:global(button) {
 		font-size: 1rem;
 		outline: none;
-		border: 3px solid transparent;
+		border: 3px solid var(--accent);
 		transition: all 0.1s ease-in-out;
 		padding: 0.3rem 0.7rem;
-		margin-top: 0.5rem;
 		background-color: var(--accent);
 		color: var(--major);
 		font-weight: 600;
@@ -102,7 +104,7 @@
 	}
 
 	:global(button:hover, button:focus) {
-		border-color: var(--minor);
+		border-color: var(--minor) !important;
 	}
 
 	:global(a) {

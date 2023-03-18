@@ -48,8 +48,6 @@
 	}
 
 	async function editAmount(amount: number) {
-		console.log(amount);
-
 		if (amount === product.amount) return;
 		let amountS = amount.toString();
 		amountS = amountS.replace(",", ".");
