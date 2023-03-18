@@ -2,6 +2,7 @@
 	import type { ActionData } from "./$types";
 	import { applyAction, enhance, type SubmitFunction } from "$app/forms";
 	import { invalidate } from "$app/navigation";
+	import { wordList } from "$lib/stores.js";
 
 	export let form: ActionData;
 	let loading = false;
@@ -17,45 +18,99 @@
 			loading = false;
 		};
 	};
+
+	let showPassword = false;
 </script>
 
-<section>
-	<div>
-		<h1>Sign in</h1>
-		{#if form?.error}
-			<div>{form.error}</div>
-		{/if}
-		<form method="post" use:enhance={handleSubmit}>
-			<div>
-				<label for="email">Email</label>
-				<p>
-					<input
-						id="email"
-						name="email"
-						value={form?.values?.email ?? ""}
-						type="email"
-						placeholder="Email"
-						required
-					/>
-				</p>
-			</div>
-			<div>
-				<label for="password">Password</label>
-				<p>
-					<input id="password" name="password" type="password" placeholder="Password" required />
-				</p>
-			</div>
-			<div>
-				<p>
-					<button disabled={loading}>Sign in</button>
-				</p>
-			</div>
-		</form>
+<svelte:head>
+	<title>Schoppy - {$wordList.login.registered.title}</title>
+</svelte:head>
 
-		<div>
-			<p>
-				Don't have an account? <a href="/signup">Sign up</a>
-			</p>
+<body>
+	<h1>{$wordList.login.registered.title}</h1>
+
+	{#if form?.error}
+		<p class="error">Error: {form.error}</p>
+	{/if}
+
+	<form method="post" use:enhance={handleSubmit}>
+		<label for="email">E-mail: </label><br />
+		<input
+			id="email"
+			name="email"
+			value={form?.values?.email ?? ""}
+			type="email"
+			placeholder="email@email.com"
+			required
+		/><br />
+		<label for="password">{$wordList.login.password}:</label><br />
+		<div class="password">
+			<input
+				id="password"
+				name="password"
+				type="password"
+				placeholder={$wordList.login.password}
+				required
+			/>
+			<input
+				type="checkbox"
+				id="togglePassword"
+				class:show={showPassword}
+				bind:checked={showPassword}
+				on:change={() => {
+					document.querySelector("#password").type = showPassword ? "text" : "password";
+				}}
+			/>
+			<label class="viewPasswordLabel" for="togglePassword"
+				><img src="/showPassword.svg" alt="show" /></label
+			><br />
 		</div>
-	</div>
-</section>
+		<button disabled={loading}>{$wordList.login.registered.title}</button>
+	</form>
+	<br />
+
+	<a href="/signup">{$wordList.login.registered.switch}</a>
+</body>
+
+<style>
+	form {
+		margin-top: 1rem;
+		font-weight: 600;
+	}
+
+	input[type="email"] {
+		width: 300px;
+	}
+
+	#password {
+		width: 268px;
+	}
+
+	input::placeholder {
+		font-size: 1rem;
+	}
+
+	.password {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	input[type="checkbox"] {
+		display: none;
+	}
+
+	.viewPasswordLabel {
+		filter: opacity(50%);
+		border-radius: 100%;
+	}
+
+	input[type="checkbox"]:checked + .viewPasswordLabel {
+		filter: opacity(100%);
+	}
+
+	img {
+		width: 2rem;
+		cursor: pointer;
+	}
+</style>
