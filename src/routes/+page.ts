@@ -8,7 +8,7 @@ export const load: PageLoad = async (event) => {
 	}
 
 	let { data: products, error: err } = await supabase
-		.from("produts")
+		.from("products")
 		.select("*")
 		.order("sort", { ascending: true });
 
