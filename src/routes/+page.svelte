@@ -1,2 +1,16 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts">
+	import type { PageData } from "./$types";
+
+	export let data: PageData;
+	$: ({ testTable, user } = data);
+</script>
+
+<div>
+	<p>Protected content for {user.email}</p>
+	<p>server-side fetched data with RLS:</p>
+	<pre>{JSON.stringify(testTable, null, 2)}</pre>
+</div>
+<div>
+	<p>user:</p>
+	<pre>{JSON.stringify(user, null, 2)}</pre>
+</div>
