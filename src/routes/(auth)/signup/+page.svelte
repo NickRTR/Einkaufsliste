@@ -2,7 +2,7 @@
 	import type { ActionData } from "./$types";
 	import { applyAction, enhance, type SubmitFunction } from "$app/forms";
 	import { invalidate } from "$app/navigation";
-	import { wordList } from "$lib/stores.js";
+	import { wordList } from "$lib/stores";
 
 	export let form: ActionData;
 	let loading = false;
@@ -28,10 +28,6 @@
 
 <body>
 	<h1>{$wordList.login.unregistered.title}</h1>
-
-	{#if form?.error}
-		<p class="error">Error: {form.error}</p>
-	{/if}
 
 	<form method="post" use:enhance={handleSubmit}>
 		<label for="email">E-mail: </label><br />
@@ -67,7 +63,10 @@
 		</div>
 		<button disabled={loading}>{$wordList.login.unregistered.title}</button>
 	</form>
-	<br />
+
+	{#if form?.error}
+		<p class="error">Error: {form.error}</p>
+	{/if}
 
 	<a href="/login">{$wordList.login.unregistered.switch}</a>
 </body>

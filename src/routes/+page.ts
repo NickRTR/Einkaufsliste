@@ -1,15 +1,25 @@
-import type { PageLoad } from "./(auth)/dashboard/$types";
+import type { PageLoad } from "./$types";
 import { redirect } from "@sveltejs/kit";
 
-export const load: PageLoad = async ({ parent }) => {
-	const { session, supabase } = await parent();
+export const load: PageLoad = async (event) => {
+	const { session, supabase } = await event.parent();
 	if (!session) {
 		throw redirect(303, "/login");
 	}
 
-	const { data: testTable } = await supabase.from("test").select("*");
+	let { data: products, error: err } = await supabase
+		.from("produts")
+		.select("*")
+		.order("sort", { ascending: true });
+
+	if (err) {
+		return {
+			error: err.message
+		};
+	}
+
 	return {
-		testTable,
+		products,
 		user: session.user
 	};
 };

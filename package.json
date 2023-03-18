@@ -25,6 +25,7 @@
 	"type": "module",
 	"dependencies": {
 		"@supabase/auth-helpers-sveltekit": "^0.9.0",
-		"supabase": "^1.42.5"
+		"supabase": "^1.42.5",
+		"svelte-french-toast": "^1.0.4-beta.0"
 	}
 }

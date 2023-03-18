@@ -2,6 +2,7 @@
 	import { applyAction, enhance, type SubmitFunction } from "$app/forms";
 	import { invalidate } from "$app/navigation";
 	import { page } from "$app/stores";
+	import { Toaster } from "svelte-french-toast";
 
 	let loading = false;
 
@@ -23,6 +24,8 @@
 </svelte:head>
 
 <main>
+	<Toaster />
+
 	<div>
 		<div>
 			{#if $page.data.session}
@@ -98,7 +101,7 @@
 		border: 2px solid transparent;
 		transition: all 0.1s ease-in-out;
 		border-radius: 1rem;
-		font-size: 1.25rem;
+		font-size: 1.2rem;
 		font-weight: 600;
 		padding: 0 0.5rem;
 		margin: 0.5rem 0;
