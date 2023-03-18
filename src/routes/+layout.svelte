@@ -11,8 +11,11 @@
 	<Toaster />
 
 	<header>
-		<a href="/" data-sveltekit-prefetch><h1>Schoppy</h1></a>
-		<a data-sveltekit-prefetch href={$page.url.pathname === "/settings" ? "/" : "/settings"}
+		<a href="/" data-sveltekit-preload-code data-sveltekit-preload-data><h1>Schoppy</h1></a>
+		<a
+			data-sveltekit-preload-code
+			data-sveltekit-preload-data
+			href={$page.url.pathname === "/settings" ? "/" : "/settings"}
 			><img src="/settings.svg" alt="⚙" title="settings" /></a
 		>
 	</header>
