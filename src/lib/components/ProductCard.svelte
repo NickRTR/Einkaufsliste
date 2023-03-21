@@ -5,19 +5,10 @@
 	import { toast } from "svelte-french-toast";
 	import autoselect from "svelte-autoselect";
 	import { page } from "$app/stores";
+	import { toggleChecked, editAmount, getCategory, getSort } from "$lib/api";
 
 	const supabase = $page.data.supabase;
 	export let product: Product;
-
-	async function toggleChecked() {
-		const { error } = await supabase
-			.from("products")
-			.update({ checked: product.checked === false })
-			.eq("id", product.id);
-		if (error) {
-			toast.error("An error ocurred while toggling the product's state: " + error.message);
-		}
-	}
 
 	async function deleteProduct() {
 		if (confirm($wordList.index.deleteMessage)) {
@@ -31,31 +22,16 @@
 	async function editTitle(title: string) {
 		if (title === product.title || title.trim().length === 0) return;
 
-		const categoryRes = await fetch(`/api/product/getCategory-${title}`);
-		const categoryData = await categoryRes.json();
-		if (categoryData.error) throw new Error(categoryData.error);
+		const category = await getCategory(supabase, title);
 
-		const sortRes = await fetch(`/api/product/getSort-${categoryData.category}`);
-		const sortData = await sortRes.json();
+		const sort = await getSort(supabase, category);
 
 		const { error } = await supabase
 			.from("products")
-			.update({ title, categoryData, sortData })
+			.update({ title, category, sort })
 			.eq("id", product.id);
 		if (error) {
 			toast.error("An error occurred while editing the product's title: " + error.message);
-		}
-	}
-
-	async function editAmount(amount: number) {
-		if (amount === product.amount) return;
-		let amountS = amount.toString();
-		amountS = amountS.replace(",", ".");
-		if (amountS.trim().length === 0) return;
-
-		const { error } = await supabase.from("products").update({ amount }).eq("id", product.id);
-		if (error) {
-			toast.error("An error ocurred while editing the product's quantity amount: " + error.message);
 		}
 	}
 
@@ -67,7 +43,7 @@
 	}
 
 	async function changeCategory(category: string) {
-		const { error } = await supabase.from("products").update({ type }).eq("id", product.id);
+		const { error } = await supabase.from("products").update({ category }).eq("id", product.id);
 		if (error) {
 			toast.error("An error occurred while changing the product's category: " + error.message);
 		}
@@ -120,7 +96,7 @@
 						maxlength="4"
 						value={product.amount}
 						on:blur={(event) => {
-							editAmount(event.target.value);
+							editAmount(supabase, product, event.target.value);
 						}}
 					/>
 					<select
@@ -145,7 +121,7 @@
 					type="checkbox"
 					checked={product.checked}
 					on:click={async () => {
-						await toggleChecked();
+						await toggleChecked(supabase, product);
 					}}
 				/>
 				<input

@@ -19,6 +19,7 @@ export const load: PageLoad = async (event) => {
 	}
 
 	return {
+		supabase,
 		products,
 		user: session.user
 	};

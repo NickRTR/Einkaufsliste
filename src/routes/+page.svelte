@@ -1,20 +1,80 @@
 <script lang="ts">
-	import type { PageData } from "./$types";
-	import type { Product } from "$lib/types/product.type";
 	import { wordList, products } from "$lib/stores";
+	import { toggleChecked, editAmount, getCategory, getSort } from "$lib/api";
 	import { flip } from "svelte/animate";
 	import { fade, fly } from "svelte/transition";
+	import { page } from "$app/stores";
 	import toast from "svelte-french-toast";
 
 	import ProductCard from "$lib/components/ProductCard.svelte";
 
-	export let data: PageData;
+	export let data;
+
+	let input = "";
 
 	if (data.error) {
 		toast.error(data.error);
 	}
 
-	async function addProduct(title: string) {}
+	async function addProduct() {
+		// check if string is empty
+		title = input.trim();
+		if (title.length !== 0) {
+			let { data: products, error } = await data.supabase
+				.from("products")
+				.select("*")
+				.eq("title", title);
+			if (error) {
+				toast.error(error.message);
+			} else {
+				if (products.length !== 0) {
+					const product = products[0];
+					if (product.title === title) {
+						if (product.checked === true) {
+							await toggleChecked(data.supabase, product);
+							return;
+						} else {
+							if (confirm(`${product.title}: ${$wordList.index.productAlreadyListed}`)) {
+								editAmount(product.id, product.amount, product.amount + 1);
+								return;
+							} else {
+								return;
+							}
+						}
+					}
+				}
+				if (products.length !== 0) {
+					const product = products[0];
+					if (product.title === title) {
+						if (product.checked === true) {
+							await toggleChecked(product.id, true);
+							return;
+						} else {
+							if (confirm(`${product.title}: ${$wordList.index.productAlreadyListed}`)) {
+								editAmount(data.supabase, product, product.amount + 1);
+								return;
+							} else {
+								return;
+							}
+						}
+					}
+				}
+
+				const category = await getCategory(data.supabase, title);
+				const sort = await getSort(data.supabase, category);
+
+				const { error } = await data.supabase
+					.from("products")
+					.insert([{ title, category, sort, uuid: $page.data.user.id }]);
+				if (error) {
+					toast.error("Error while adding the product: " + error.message);
+				} else {
+					// await getProducts();
+				}
+			}
+		}
+		input = "";
+	}
 </script>
 
 <svelte:head>
@@ -24,11 +84,12 @@
 <main>
 	<form
 		class="addProduct"
-		on:submit|preventDefault={async (event) => {
-			await addProduct(event.target.innerHTML);
+		on:submit|preventDefault={async () => {
+			await addProduct();
 		}}
 	>
 		<input
+			bind:value={input}
 			type="text"
 			autocomplete="off"
 			title={$wordList.index.add}
@@ -70,17 +131,17 @@
 		align-items: center;
 	}
 
-	input {
+	title {
 		width: 55%;
 		border: 3px solid var(--minor);
 	}
 
-	input:hover,
-	input:focus {
+	title:hover,
+	title:focus {
 		border-color: var(--accent);
 	}
 
-	input::placeholder {
+	title::placeholder {
 		font-weight: normal;
 	}
 
