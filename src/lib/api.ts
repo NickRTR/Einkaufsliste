@@ -61,8 +61,6 @@ export async function getCategory(supabase: SupabaseClient<Database>, title: str
 		if (error) {
 			toast.error("An error ocurred while retrieving the product's category: " + error.message);
 		} else {
-			console.log(categoriesData);
-
 			const categories = categoriesData[0].categories;
 			const priorities = prioritiesData[0].priorities;
 
