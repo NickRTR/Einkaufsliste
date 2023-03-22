@@ -100,8 +100,8 @@
 						use:autoselect
 						type="text"
 						class="amount"
-						style="width: 4ch"
-						maxlength="4"
+						style="width: 5ch"
+						maxlength="5"
 						value={product.amount}
 						on:blur={(event) => {
 							editAmount(supabase, product, event.target.value);
@@ -250,15 +250,11 @@
 	}
 
 	input[type="checkbox"] {
-		margin-left: auto;
-		margin-right: 0.25rem;
 		width: 1.75rem;
 		height: 1.75rem;
-		outline-color: var(--accent);
 	}
 
 	input[type="image"] {
-		margin-right: auto;
 		height: 2rem;
 	}
 

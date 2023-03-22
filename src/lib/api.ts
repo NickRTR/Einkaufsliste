@@ -30,9 +30,13 @@ export async function editAmount(supabase, product: Product, amount: number) {
 	if (amount === product.amount) return;
 	let amountS = amount.toString();
 	amountS = amountS.replace(",", ".");
+
 	if (amountS.trim().length === 0) return;
 
-	const { error } = await supabase.from("products").update({ amount }).eq("id", product.id);
+	const { error } = await supabase
+		.from("products")
+		.update({ amount: amountS })
+		.eq("id", product.id);
 	if (error) {
 		toast.error("An error ocurred while editing the product's quantity amount: " + error.message);
 	} else {
