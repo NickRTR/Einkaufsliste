@@ -7,6 +7,7 @@
 	import { toast } from "svelte-french-toast";
 	import DragDropList from "$lib/components/DragDropList.svelte";
 	import Feedback from "$lib/components/Feedback.svelte";
+	import type { Database } from "$lib/types/database";
 
 	const handleLogout: SubmitFunction = () => {
 		return async ({ result }) => {
@@ -26,7 +27,7 @@
 	let language: string;
 	if (browser) {
 		language = navigator.language == "en-US" ? "en-US" : navigator.language.substring(0, 2);
-		if (localStorage.getItem("language")) language = localStorage.getItem("language");
+		if (localStorage.getItem("language")) language = localStorage.getItem("language")!;
 	}
 
 	function changeLanguage() {
@@ -70,7 +71,7 @@
 		}
 	}
 
-	async function changePriorities(changedPriorities) {
+	async function changePriorities(changedPriorities: priorities) {
 		const { error } = await data.supabase
 			.from("userdata")
 			.update({ priorities: changedPriorities })

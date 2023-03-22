@@ -1,4 +1,5 @@
 import type { PageLoad } from "./$types";
+import type { Product } from "$lib/types/product.type";
 import { redirect } from "@sveltejs/kit";
 
 export const load: PageLoad = async (event) => {
@@ -7,16 +8,14 @@ export const load: PageLoad = async (event) => {
 		throw redirect(303, "/login");
 	}
 
-	const { data: products, error: err } = await supabase
-		.from("products")
-		.select("*")
-		.order("sort", { ascending: true });
-
-	if (err) {
+	const res = await supabase.from("products").select("*").order("sort", { ascending: true });
+	if (res.error) {
 		return {
-			error: err.message
+			error: res.error.message
 		};
 	}
+
+	const products: Product[] = res.data;
 
 	return {
 		supabase,

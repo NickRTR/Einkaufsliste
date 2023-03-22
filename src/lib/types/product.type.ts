@@ -4,4 +4,5 @@ export type Product = {
 	checked: boolean;
 	amount: number;
 	type: string;
+	category: string;
 };

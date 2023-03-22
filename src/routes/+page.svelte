@@ -7,9 +7,10 @@
 	import toast from "svelte-french-toast";
 
 	import ProductCard from "$lib/components/ProductCard.svelte";
+	import type { PageData } from "./$types";
 
-	export let data;
-	products.set(data.products);
+	export let data: PageData;
+	products.set(data.products!);
 
 	let input = "";
 
@@ -22,8 +23,8 @@
 		const title = input.trim();
 		if (title.length !== 0) {
 			if ($products.length !== 0) {
-				const { data: matchingProducts, error } = await data.supabase
-					.from("products")
+				const { data: matchingProducts, error } = await data
+					.supabase!.from("products")
 					.select("*")
 					.eq("title", title);
 				if (error) {
@@ -32,11 +33,11 @@
 				} else if (matchingProducts.length > 0) {
 					const product = matchingProducts[0];
 					if (product.checked === true) {
-						await toggleChecked(data.supabase, product.id);
+						await toggleChecked(data.supabase!, product);
 						return;
 					} else {
 						if (confirm(`${product.title}: ${$wordList.index.productAlreadyListed}`)) {
-							editAmount(data.supabase, product, product.amount + 1);
+							editAmount(data.supabase!, product, product.amount + 1);
 							input = "";
 							return;
 						} else {
@@ -47,16 +48,16 @@
 			}
 		}
 
-		const category = await getCategory(data.supabase, title);
-		const sort = await getSort(data.supabase, category);
+		const category = await getCategory(data.supabase!, title);
+		const sort = await getSort(data.supabase!, category);
 
-		const { error } = await data.supabase
-			.from("products")
+		const { error } = await data
+			.supabase!.from("products")
 			.insert([{ title, category, sort, uuid: $page.data.user.id }]);
 		if (error) {
 			toast.error("Error while adding the product: " + error.message);
 		} else {
-			await getProducts(data.supabase);
+			await getProducts(data.supabase!);
 		}
 		input = "";
 	}

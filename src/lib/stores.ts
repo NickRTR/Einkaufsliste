@@ -1,9 +1,11 @@
+import type { ProductsStore } from "$lib/types/productsStore.type";
+
 import { writable } from "svelte/store";
 import { translation } from "$lib/translations/de";
 import { translate } from "$lib/translations/translate";
 import { browser } from "$app/environment";
 
-export const products = writable([]);
+export const products: ProductsStore = writable([]);
 
 export const wordList = writable(translation); // initialize worldList with English until right language is being loaded
 

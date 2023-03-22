@@ -2,8 +2,9 @@ import { toast } from "svelte-french-toast";
 import type { Product } from "$lib/types/product.type";
 import { products } from "$lib/stores";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import type { Database } from "./types/database";
 
-export async function getProducts(supabase: SupabaseClient) {
+export async function getProducts(supabase: SupabaseClient<Database>) {
 	const { data, error } = await supabase
 		.from("products")
 		.select("*")
@@ -15,7 +16,7 @@ export async function getProducts(supabase: SupabaseClient) {
 	}
 }
 
-export async function toggleChecked(supabase: SupabaseClient, product: Product) {
+export async function toggleChecked(supabase: SupabaseClient<Database>, product: Product) {
 	const { error } = await supabase
 		.from("products")
 		.update({ checked: product.checked === false })
@@ -27,7 +28,11 @@ export async function toggleChecked(supabase: SupabaseClient, product: Product) 
 	}
 }
 
-export async function editAmount(supabase: SupabaseClient, product: Product, amount: number) {
+export async function editAmount(
+	supabase: SupabaseClient<Database>,
+	product: Product,
+	amount: number
+) {
 	if (amount === product.amount) return;
 	let amountS = amount.toString();
 	amountS = amountS.replace(",", ".");
@@ -45,19 +50,21 @@ export async function editAmount(supabase: SupabaseClient, product: Product, amo
 	}
 }
 
-export async function getCategory(supabase: SupabaseClient, title) {
+export async function getCategory(supabase: SupabaseClient<Database>, title: string) {
 	title = title.toLowerCase();
 
-	const { data: categories, error } = await supabase.from("userdata").select("categories");
+	const { data: categoriesData, error } = await supabase.from("userdata").select("categories");
 	if (error) {
 		toast.error("An error ocurred while retrieving the product's category: " + error.message);
 	} else {
-		const { data: priorities, error } = await supabase.from("userdata").select("priorities");
+		const { data: prioritiesData, error } = await supabase.from("userdata").select("priorities");
 		if (error) {
 			toast.error("An error ocurred while retrieving the product's category: " + error.message);
 		} else {
-			categories = categories[0].categories;
-			priorities = priorities[0].priorities;
+			console.log(categoriesData);
+
+			const categories = categoriesData[0].categories;
+			const priorities = prioritiesData[0].priorities;
 
 			// first, check if there's an explicit fit
 			for (let i = 0; i < priorities.length; i++) {
@@ -83,17 +90,17 @@ export async function getCategory(supabase: SupabaseClient, title) {
 	return "choose";
 }
 
-export async function getSort(supabase: SupabaseClient, category: string) {
+export async function getSort(supabase: SupabaseClient<Database>, category: string) {
 	if (category === "choose") {
 		return 0;
 	}
 
-	const { data: priorities, error } = await supabase.from("userdata").select("priorities");
+	const { data: prioritiesData, error } = await supabase.from("userdata").select("priorities");
 	if (error) {
 		toast.error("An error ocurred while retrieving the product's sort: " + error.message);
 	}
 
-	priorities = priorities[0].priorities;
+	const priorities = prioritiesData[0].priorities;
 
 	for (let i = 0; i <= Object.keys(priorities).length; i++) {
 		if (priorities[i] === category) {

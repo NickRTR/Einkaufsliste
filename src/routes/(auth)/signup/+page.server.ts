@@ -29,7 +29,7 @@ export const actions: Actions = {
 			});
 		}
 
-		const { error } = await supabase.auth.signUp({
+		const { data, error } = await supabase.auth.signUp({
 			email,
 			password,
 			options: { emailRedirectTo: url.origin }
@@ -50,6 +50,13 @@ export const actions: Actions = {
 				values: {
 					email
 				}
+			});
+		}
+
+		const { error: err } = await supabase.from("userdata").insert([{ uuid: data.user.id }]);
+		if (err) {
+			return fail(500, {
+				error: err.message
 			});
 		}
 
