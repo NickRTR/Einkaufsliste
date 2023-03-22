@@ -5,7 +5,7 @@
 	import { toast } from "svelte-french-toast";
 	import autoselect from "svelte-autoselect";
 	import { page } from "$app/stores";
-	import { toggleChecked, editAmount, getCategory, getSort } from "$lib/api";
+	import { toggleChecked, editAmount, getCategory, getSort, getProducts } from "$lib/api";
 
 	const supabase = $page.data.supabase;
 	export let product: Product;
@@ -16,6 +16,8 @@
 			if (error) {
 				toast.error("An error ocurred while deleting the product: " + error.message);
 			}
+		} else {
+			await getProducts(supabase);
 		}
 	}
 
@@ -32,6 +34,8 @@
 			.eq("id", product.id);
 		if (error) {
 			toast.error("An error occurred while editing the product's title: " + error.message);
+		} else {
+			await getProducts(supabase);
 		}
 	}
 
@@ -39,6 +43,8 @@
 		const { error } = await supabase.from("products").update({ type }).eq("id", product.id);
 		if (error) {
 			toast.error("An error ocurred while editing the product's quantity type: " + error.message);
+		} else {
+			await getProducts(supabase);
 		}
 	}
 
@@ -46,6 +52,8 @@
 		const { error } = await supabase.from("products").update({ category }).eq("id", product.id);
 		if (error) {
 			toast.error("An error occurred while changing the product's category: " + error.message);
+		} else {
+			await getProducts(supabase);
 		}
 	}
 

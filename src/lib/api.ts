@@ -1,5 +1,18 @@
 import { toast } from "svelte-french-toast";
 import type { Product } from "$lib/types/product.type";
+import { products } from "$lib/stores";
+
+export async function getProducts(supabase) {
+	let { data, error } = await supabase
+		.from("products")
+		.select("*")
+		.order("sort", { ascending: true });
+	if (error) {
+		toast.error("An error occurred while fetching the products: " + error.message);
+	} else {
+		products.set(data);
+	}
+}
 
 export async function toggleChecked(supabase, product: Product) {
 	const { error } = await supabase
@@ -8,6 +21,8 @@ export async function toggleChecked(supabase, product: Product) {
 		.eq("id", product.id);
 	if (error) {
 		toast.error("An error ocurred while toggling the product's state: " + error.message);
+	} else {
+		await getProducts(supabase);
 	}
 }
 
@@ -20,6 +35,8 @@ export async function editAmount(supabase, product: Product, amount: number) {
 	const { error } = await supabase.from("products").update({ amount }).eq("id", product.id);
 	if (error) {
 		toast.error("An error ocurred while editing the product's quantity amount: " + error.message);
+	} else {
+		await getProducts(supabase);
 	}
 }
 

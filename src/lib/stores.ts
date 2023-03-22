@@ -1,12 +1,9 @@
-// @ts-nocheck
 import { writable } from "svelte/store";
 import { translation } from "$lib/translations/de";
 import { translate } from "$lib/translations/translate";
 import { browser } from "$app/environment";
 
 export const products = writable([]);
-
-export const categories = writable([]);
 
 export const wordList = writable(translation); // initialize worldList with English until right language is being loaded
 

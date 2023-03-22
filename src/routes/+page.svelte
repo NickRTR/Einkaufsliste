@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { wordList, products } from "$lib/stores";
-	import { toggleChecked, editAmount, getCategory, getSort } from "$lib/api";
+	import { toggleChecked, editAmount, getCategory, getSort, getProducts } from "$lib/api";
 	import { flip } from "svelte/animate";
 	import { fade, fly } from "svelte/transition";
 	import { page } from "$app/stores";
@@ -9,6 +9,7 @@
 	import ProductCard from "$lib/components/ProductCard.svelte";
 
 	export let data;
+	products.set(data.products);
 
 	let input = "";
 
@@ -69,7 +70,7 @@
 				if (error) {
 					toast.error("Error while adding the product: " + error.message);
 				} else {
-					// await getProducts();
+					await getProducts(data.supabase);
 				}
 			}
 		}
@@ -99,7 +100,7 @@
 	</form>
 
 	<div class="products">
-		{#each data.products as product (product.id)}
+		{#each $products as product (product.id)}
 			<div animate:flip={{ duration: 1000 }} in:fade|local out:fly|local={{ x: 100 }}>
 				{#if !product.checked}
 					<ProductCard {product} />
@@ -113,7 +114,7 @@
 	<p class="divider"><span>{$wordList.index.checked}</span></p>
 
 	<div class="checkedProducts">
-		{#each data.products as product (product.id)}
+		{#each $products as product (product.id)}
 			<div in:fade|local out:fly|local={{ x: 100 }}>
 				{#if product.checked}
 					<ProductCard {product} />
