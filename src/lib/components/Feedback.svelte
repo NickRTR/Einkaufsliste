@@ -10,19 +10,25 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Nick Reutlinger - Contact</title>
-</svelte:head>
-
 <main>
 	{#if submitted}
 		<p class="thanks">{$wordList.settings.feedback.thanks}</p>
 	{:else}
-		<form id="form" action="https://formsubmit.co/nickrtrrtr@gmail.com" target="_blank" method="POST">
+		<form
+			id="form"
+			action="https://formsubmit.co/nickrtrrtr@gmail.com"
+			target="_blank"
+			method="POST"
+		>
 			<label for="email">{$wordList.settings.feedback.nameLabel}</label>
 			<input type="text" name="name" id="name" placeholder={$wordList.settings.feedback.name} />
 			<label for="message">{$wordList.settings.feedback.messageLabel}</label>
-			<textarea name="message" id="message" placeholder={$wordList.settings.feedback.message} required />
+			<textarea
+				name="message"
+				id="message"
+				placeholder={$wordList.settings.feedback.message}
+				required
+			/>
 			<button
 				on:click={() => {
 					toggleSubmitted();
@@ -49,39 +55,16 @@
 	textarea,
 	input,
 	button {
-		border-radius: 1rem;
-		padding: 0.4rem;
-		font-size: 1rem;
-		transition: 0.1s ease-in-out;
 		width: unset !important;
-		margin-bottom: 0.5rem;
 	}
 
-	textarea,
-	input {
-		border: 2px solid black;
+	button {
+		margin-bottom: 1rem;
 	}
 
 	textarea {
 		height: 100px !important;
 		resize: none;
-	}
-
-	button {
-		font-weight: bold;
-		border: 3px solid var(--accent);
-	}
-
-	button:focus,
-	button:hover {
-		border-color: var(--minor);
-	}
-
-	textarea:hover,
-	input:hover,
-	textarea:focus,
-	input:focus {
-		background-color: var(--accentTransparent);
 	}
 
 	.thanks {

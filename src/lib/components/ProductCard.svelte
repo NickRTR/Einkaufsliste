@@ -1,19 +1,81 @@
-<script>
+<script lang="ts">
+	import type { Product } from "$lib/types/product.type";
 	import { slide } from "svelte/transition";
 	import { wordList } from "$lib/stores";
-	import { toggleChecked, deleteProduct, editTitle, editAmount, editType, changeCategory } from "$lib/api";
-
+	import { toast } from "svelte-french-toast";
 	import autoselect from "svelte-autoselect";
+	import { page } from "$app/stores";
+	import { toggleChecked, editAmount, getCategory, getSort, getProducts } from "$lib/api";
 
-	export let product;
+	const supabase = $page.data.supabase;
+	export let product: Product;
+
+	async function deleteProduct() {
+		if (confirm($wordList.index.deleteMessage)) {
+			const { error } = await supabase.from("products").delete().eq("id", product.id);
+			if (error) {
+				toast.error("An error ocurred while deleting the product: " + error.message);
+			} else {
+				await getProducts(supabase);
+			}
+		}
+	}
+
+	async function editTitle(title: string) {
+		if (title === product.title || title.trim().length === 0) return;
+
+		const category = await getCategory(supabase, title);
+
+		const sort = await getSort(supabase, category);
+
+		const { error } = await supabase
+			.from("products")
+			.update({ title, category, sort })
+			.eq("id", product.id);
+		if (error) {
+			toast.error("An error occurred while editing the product's title: " + error.message);
+		} else {
+			await getProducts(supabase);
+		}
+	}
+
+	async function editType(type: string) {
+		const { error } = await supabase.from("products").update({ type }).eq("id", product.id);
+		if (error) {
+			toast.error("An error ocurred while editing the product's quantity type: " + error.message);
+		} else {
+			await getProducts(supabase);
+		}
+	}
+
+	async function changeCategory(category: string) {
+		const { error } = await supabase.from("products").update({ category }).eq("id", product.id);
+		if (error) {
+			toast.error("An error occurred while changing the product's category: " + error.message);
+		} else {
+			await getProducts(supabase);
+		}
+	}
+
 	let showChangeCategory = false;
 
-	const categories = ["vegetables", "fruits", "pantry", "meat", "frozen", "cooled", "household", "sweets", "beverage"];
+	const categories = [
+		"vegetables",
+		"fruits",
+		"pantry",
+		"meat",
+		"frozen",
+		"cooled",
+		"household",
+		"sweets",
+		"beverage"
+	];
 </script>
 
 <div class="container">
 	<div class="Card">
 		<div class="ImageTitleQuantity">
+			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<img
 				type="image"
 				src="/category/{product.category}.svg"
@@ -28,7 +90,7 @@
 					id="title"
 					contenteditable="true"
 					on:blur={(event) => {
-						editTitle(product.id, product.title, event.target.innerText);
+						editTitle(event.target.innerText);
 					}}
 				>
 					{product.title}
@@ -38,17 +100,17 @@
 						use:autoselect
 						type="text"
 						class="amount"
-						style="width: 4ch"
-						maxlength="4"
+						style="width: 5ch"
+						maxlength="5"
 						value={product.amount}
 						on:blur={(event) => {
-							editAmount(product.id, product.amount, event.target.value);
+							editAmount(supabase, product, event.target.value);
 						}}
 					/>
 					<select
 						value={product.type}
 						on:change={(event) => {
-							editType(product.id, event.target.value);
+							editType(event.target.value);
 						}}
 					>
 						<option value="stk">{$wordList.index["pcs"]}</option>
@@ -66,16 +128,17 @@
 				<input
 					type="checkbox"
 					checked={product.checked}
-					on:click={() => {
-						toggleChecked(product.id, product.checked);
+					on:click={async () => {
+						await toggleChecked(supabase, product);
 					}}
 				/>
 				<input
+					id="delete"
 					type="image"
 					src="/delete.svg"
 					alt="delete"
-					on:click={() => {
-						deleteProduct(product.id, $wordList.index.deleteMessage);
+					on:click={async () => {
+						await deleteProduct();
 					}}
 				/>
 			</div>
@@ -84,14 +147,19 @@
 	{#if showChangeCategory}
 		<div class="changeCategory" transition:slide>
 			{#each categories as category}
+				<!-- svelte-ignore a11y-click-events-have-key-events -->
 				<div
-					on:click={() => {
+					on:click={async () => {
 						showChangeCategory = !showChangeCategory;
-						changeCategory(product.id, product.category, category, product.title);
+						await changeCategory(category);
 					}}
 				>
 					<p>{$wordList.categories[category]}</p>
-					<img src="/category/{category}.svg" alt={$wordList.categories[category]} title={$wordList.categories[category]} />
+					<img
+						src="/category/{category}.svg"
+						alt={$wordList.categories[category]}
+						title={$wordList.categories[category]}
+					/>
 				</div>
 			{/each}
 		</div>
@@ -131,7 +199,6 @@
 		outline: none;
 		font-size: 1.3rem;
 		line-height: 1.5rem;
-		font-weight: 500;
 	}
 
 	.quantity {
@@ -183,15 +250,11 @@
 	}
 
 	input[type="checkbox"] {
-		margin-left: auto;
-		margin-right: 0.25rem;
 		width: 1.75rem;
 		height: 1.75rem;
-		outline-color: var(--accent);
 	}
 
 	input[type="image"] {
-		margin-right: auto;
 		height: 2rem;
 	}
 
@@ -223,5 +286,9 @@
 
 	.changeCategory > div > img {
 		height: 2.5rem;
+	}
+
+	#delete {
+		border: none;
 	}
 </style>
