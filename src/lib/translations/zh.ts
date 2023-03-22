@@ -37,7 +37,9 @@ export const translation = {
 			title: "註冊",
 			switch: "您是否已經創建了一個帳戶?"
 		},
-		password: "密碼"
+		password: "密碼",
+		email: "电子邮件",
+		verification: "请单击您的电子邮件收件箱中的验证链接。"
 	},
 	settings: {
 		theme: "设计",

@@ -37,7 +37,9 @@ export const translation = {
 			title: "يسجل",
 			switch: "هل قمت بالفعل بإنشاء حساب؟"
 		},
-		password: "كلمه السر"
+		password: "كلمه السر",
+		email: "بريد إلكتروني",
+		verification: "الرجاء النقر فوق ارتباط التحقق في صندوق البريد الإلكتروني الخاص بك."
 	},
 	settings: {
 		theme: "التصميم",

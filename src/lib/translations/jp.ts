@@ -37,7 +37,9 @@ export const translation = {
 			title: "登録",
 			switch: "すでにアカウントをお持ちですか？"
 		},
-		password: "パスワード"
+		password: "パスワード",
+		email: "Eメール",
+		verification: "メールの受信トレイにある確認リンクをクリックしてください。"
 	},
 	settings: {
 		list: "リスト",

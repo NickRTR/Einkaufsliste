@@ -30,7 +30,7 @@
 	<h1>{$wordList.login.unregistered.title}</h1>
 
 	<form method="post" use:enhance={handleSubmit}>
-		<label for="email">E-mail: </label><br />
+		<label for="email">{$wordList.login.email}:</label><br />
 		<input
 			id="email"
 			name="email"
@@ -66,6 +66,10 @@
 
 	{#if form?.error}
 		<p class="error">Error: {form.error}</p>
+	{/if}
+
+	{#if form?.message}
+		<p style="color: green">{form.message}</p>
 	{/if}
 
 	<p><a href="/login">{$wordList.login.unregistered.switch}</a></p>
