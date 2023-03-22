@@ -37,7 +37,9 @@ export const translation = {
 			title: "se déconnecter",
 			switch: "Avez-vous déjà créé un compte?"
 		},
-		password: "mot de passe"
+		password: "mot de passe",
+		email: "e-mail",
+		verification: "Veuillez cliquer sur le lien de vérification dans votre boîte de réception."
 	},
 	settings: {
 		theme: "sujet",

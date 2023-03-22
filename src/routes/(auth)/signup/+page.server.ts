@@ -1,6 +1,8 @@
 import { AuthApiError } from "@supabase/supabase-js";
 import { fail, type ActionFailure } from "@sveltejs/kit";
 import type { Actions } from "./$types";
+import { wordList } from "$lib/stores";
+import { get } from "svelte/store";
 
 export const actions: Actions = {
 	async default({
@@ -52,7 +54,7 @@ export const actions: Actions = {
 		}
 
 		return {
-			message: "Please check your email for a magic link to log into the website."
+			message: get(wordList).login.verification
 		};
 	}
 };

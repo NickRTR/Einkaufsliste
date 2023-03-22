@@ -37,7 +37,9 @@ export const translation = {
 			title: "Registrieren",
 			switch: "Besitzen Sie bereits einen Account?"
 		},
-		password: "Passwort"
+		password: "Passwort",
+		email: "E-Mail",
+		verification: "Bitte klicken Sie auf den Verifizierungslink in Ihrem E-Mail Postfach."
 	},
 	settings: {
 		list: "Liste",

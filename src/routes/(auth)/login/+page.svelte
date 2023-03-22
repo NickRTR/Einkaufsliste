@@ -30,7 +30,7 @@
 	<h1>{$wordList.login.registered.title}</h1>
 
 	<form method="post" use:enhance={handleSubmit}>
-		<label for="email">E-mail: </label><br />
+		<label for="email">{$wordList.login.email}:</label><br />
 		<input
 			id="email"
 			name="email"

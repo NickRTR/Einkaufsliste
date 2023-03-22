@@ -37,7 +37,10 @@ export const translation = {
 			title: "Registrarse",
 			switch: "¿Ya has creado una cuenta?"
 		},
-		password: "clave"
+		password: "clave",
+		email: "correo electrónico",
+		verification:
+			"Haga clic en el enlace de verificación en su bandeja de entrada de correo electrónico."
 	},
 	settings: {
 		theme: "diseño",

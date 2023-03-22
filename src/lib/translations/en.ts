@@ -37,7 +37,9 @@ export const translation = {
 			title: "Register",
 			switch: "Have you already created an account?"
 		},
-		password: "password"
+		password: "password",
+		email: "email",
+		verification: "Please check your email for a magic link to log into the website."
 	},
 	settings: {
 		theme: "theme",
