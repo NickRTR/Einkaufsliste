@@ -14,6 +14,6 @@ export async function load(event) {
 	return {
 		supabase,
 		user: session.user,
-		priorities
+		priorities: priorities[0].priorities
 	};
 }

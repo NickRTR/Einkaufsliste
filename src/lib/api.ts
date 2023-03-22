@@ -1,8 +1,9 @@
 import { toast } from "svelte-french-toast";
 import type { Product } from "$lib/types/product.type";
 import { products } from "$lib/stores";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
-export async function getProducts(supabase) {
+export async function getProducts(supabase: SupabaseClient) {
 	let { data, error } = await supabase
 		.from("products")
 		.select("*")
@@ -14,7 +15,7 @@ export async function getProducts(supabase) {
 	}
 }
 
-export async function toggleChecked(supabase, product: Product) {
+export async function toggleChecked(supabase: SupabaseClient, product: Product) {
 	const { error } = await supabase
 		.from("products")
 		.update({ checked: product.checked === false })
@@ -26,7 +27,7 @@ export async function toggleChecked(supabase, product: Product) {
 	}
 }
 
-export async function editAmount(supabase, product: Product, amount: number) {
+export async function editAmount(supabase: SupabaseClient, product: Product, amount: number) {
 	if (amount === product.amount) return;
 	let amountS = amount.toString();
 	amountS = amountS.replace(",", ".");
@@ -44,7 +45,7 @@ export async function editAmount(supabase, product: Product, amount: number) {
 	}
 }
 
-export async function getCategory(supabase, title) {
+export async function getCategory(supabase: SupabaseClient, title) {
 	title = title.toLowerCase();
 
 	let { data: categories, error } = await supabase.from("userdata").select("categories");
@@ -82,7 +83,7 @@ export async function getCategory(supabase, title) {
 	return "choose";
 }
 
-export async function getSort(supabase, category: string) {
+export async function getSort(supabase: SupabaseClient, category: string) {
 	if (category === "choose") {
 		return 0;
 	}

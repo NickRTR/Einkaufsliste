@@ -8,17 +8,13 @@
 	import DragDropList from "$lib/components/DragDropList.svelte";
 	import Feedback from "$lib/components/Feedback.svelte";
 
-	let loading = false;
-
 	const handleLogout: SubmitFunction = () => {
-		loading = true;
 		return async ({ result }) => {
 			if (result.type === "redirect") {
 				await invalidate("supabase:auth");
 			} else {
 				await applyAction(result);
 			}
-			loading = false;
 		};
 	};
 

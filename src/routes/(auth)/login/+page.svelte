@@ -109,6 +109,7 @@
 	}
 
 	img {
+		padding-top: 0.2rem;
 		width: 2rem;
 		cursor: pointer;
 	}
