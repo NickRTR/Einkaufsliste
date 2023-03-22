@@ -86,7 +86,7 @@
 				if (error) {
 					toast.error("An error ocurred while changing priority order: " + error.message);
 				} else {
-					priorities = priorities![0].priorities;
+					priorities = priorities[0].priorities;
 					if (product.category === "choose") {
 						return new Response(JSON.stringify({ sort: 0 }));
 					}

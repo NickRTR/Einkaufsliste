@@ -7,7 +7,7 @@ export const load: PageLoad = async (event) => {
 		throw redirect(303, "/login");
 	}
 
-	let { data: products, error: err } = await supabase
+	const { data: products, error: err } = await supabase
 		.from("products")
 		.select("*")
 		.order("sort", { ascending: true });

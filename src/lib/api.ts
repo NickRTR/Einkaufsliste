@@ -4,7 +4,7 @@ import { products } from "$lib/stores";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 export async function getProducts(supabase: SupabaseClient) {
-	let { data, error } = await supabase
+	const { data, error } = await supabase
 		.from("products")
 		.select("*")
 		.order("sort", { ascending: true });
@@ -48,11 +48,11 @@ export async function editAmount(supabase: SupabaseClient, product: Product, amo
 export async function getCategory(supabase: SupabaseClient, title) {
 	title = title.toLowerCase();
 
-	let { data: categories, error } = await supabase.from("userdata").select("categories");
+	const { data: categories, error } = await supabase.from("userdata").select("categories");
 	if (error) {
 		toast.error("An error ocurred while retrieving the product's category: " + error.message);
 	} else {
-		let { data: priorities, error } = await supabase.from("userdata").select("priorities");
+		const { data: priorities, error } = await supabase.from("userdata").select("priorities");
 		if (error) {
 			toast.error("An error ocurred while retrieving the product's category: " + error.message);
 		} else {
@@ -62,7 +62,7 @@ export async function getCategory(supabase: SupabaseClient, title) {
 			// first, check if there's an explicit fit
 			for (let i = 0; i < priorities.length; i++) {
 				if (categories[priorities[i]].includes(title)) {
-					let category = priorities[i];
+					const category = priorities[i];
 					return category;
 				}
 			}
@@ -70,9 +70,9 @@ export async function getCategory(supabase: SupabaseClient, title) {
 			// then check if there's an other not perfect fitting entry
 			for (let i = 0; i < priorities.length; i++) {
 				for (let y = 0; y < categories[priorities[i]].length; y++) {
-					let product = categories[priorities[i]];
+					const product = categories[priorities[i]];
 					if (product[y].includes(title) || title.includes(product[y])) {
-						let category = priorities[i];
+						const category = priorities[i];
 						return category;
 					}
 				}
@@ -88,7 +88,7 @@ export async function getSort(supabase: SupabaseClient, category: string) {
 		return 0;
 	}
 
-	let { data: priorities, error } = await supabase.from("userdata").select("priorities");
+	const { data: priorities, error } = await supabase.from("userdata").select("priorities");
 	if (error) {
 		toast.error("An error ocurred while retrieving the product's sort: " + error.message);
 	}

@@ -47,7 +47,7 @@
 		}
 	}
 
-	function dragEnter(ev, target) {
+	function dragEnter(target) {
 		// swap items in data
 		if (grabbed && target != grabbed && target.classList.contains("item")) {
 			moveDatum(parseInt(grabbed.dataset.index), parseInt(target.dataset.index));
@@ -61,7 +61,7 @@
 		data = [...data.slice(0, to), temp, ...data.slice(to)];
 	}
 
-	function release(ev) {
+	function release() {
 		grabbed = null;
 	}
 </script>
@@ -134,7 +134,7 @@
 					<button
 						class="up"
 						style={"visibility: " + (i > 0 ? "" : "hidden") + ";"}
-						on:click={function (ev) {
+						on:click={function () {
 							moveDatum(i, i - 1);
 						}}
 					>
@@ -147,7 +147,7 @@
 					<button
 						class="down"
 						style={"visibility: " + (i < data.length - 1 ? "" : "hidden") + ";"}
-						on:click={function (ev) {
+						on:click={function () {
 							moveDatum(i, i + 1);
 						}}
 					>
