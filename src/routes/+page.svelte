@@ -19,60 +19,44 @@
 
 	async function addProduct() {
 		// check if string is empty
-		title = input.trim();
+		const title = input.trim();
 		if (title.length !== 0) {
-			let { data: products, error } = await data.supabase
-				.from("products")
-				.select("*")
-				.eq("title", title);
-			if (error) {
-				toast.error(error.message);
-			} else {
-				if (products.length !== 0) {
-					const product = products[0];
-					if (product.title === title) {
-						if (product.checked === true) {
-							await toggleChecked(data.supabase, product);
-							return;
-						} else {
-							if (confirm(`${product.title}: ${$wordList.index.productAlreadyListed}`)) {
-								editAmount(product.id, product.amount, product.amount + 1);
-								return;
-							} else {
-								return;
-							}
-						}
-					}
-				}
-				if (products.length !== 0) {
-					const product = products[0];
-					if (product.title === title) {
-						if (product.checked === true) {
-							await toggleChecked(product.id, true);
-							return;
-						} else {
-							if (confirm(`${product.title}: ${$wordList.index.productAlreadyListed}`)) {
-								editAmount(data.supabase, product, product.amount + 1);
-								return;
-							} else {
-								return;
-							}
-						}
-					}
-				}
-
-				const category = await getCategory(data.supabase, title);
-				const sort = await getSort(data.supabase, category);
-
-				const { error } = await data.supabase
+			if ($products.length !== 0) {
+				const { data: matchingProducts, error } = await data.supabase
 					.from("products")
-					.insert([{ title, category, sort, uuid: $page.data.user.id }]);
+					.select("*")
+					.eq("title", title);
 				if (error) {
-					toast.error("Error while adding the product: " + error.message);
-				} else {
-					await getProducts(data.supabase);
+					toast.error("Could not create product: " + error.message);
+					return;
+				} else if (matchingProducts.length > 0) {
+					const product = matchingProducts[0];
+					if (product.checked === true) {
+						await toggleChecked(data.supabase, product.id);
+						return;
+					} else {
+						if (confirm(`${product.title}: ${$wordList.index.productAlreadyListed}`)) {
+							editAmount(data.supabase, product, product.amount + 1);
+							input = "";
+							return;
+						} else {
+							return;
+						}
+					}
 				}
 			}
+		}
+
+		const category = await getCategory(data.supabase, title);
+		const sort = await getSort(data.supabase, category);
+
+		const { error } = await data.supabase
+			.from("products")
+			.insert([{ title, category, sort, uuid: $page.data.user.id }]);
+		if (error) {
+			toast.error("Error while adding the product: " + error.message);
+		} else {
+			await getProducts(data.supabase);
 		}
 		input = "";
 	}
@@ -132,26 +116,9 @@
 		align-items: center;
 	}
 
-	title {
+	input {
 		width: 55%;
-		border: 3px solid var(--minor);
-	}
-
-	title:hover,
-	title:focus {
-		border-color: var(--accent);
-	}
-
-	title::placeholder {
-		font-weight: normal;
-	}
-
-	form > button {
-		font-weight: bold;
-		margin-left: 0.375rem;
-		border-radius: 0.75rem;
-		border: 3px solid var(--accent);
-		outline: none;
+		margin-right: 0.5rem;
 	}
 
 	.divider {

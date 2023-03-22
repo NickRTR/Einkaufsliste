@@ -68,7 +68,7 @@
 		<p class="error">Error: {form.error}</p>
 	{/if}
 
-	<a href="/login">{$wordList.login.unregistered.switch}</a>
+	<p><a href="/login">{$wordList.login.unregistered.switch}</a></p>
 </body>
 
 <style>

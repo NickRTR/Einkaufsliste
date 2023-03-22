@@ -4,7 +4,7 @@
 </script>
 
 <svelte:head>
-	<title>Email and Password Demo - Supabase Auth Helpers</title>
+	<title>Schoppy</title>
 </svelte:head>
 
 <main>
@@ -29,7 +29,7 @@
 		text-align: center;
 		color: var(--minor);
 		background-color: var(--major);
-		margin: 0.5rem 0.75rem;
+		margin: 0.5rem 0.5rem;
 	}
 
 	main {
@@ -41,7 +41,8 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding: 0.5rem 0;
+		padding-top: 0.5rem;
+		margin: 0;
 	}
 
 	h1 {

@@ -15,9 +15,9 @@
 			const { error } = await supabase.from("products").delete().eq("id", product.id);
 			if (error) {
 				toast.error("An error ocurred while deleting the product: " + error.message);
+			} else {
+				await getProducts(supabase);
 			}
-		} else {
-			await getProducts(supabase);
 		}
 	}
 
@@ -199,7 +199,6 @@
 		outline: none;
 		font-size: 1.3rem;
 		line-height: 1.5rem;
-		font-weight: 500;
 	}
 
 	.quantity {
