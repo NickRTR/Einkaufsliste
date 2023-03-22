@@ -5,7 +5,7 @@ export const translation = {
 		share: "分け合う",
 		deleteAll: "すべて削除",
 		deleteMessage: "本当ですか？この操作は元に戻せません。",
-		placeholder: "検索／追加",
+		placeholder: "追加",
 		add: "つける",
 		productAlreadyListed: "はすでに利用可能です。1だけ増やしたいですか？",
 		noFittingProducts: "適合する製品はありません。",

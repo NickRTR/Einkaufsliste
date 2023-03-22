@@ -5,7 +5,7 @@ export const translation = {
 		share: "partager",
 		deleteAll: "Tout supprimer",
 		deleteMessage: "Êtes-vous sûr? Cette action ne peut pas être annulée.",
-		placeholder: "rechercher / ajouter",
+		placeholder: "ajouter",
 		add: "ajouter",
 		productAlreadyListed: "existe déjà. Voulez-vous augmenter le nombre de 1?",
 		noFittingProducts: "Aucun produit correspondant dans la liste.",
