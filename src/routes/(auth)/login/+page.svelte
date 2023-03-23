@@ -20,6 +20,11 @@
 	};
 
 	let showPassword = false;
+
+	function togglePassword() {
+		const password = document.querySelector("#password") as HTMLInputElement;
+		password.type = showPassword ? "text" : "password";
+	}
 </script>
 
 <svelte:head>
@@ -51,11 +56,8 @@
 			<input
 				type="checkbox"
 				id="togglePassword"
-				class:show={showPassword}
 				bind:checked={showPassword}
-				on:change={() => {
-					document.querySelector("#password").type = showPassword ? "text" : "password";
-				}}
+				on:change={togglePassword}
 			/>
 			<label class="viewPasswordLabel" for="togglePassword"
 				><img src="/showPassword.svg" alt="show" /></label

@@ -19,6 +19,11 @@
 		};
 	};
 
+	function togglePassword() {
+		const password = document.querySelector("#password") as HTMLInputElement;
+		password.type = showPassword ? "text" : "password";
+	}
+
 	let showPassword = false;
 </script>
 
@@ -53,9 +58,7 @@
 				id="togglePassword"
 				class:show={showPassword}
 				bind:checked={showPassword}
-				on:change={() => {
-					document.querySelector("#password").type = showPassword ? "text" : "password";
-				}}
+				on:change={togglePassword}
 			/>
 			<label class="viewPasswordLabel" for="togglePassword"
 				><img src="/showPassword.svg" alt="show" /></label
@@ -113,6 +116,7 @@
 	}
 
 	img {
+		padding-top: 0.2rem;
 		width: 2rem;
 		cursor: pointer;
 	}
