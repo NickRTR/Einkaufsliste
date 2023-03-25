@@ -49,6 +49,8 @@
 		}
 
 		const category = await getCategory(data.supabase!, title);
+		console.log(category);
+
 		const sort = await getSort(data.supabase!, category);
 
 		const { error } = await data
