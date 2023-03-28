@@ -7,9 +7,8 @@
 	import toast from "svelte-french-toast";
 
 	import ProductCard from "$lib/components/ProductCard.svelte";
-	import type { PageData } from "./$types";
 
-	export let data: PageData;
+	export let data;
 	products.set(data.products!);
 
 	let input = "";

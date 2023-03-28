@@ -1,10 +1,9 @@
 <script lang="ts">
-	import type { ActionData } from "./$types";
 	import { applyAction, enhance, type SubmitFunction } from "$app/forms";
 	import { invalidate } from "$app/navigation";
 	import { wordList } from "$lib/stores";
 
-	export let form: ActionData;
+	export let form;
 	let loading = false;
 
 	const handleSubmit: SubmitFunction = () => {

@@ -1,10 +1,9 @@
 import { AuthApiError } from "@supabase/supabase-js";
 import { fail, type ActionFailure } from "@sveltejs/kit";
-import type { Actions } from "./$types";
 import { wordList } from "$lib/stores";
 import { get } from "svelte/store";
 
-export const actions: Actions = {
+export const actions = {
 	async default({
 		request,
 		url,

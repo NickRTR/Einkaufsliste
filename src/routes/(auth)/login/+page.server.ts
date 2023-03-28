@@ -1,8 +1,7 @@
 import { AuthApiError } from "@supabase/supabase-js";
 import { fail, redirect, type ActionFailure } from "@sveltejs/kit";
-import type { Actions } from "./$types";
 
-export const actions: Actions = {
+export const actions = {
 	async default({
 		request,
 		locals: { supabase }

@@ -1,8 +1,7 @@
-import type { PageLoad } from "./$types";
 import type { Product } from "$lib/types/product.type";
 import { redirect } from "@sveltejs/kit";
 
-export const load: PageLoad = async (event) => {
+export async function load(event) {
 	const { session, supabase } = await event.parent();
 	if (!session) {
 		throw redirect(303, "/login");
@@ -22,4 +21,4 @@ export const load: PageLoad = async (event) => {
 		products,
 		user: session.user
 	};
-};
+}

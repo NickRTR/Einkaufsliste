@@ -7,7 +7,6 @@
 	import { toast } from "svelte-french-toast";
 	import DragDropList from "$lib/components/DragDropList.svelte";
 	import Feedback from "$lib/components/Feedback.svelte";
-	import type { Database } from "$lib/types/database";
 
 	const handleLogout: SubmitFunction = () => {
 		return async ({ result }) => {
