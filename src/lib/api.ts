@@ -68,7 +68,6 @@ export async function getCategory(supabase: SupabaseClient<Database>, title: str
 			for (let i = 0; i < priorities.length; i++) {
 				if (categories[priorities[i]].includes(title)) {
 					const category = priorities[i];
-
 					return category;
 				}
 			}
