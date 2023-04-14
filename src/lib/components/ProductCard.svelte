@@ -49,11 +49,37 @@
 	}
 
 	async function changeCategory(category: string) {
-		const { error } = await supabase.from("products").update({ category }).eq("id", product.id);
-		if (error) {
-			toast.error("An error occurred while changing the product's category: " + error.message);
+		// update Categories
+		let { data: categoriesData, error: err } = await supabase.from("userdata").select("categories");
+		if (err) {
+			toast.error("An error ocurred while retrieving the product's category: " + err.message);
 		} else {
-			await getProducts(supabase);
+			const categories = categoriesData[0].categories;
+			if (product.category !== "choose") {
+				categories[product.category] = categories[product.category].filter(
+					(value: string) => value != product.title.toLowerCase()
+				);
+			}
+			categories[category] = [product.title.toLowerCase(), ...categories[category]];
+			let { error } = await supabase
+				.from("userdata")
+				.update({ categories })
+				.eq("uuid", (await supabase.auth.getSession()).data.session.user.id);
+			if (error) {
+				toast.error("An error ocurred while updating the user stored categories: " + error.message);
+			} else {
+				const sort = await getSort(supabase, category);
+
+				let { error } = await supabase
+					.from("products")
+					.update({ category, sort })
+					.eq("id", product.id);
+				if (error) {
+					toast.error("An error occurred while changing the product's category: " + error.message);
+				} else {
+					await getProducts(supabase);
+				}
+			}
 		}
 	}
 
