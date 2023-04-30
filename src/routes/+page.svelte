@@ -10,11 +10,37 @@
 
 	export let data;
 	products.set(data.products!);
+	let filteredProducts = data.products;
 
 	let input = "";
 
 	if (data.error) {
 		toast.error(data.error);
+	}
+
+	let timer = null;
+
+	let searchIndex = [];
+
+	function filterProducts() {
+		clearTimeout(timer);
+		timer = setTimeout(() => {
+			if (input === "") {
+				filteredProducts = $products;
+			} else if (searchIndex[input]) {
+				filteredProducts = searchIndex[input];
+			} else {
+				filteredProducts = [];
+				$products.forEach((product) => {
+					const title = product.title.toLowerCase();
+					const i = input.toLowerCase();
+					if (title === i || title.startsWith(i)) {
+						filteredProducts = [...filteredProducts, product];
+					}
+				});
+				searchIndex[input] = filteredProducts;
+			}
+		}, 300);
 	}
 
 	async function addProduct() {
@@ -80,12 +106,13 @@
 			autocomplete="off"
 			title={$wordList.index.add}
 			placeholder={$wordList.index.placeholder}
+			on:input={filterProducts}
 		/>
 		<button type="submit" title={$wordList.index.add}>{$wordList.index.add}</button>
 	</form>
 
 	<div class="products">
-		{#each $products as product (product.id)}
+		{#each filteredProducts as product (product.id)}
 			<div animate:flip={{ duration: 1000 }} in:fade|local out:fly|local={{ x: 100 }}>
 				{#if !product.checked}
 					<ProductCard {product} />
@@ -99,7 +126,7 @@
 	<p class="divider"><span>{$wordList.index.checked}</span></p>
 
 	<div class="checkedProducts">
-		{#each $products as product (product.id)}
+		{#each filteredProducts as product (product.id)}
 			<div in:fade|local out:fly|local={{ x: 100 }}>
 				{#if product.checked}
 					<ProductCard {product} />
