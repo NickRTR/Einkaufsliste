@@ -1,38 +1,31 @@
-<script lang="ts">
+<script>
 	import { page } from "$app/stores";
-	import { Toaster } from "svelte-french-toast";
+
+	import { SvelteToast } from "@zerodevx/svelte-toast";
 </script>
 
-<svelte:head>
-	<title>Schoppy</title>
-</svelte:head>
-
-<main>
-	<Toaster />
+<body>
+	<SvelteToast />
 
 	<header>
-		<a href="/" data-sveltekit-preload-code data-sveltekit-preload-data><h1>Schoppy</h1></a>
-		<a
-			data-sveltekit-preload-code
-			data-sveltekit-preload-data
-			href={$page.url.pathname === "/settings" ? "/" : "/settings"}
-			><img src="/settings.svg" alt="⚙" title="settings" /></a
-		>
+		<a href="/" data-sveltekit-prefetch><h1>Schoppy</h1></a>
+		<a data-sveltekit-prefetch href={$page.url.pathname === "/settings" ? "/" : "/settings"}><img src="/settings.svg" alt="⚙" title="settings" /></a>
 	</header>
 
-	<body><slot /></body>
-</main>
+	<main><slot /></main>
+</body>
 
 <style>
 	* {
+		-webkit-appearance: none;
 		font-family: Arial, Helvetica, sans-serif;
 		text-align: center;
 		color: var(--minor);
 		background-color: var(--major);
-		margin: 0.5rem 0.5rem;
+		margin: 0.5rem 0.75rem;
 	}
 
-	main {
+	body {
 		max-width: 700px;
 		margin: auto;
 	}
@@ -41,8 +34,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding-top: 0.5rem;
-		margin: 0;
+		padding: 0.5rem 0;
 	}
 
 	h1 {
@@ -74,49 +66,11 @@
 		cursor: pointer;
 	}
 
-	:global(input, textarea) {
-		outline: none;
-		border: 3px solid var(--minor);
-		transition: all 0.1s ease-in-out;
-		border-radius: 1rem;
-		font-size: 1rem;
-		font-weight: 600;
-		padding: 0.4rem 0.5rem;
-		margin: 0.5rem 0;
-	}
-
-	:global(textarea) {
-		padding: 0.5rem;
-	}
-
-	:global(input:hover, input:focus, textarea:hover, textarea:focus) {
-		border-color: var(--accent) !important;
-	}
-
 	:global(button) {
-		font-size: 1rem;
-		outline: none;
-		border: 3px solid var(--accent);
-		transition: all 0.1s ease-in-out;
-		padding: 0.3rem 0.7rem;
 		background-color: var(--accent);
 		color: var(--major);
-		font-weight: 600;
-		border-radius: 1rem;
 		cursor: pointer;
 		user-select: none;
-	}
-
-	:global(button:hover, button:focus) {
-		border-color: var(--minor) !important;
-	}
-
-	:global(a) {
-		color: var(--minor);
-	}
-
-	:global(.error) {
-		color: tomato;
 	}
 
 	:global(:root) {

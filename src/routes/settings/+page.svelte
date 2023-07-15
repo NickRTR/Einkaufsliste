@@ -1,32 +1,20 @@
-<script lang="ts">
-	import { applyAction, enhance, type SubmitFunction } from "$app/forms";
-	import { invalidate } from "$app/navigation";
+<script>
 	import { wordList, products } from "$lib/stores";
 	import { slide } from "svelte/transition";
 	import { browser } from "$app/environment";
-	import { toast } from "svelte-french-toast";
+	import { page } from "$app/stores";
 	import DragDropList from "$lib/components/DragDropList.svelte";
 	import Feedback from "$lib/components/Feedback.svelte";
-
-	const handleLogout: SubmitFunction = () => {
-		return async ({ result }) => {
-			if (result.type === "redirect") {
-				await invalidate("supabase:auth");
-			} else {
-				await applyAction(result);
-			}
-		};
-	};
 
 	export let data;
 
 	let priorities = data.priorities;
 
 	let showSort = false;
-	let language: string;
+	let language;
 	if (browser) {
 		language = navigator.language == "en-US" ? "en-US" : navigator.language.substring(0, 2);
-		if (localStorage.getItem("language")) language = localStorage.getItem("language")!;
+		if (localStorage.getItem("language")) language = localStorage.getItem("language");
 	}
 
 	function changeLanguage() {
@@ -40,10 +28,7 @@
 		// alle Produkte der Einkaufsliste zu einer zu teilenden Liste zusammenfassen.
 		for (let i = 0; i < $products.length; i++) {
 			let product = $products[i];
-			if (!product.checked)
-				data += `◯ ${product.title} (${product.amount} ${product.type}) (${
-					$wordList.categories[product.category]
-				}) \n`; // only add if product is unchecked
+			if (!product.checked) data += `◯ ${product.title} (${product.amount} ${product.type}) (${$wordList.categories[product.category]}) \n`; // only add if product is unchecked
 		}
 
 		if (navigator.share) {
@@ -53,54 +38,57 @@
 					text: data
 				})
 				.catch((error) => {
-					toast.error(error);
+					toast.push(error);
 				});
 		} else {
-			toast.error("Your device/browser isn't able to share this list.");
+			toast.push("Your device/browser isn't able to share this list.");
 		}
 	}
 
-	async function deleteAll(confirmMessage: string) {
+	async function deleteAll(confirmMessage) {
 		if (confirm(confirmMessage)) {
-			let { error } = await data.supabase.from("products").delete().neq("id", 0);
+			const res = await fetch("/api/product/deleteAllProducts");
+			const data = await res.json();
 
-			if (error) {
-				toast.error("An error ocurred while deleting all products: " + error.message);
+			if (data.error) {
+				toast.push("An error ocurred while deleting all products: " + data.error);
 			}
 		}
 	}
 
-	async function changePriorities(changedPriorities: priorities) {
-		const { error } = await data.supabase
-			.from("userdata")
-			.update({ priorities: changedPriorities })
-			.eq("uuid", data.user.id);
-		if (error) {
-			toast.error("An error ocurred while changing priority order: " + error.message);
+	async function changePriorities(changedPriorities) {
+		const res = await fetch("/api/userdata/updatePriorities", {
+			method: "POST",
+			body: JSON.stringify({
+				priorities: changedPriorities,
+				id: $page.data.user.id
+			})
+		});
+		const data = await res.json();
+
+		if (data.error) {
+			toast.push("An error ocurred while changing priority order: " + data.error);
 		} else {
 			for (let i in $products) {
 				const product = $products[i];
+				const getSortRes = await fetch(`/api/getSort-${product.category}`);
+				const getSortData = await getSortRes.json();
 
-				let { data: priorities, error } = await data.supabase.from("userdata").select("priorities");
+				if (!getSortData.error) {
+					const setSortRes = await fetch("/api/updateSort", {
+						method: "PATCH",
+						body: JSON.stringify({
+							id: product.id,
+							sort: getSortData.sort
+						})
+					});
+					const data = await setSortRes.json();
 
-				if (error) {
-					toast.error("An error ocurred while changing priority order: " + error.message);
+					if (data.error) {
+						toast.push("An error ocurred while updating sort order: " + data.error);
+					}
 				} else {
-					priorities = priorities[0].priorities;
-					if (product.category === "choose") {
-						return new Response(JSON.stringify({ sort: 0 }));
-					}
-					for (let i = 0; i <= Object.keys(priorities).length; i++) {
-						if (priorities[i] === product.category) {
-							const { error } = await data.supabase
-								.from("products")
-								.update({ sort: i + 1 })
-								.eq("id", product.id);
-							if (error) {
-								toast.error("An error ocurred while changing priority order: " + error.message);
-							}
-						}
-					}
+					toast.push("An error ocurred while updating sort order: " + getSortData.error);
 				}
 			}
 		}
@@ -155,10 +143,8 @@
 	</div>
 
 	<div class="user">
-		<h2>{data.user.email ? data.user.email : ""}</h2>
-		<form action="/logout" method="post" use:enhance={handleLogout}>
-			<button type="submit">{$wordList.index.logout}</button>
-		</form>
+		<h2>{$page.data.user.email ? $page.data.user.email : ""}</h2>
+		<button><a href="/auth/logout" title={$wordList.index.logout}>{$wordList.index.logout}</a></button>
 	</div>
 
 	<hr />
@@ -191,6 +177,11 @@
 	button:hover,
 	button:focus {
 		border-color: var(--minor);
+	}
+
+	a {
+		color: white;
+		text-decoration: none;
 	}
 
 	select {
