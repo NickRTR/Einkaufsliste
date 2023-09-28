@@ -1,119 +1,59 @@
-<script lang="ts">
-	import type { ActionData } from "./$types";
-	import { applyAction, enhance, type SubmitFunction } from "$app/forms";
-	import { invalidate } from "$app/navigation";
-	import { wordList } from "$lib/stores";
+<script>
+	import { enhance } from "$app/forms";
 
-	export let form: ActionData;
-	let loading = false;
-
-	const handleSubmit: SubmitFunction = () => {
-		loading = true;
-		return async ({ result }) => {
-			if (result.type === "redirect") {
-				await invalidate("supabase:auth");
-			} else {
-				await applyAction(result);
-			}
-			loading = false;
-		};
-	};
-
-	let showPassword = false;
+	export let form;
 </script>
 
-<svelte:head>
-	<title>Schoppy - {$wordList.login.unregistered.title}</title>
-</svelte:head>
+<section>
+	<div>
+		<h1>Sign up</h1>
+		{#if form?.error}
+			<p class="error">{form.error}</p>
+		{/if}
+		{#if form?.message}
+			<p class="success">{form.message}</p>
+		{/if}
+		<form method="post" use:enhance>
+			<div>
+				<label for="email">Email</label>
+				<p>
+					<input
+						id="email"
+						name="email"
+						value={form?.values?.email ?? ""}
+						type="email"
+						placeholder="Email"
+						required
+					/>
+				</p>
+			</div>
+			<div>
+				<label for="password">Password</label>
+				<p>
+					<input id="password" name="password" type="password" placeholder="Password" required />
+				</p>
+			</div>
+			<div>
+				<p>
+					<button>Sign up</button>
+				</p>
+			</div>
+		</form>
 
-<body>
-	<h1>{$wordList.login.unregistered.title}</h1>
-
-	<form method="post" use:enhance={handleSubmit}>
-		<label for="email">{$wordList.login.email}:</label><br />
-		<input
-			id="email"
-			name="email"
-			value={form?.values?.email ?? ""}
-			type="email"
-			placeholder="email@email.com"
-			required
-		/><br />
-		<label for="password">{$wordList.login.password}:</label><br />
-		<div class="password">
-			<input
-				id="password"
-				name="password"
-				type="password"
-				placeholder={$wordList.login.password}
-				required
-			/>
-			<input
-				type="checkbox"
-				id="togglePassword"
-				class:show={showPassword}
-				bind:checked={showPassword}
-				on:change={() => {
-					document.querySelector("#password").type = showPassword ? "text" : "password";
-				}}
-			/>
-			<label class="viewPasswordLabel" for="togglePassword"
-				><img src="/showPassword.svg" alt="show" /></label
-			><br />
+		<div>
+			<p>
+				Already have an account? <a href="/login">Sign in</a>
+			</p>
 		</div>
-		<button disabled={loading}>{$wordList.login.unregistered.title}</button>
-	</form>
-
-	{#if form?.error}
-		<p class="error">Error: {form.error}</p>
-	{/if}
-
-	{#if form?.message}
-		<p style="color: green">{form.message}</p>
-	{/if}
-
-	<p><a href="/login">{$wordList.login.unregistered.switch}</a></p>
-</body>
+	</div>
+</section>
 
 <style>
-	form {
-		margin-top: 1rem;
-		font-weight: 600;
+	.error {
+		color: red;
 	}
 
-	input[type="email"] {
-		width: 300px;
-	}
-
-	#password {
-		width: 268px;
-	}
-
-	input::placeholder {
-		font-size: 1rem;
-	}
-
-	.password {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	input[type="checkbox"] {
-		display: none;
-	}
-
-	.viewPasswordLabel {
-		filter: opacity(50%);
-		border-radius: 100%;
-	}
-
-	input[type="checkbox"]:checked + .viewPasswordLabel {
-		filter: opacity(100%);
-	}
-
-	img {
-		width: 2rem;
-		cursor: pointer;
+	.success {
+		color: limegreen;
 	}
 </style>

@@ -1,19 +1,12 @@
 import { AuthApiError } from "@supabase/supabase-js";
-import { fail, type ActionFailure } from "@sveltejs/kit";
-import type { Actions } from "./$types";
-import { wordList } from "$lib/stores";
-import { get } from "svelte/store";
+import { fail } from "@sveltejs/kit";
 
-export const actions: Actions = {
-	async default({
-		request,
-		url,
-		locals: { supabase }
-	}): Promise<ActionFailure<{ error: string; values?: { email: string } }> | { message: string }> {
+export const actions = {
+	default: async ({ request, locals, url }) => {
 		const formData = await request.formData();
 
-		const email = formData.get("email") as string;
-		const password = formData.get("password") as string;
+		const email = formData.get("email");
+		const password = formData.get("password");
 
 		if (!email) {
 			return fail(400, {
@@ -29,7 +22,7 @@ export const actions: Actions = {
 			});
 		}
 
-		const { error } = await supabase.auth.signUp({
+		const { error } = await locals.supabase.auth.signUp({
 			email,
 			password,
 			options: { emailRedirectTo: url.origin }
@@ -46,7 +39,7 @@ export const actions: Actions = {
 			}
 
 			return fail(500, {
-				error: "Server error. Try again later.",
+				error: "Server error: " + error.message,
 				values: {
 					email
 				}
@@ -54,7 +47,7 @@ export const actions: Actions = {
 		}
 
 		return {
-			message: get(wordList).login.verification
+			message: "Please check your emails for a magic link to log into the website."
 		};
 	}
 };
