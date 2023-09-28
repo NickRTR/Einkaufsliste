@@ -1,6 +1,5 @@
 <script>
-	// import Nav from "$lib/components/Nav.svelte";
-	// import { Toaster } from "svelte-french-toast";
+	import { Toaster } from "svelte-french-toast";
 
 	import { invalidate } from "$app/navigation";
 	import { onMount } from "svelte";
@@ -20,12 +19,28 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Schoppy</title>
+</svelte:head>
+
 <body>
-	<!-- <Toaster />
-	<Nav avatarUrl={data.avatarUrl} /> -->
+	<Toaster />
 	<div class="content"><slot /></div>
 </body>
 
 <style>
+	* {
+		font-family: Arial, Helvetica, sans-serif;
+		text-align: center;
+		color: var(--minor);
+		background-color: var(--major);
+		margin: 0.5rem 0.5rem;
+	}
 
+	:global(:root) {
+		--background: white;
+		--text: black;
+		--accent: #0047ff;
+		--accentTransparent: #0047ff44;
+	}
 </style>

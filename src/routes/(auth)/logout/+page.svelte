@@ -1,3 +1,7 @@
+<script>
+	import { _ } from "svelte-i18n";
+</script>
+
 <body>
-    <h1>Logging out...</h1>
+	<h1>{$_("pages.auth.logout")}</h1>
 </body>

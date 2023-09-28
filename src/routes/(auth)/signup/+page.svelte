@@ -1,4 +1,5 @@
 <script>
+	import { _ } from "svelte-i18n";
 	import { enhance } from "$app/forms";
 
 	export let form;
@@ -6,7 +7,7 @@
 
 <section>
 	<div>
-		<h1>Sign up</h1>
+		<h1>{$_("pages.auth.signup.title")}</h1>
 		{#if form?.error}
 			<p class="error">{form.error}</p>
 		{/if}
@@ -15,34 +16,40 @@
 		{/if}
 		<form method="post" use:enhance>
 			<div>
-				<label for="email">Email</label>
+				<label for="email">{$_("pages.auth.email")}</label>
 				<p>
 					<input
 						id="email"
 						name="email"
 						value={form?.values?.email ?? ""}
 						type="email"
-						placeholder="Email"
+						placeholder={$_("pages.auth.email")}
 						required
 					/>
 				</p>
 			</div>
 			<div>
-				<label for="password">Password</label>
+				<label for="password">{$_("pages.auth.password")}</label>
 				<p>
-					<input id="password" name="password" type="password" placeholder="Password" required />
+					<input
+						id="password"
+						name="password"
+						type="password"
+						placeholder={$_("pages.auth.password")}
+						required
+					/>
 				</p>
 			</div>
 			<div>
 				<p>
-					<button>Sign up</button>
+					<button>{$_("pages.auth.signup.title")}</button>
 				</p>
 			</div>
 		</form>
 
 		<div>
 			<p>
-				Already have an account? <a href="/login">Sign in</a>
+				{$_("pages.auth.signup.switch")} <a href="/login">{$_("pages.auth.login.title")}</a>
 			</p>
 		</div>
 	</div>

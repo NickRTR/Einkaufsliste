@@ -1,0 +1,18 @@
+{
+	"pages": {
+		"auth": {
+			"login": {
+				"title": "Login",
+				"switch": "Neuen Account erstellen?"
+			},
+			"signup": {
+				"title": "Register",
+				"switch": "Already have an account?"
+			},
+			"logout": "Logging out ...",
+			"password": "Password",
+			"email": "Email",
+			"verification": "Please check your email for a magic link to log into the website."
+		}
+	}
+}
