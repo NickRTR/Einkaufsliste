@@ -13,6 +13,11 @@
 			"password": "Passwort",
 			"email": "E-Mail",
 			"verification": "Bitte klicken Sie auf den Verifizierungslink in Ihrem E-Mail Postfach."
+		},
+		"settings": {
+			"title": "Einstellungen",
+			"language": "Sprache",
+			"logout": "Ausloggen"
 		}
 	}
 }

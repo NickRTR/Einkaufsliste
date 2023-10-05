@@ -13,6 +13,11 @@
 			"password": "Password",
 			"email": "Email",
 			"verification": "Please check your email for a magic link to log into the website."
+		},
+		"settings": {
+			"title": "Settings",
+			"language": "Language",
+			"logout": "Logout"
 		}
 	}
 }
