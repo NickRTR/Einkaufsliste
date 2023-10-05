@@ -1,8 +1,9 @@
 <script>
 	import { Toaster } from "svelte-french-toast";
-
-	import { invalidate } from "$app/navigation";
 	import { onMount } from "svelte";
+	import { invalidate } from "$app/navigation";
+
+	import NavBar from "$lib/components/NavBar.svelte";
 
 	export let data;
 
@@ -25,16 +26,31 @@
 
 <body>
 	<Toaster />
-	<div class="content"><slot /></div>
+	<header>
+		<h1>Schoppy</h1>
+	</header>
+	<main><slot /></main>
+	<footer>
+		<NavBar />
+	</footer>
 </body>
 
 <style>
 	* {
 		font-family: Arial, Helvetica, sans-serif;
-		text-align: center;
 		color: var(--minor);
 		background-color: var(--major);
-		margin: 0.5rem 0.5rem;
+		margin: 0.5rem;
+	}
+
+	body {
+		max-width: 700px;
+		margin: auto;
+	}
+
+	header {
+		text-align: center;
+		margin-block: 1rem;
 	}
 
 	:global(:root) {
