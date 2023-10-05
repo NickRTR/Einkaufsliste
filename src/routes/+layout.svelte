@@ -30,9 +30,11 @@
 		<h1>Schoppy</h1>
 	</header>
 	<main><slot /></main>
-	<footer>
-		<NavBar />
-	</footer>
+	{#if data.session}
+		<footer>
+			<NavBar />
+		</footer>
+	{/if}
 </body>
 
 <style>

@@ -1,14 +1,12 @@
 <script>
 	import { page } from "$app/stores";
-
-	console.log($page);
 </script>
 
 <nav>
 	<a class:active={$page.url.pathname === "/"} href="/" title="Create"
 		><img src="/nav/edit.svg" width="50px" alt="" /></a
 	>
-	<a class:active={$page.url.pathname === "/"} href="/" title="Create"
+	<a class:active={$page.url.pathname === "/view"} href="/view" title="View"
 		><img src="/nav/view.svg" width="50px" alt="" /></a
 	>
 	<a class:active={$page.url.pathname === "/settings"} href="/settings" title="settings"
