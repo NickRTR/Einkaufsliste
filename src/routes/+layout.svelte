@@ -42,7 +42,6 @@
 		font-family: Arial, Helvetica, sans-serif;
 		color: var(--minor);
 		background-color: var(--major);
-		margin: 0.5rem;
 	}
 
 	body {
@@ -52,7 +51,29 @@
 
 	header {
 		text-align: center;
-		margin-block: 1rem;
+		padding-block: 0.5rem;
+		color: white;
+		background-color: black;
+		border-bottom-left-radius: 1rem;
+		border-bottom-right-radius: 1rem;
+	}
+
+	main {
+		padding-inline: 0.4rem;
+	}
+
+	:global(button) {
+		background-color: var(--accent);
+		color: white;
+		font-weight: bold;
+		border: none;
+		border-radius: 1rem;
+		padding: 0.5rem 0.7rem;
+		margin-block: 0.5rem;
+	}
+
+	:global(button:hover) {
+		outline: 1px solid white;
 	}
 
 	:global(:root) {

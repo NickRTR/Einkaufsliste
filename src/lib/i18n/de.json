@@ -15,9 +15,19 @@
 			"verification": "Bitte klicken Sie auf den Verifizierungslink in Ihrem E-Mail Postfach."
 		},
 		"settings": {
-			"title": "Einstellungen",
+			"logout": "Logout",
 			"language": "Sprache",
-			"logout": "Ausloggen"
+			"languages": {
+				"de": "Deutsch 🇩🇪",
+				"en": "Englisch (UK) 🇬🇧",
+				"en_us": "Englisch (US) 🇺🇸"
+			},
+			"list": {
+				"title": "Liste",
+				"share": "Teilen",
+				"sort_categories": "Kategorien sortieren",
+				"delete_all": "Alles löschen"
+			}
 		}
 	}
 }
