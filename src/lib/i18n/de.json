@@ -28,6 +28,14 @@
 				"share": "Teilen",
 				"sort_categories": "Kategorien sortieren",
 				"delete_all": "Alles löschen"
+			},
+			"feedback": {
+				"title": "Feedback",
+				"name": "Name",
+				"message_label": "Verbesserungsvorschläge und Anmerkungen",
+				"message": "Nachricht",
+				"submit": "Absenden",
+				"thanks": "Danke für Ihr Feedback!"
 			}
 		}
 	},

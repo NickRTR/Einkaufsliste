@@ -28,6 +28,14 @@
 				"share": "Share",
 				"sort_categories": "Sort Categories",
 				"delete_all": "Delete Items"
+			},
+			"feedback": {
+				"title": "Feedback",
+				"name": "Name",
+				"message_label": "Feedback message",
+				"message": "Message",
+				"submit": "Submit",
+				"thanks": "Thank's for your feedback!"
 			}
 		}
 	},

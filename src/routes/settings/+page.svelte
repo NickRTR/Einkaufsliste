@@ -1,5 +1,6 @@
 <script>
 	import { _ } from "svelte-i18n";
+	import Feedback from "$lib/components/Feedback.svelte";
 
 	export let data;
 </script>
@@ -28,6 +29,13 @@
 			<button>{$_("pages.settings.list.share")}</button>
 			<button>{$_("pages.settings.list.sort_categories")}</button>
 			<button>{$_("pages.settings.list.delete_all")}</button>
+		</section>
+
+		<section />
+
+		<section class="feedback">
+			<h2>{$_("pages.settings.feedback.title")}</h2>
+			<Feedback />
 		</section>
 	</div>
 </body>
@@ -67,5 +75,9 @@
 	.list > button {
 		margin-inline: auto;
 		display: block;
+	}
+
+	.feedback {
+		grid-column: span 2;
 	}
 </style>
