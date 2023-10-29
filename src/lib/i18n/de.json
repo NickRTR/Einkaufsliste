@@ -15,6 +15,7 @@
 			"verification": "Bitte klicken Sie auf den Verifizierungslink in Ihrem E-Mail Postfach."
 		},
 		"settings": {
+			"title": "Einstellungen",
 			"logout": "Logout",
 			"language": "Sprache",
 			"languages": {
@@ -28,6 +29,12 @@
 				"sort_categories": "Kategorien sortieren",
 				"delete_all": "Alles löschen"
 			}
+		}
+	},
+	"layout": {
+		"menu": {
+			"home": "Home",
+			"settings": "Einstellungen"
 		}
 	}
 }

@@ -3,15 +3,18 @@
 	import { onMount } from "svelte";
 	import { invalidate } from "$app/navigation";
 
-	import NavBar from "$lib/components/NavBar.svelte";
+	import Nav from "$lib/components/Nav.svelte";
 
 	export let data;
+
+	let { supabase, session } = data;
+	$: ({ supabase, session } = data);
 
 	onMount(() => {
 		const {
 			data: { subscription }
-		} = data.supabase.auth.onAuthStateChange((event, _session) => {
-			if (_session?.expires_at !== data.session?.expires_at) {
+		} = supabase.auth.onAuthStateChange((event, _session) => {
+			if (_session?.expires_at !== session?.expires_at) {
 				invalidate("supabase:auth");
 			}
 		});
@@ -28,13 +31,11 @@
 	<Toaster />
 	<header>
 		<h1>Schoppy</h1>
+		{#if data.session}
+			<Nav />
+		{/if}
 	</header>
 	<main><slot /></main>
-	{#if data.session}
-		<footer>
-			<NavBar />
-		</footer>
-	{/if}
 </body>
 
 <style>
@@ -51,11 +52,15 @@
 
 	header {
 		text-align: center;
-		padding-block: 0.5rem;
+		padding-block: 1rem;
 		color: white;
 		background-color: black;
 		border-bottom-left-radius: 1rem;
 		border-bottom-right-radius: 1rem;
+	}
+
+	header h1 {
+		margin: 0;
 	}
 
 	main {

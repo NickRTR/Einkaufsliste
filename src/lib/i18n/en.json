@@ -15,6 +15,7 @@
 			"verification": "Please check your email for a magic link to log into the website."
 		},
 		"settings": {
+			"title": "Settings",
 			"logout": "Logout",
 			"language": "Language",
 			"languages": {
@@ -28,6 +29,12 @@
 				"sort_categories": "Sort Categories",
 				"delete_all": "Delete Items"
 			}
+		}
+	},
+	"layout": {
+		"menu": {
+			"home": "Home",
+			"settings": "Settings"
 		}
 	}
 }
