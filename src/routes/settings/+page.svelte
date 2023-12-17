@@ -56,7 +56,7 @@
 		text-align: center;
 		padding: 1rem;
 		border-radius: 1rem;
-		background-color: gainsboro;
+		background-color: #0047ff1f;
 	}
 
 	.account {
