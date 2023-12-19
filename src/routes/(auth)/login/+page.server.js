@@ -41,6 +41,6 @@ export const actions = {
 			});
 		}
 
-		throw redirect(303, "/");
+		redirect(303, "/");
 	}
 };
