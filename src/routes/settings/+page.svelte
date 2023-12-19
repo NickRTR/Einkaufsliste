@@ -1,8 +1,13 @@
 <script>
-	import { _ } from "svelte-i18n";
+	import { _, locale, locales } from "svelte-i18n";
 	import Feedback from "$lib/components/Feedback.svelte";
 
 	export let data;
+
+	function changeLanguage(event) {
+		locale.set(event.target.value);
+		localStorage.setItem("lang", event.target.value);
+	}
 </script>
 
 <svelte:head>
@@ -18,9 +23,10 @@
 
 		<section class="language">
 			<h2>{$_("pages.settings.language")}</h2>
-			<select>
-				<option value="de">{$_("pages.settings.languages.de")}</option>
-				<option value="en">{$_("pages.settings.languages.en")}</option>
+			<select value={$locale} on:change={() => {changeLanguage(event)}}>
+				{#each $locales as locale}
+					<option value={locale}>{$_("pages.settings.languages." + locale)}</option>
+				{/each}
 			</select>
 		</section>
 

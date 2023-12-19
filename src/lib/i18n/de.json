@@ -16,12 +16,11 @@
 		},
 		"settings": {
 			"title": "Einstellungen",
-			"logout": "Logout",
+			"logout": "Ausloggen",
 			"language": "Sprache",
 			"languages": {
 				"de": "Deutsch 🇩🇪",
-				"en": "Englisch (UK) 🇬🇧",
-				"en_us": "Englisch (US) 🇺🇸"
+				"en": "Englisch 🇺🇸"
 			},
 			"list": {
 				"title": "Liste",
