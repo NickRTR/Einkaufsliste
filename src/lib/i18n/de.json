@@ -40,7 +40,16 @@
 		"home": {
 			"productCard": {
 				"categories": {
-					"choose": "Kategorie wählen"
+					"choose": "Kategorie wählen",
+					"vegetables": "Gemüse",
+					"fruits": "Obst",
+					"pantry": "Vorrat",
+					"meat": "Fleisch",
+					"frozen": "Tiefkühlregal",
+					"cooled": "Kühlregal",
+					"household": "Haushalt",
+					"sweets": "Süßigkeiten",
+					"beverage": "Getränke"
 				},
 				"quantities": {
 					"pcs": "stk",

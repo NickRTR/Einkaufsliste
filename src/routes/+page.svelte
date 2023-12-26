@@ -4,6 +4,7 @@
 	import { onMount } from "svelte";
 	import { supabase } from "$lib/supabase";
 	import { getProducts } from "$lib/api";
+	import { toast } from "svelte-french-toast";
 
 	import ProductCard from "$lib/components/ProductCard.svelte";
 
@@ -27,15 +28,20 @@
 
 	async function addProduct() {
 		if (input.trim() === "") return;
-		console.log(input);
 		await supabase.from("products").insert([{ title: input, uuid: data.session.user.id }]);
 		input = "";
+	}
+
+	async function search() {
+		const { data: res, error } = await supabase.from('products').select().eq('uuid', data.session.user.id).ilike('title', "%" + input + "%");
+		if (error) toast.error(error.message)
+		else products = res;
 	}
 </script>
 
 <body>
 	<form>
-		<input type="text" bind:value={input} />
+		<input type="text" bind:value={input} on:input={search} />
 		<button type="submit" on:click={addProduct}>Hinzufügen</button>
 	</form>
 

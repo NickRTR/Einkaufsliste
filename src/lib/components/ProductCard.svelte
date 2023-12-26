@@ -101,11 +101,11 @@
 						// changeCategory(product.id, product.category, category, product.title);
 					}}
 				>
-					<p>{$_(`pages.home.productCard.categories[${product.category}]`)}</p>
+					<p>{$_(`pages.home.productCard.categories.${category}`)}</p>
 					<img
 						src="/category/{category}.svg"
-						alt={$_(`pages.home.productCard.categories[${product.category}]`)}
-						title={$_(`pages.home.productCard.categories[${product.category}]`)}
+						alt={$_(`pages.home.productCard.categories.${category}`)}
+						title={$_(`pages.home.productCard.categories.${category}`)}
 					/>
 				</div>
 			{/each}
