@@ -36,6 +36,21 @@
 				"submit": "Absenden",
 				"thanks": "Danke für Ihr Feedback!"
 			}
+		},
+		"home": {
+			"productCard": {
+				"categories": {
+					"choose": "Kategorie wählen"
+				},
+				"quantities": {
+					"pcs": "stk",
+					"btl": "Flasche(n)",
+					"gr": "gr",
+					"kg": "kg",
+					"ml": "ml",
+					"l": "l"
+				}
+			}
 		}
 	},
 	"layout": {

@@ -4,7 +4,7 @@ import { createSupabaseLoadClient } from "@supabase/auth-helpers-sveltekit";
 import "$lib/i18n";
 import { waitLocale } from "svelte-i18n";
 
-export const load = async ({ fetch, data, depends, cookies }) => {
+export const load = async ({ fetch, data, depends }) => {
 	depends("supabase:auth");
 
 	const supabase = createSupabaseLoadClient({

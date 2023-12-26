@@ -23,7 +23,12 @@
 
 		<section class="language">
 			<h2>{$_("pages.settings.language")}</h2>
-			<select value={$locale} on:change={() => {changeLanguage(event)}}>
+			<select
+				value={$locale}
+				on:change={() => {
+					changeLanguage(event);
+				}}
+			>
 				{#each $locales as locale}
 					<option value={locale}>{$_("pages.settings.languages." + locale)}</option>
 				{/each}
