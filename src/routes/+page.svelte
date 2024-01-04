@@ -14,7 +14,6 @@
 
 	onMount(() => {
 		products = data.products;
-		console.log(products);
 	});
 
 	supabase
@@ -28,13 +27,31 @@
 
 	async function addProduct() {
 		if (input.trim() === "") return;
+
+		for (let product of products) {
+			if (product.title === input) {
+				console.log(product);
+				if (product.checked) {
+					await supabase
+						.from("products")
+						.update({ checked: false, amount: 1, type: "stk" })
+						.eq("id", product.id);
+				}
+				return;
+			}
+		}
+
 		await supabase.from("products").insert([{ title: input, uuid: data.session.user.id }]);
 		input = "";
 	}
 
 	async function search() {
-		const { data: res, error } = await supabase.from('products').select().eq('uuid', data.session.user.id).ilike('title', "%" + input + "%");
-		if (error) toast.error(error.message)
+		const { data: res, error } = await supabase
+			.from("products")
+			.select()
+			.eq("uuid", data.session.user.id)
+			.ilike("title", "%" + input + "%");
+		if (error) toast.error(error.message);
 		else products = res;
 	}
 </script>

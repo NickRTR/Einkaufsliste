@@ -2,8 +2,9 @@
 	import { slide } from "svelte/transition";
 	import { _ } from "svelte-i18n";
 	import autoselect from "svelte-autoselect";
+	import { page } from "$app/stores";
 
-	import { editTitle, editAmount, toggleChecked, deleteProduct } from "$lib/api";
+	import { editTitle, editAmount, toggleChecked, deleteProduct, changeCategory } from "$lib/api";
 
 	export let product;
 
@@ -98,7 +99,7 @@
 				<div
 					on:click={() => {
 						showChangeCategory = !showChangeCategory;
-						// changeCategory(product.id, product.category, category, product.title);
+						changeCategory(product.id, $page.data.session.user.id, product.category, category);
 					}}
 				>
 					<p>{$_(`pages.home.productCard.categories.${category}`)}</p>
