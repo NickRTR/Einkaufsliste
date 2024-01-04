@@ -9,9 +9,14 @@ export async function getProducts(uuid) {
 
 export async function editTitle(id, oldTitle, newTitle) {
 	newTitle = newTitle.trim();
-	if (oldTitle === newTitle) return;
+	if (oldTitle === newTitle || newTitle.length <= 1) newTitle = oldTitle;
 
-	const { error } = await supabase.from("products").update({ title: newTitle }).eq("id", id);
+	const category = await getCategory(newTitle);
+
+	const { error } = await supabase
+		.from("products")
+		.update({ title: newTitle, category })
+		.eq("id", id);
 	if (error) toast.error(error).message;
 }
 
@@ -33,18 +38,36 @@ export async function deleteProduct(id) {
 	else toast.success("Deleted product");
 }
 
+export async function getCategory(title) {
+	const language = localStorage.getItem("lang");
+	const { data, error } = await supabase
+		.from("categories")
+		.select()
+		.eq("title", title)
+		.eq("language", language);
+	if (error) toast.error(error.message);
+
+	if (data.length === 0) {
+		return "choose";
+	}
+
+	return data[0].category;
+}
+
+async function getPriority(userId, category) {
+	const { error, data } = await supabase.from("userdata").select("priorities").eq("uuid", userId);
+	const sort = data[0].priorities.indexOf(category);
+	if (error) toast.error(error.message);
+	else return sort;
+}
+
 export async function changeCategory(id, userId, oldCategory, newCategory) {
 	if (oldCategory === newCategory) return;
 
-	const { error, data } = await supabase.from("userdata").select("priorities").eq("uuid", userId);
-	if (!error) {
-		const sort = data[0].priorities.indexOf(newCategory);
-		const { error } = await supabase
-			.from("products")
-			.update({ category: newCategory, sort })
-			.eq("id", id);
-		if (error) toast.error(error.message);
-	} else {
-		toast.error(error.message);
-	}
+	const sort = await getPriority(userId, newCategory);
+	const { error } = await supabase
+		.from("products")
+		.update({ category: newCategory, sort })
+		.eq("id", id);
+	if (error) toast.error(error.message);
 }

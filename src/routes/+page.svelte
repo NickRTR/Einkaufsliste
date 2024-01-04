@@ -5,6 +5,7 @@
 	import { supabase } from "$lib/supabase";
 	import { getProducts } from "$lib/api";
 	import { toast } from "svelte-french-toast";
+	import { getCategory } from "$lib/api";
 
 	import ProductCard from "$lib/components/ProductCard.svelte";
 
@@ -26,7 +27,8 @@
 	let input = "";
 
 	async function addProduct() {
-		if (input.trim() === "") return;
+		input = input.trim();
+		if (input === "") return;
 
 		for (let product of products) {
 			if (product.title === input) {
@@ -41,7 +43,11 @@
 			}
 		}
 
-		await supabase.from("products").insert([{ title: input, uuid: data.session.user.id }]);
+		const category = await getCategory(input);
+
+		await supabase
+			.from("products")
+			.insert([{ title: input, uuid: data.session.user.id, category }]);
 		input = "";
 	}
 
