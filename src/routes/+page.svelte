@@ -32,13 +32,14 @@
 
 		for (let product of products) {
 			if (product.title === input) {
-				console.log(product);
 				if (product.checked) {
 					await supabase
 						.from("products")
 						.update({ checked: false, amount: 1, type: "stk" })
 						.eq("id", product.id);
 				}
+				input = "";
+				products = await getProducts(data.session.user.id);
 				return;
 			}
 		}

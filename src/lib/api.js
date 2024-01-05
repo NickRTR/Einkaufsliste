@@ -1,5 +1,7 @@
 import toast from "svelte-french-toast";
 import { supabase } from "$lib/supabase";
+import { page } from "$app/stores";
+import { get } from "svelte/store";
 
 export async function getProducts(uuid) {
 	const { data, error } = await supabase.from("products").select().eq("uuid", uuid).order("sort");
@@ -39,19 +41,30 @@ export async function deleteProduct(id) {
 }
 
 export async function getCategory(title) {
-	const language = localStorage.getItem("lang");
+	title = title.trim().toLowerCase();
+
 	const { data, error } = await supabase
-		.from("categories")
+		.from("user_categories")
 		.select()
 		.eq("title", title)
-		.eq("language", language);
-	if (error) toast.error(error.message);
-
-	if (data.length === 0) {
-		return "choose";
+		.eq("uuid", get(page).data.session.user.id);
+	if (error) {
+		toast.error(error.message);
+	} else if (data.length > 0) {
+		return data[0].category;
+	} else {
+		const language = localStorage.getItem("lang");
+		const { data, error } = await supabase
+			.from("categories")
+			.select()
+			.eq("title", title)
+			.eq("language", language);
+		if (error) toast.error(error.message);
+		if (data.length === 0) {
+			return "choose";
+		}
+		return data[0].category;
 	}
-
-	return data[0].category;
 }
 
 async function getPriority(userId, category) {
@@ -61,8 +74,28 @@ async function getPriority(userId, category) {
 	else return sort;
 }
 
-export async function changeCategory(id, userId, oldCategory, newCategory) {
+export async function changeCategory(id, userId, title, oldCategory, newCategory) {
 	if (oldCategory === newCategory) return;
+
+	const { count } = await supabase
+		.from("user_categories")
+		.select("*", { count: "exact", head: true })
+		.eq("title", title)
+		.eq("uuid", userId);
+
+	if (count === 0) {
+		const { error } = await supabase
+			.from("user_categories")
+			.insert([{ uuid: userId, title: title.trim().toLowerCase(), category: newCategory }]);
+		if (error) toast.error(error.message);
+	} else {
+		const { error } = await supabase
+			.from("user_categories")
+			.update({ category: newCategory })
+			.eq("uuid", userId)
+			.eq("title", title);
+		if (error) toast.error(error.message);
+	}
 
 	const sort = await getPriority(userId, newCategory);
 	const { error } = await supabase

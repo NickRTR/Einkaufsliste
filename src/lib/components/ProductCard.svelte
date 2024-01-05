@@ -99,7 +99,13 @@
 				<div
 					on:click={() => {
 						showChangeCategory = !showChangeCategory;
-						changeCategory(product.id, $page.data.session.user.id, product.category, category);
+						changeCategory(
+							product.id,
+							$page.data.session.user.id,
+							product.title,
+							product.category,
+							category
+						);
 					}}
 				>
 					<p>{$_(`pages.home.productCard.categories.${category}`)}</p>
