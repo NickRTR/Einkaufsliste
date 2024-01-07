@@ -81,16 +81,18 @@
 		{/each}
 	</div>
 
-	<div class="checkedProducts">
-		<p class="divider"><span>{$_("pages.home.divider")}</span></p>
-		{#each products as product (product.id)}
-			<div in:fade|local out:fly|local={{ x: 100 }}>
-				{#if product.checked}
-					<ProductCard {product} />
-				{/if}
-			</div>
-		{/each}
-	</div>
+	{#if products.filter((product) => product.checked).length > 0}
+		<div class="checkedProducts">
+			<p class="divider"><span>{$_("pages.home.divider")}</span></p>
+			{#each products as product (product.id)}
+				<div in:fade|local out:fly|local={{ x: 100 }}>
+					{#if product.checked}
+						<ProductCard {product} />
+					{/if}
+				</div>
+			{/each}
+		</div>
+	{/if}
 </body>
 
 <style>

@@ -3,8 +3,12 @@
 	import { supabase } from "$lib/supabase";
 	import toast from "svelte-french-toast";
 	import Feedback from "$lib/components/Feedback.svelte";
+	// import DragDropList from "$lib/components/DragDropList.svelte";
 
 	export let data;
+
+	let showSort = false;
+	// let priorities = data.priorities;
 
 	function changeLanguage(event) {
 		locale.set(event.target.value);
@@ -45,7 +49,7 @@
 	async function deleteAll() {
 		if (confirm($_("pages.settings.list.delete_allConfirm"))) {
 			const {error} = await supabase
-				.from("produts")
+				.from("products")
 				.delete()
 				.eq("uuid", data.session.user.id);
 
@@ -111,7 +115,11 @@
 
 		<section class="categories">
 			<h2>{$_("pages.settings.categories.title")}</h2>
-			<button>{$_("pages.settings.categories.sortCategories")}</button>
+			<button on:click={() => {showSort = !showSort}}>{$_("pages.settings.categories.sortCategories")}</button>
+			{#if showSort}
+				<!-- <DragDropList bind:data={priorities} /> -->
+				<strong>Work in progress 🚧</strong>
+			{/if}
 			<button on:click={resetCategories}>{$_("pages.settings.categories.resetCategories")}</button>
 		</section>
 
