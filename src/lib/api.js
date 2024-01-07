@@ -67,13 +67,17 @@ export async function getCategory(title) {
 		const { data, error } = await supabase
 			.from("categories")
 			.select()
-			.eq("title", title)
 			.eq("language", language);
-		if (error) toast.error(error.message);
-		if (data.length === 0) {
+
+		if (error) {
+			toast.error(error.message);
+		} else {
+			const matchingTitle = data.find(dbTitle => title.includes(dbTitle.title));
+			if (matchingTitle) {
+				return matchingTitle.category;
+			}
 			return "choose";
 		}
-		return data[0].category;
 	}
 }
 
