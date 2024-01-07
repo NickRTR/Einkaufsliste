@@ -4,7 +4,7 @@
 	import { page } from "$app/stores";
 	import autoselect from "svelte-autoselect";
 
-	import { editTitle, editAmount, toggleChecked, deleteProduct, changeCategory } from "$lib/api";
+	import { editTitle, editAmount, editUnit, toggleChecked, deleteProduct, changeCategory } from "$lib/api";
 
 	export let product;
 
@@ -58,9 +58,9 @@
 						}}
 					/>
 					<select
-						value={product.type}
+						value={product.unit}
 						on:change={(event) => {
-							// editType(product.id, event.target.value);
+							editUnit(product.id, product.unit, event.target.value);
 						}}
 					>
 						<option value="pcs">{$_("pages.home.productCard.quantities.pcs")}</option>

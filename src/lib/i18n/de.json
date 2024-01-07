@@ -26,20 +26,20 @@
 				"title": "Liste",
 				"share": "Teilen",
 				"shareError": "Ihr Gerät/Browser ist nicht in der Lage, diese Liste zu teilen.",
-				"delete_all": "Alles löschen",
-				"delete_all_confirm": "Schoppy-Liste leeren und alle Produkte löschen?",
-				"delete_all_success": "Ihre Liste wurde geleert.",
-				"delete_all_error": "Beim Leeren Ihrer Liste ist ein Fehler aufgetreten: "
+				"deleteAll": "Alles löschen",
+				"deleteAllConfirm": "Schoppy-Liste leeren und alle Produkte löschen?",
+				"deleteAllSuccess": "Ihre Liste wurde geleert.",
+				"deleteAllError": "Beim Leeren Ihrer Liste ist ein Fehler aufgetreten: "
 			},
 			"categories": {
 				"title": "Kategorien",
-				"sort_categories": "Kategorien sortieren",
-				"reset_categories": "Kategorien zurücksetzen",
-				"reset_categories_confirm": "Benutzerdefinierten Produkt-zu-Kategorie-Zuordnungen sicher zurücksetzen?",
-				"reset_categories_success": "Erfolgreich zurückgesetzt.",
-				"reset_categories_error": "Beim Zurücksetzen Ihrer Kategorien ist ein Fehler aufgetreten: "
+				"sortCategories": "Kategorien sortieren",
+				"resetCategories": "Kategorien zurücksetzen",
+				"resetCategoriesConfirm": "Benutzerdefinierten Produkt-zu-Kategorie-Zuordnungen sicher zurücksetzen?",
+				"resetCategoriesSuccess": "Erfolgreich zurückgesetzt.",
+				"resetCategoriesError": "Beim Zurücksetzen Ihrer Kategorien ist ein Fehler aufgetreten: "
 			},
-			"quantityTypes": {
+			"units": {
 				"title": "Mengeneinheiten"
 			},
 			"feedback": {
@@ -75,7 +75,9 @@
 				}
 			},
 			"add": "Hinzufügen",
-			"divider": "Erledigt"
+			"divider": "Erledigt",
+			"deleteConfirm": "Produkt löschen?",
+			"deleteSuccess": "Produkt gelöscht."
 		}
 	},
 	"layout": {

@@ -1,4 +1,5 @@
 import toast from "svelte-french-toast";
+import { _ } from "svelte-i18n";
 import { supabase } from "$lib/supabase";
 import { page } from "$app/stores";
 import { get } from "svelte/store";
@@ -29,15 +30,24 @@ export async function editAmount(id, oldAmount, newAmount) {
 	if (error) toast.error(error.message);
 }
 
+export async function editUnit(id, oldUnit, newUnit) {
+	if (oldUnit === newUnit) return;
+
+	const { error } = await supabase.from("products").update({ unit: newUnit }).eq("id", id);
+	if (error) toast.error(error.message);
+}
+
 export async function toggleChecked(id, checked) {
 	const { error } = await supabase.from("products").update({ checked: !checked }).eq("id", id);
 	if (error) toast.error(error.message);
 }
 
 export async function deleteProduct(id) {
-	const { error } = await supabase.from("products").delete().eq("id", id);
-	if (error) toast.error(error.message);
-	else toast.success("Deleted product");
+	if (confirm(get(_)("pages.home.deleteConfirm"))) {
+		const { error } = await supabase.from("products").delete().eq("id", id);
+		if (error) toast.error(error.message);
+		else toast.success(get(_)("pages.home.deleteSuccess"));
+	}
 }
 
 export async function getCategory(title) {

@@ -37,7 +37,7 @@
 				if (product.checked) {
 					await supabase
 						.from("products")
-						.update({ checked: false, amount: 1, type: "stk" })
+						.update({ checked: false, amount: 1, unit: "stk" })
 						.eq("id", product.id);
 				}
 				input = "";

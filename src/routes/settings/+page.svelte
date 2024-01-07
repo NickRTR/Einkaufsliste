@@ -22,9 +22,10 @@
 
 		if (error) toast.error(error.message);
 
+		
 		for (let i = 0; i < products.length; i++) {
 			let product = products[i];
-			if (!product.checked) list += `◯ ${product.title} (${product.amount} ${product.type}) (${$_(`pages.home.productCard.categories[${product.category}]`)}) \n`; // only add if product is unchecked
+			if (!product.checked) list += `◯ ${product.title} (${product.amount} ${product.unit}) (${$_("pages.home.productCard.categories." + product.category)}) \n`; // only add if product is unchecked
 		}
 
 		if (navigator.share) {
@@ -37,36 +38,36 @@
 					toast.error(error);
 				});
 		} else {
-			toast.error($_("pages.settings.list.share_error"));
+			toast.error($_("pages.settings.list.shareError"));
 		}
 	}
 
 	async function deleteAll() {
-		if (confirm($_("pages.settings.list.delete_all_confirm"))) {
+		if (confirm($_("pages.settings.list.delete_allConfirm"))) {
 			const {error} = await supabase
 				.from("produts")
 				.delete()
 				.eq("uuid", data.session.user.id);
 
 			if (error) {
-				toast.error($_("pages.settings.list.delete_all_error") + error.message);
+				toast.error($_("pages.settings.list.deleteAllError") + error.message);
 			} else {
-				toast.success($_("pages.settings.list.delete_all_success"));
+				toast.success($_("pages.settings.list.deleteAllSuccess"));
 			}
 		}
 	}
 
 	async function resetCategories() {
-		if (confirm($_("pages.settings.categories.reset_categories_confirm"))) {
+		if (confirm($_("pages.settings.categories.resetCategoriesConfirm"))) {
 			const {error} = await supabase
 				.from("user_categories")
 				.delete()
 				.eq("uuid", data.session.user.id);
 
 			if (error) {
-				toast.error($_("pages.settings.categories.reset_categories_error") + error.message);
+				toast.error($_("pages.settings.categories.resetCategoriesError") + error.message);
 			} else {
-				toast.success($_("pages.settings.categories.reset_categories_success"));
+				toast.success($_("pages.settings.categories.resetCategoriesSuccess"));
 			}
 		}
 	}
@@ -100,18 +101,18 @@
 		<section class="list">
 			<h2>{$_("pages.settings.list.title")}</h2>
 			<button on:click={shareList}>{$_("pages.settings.list.share")}</button>
-			<button on:click={deleteAll}>{$_("pages.settings.list.delete_all")}</button>
+			<button on:click={deleteAll}>{$_("pages.settings.list.deleteAll")}</button>
 		</section>
 
-		<section class="quantityTypes">
-			<h2>{$_("pages.settings.quantityTypes.title")}</h2>
+		<section class="units">
+			<h2>{$_("pages.settings.units.title")}</h2>
 			<strong>Work in progress 🚧</strong>
 		</section>
 
 		<section class="categories">
 			<h2>{$_("pages.settings.categories.title")}</h2>
-			<button>{$_("pages.settings.categories.sort_categories")}</button>
-			<button on:click={resetCategories}>{$_("pages.settings.categories.reset_categories")}</button>
+			<button>{$_("pages.settings.categories.sortCategories")}</button>
+			<button on:click={resetCategories}>{$_("pages.settings.categories.resetCategories")}</button>
 		</section>
 
 		<section class="feedback">
@@ -177,7 +178,7 @@
 		grid-row: span 2;
 	}
 
-	.quantityTypes {
+	.units {
 		grid-row: span 3;
 	}
 
