@@ -160,6 +160,7 @@
 	button {
 		display: block;
 		margin-inline: auto;
+		cursor: pointer;
 	}
 
 	.grid > section {
@@ -192,5 +193,19 @@
 
 	.feedback {
 		grid-column: span 2;
+	}
+
+	@media only screen and (max-width: 450px) {
+		.grid {
+			grid-template-columns: 1fr;
+		}
+
+		.account {
+			grid-column: span 1;
+		}
+
+		.feedback {
+			grid-column: span 1;
+		}
 	}
 </style>
