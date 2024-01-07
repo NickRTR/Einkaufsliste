@@ -25,8 +25,15 @@
 			"list": {
 				"title": "List",
 				"share": "Share",
-				"sort_categories": "Sort Categories",
 				"delete_all": "Delete all Items"
+			},
+			"categories": {
+				"title": "Categories",
+				"reset_categories": "Reset Categories",
+				"sort_categories": "Sort Categories"
+			},
+			"quantityTypes": {
+				"title": "Quantity Types"
 			},
 			"feedback": {
 				"title": "Feedback",
@@ -36,6 +43,32 @@
 				"submit": "Submit",
 				"thanks": "Thank's for your feedback!"
 			}
+		},
+		"home": {
+			"productCard": {
+				"categories": {
+					"choose": "Choose category",
+					"vegetables": "Vegetables",
+					"fruits": "Fruits",
+					"pantry": "Pantry",
+					"meat": "Meat",
+					"frozen": "Frozen",
+					"cooled": "Cooled",
+					"household": "Household",
+					"sweets": "Sweets",
+					"beverages": "Beverages"
+				},
+				"quantities": {
+					"pcs": "stk",
+					"btl": "Flasche(n)",
+					"gr": "gr",
+					"kg": "kg",
+					"ml": "ml",
+					"l": "l"
+				}
+			},
+			"add": "Hinzufügen",
+			"divider": "Erledigt"
 		}
 	},
 	"layout": {

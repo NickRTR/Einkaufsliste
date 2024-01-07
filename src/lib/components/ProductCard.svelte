@@ -1,8 +1,8 @@
 <script>
 	import { slide } from "svelte/transition";
 	import { _ } from "svelte-i18n";
-	import autoselect from "svelte-autoselect";
 	import { page } from "$app/stores";
+	import autoselect from "svelte-autoselect";
 
 	import { editTitle, editAmount, toggleChecked, deleteProduct, changeCategory } from "$lib/api";
 
@@ -19,7 +19,7 @@
 		"cooled",
 		"household",
 		"sweets",
-		"beverage"
+		"beverages"
 	];
 </script>
 

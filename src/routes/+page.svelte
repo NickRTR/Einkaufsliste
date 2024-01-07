@@ -6,8 +6,10 @@
 	import { getProducts } from "$lib/api";
 	import { toast } from "svelte-french-toast";
 	import { getCategory } from "$lib/api";
+	import { _ } from "svelte-i18n";
 
 	import ProductCard from "$lib/components/ProductCard.svelte";
+	import autoselect from "svelte-autoselect";
 
 	export let data;
 
@@ -65,8 +67,8 @@
 
 <body>
 	<form>
-		<input type="text" bind:value={input} on:input={search} />
-		<button type="submit" on:click={addProduct}>Hinzufügen</button>
+		<input type="text" bind:value={input} on:input={search} use:autoselect />
+		<button type="submit" on:click={addProduct}>{$_("pages.home.add")}</button>
 	</form>
 
 	<div class="products">
@@ -80,7 +82,7 @@
 	</div>
 
 	<div class="checkedProducts">
-		<p class="divider"><span>checked</span></p>
+		<p class="divider"><span>{$_("pages.home.divider")}</span></p>
 		{#each products as product (product.id)}
 			<div in:fade|local out:fly|local={{ x: 100 }}>
 				{#if product.checked}
@@ -120,5 +122,23 @@
 
 	button {
 		height: 2.2rem;
+	}
+
+	.divider {
+		text-align: center;
+		border-bottom: 5px solid var(--accent);
+		border-top: 5px solid var(--accent);
+		border-radius: 0.5rem;
+		line-height: 0;
+		margin: 1rem 0.7rem;
+	}
+
+	.divider span {
+		background-color: var(--background);
+		padding: 0 7px;
+	}
+
+	.checkedProducts div {
+		filter: opacity(80%);
 	}
 </style>

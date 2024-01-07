@@ -38,11 +38,18 @@
 		<section class="list">
 			<h2>{$_("pages.settings.list.title")}</h2>
 			<button>{$_("pages.settings.list.share")}</button>
-			<button>{$_("pages.settings.list.sort_categories")}</button>
 			<button>{$_("pages.settings.list.delete_all")}</button>
 		</section>
 
-		<section />
+		<section class="quantityTypes">
+			<h2>{$_("pages.settings.quantityTypes.title")}</h2>
+		</section>
+
+		<section class="categories">
+			<h2>{$_("pages.settings.categories.title")}</h2>
+			<button>{$_("pages.settings.categories.sort_categories")}</button>
+			<button>{$_("pages.settings.categories.reset_categories")}</button>
+		</section>
 
 		<section class="feedback">
 			<h2>{$_("pages.settings.feedback.title")}</h2>
@@ -61,6 +68,11 @@
 	h2 {
 		margin-top: 0.5rem;
 		margin-bottom: 1rem;
+	}
+
+	button {
+		display: block;
+		margin-inline: auto;
 	}
 
 	.grid > section {
@@ -83,9 +95,12 @@
 		grid-row: span 2;
 	}
 
-	.list > button {
-		margin-inline: auto;
-		display: block;
+	.categories {
+		grid-row: span 2;
+	}
+
+	.quantityTypes {
+		grid-row: span 3;
 	}
 
 	.feedback {

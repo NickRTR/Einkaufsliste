@@ -25,8 +25,15 @@
 			"list": {
 				"title": "Liste",
 				"share": "Teilen",
-				"sort_categories": "Kategorien sortieren",
 				"delete_all": "Alles löschen"
+			},
+			"categories": {
+				"title": "Kategorien",
+				"reset_categories": "Kategorien zurücksetzen",
+				"sort_categories": "Kategorien sortieren"
+			},
+			"quantityTypes": {
+				"title": "Mengeneinheiten"
 			},
 			"feedback": {
 				"title": "Feedback",
@@ -49,7 +56,7 @@
 					"cooled": "Kühlregal",
 					"household": "Haushalt",
 					"sweets": "Süßigkeiten",
-					"beverage": "Getränke"
+					"beverages": "Getränke"
 				},
 				"quantities": {
 					"pcs": "stk",
@@ -59,7 +66,9 @@
 					"ml": "ml",
 					"l": "l"
 				}
-			}
+			},
+			"add": "Hinzufügen",
+			"divider": "Erledigt"
 		}
 	},
 	"layout": {
