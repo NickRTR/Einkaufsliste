@@ -25,12 +25,19 @@
 			"list": {
 				"title": "List",
 				"share": "Share",
-				"delete_all": "Delete all Items"
+				"share_error": "Your device/browser isn't able to share this list.",
+				"delete_all": "Delete all Items",
+				"delete_all_confirm": "Are you sure you want to clear your Schoppy list and delete all list items?",
+				"delete_all_success": "Your list has been cleared.",
+				"delete_all_error": "An error occurred while clearing your list: "
 			},
 			"categories": {
 				"title": "Categories",
+				"sort_categories": "Sort Categories",
 				"reset_categories": "Reset Categories",
-				"sort_categories": "Sort Categories"
+				"reset_categories_confirm": "Are you sure you want to reset your custom product to category assignments?",
+				"reset_categories_success": "Succcessfully resetted.",
+				"reset_categories_error": "An error occurred while resetting your categories: "
 			},
 			"quantityTypes": {
 				"title": "Quantity Types"

@@ -25,12 +25,19 @@
 			"list": {
 				"title": "Liste",
 				"share": "Teilen",
-				"delete_all": "Alles löschen"
+				"shareError": "Ihr Gerät/Browser ist nicht in der Lage, diese Liste zu teilen.",
+				"delete_all": "Alles löschen",
+				"delete_all_confirm": "Schoppy-Liste leeren und alle Produkte löschen?",
+				"delete_all_success": "Ihre Liste wurde geleert.",
+				"delete_all_error": "Beim Leeren Ihrer Liste ist ein Fehler aufgetreten: "
 			},
 			"categories": {
 				"title": "Kategorien",
+				"sort_categories": "Kategorien sortieren",
 				"reset_categories": "Kategorien zurücksetzen",
-				"sort_categories": "Kategorien sortieren"
+				"reset_categories_confirm": "Benutzerdefinierten Produkt-zu-Kategorie-Zuordnungen sicher zurücksetzen?",
+				"reset_categories_success": "Erfolgreich zurückgesetzt.",
+				"reset_categories_error": "Beim Zurücksetzen Ihrer Kategorien ist ein Fehler aufgetreten: "
 			},
 			"quantityTypes": {
 				"title": "Mengeneinheiten"

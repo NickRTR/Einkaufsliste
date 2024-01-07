@@ -41,8 +41,6 @@
 <style>
 	* {
 		font-family: Arial, Helvetica, sans-serif;
-		color: var(--minor);
-		background-color: var(--major);
 	}
 
 	body {
@@ -53,14 +51,15 @@
 	header {
 		text-align: center;
 		padding-block: 1rem;
-		color: white;
-		background-color: black;
+		color: var(--background);
+		background-color: var(--text);
 		border-bottom-left-radius: 1rem;
 		border-bottom-right-radius: 1rem;
 	}
 
 	header h1 {
 		margin: 0;
+		color: var(--background);
 	}
 
 	main {

@@ -76,7 +76,7 @@
 
 	button {
 		font-weight: bold;
-		border: 3px solid var(--accent);
+		border: 2px solid var(--accent);
 	}
 
 	button:focus,
