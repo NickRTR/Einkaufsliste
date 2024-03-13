@@ -1,14 +1,15 @@
 <script>
 	import { _, locale, locales } from "svelte-i18n";
+	import { updatePriorities } from "$lib/api";
 	import { supabase } from "$lib/supabase";
 	import toast from "svelte-french-toast";
 	import Feedback from "$lib/components/Feedback.svelte";
-	// import DragDropList from "$lib/components/DragDropList.svelte";
+	import DragDropList from "$lib/components/DragDropList.svelte";
 
 	export let data;
 
 	let showSort = false;
-	// let priorities = data.priorities;
+	let priorities = data.priorities;
 
 	function changeLanguage(event) {
 		locale.set(event.target.value);
@@ -18,7 +19,7 @@
 	async function shareList() {
 		let list = "Schoppy\n\n";
 
-		const { data: products, error} = await supabase
+		const { data: products, error } = await supabase
 			.from("products")
 			.select()
 			.eq("uuid", data.session.user.id)
@@ -26,10 +27,11 @@
 
 		if (error) toast.error(error.message);
 
-		
 		for (let i = 0; i < products.length; i++) {
 			let product = products[i];
-			if (!product.checked) list += `◯ ${product.title} (${product.amount} ${product.unit}) (${$_("pages.home.productCard.categories." + product.category)}) \n`; // only add if product is unchecked
+			list += `◯ ${product.title} (${product.amount} ${product.unit}) (${$_(
+				"pages.home.productCard.categories." + product.category
+			)}) \n`;
 		}
 
 		if (navigator.share) {
@@ -48,10 +50,7 @@
 
 	async function deleteAll() {
 		if (confirm($_("pages.settings.list.delete_allConfirm"))) {
-			const {error} = await supabase
-				.from("products")
-				.delete()
-				.eq("uuid", data.session.user.id);
+			const { error } = await supabase.from("products").delete().eq("uuid", data.session.user.id);
 
 			if (error) {
 				toast.error($_("pages.settings.list.deleteAllError") + error.message);
@@ -61,10 +60,17 @@
 		}
 	}
 
+	function sortCategories() {
+		if (showSort) {
+			updatePriorities(priorities, data.session.user.id);
+		}
+		showSort = !showSort;
+	}
+
 	async function resetCategories() {
 		if (confirm($_("pages.settings.categories.resetCategoriesConfirm"))) {
-			const {error} = await supabase
-				.from("user_categories")
+			const { error } = await supabase
+				.from("user_dictionary")
 				.delete()
 				.eq("uuid", data.session.user.id);
 
@@ -85,7 +91,7 @@
 	<div class="grid">
 		<section class="account">
 			<h2>{data.session.user.email}</h2>
-			<button><a href="/logout">{$_("pages.settings.logout")}</a></button>
+			<a href="/logout"><button>{$_("pages.settings.logout")}</button></a>
 		</section>
 
 		<section class="language">
@@ -115,10 +121,9 @@
 
 		<section class="categories">
 			<h2>{$_("pages.settings.categories.title")}</h2>
-			<button on:click={() => {showSort = !showSort}}>{$_("pages.settings.categories.sortCategories")}</button>
+			<button on:click={sortCategories}>{$_("pages.settings.categories.sortCategories")}</button>
 			{#if showSort}
-				<!-- <DragDropList bind:data={priorities} /> -->
-				<strong>Work in progress 🚧</strong>
+				<DragDropList bind:data={priorities} />
 			{/if}
 			<button on:click={resetCategories}>{$_("pages.settings.categories.resetCategories")}</button>
 		</section>
@@ -145,10 +150,11 @@
 		outline: none;
 		padding: 0.2rem 0.5rem;
 		font-weight: bold;
-		transition: all .3s ease-in-out;
+		transition: all 0.3s ease-in-out;
 	}
 
-	select:focus, select:hover {
+	select:focus,
+	select:hover {
 		border-color: var(--accent);
 	}
 
@@ -172,11 +178,6 @@
 
 	.account {
 		grid-column: span 2;
-	}
-
-	.account > button > a {
-		color: inherit;
-		text-decoration: none;
 	}
 
 	.list {

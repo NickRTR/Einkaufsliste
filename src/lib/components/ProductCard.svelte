@@ -4,7 +4,14 @@
 	import { page } from "$app/stores";
 	import autoselect from "svelte-autoselect";
 
-	import { editTitle, editAmount, editUnit, toggleChecked, deleteProduct, changeCategory } from "$lib/api";
+	import {
+		editTitle,
+		editAmount,
+		editUnit,
+		toggleChecked,
+		deleteProduct,
+		changeCategory
+	} from "$lib/api";
 
 	export let product;
 
@@ -28,9 +35,9 @@
 		<div class="ImageTitleQuantity">
 			<img
 				type="image"
-				src="/category/{product.category}.svg"
-				alt={$_(`pages.home.productCard.categories[${product.category}]`)}
-				title={$_(`pages.home.productCard.categories[${product.category}]`)}
+				src="/category/{product.categories.category}.svg"
+				alt={$_(`pages.home.productCard.categories[${product.categories.category}]`)}
+				title={$_(`pages.home.productCard.categories[${product.categories.category}]`)}
 				on:click={() => {
 					showChangeCategory = !showChangeCategory;
 				}}

@@ -54,6 +54,6 @@
 
 <style>
 	.error {
-		color: red;
+		color: tomato;
 	}
 </style>
