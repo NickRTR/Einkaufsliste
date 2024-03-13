@@ -56,4 +56,19 @@
 	.error {
 		color: tomato;
 	}
+
+	input {
+		border-radius: 0.6rem;
+		padding: 0.3rem 0.5rem;
+		width: 250px;
+		font-size: 1rem;
+	}
+
+	input:hover, input:focus {
+		border-color: var(--accent);
+	}
+
+	p {
+		margin-top: 0.5rem;
+	}
 </style>

@@ -68,22 +68,23 @@
 
 	:global(button) {
 		background-color: var(--accent);
-		color: white;
+		color: var(--background);
 		font-weight: bold;
-		border: none;
+		border: 1px solid var(--accent);
 		border-radius: 1rem;
 		padding: 0.5rem 0.7rem;
 		margin-block: 0.5rem;
+		outline: none;
+		cursor: pointer;
 	}
 
-	:global(button:hover) {
-		outline: 1px solid white;
+	:global(button:hover, button:focus) {
+		border-color: var(--background);
 	}
 
 	:global(:root) {
 		--background: white;
 		--text: black;
 		--accent: #0047ff;
-		--accentTransparent: #0047ff44;
 	}
 </style>

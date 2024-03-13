@@ -67,6 +67,7 @@
 	textarea,
 	input {
 		border: 2px solid black;
+		outline: none;
 	}
 
 	textarea {
@@ -76,7 +77,7 @@
 
 	button {
 		font-weight: bold;
-		border: 2px solid var(--accent);
+		border: 1px solid var(--accent);
 	}
 
 	button:focus,
@@ -88,7 +89,7 @@
 	input:hover,
 	textarea:focus,
 	input:focus {
-		background-color: var(--accentTransparent);
+		border-color: var(--accent);
 	}
 
 	.thanks {
