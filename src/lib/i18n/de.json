@@ -75,9 +75,11 @@
 				}
 			},
 			"add": "Hinzufügen",
+			"added": "{product} hinzugefügt",
 			"divider": "Erledigt",
 			"deleteConfirm": "Produkt löschen?",
-			"deleteSuccess": "Produkt gelöscht."
+			"deleteSuccess": "Produkt gelöscht.",
+			"alreadyAdded": "Produkt bereits auf der Liste."
 		}
 	},
 	"layout": {

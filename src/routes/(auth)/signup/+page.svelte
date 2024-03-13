@@ -69,9 +69,11 @@
 		padding: 0.3rem 0.5rem;
 		width: 250px;
 		font-size: 1rem;
+		border: 2px solid var(--text);
 	}
 
-	input:hover, input:focus {
+	input:hover,
+	input:focus {
 		border-color: var(--accent);
 	}
 

@@ -43,6 +43,9 @@
 						.from("products_duplicate")
 						.update({ checked: false, amount: 1, unit: "pcs" })
 						.eq("id", product.id);
+					toast.success($_("pages.home.added", { values: { product: title } }));
+				} else {
+					toast($_("pages.home.alreadyAdded"), { icon: "👍" });
 				}
 				input = "";
 				products = await getProducts(data.session.user.id);
@@ -55,13 +58,14 @@
 		await supabase
 			.from("products_duplicate")
 			.insert([{ title: input, uuid: data.session.user.id, category }]);
+		toast.success($_("pages.home.added", { values: { product: input } }));
 		input = "";
 	}
 
 	async function search() {
 		const { data: res, error } = await supabase
 			.from("products_duplicate")
-			.select()
+			.select(`*, categories(category)`)
 			.eq("uuid", data.session.user.id)
 			.ilike("title", "%" + input + "%");
 		if (error) toast.error(error.message);

@@ -75,9 +75,11 @@
 				}
 			},
 			"add": "Hinzufügen",
+			"added": "Added {product}",
 			"divider": "Erledigt",
 			"deleteConfirm": "Really Delete?",
-			"deleteSuccess": "Item deleted."
+			"deleteSuccess": "Item deleted.",
+			"alreadyAdded": "Product already on the list."
 		}
 	},
 	"layout": {

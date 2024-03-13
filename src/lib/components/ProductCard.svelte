@@ -36,8 +36,8 @@
 			<img
 				type="image"
 				src="/category/{product.categories.category}.svg"
-				alt={$_(`pages.home.productCard.categories[${product.categories.category}]`)}
-				title={$_(`pages.home.productCard.categories[${product.categories.category}]`)}
+				alt={$_(`pages.home.productCard.categories.${product.categories.category}`)}
+				title={$_(`pages.home.productCard.categories.${product.categories.category}`)}
 				on:click={() => {
 					showChangeCategory = !showChangeCategory;
 				}}

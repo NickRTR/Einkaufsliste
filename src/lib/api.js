@@ -4,14 +4,57 @@ import { supabase } from "$lib/supabase";
 import { page } from "$app/stores";
 import { get } from "svelte/store";
 
+const categoryList = {
+	choose: 0,
+	cooled: 1,
+	meat: 2,
+	frozen: 3,
+	fruits: 4,
+	vegetables: 5,
+	pantry: 6,
+	beverages: 7,
+	household: 8,
+	sweets: 9
+};
+
 export async function getProducts(uuid) {
 	const { data: products, error } = await supabase
 		.from("products_duplicate")
-		.select(`*, categories(category, sort)`)
+		.select(`*, categories(category)`)
 		.eq("uuid", uuid);
-	const sortedProducts = products.sort((a, b) => a.categories.sort - b.categories.sort);
 	if (error) toast.error(error.message);
-	return sortedProducts;
+	return sortProducts(products, uuid);
+}
+
+export async function sortProducts(products, uuid) {
+	let { data: priorities, error } = await supabase
+		.from("userdata")
+		.select(`priorities_2`)
+		.eq("uuid", uuid);
+	if (error) return products;
+	priorities = priorities[0].priorities_2;
+	return products.sort((a, b) => priorities[a.category] - priorities[b.category]);
+}
+
+export async function sortCategories(categories, uuid) {
+	let { data: priorities, error } = await supabase
+		.from("userdata")
+		.select(`priorities_2`)
+		.eq("uuid", uuid);
+	if (error) return products;
+	priorities = priorities[0].priorities_2;
+
+	// Convert categories array to an object
+	const categoriesObj = categories.reduce((obj, item) => {
+		obj[item.id] = item.category;
+		return obj;
+	}, {});
+
+	const sortedCategories = Object.keys(categoriesObj)
+		.sort((a, b) => priorities[a] - priorities[b])
+		.map((key) => categoriesObj[key]);
+
+	return sortedCategories;
 }
 
 export async function editTitle(id, oldTitle, newTitle) {
@@ -94,6 +137,8 @@ export async function getCategory(title) {
 export async function changeCategory(id, userId, title, oldCategory, newCategory) {
 	if (oldCategory === newCategory) return;
 
+	newCategory = categoryList[newCategory];
+
 	const { count } = await supabase
 		.from("user_dictionary")
 		.select("*", { count: "exact", head: true })
@@ -122,12 +167,13 @@ export async function changeCategory(id, userId, title, oldCategory, newCategory
 }
 
 export async function updatePriorities(priorities, uuid) {
+	const p = { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9 };
 	for (let i = 0; i < priorities.length; i++) {
-		const { error } = await supabase
-			.from("categories")
-			.update({ sort: i + 1 })
-			.eq("category", priorities[i])
-			.eq("uuid", uuid);
-		if (error) toast.error(error.message);
+		if (priorities[i] === "choose") continue;
+		const category = categoryList[priorities[i]];
+		p[category] = i;
 	}
+	const { error } = await supabase.from("userdata").update({ priorities_2: p }).eq("uuid", uuid);
+	if (error) toast.error(error.message);
+	toast.success("success");
 }

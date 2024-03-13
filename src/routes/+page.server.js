@@ -1,5 +1,6 @@
 import { supabase } from "$lib/supabase";
 import { redirect } from "@sveltejs/kit";
+import { sortProducts } from "$lib/api";
 
 export async function load({ locals }) {
 	const session = await locals.getSession();
@@ -10,7 +11,7 @@ export async function load({ locals }) {
 
 	const { data: products, error } = await supabase
 		.from("products_duplicate")
-		.select(`*, categories(category, sort)`)
+		.select(`*, categories(category)`)
 		.eq("uuid", session.user.id);
 
 	if (error) {
@@ -18,12 +19,9 @@ export async function load({ locals }) {
 		return;
 	}
 
-	const sortedProducts = products.sort((a, b) => a.categories.sort - b.categories.sort);
+	const sortedProducts = await sortProducts(products, session.user.id);
 
-	const { data: categories } = await supabase
-		.from("categories")
-		.select()
-		.eq("uuid", session.user.id);
+	const { data: categories } = await supabase.from("categories").select("category");
 
 	return {
 		products: sortedProducts ?? [],

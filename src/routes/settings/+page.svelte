@@ -9,7 +9,7 @@
 	export let data;
 
 	let showSort = false;
-	let priorities = data.priorities;
+	let categories = data.categories;
 
 	function changeLanguage(event) {
 		locale.set(event.target.value);
@@ -49,7 +49,7 @@
 	}
 
 	async function deleteAll() {
-		if (confirm($_("pages.settings.list.delete_allConfirm"))) {
+		if (confirm($_("pages.settings.list.deleteAllConfirm"))) {
 			const { error } = await supabase.from("products").delete().eq("uuid", data.session.user.id);
 
 			if (error) {
@@ -62,7 +62,7 @@
 
 	function sortCategories() {
 		if (showSort) {
-			updatePriorities(priorities, data.session.user.id);
+			updatePriorities(categories, data.session.user.id);
 		}
 		showSort = !showSort;
 	}
@@ -123,7 +123,7 @@
 			<h2>{$_("pages.settings.categories.title")}</h2>
 			<button on:click={sortCategories}>{$_("pages.settings.categories.sortCategories")}</button>
 			{#if showSort}
-				<DragDropList bind:data={priorities} />
+				<DragDropList bind:data={categories} />
 			{/if}
 			<button on:click={resetCategories}>{$_("pages.settings.categories.resetCategories")}</button>
 		</section>
