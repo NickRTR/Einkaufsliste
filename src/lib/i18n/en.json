@@ -33,7 +33,9 @@
 			},
 			"categories": {
 				"title": "Categories",
+				"categoryList": "Category List",
 				"sortCategories": "Sort Categories",
+				"prioritiesUpdated": "Categories sorted succcessfully.",
 				"resetCategories": "Reset Categories",
 				"resetCategoriesConfirm": "Are you sure you want to reset your custom product to category assignments?",
 				"resetCategories_success": "Succcessfully resetted.",

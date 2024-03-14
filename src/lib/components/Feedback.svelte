@@ -94,6 +94,7 @@
 
 	.thanks {
 		font-weight: bold;
+		color: limegreen;
 	}
 
 	@media only screen and (max-width: 900px) {

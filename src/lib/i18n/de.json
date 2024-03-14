@@ -33,7 +33,9 @@
 			},
 			"categories": {
 				"title": "Kategorien",
+				"categoryList": "Kategorienliste",
 				"sortCategories": "Kategorien sortieren",
+				"prioritiesUpdated": "Kategorien erfolgreich sortiert.",
 				"resetCategories": "Kategorien zurücksetzen",
 				"resetCategoriesConfirm": "Benutzerdefinierten Produkt-zu-Kategorie-Zuordnungen sicher zurücksetzen?",
 				"resetCategoriesSuccess": "Erfolgreich zurückgesetzt.",

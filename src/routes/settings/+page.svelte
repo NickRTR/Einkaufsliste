@@ -1,6 +1,7 @@
 <script>
 	import { _, locale, locales } from "svelte-i18n";
 	import { updatePriorities } from "$lib/api";
+	import { slide } from "svelte/transition";
 	import { supabase } from "$lib/supabase";
 	import toast from "svelte-french-toast";
 	import Feedback from "$lib/components/Feedback.svelte";
@@ -61,10 +62,8 @@
 	}
 
 	function sortCategories() {
-		if (showSort) {
-			updatePriorities(categories, data.session.user.id);
-		}
-		showSort = !showSort;
+		updatePriorities(categories, data.session.user.id);
+		showSort = false;
 	}
 
 	async function resetCategories() {
@@ -121,9 +120,17 @@
 
 		<section class="categories">
 			<h2>{$_("pages.settings.categories.title")}</h2>
-			<button on:click={sortCategories}>{$_("pages.settings.categories.sortCategories")}</button>
+			<button
+				on:click={() => {
+					showSort = !showSort;
+				}}>{$_("pages.settings.categories.categoryList")}</button
+			>
 			{#if showSort}
-				<DragDropList bind:data={categories} />
+				<div transition:slide|local={{ duration: 800 }}>
+					<DragDropList bind:data={categories} />
+					<button on:click={sortCategories}>{$_("pages.settings.categories.sortCategories")}</button
+					>
+				</div>
 			{/if}
 			<button on:click={resetCategories}>{$_("pages.settings.categories.resetCategories")}</button>
 		</section>
@@ -167,6 +174,10 @@
 		display: block;
 		margin-inline: auto;
 		cursor: pointer;
+	}
+
+	a {
+		text-decoration: none;
 	}
 
 	.grid > section {

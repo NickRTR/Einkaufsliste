@@ -17,7 +17,5 @@ export const load = async ({ parent }) => {
 
 	const categories = await sortCategories(data, session.user.id);
 
-	console.log(categories);
-
 	return { categories };
 };

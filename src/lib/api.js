@@ -163,5 +163,5 @@ export async function updatePriorities(priorities, uuid) {
 	}
 	const { error } = await supabase.from("userdata").update({ priorities_2: p }).eq("uuid", uuid);
 	if (error) toast.error(error.message);
-	toast.success("success");
+	toast.success(get(_)("pages.settings.categories.prioritiesUpdated"));
 }
