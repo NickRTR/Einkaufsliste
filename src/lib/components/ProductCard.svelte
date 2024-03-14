@@ -71,7 +71,6 @@
 						}}
 					>
 						<option value="pcs">{$_("pages.home.productCard.quantities.pcs")}</option>
-						<option value="btl">{$_("pages.home.productCard.quantities.btl")}</option>
 						<option value="gr">{$_("pages.home.productCard.quantities.gr")}</option>
 						<option value="kg">{$_("pages.home.productCard.quantities.kg")}</option>
 						<option value="ml">{$_("pages.home.productCard.quantities.ml")}</option>
@@ -178,12 +177,12 @@
 
 	select {
 		margin: 0;
-		padding: 0.125rem 0.4rem;
+		padding: 0.125rem 0.3rem;
 		padding-left: 0;
 		border-radius: 0.5rem;
 		border-top-left-radius: 0;
 		border-bottom-left-radius: 0;
-		font-size: 1.1rem;
+		font-size: 1rem;
 		outline: none;
 	}
 

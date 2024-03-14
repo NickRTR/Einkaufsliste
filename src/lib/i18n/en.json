@@ -68,8 +68,7 @@
 					"beverages": "Beverages"
 				},
 				"quantities": {
-					"pcs": "stk",
-					"btl": "Flasche(n)",
+					"pcs": "pcs",
 					"gr": "gr",
 					"kg": "kg",
 					"ml": "ml",
