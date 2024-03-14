@@ -39,7 +39,7 @@
 						.from("products")
 						.update({ checked: false, amount: 1, unit: "pcs" })
 						.eq("id", product.id);
-					toast.success($_("pages.home.added", { values: { product: title } }));
+					toast.success($_("pages.home.added", { values: { product: product.title } }));
 				} else {
 					toast($_("pages.home.alreadyAdded"), { icon: "👍" });
 				}
@@ -55,6 +55,7 @@
 			.from("products")
 			.insert([{ title: input, uuid: data.session.user.id, category }]);
 		toast.success($_("pages.home.added", { values: { product: input } }));
+		products = await getProducts(data.session.user.id);
 		input = "";
 	}
 
