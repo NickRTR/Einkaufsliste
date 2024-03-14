@@ -1,0 +1,93 @@
+{
+	"pages": {
+		"auth": {
+			"login": {
+				"title": "Login",
+				"switch": "Neuen Account erstellen?"
+			},
+			"signup": {
+				"title": "Register",
+				"switch": "Already have an account?"
+			},
+			"logout": "Logging out ...",
+			"password": "Password",
+			"email": "Email",
+			"verification": "Please check your email for a magic link to log into the website."
+		},
+		"settings": {
+			"title": "Settings",
+			"logout": "Logout",
+			"language": "Language",
+			"languages": {
+				"de": "German 🇩🇪",
+				"en": "English 🇺🇸"
+			},
+			"list": {
+				"title": "List",
+				"share": "Share",
+				"shareError": "Your device/browser isn't able to share this list.",
+				"deleteAll": "Delete all Items",
+				"deleteAllConfirm": "Are you sure you want to clear your Schoppy list and delete all list items?",
+				"deleteAllCuccess": "Your list has been cleared.",
+				"deleteAllError": "An error occurred while clearing your list: "
+			},
+			"categories": {
+				"title": "Categories",
+				"categoryList": "Category List",
+				"sortCategories": "Sort Categories",
+				"prioritiesUpdated": "Categories sorted succcessfully.",
+				"resetCategories": "Reset Categories",
+				"resetCategoriesConfirm": "Are you sure you want to reset your custom product to category assignments?",
+				"resetCategories_success": "Succcessfully resetted.",
+				"resetCategories_error": "An error occurred while resetting your categories: "
+			},
+			"units": {
+				"title": "Quantity Units"
+			},
+			"feedback": {
+				"title": "Feedback",
+				"name": "Name",
+				"message_label": "Feedback message",
+				"message": "Message",
+				"submit": "Submit",
+				"thanks": "Thank's for your feedback!"
+			}
+		},
+		"home": {
+			"productCard": {
+				"categories": {
+					"choose": "Choose category",
+					"vegetables": "Vegetables",
+					"fruits": "Fruits",
+					"pantry": "Pantry",
+					"meat": "Meat",
+					"frozen": "Frozen",
+					"cooled": "Cooled",
+					"household": "Household",
+					"sweets": "Sweets",
+					"beverages": "Beverages"
+				},
+				"quantities": {
+					"pcs": "stk",
+					"btl": "Flasche(n)",
+					"gr": "gr",
+					"kg": "kg",
+					"ml": "ml",
+					"l": "l"
+				}
+			},
+			"add": "Hinzufügen",
+			"added": "Added {product}",
+			"divider": "Erledigt",
+			"deleteConfirm": "Really Delete?",
+			"deleteSuccess": "Item deleted.",
+			"alreadyAdded": "Product already on the list."
+		}
+	},
+	"layout": {
+		"menu": {
+			"home": "Home",
+			"settings": "Settings"
+		}
+	}
+}

@@ -1,5 +1,5 @@
 <script>
-	import { wordList } from "$lib/stores";
+	import { _ } from "svelte-i18n";
 
 	let submitted = false;
 
@@ -10,24 +10,30 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Nick Reutlinger - Contact</title>
-</svelte:head>
-
 <main>
 	{#if submitted}
-		<p class="thanks">{$wordList.settings.feedback.thanks}</p>
+		<p class="thanks">{$_("pages.settings.feedback.thanks")}</p>
 	{:else}
-		<form id="form" action="https://formsubmit.co/nickrtrrtr@gmail.com" target="_blank" method="POST">
-			<label for="email">{$wordList.settings.feedback.nameLabel}</label>
-			<input type="text" name="name" id="name" placeholder={$wordList.settings.feedback.name} />
-			<label for="message">{$wordList.settings.feedback.messageLabel}</label>
-			<textarea name="message" id="message" placeholder={$wordList.settings.feedback.message} required />
+		<form
+			id="form"
+			action="https://formsubmit.co/nickrtrrtr@gmail.com"
+			target="_blank"
+			method="POST"
+		>
+			<label for="name">{$_("pages.settings.feedback.name")}</label>
+			<input type="text" name="name" id="name" placeholder={$_("pages.settings.feedback.name")} />
+			<label for="message">{$_("pages.settings.feedback.message_label")}</label>
+			<textarea
+				name="message"
+				id="message"
+				placeholder={$_("pages.settings.feedback.message")}
+				required
+			/>
 			<button
 				on:click={() => {
 					toggleSubmitted();
 				}}
-				type="submit">{$wordList.settings.feedback.submit}</button
+				type="submit">{$_("pages.settings.feedback.submit")}</button
 			>
 			<input type="hidden" name="_subject" value="Schoppy: New feedback submission!" />
 		</form>
@@ -36,6 +42,7 @@
 
 <style>
 	form {
+		text-align: left;
 		max-width: 400px;
 		margin: auto;
 		display: flex;
@@ -60,6 +67,7 @@
 	textarea,
 	input {
 		border: 2px solid black;
+		outline: none;
 	}
 
 	textarea {
@@ -69,7 +77,7 @@
 
 	button {
 		font-weight: bold;
-		border: 3px solid var(--accent);
+		border: 1px solid var(--accent);
 	}
 
 	button:focus,
@@ -81,11 +89,12 @@
 	input:hover,
 	textarea:focus,
 	input:focus {
-		background-color: var(--accentTransparent);
+		border-color: var(--accent);
 	}
 
 	.thanks {
-		color: var(--accent);
+		font-weight: bold;
+		color: limegreen;
 	}
 
 	@media only screen and (max-width: 900px) {

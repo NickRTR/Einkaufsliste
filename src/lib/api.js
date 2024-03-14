@@ -1,190 +1,167 @@
-export async function send(form) {
-	const res = await fetch(form.action, {
-		method: form.method,
-		body: new FormData(form),
-		headers: { accept: "application/json" }
-	});
-	return await res.json();
+import toast from "svelte-french-toast";
+import { _ } from "svelte-i18n";
+import { supabase } from "$lib/supabase";
+import { page } from "$app/stores";
+import { get } from "svelte/store";
+
+const categoryList = {
+	choose: 0,
+	cooled: 1,
+	meat: 2,
+	frozen: 3,
+	fruits: 4,
+	vegetables: 5,
+	pantry: 6,
+	beverages: 7,
+	household: 8,
+	sweets: 9
+};
+
+export async function getProducts(uuid) {
+	const { data: products, error } = await supabase
+		.from("products")
+		.select(`*, categories(category)`)
+		.eq("uuid", uuid);
+	if (error) toast.error(error.message);
+	return sortProducts(products, uuid);
 }
 
-import { products } from "$lib/stores";
-import { toast } from "@zerodevx/svelte-toast";
-import { wordList } from "$lib/stores";
-import { get } from "svelte/store";
-import { page } from "$app/stores";
+export async function sortProducts(products, uuid) {
+	let { data: priorities, error } = await supabase
+		.from("userdata")
+		.select(`priorities_2`)
+		.eq("uuid", uuid);
+	if (error) return products;
+	priorities = priorities[0].priorities_2;
+	return products.sort((a, b) => priorities[a.category] - priorities[b.category]);
+}
 
-export async function getProducts(specialFetch) {
-	let res;
+export async function sortCategories(categories, uuid) {
+	let { data: priorities, error } = await supabase
+		.from("userdata")
+		.select(`priorities_2`)
+		.eq("uuid", uuid);
+	if (error) return products;
+	priorities = priorities[0].priorities_2;
 
-	if (specialFetch) {
-		res = await specialFetch("/api/product/getProducts");
-	} else {
-		res = await fetch("/api/product/getProducts");
-	}
+	// Convert categories array to an object
+	const categoriesObj = categories.reduce((obj, item) => {
+		obj[item.id] = item.category;
+		return obj;
+	}, {});
 
-	const data = await res.json();
+	const sortedCategories = Object.keys(categoriesObj)
+		.sort((a, b) => priorities[a] - priorities[b])
+		.map((key) => categoriesObj[key]);
 
-	if (data.error) {
-		toast.push("An error occurred while fetching products: " + data.error);
-	} else if (data.products) {
-		products.set(data.products);
-	}
+	return sortedCategories;
+}
+
+export async function editTitle(id, oldTitle, newTitle) {
+	newTitle = newTitle.trim();
+	if (oldTitle === newTitle || newTitle.length <= 1) newTitle = oldTitle;
+
+	const category = await getCategory(newTitle);
+
+	const { error } = await supabase
+		.from("products")
+		.update({ title: newTitle, category })
+		.eq("id", id);
+	if (error) toast.error(error).message;
+}
+
+export async function editAmount(id, oldAmount, newAmount) {
+	if (oldAmount === newAmount) return;
+
+	const { error } = await supabase.from("products").update({ amount: newAmount }).eq("id", id);
+	if (error) toast.error(error.message);
+}
+
+export async function editUnit(id, oldUnit, newUnit) {
+	if (oldUnit === newUnit) return;
+
+	const { error } = await supabase.from("products").update({ unit: newUnit }).eq("id", id);
+	if (error) toast.error(error.message);
 }
 
 export async function toggleChecked(id, checked) {
-	try {
-		const res = await fetch("/api/product/toggleChecked", {
-			method: "PATCH",
-			body: JSON.stringify({
-				id,
-				checked
-			})
-		});
-		const data = await res.json();
-
-		if (data.error) throw new Error(data.error);
-
-		await getProducts();
-	} catch (error) {
-		toast.push("An error ocurred while toggling the product's state: " + error.message);
-	}
+	const { error } = await supabase.from("products").update({ checked: !checked }).eq("id", id);
+	if (error) toast.error(error.message);
 }
 
 export async function deleteProduct(id) {
-	if (confirm(get(wordList).index.deleteMessage)) {
-		try {
-			const res = await fetch("/api/product/deleteProduct", {
-				method: "DELETE",
-				body: JSON.stringify({
-					id
-				})
-			});
-			const data = await res.json();
+	if (confirm(get(_)("pages.home.deleteConfirm"))) {
+		const { error } = await supabase.from("products").delete().eq("id", id);
+		if (error) toast.error(error.message);
+		else toast.success(get(_)("pages.home.deleteSuccess"));
+	}
+}
 
-			if (data.error) throw new Error(data.error);
+export async function getCategory(title) {
+	title = title.trim().toLowerCase();
 
-			await getProducts();
-		} catch (error) {
-			toast.push("An error ocurred while deleting the product: " + error.message);
+	const { data, error } = await supabase
+		.from("user_dictionary")
+		.select()
+		.eq("title", title)
+		.eq("uuid", get(page).data.session.user.id);
+	if (error) {
+		toast.error(error.message);
+	} else if (data.length > 0) {
+		return data[0].category;
+	} else {
+		const language = localStorage.getItem("lang");
+		const { data, error } = await supabase.from("dictionary").select().eq("language", language);
+
+		if (error) {
+			toast.error(error.message);
+		} else {
+			const matchingTitle = data.find((dbTitle) => title.includes(dbTitle.title));
+			if (matchingTitle) {
+				return matchingTitle.category;
+			}
+			return 0;
 		}
 	}
 }
 
-export async function editTitle(id, oldTitle, title) {
-	try {
-		if (title === oldTitle || title.trim().length === 0) return;
+export async function changeCategory(id, userId, title, oldCategory, newCategory) {
+	if (oldCategory === newCategory) return;
 
-		const categoryRes = await fetch(`/api/product/getCategory-${title}`);
-		const categoryData = await categoryRes.json();
-		if (categoryData.error) throw new Error(categoryData.error);
+	newCategory = categoryList[newCategory];
 
-		const sortRes = await fetch(`/api/product/getSort-${categoryData.category}`);
-		const sortData = await sortRes.json();
-		if (sortData.error) throw new Error(sortData.error);
+	const { count } = await supabase
+		.from("user_dictionary")
+		.select("*", { count: "exact", head: true })
+		.eq("title", title)
+		.eq("uuid", userId);
 
-		const res = await fetch("/api/product/editTitle", {
-			method: "PATCH",
-			body: JSON.stringify({
-				id,
-				title,
-				category: categoryData.category,
-				sort: sortData.sort
-			})
-		});
-		const data = await res.json();
-		if (data.error) throw new Error(data.error);
-
-		await getProducts();
-	} catch (error) {
-		toast.push("An error occurred while editing the product's title: " + error.message);
+	if (count === 0) {
+		const { error } = await supabase
+			.from("user_dictionary")
+			.insert([{ uuid: userId, title: title.trim().toLowerCase(), category: newCategory }]);
+		if (error) toast.error(error.message);
+	} else {
+		const { error } = await supabase
+			.from("user_dictionary")
+			.update({ category: newCategory })
+			.eq("uuid", userId)
+			.eq("title", title);
+		if (error) toast.error(error.message);
 	}
+
+	const { error } = await supabase.from("products").update({ category: newCategory }).eq("id", id);
+	if (error) toast.error(error.message);
 }
 
-export async function editAmount(id, oldAmount, amount) {
-	try {
-		if (amount === oldAmount) return;
-		amount = amount.toString();
-		amount = amount.replace(",", ".");
-		if (amount.trim().length === 0) return;
-
-		const res = await fetch("/api/product/updateAmount", {
-			method: "PATCH",
-			body: JSON.stringify({
-				id,
-				amount
-			})
-		});
-		const data = await res.json();
-
-		if (data.error) throw new Error(data.error);
-	} catch (error) {
-		toast.push("An error ocurred while editing the product's quantity amount: " + error.message);
+export async function updatePriorities(priorities, uuid) {
+	const p = { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9 };
+	for (let i = 0; i < priorities.length; i++) {
+		if (priorities[i] === "choose") continue;
+		const category = categoryList[priorities[i]];
+		p[category] = i;
 	}
-	await getProducts();
-}
-
-export async function editType(id, type) {
-	try {
-		const res = await fetch("/api/product/editType", {
-			method: "PATCH",
-			body: JSON.stringify({
-				id,
-				type
-			})
-		});
-		const data = await res.json();
-
-		if (data.error) throw new Error(data.error);
-	} catch (error) {
-		toast.push("An error ocurred while editing the product's quantity type: " + error.message);
-	}
-}
-
-export async function changeCategory(id, oldCategory, category, title) {
-	try {
-		const categoriesRes = await fetch("/api/userdata/getCategories");
-		const categoriesData = await categoriesRes.json();
-
-		if (categoriesData.error) throw new Error(categoriesData.error);
-
-		let categories = categoriesData.categories;
-
-		if (oldCategory !== "choose") {
-			categories[oldCategory] = categories[oldCategory].filter((value) => value != title.toLowerCase());
-		}
-		categories[category] = [title.toLowerCase(), ...categories[category]];
-		const updateRes = await fetch("/api/userdata/updateCategories", {
-			method: "POST",
-			body: JSON.stringify({
-				categories,
-				id: get(page).data.user.id
-			})
-		});
-
-		const updateData = await updateRes.json();
-
-		if (updateData.error) throw new Error(updateData.error);
-
-		const sortRes = await fetch(`/api/product/getSort-${category}`);
-		const sortData = await sortRes.json();
-
-		if (sortData.error) throw new Error(sortData.error);
-
-		const res = await fetch("/api/product/updateCategory", {
-			method: "PATCH",
-			body: JSON.stringify({
-				id,
-				category,
-				sort: sortData.sort
-			})
-		});
-		const data = await res.json();
-
-		if (data.error) throw new Error(data.error);
-
-		await getProducts();
-	} catch (error) {
-		console.log(error);
-		toast.push("An error occurred while changing the product's category: " + error.message);
-	}
+	const { error } = await supabase.from("userdata").update({ priorities_2: p }).eq("uuid", uuid);
+	if (error) toast.error(error.message);
+	toast.success(get(_)("pages.settings.categories.prioritiesUpdated"));
 }

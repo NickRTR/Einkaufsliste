@@ -1,0 +1,93 @@
+{
+	"pages": {
+		"auth": {
+			"login": {
+				"title": "Einloggen",
+				"switch": "Neuen Account erstellen?"
+			},
+			"signup": {
+				"title": "Registrieren",
+				"switch": "Besitzen Sie bereits einen Account?"
+			},
+			"logout": "Ausloggen ...",
+			"password": "Passwort",
+			"email": "E-Mail",
+			"verification": "Bitte klicken Sie auf den Verifizierungslink in Ihrem E-Mail Postfach."
+		},
+		"settings": {
+			"title": "Einstellungen",
+			"logout": "Ausloggen",
+			"language": "Sprache",
+			"languages": {
+				"de": "Deutsch 🇩🇪",
+				"en": "Englisch 🇺🇸"
+			},
+			"list": {
+				"title": "Liste",
+				"share": "Teilen",
+				"shareError": "Ihr Gerät/Browser ist nicht in der Lage, diese Liste zu teilen.",
+				"deleteAll": "Alles löschen",
+				"deleteAllConfirm": "Schoppy-Liste leeren und alle Produkte löschen?",
+				"deleteAllSuccess": "Ihre Liste wurde geleert.",
+				"deleteAllError": "Beim Leeren Ihrer Liste ist ein Fehler aufgetreten: "
+			},
+			"categories": {
+				"title": "Kategorien",
+				"categoryList": "Kategorienliste",
+				"sortCategories": "Kategorien sortieren",
+				"prioritiesUpdated": "Kategorien erfolgreich sortiert.",
+				"resetCategories": "Kategorien zurücksetzen",
+				"resetCategoriesConfirm": "Benutzerdefinierten Produkt-zu-Kategorie-Zuordnungen sicher zurücksetzen?",
+				"resetCategoriesSuccess": "Erfolgreich zurückgesetzt.",
+				"resetCategoriesError": "Beim Zurücksetzen Ihrer Kategorien ist ein Fehler aufgetreten: "
+			},
+			"units": {
+				"title": "Mengeneinheiten"
+			},
+			"feedback": {
+				"title": "Feedback",
+				"name": "Name",
+				"message_label": "Verbesserungsvorschläge und Anmerkungen",
+				"message": "Nachricht",
+				"submit": "Absenden",
+				"thanks": "Danke für Ihr Feedback!"
+			}
+		},
+		"home": {
+			"productCard": {
+				"categories": {
+					"choose": "Kategorie wählen",
+					"vegetables": "Gemüse",
+					"fruits": "Obst",
+					"pantry": "Vorrat",
+					"meat": "Fleisch",
+					"frozen": "Tiefkühlregal",
+					"cooled": "Kühlregal",
+					"household": "Haushalt",
+					"sweets": "Süßigkeiten",
+					"beverages": "Getränke"
+				},
+				"quantities": {
+					"pcs": "stk",
+					"btl": "Flasche(n)",
+					"gr": "gr",
+					"kg": "kg",
+					"ml": "ml",
+					"l": "l"
+				}
+			},
+			"add": "Hinzufügen",
+			"added": "{product} hinzugefügt",
+			"divider": "Erledigt",
+			"deleteConfirm": "Produkt löschen?",
+			"deleteSuccess": "Produkt gelöscht.",
+			"alreadyAdded": "Produkt bereits auf der Liste."
+		}
+	},
+	"layout": {
+		"menu": {
+			"home": "Home",
+			"settings": "Einstellungen"
+		}
+	}
+}

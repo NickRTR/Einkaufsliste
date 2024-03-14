@@ -1,14 +1,33 @@
 <script>
 	import { slide } from "svelte/transition";
-	import { wordList } from "$lib/stores";
-	import { toggleChecked, deleteProduct, editTitle, editAmount, editType, changeCategory } from "$lib/api";
-
+	import { _ } from "svelte-i18n";
+	import { page } from "$app/stores";
 	import autoselect from "svelte-autoselect";
 
+	import {
+		editTitle,
+		editAmount,
+		editUnit,
+		toggleChecked,
+		deleteProduct,
+		changeCategory
+	} from "$lib/api";
+
 	export let product;
+
 	let showChangeCategory = false;
 
-	const categories = ["vegetables", "fruits", "pantry", "meat", "frozen", "cooled", "household", "sweets", "beverage"];
+	const categories = [
+		"vegetables",
+		"fruits",
+		"pantry",
+		"meat",
+		"frozen",
+		"cooled",
+		"household",
+		"sweets",
+		"beverages"
+	];
 </script>
 
 <div class="container">
@@ -16,9 +35,9 @@
 		<div class="ImageTitleQuantity">
 			<img
 				type="image"
-				src="/category/{product.category}.svg"
-				alt={$wordList.categories[product.category]}
-				title={$wordList.categories[product.category]}
+				src="/category/{product.categories.category}.svg"
+				alt={$_(`pages.home.productCard.categories.${product.categories.category}`)}
+				title={$_(`pages.home.productCard.categories.${product.categories.category}`)}
 				on:click={() => {
 					showChangeCategory = !showChangeCategory;
 				}}
@@ -46,17 +65,17 @@
 						}}
 					/>
 					<select
-						value={product.type}
+						value={product.unit}
 						on:change={(event) => {
-							editType(product.id, event.target.value);
+							editUnit(product.id, product.unit, event.target.value);
 						}}
 					>
-						<option value="stk">{$wordList.index["pcs"]}</option>
-						<option value="btl">{$wordList.index["btl"]}</option>
-						<option value="gr">{$wordList.index["gr"]}</option>
-						<option value="kg">{$wordList.index["kg"]}</option>
-						<option value="ml">{$wordList.index["ml"]}</option>
-						<option value="l">{$wordList.index["l"]}</option>
+						<option value="pcs">{$_("pages.home.productCard.quantities.pcs")}</option>
+						<option value="btl">{$_("pages.home.productCard.quantities.btl")}</option>
+						<option value="gr">{$_("pages.home.productCard.quantities.gr")}</option>
+						<option value="kg">{$_("pages.home.productCard.quantities.kg")}</option>
+						<option value="ml">{$_("pages.home.productCard.quantities.ml")}</option>
+						<option value="l">{$_("pages.home.productCard.quantities.l")}</option>
 					</select>
 				</div>
 			</div>
@@ -75,7 +94,7 @@
 					src="/delete.svg"
 					alt="delete"
 					on:click={() => {
-						deleteProduct(product.id, $wordList.index.deleteMessage);
+						deleteProduct(product.id);
 					}}
 				/>
 			</div>
@@ -87,11 +106,21 @@
 				<div
 					on:click={() => {
 						showChangeCategory = !showChangeCategory;
-						changeCategory(product.id, product.category, category, product.title);
+						changeCategory(
+							product.id,
+							$page.data.session.user.id,
+							product.title,
+							product.category,
+							category
+						);
 					}}
 				>
-					<p>{$wordList.categories[category]}</p>
-					<img src="/category/{category}.svg" alt={$wordList.categories[category]} title={$wordList.categories[category]} />
+					<p>{$_(`pages.home.productCard.categories.${category}`)}</p>
+					<img
+						src="/category/{category}.svg"
+						alt={$_(`pages.home.productCard.categories.${category}`)}
+						title={$_(`pages.home.productCard.categories.${category}`)}
+					/>
 				</div>
 			{/each}
 		</div>

@@ -1,8 +1,8 @@
 <script>
 	import { flip } from "svelte/animate";
+	import { _ } from "svelte-i18n";
 
 	export let data = [];
-	export let wordList;
 
 	let ghost;
 	let grabbed;
@@ -77,7 +77,14 @@
      You'll also find reactive styling below, which keeps it from being directly
      part of the imperative javascript handlers. -->
 <main class="dragdroplist">
-	<div bind:this={ghost} id="ghost" class={grabbed ? "item haunting" : "item"} style={"top: " + (mouseY + offsetY - layerY) + "px"}><p /></div>
+	<div
+		bind:this={ghost}
+		id="ghost"
+		class={grabbed ? "item haunting" : "item"}
+		style={"top: " + (mouseY + offsetY - layerY) + "px"}
+	>
+		<p />
+	</div>
 	<div
 		class="list"
 		on:mousemove={function (ev) {
@@ -99,7 +106,9 @@
 	>
 		{#each data as datum, i (datum.id ? datum.id : JSON.stringify(datum))}
 			<div
-				id={grabbed && (datum.id ? datum.id : JSON.stringify(datum)) == grabbed.dataset.id ? "grabbed" : ""}
+				id={grabbed && (datum.id ? datum.id : JSON.stringify(datum)) == grabbed.dataset.id
+					? "grabbed"
+					: ""}
 				class="item"
 				data-index={i}
 				data-id={datum.id ? datum.id : JSON.stringify(datum)}
@@ -130,7 +139,9 @@
 						}}
 					>
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16px" height="16px"
-							><path d="M0 0h24v24H0V0z" fill="none" /><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6 1.41 1.41z" /></svg
+							><path d="M0 0h24v24H0V0z" fill="none" /><path
+								d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6 1.41 1.41z"
+							/></svg
 						>
 					</button>
 					<button
@@ -141,7 +152,9 @@
 						}}
 					>
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16px" height="16px"
-							><path d="M0 0h24v24H0V0z" fill="none" /><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" /></svg
+							><path d="M0 0h24v24H0V0z" fill="none" /><path
+								d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
+							/></svg
 						>
 					</button>
 				</div>
@@ -152,7 +165,7 @@
 					{:else if datum.text}
 						<p>{datum.text}</p>
 					{:else}
-						<p>{wordList[datum]}</p>
+						<p>{$_(`pages.home.productCard.categories.${datum}`)}</p>
 					{/if}
 				</div>
 			</div>
