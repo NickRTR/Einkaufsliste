@@ -10,7 +10,7 @@ export async function load({ locals }) {
 	}
 
 	const { data: products, error } = await supabase
-		.from("products_duplicate")
+		.from("products")
 		.select(`*, categories(category)`)
 		.eq("uuid", session.user.id);
 

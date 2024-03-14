@@ -19,7 +19,7 @@ const categoryList = {
 
 export async function getProducts(uuid) {
 	const { data: products, error } = await supabase
-		.from("products_duplicate")
+		.from("products")
 		.select(`*, categories(category)`)
 		.eq("uuid", uuid);
 	if (error) toast.error(error.message);
@@ -64,7 +64,7 @@ export async function editTitle(id, oldTitle, newTitle) {
 	const category = await getCategory(newTitle);
 
 	const { error } = await supabase
-		.from("products_duplicate")
+		.from("products")
 		.update({ title: newTitle, category })
 		.eq("id", id);
 	if (error) toast.error(error).message;
@@ -73,34 +73,25 @@ export async function editTitle(id, oldTitle, newTitle) {
 export async function editAmount(id, oldAmount, newAmount) {
 	if (oldAmount === newAmount) return;
 
-	const { error } = await supabase
-		.from("products_duplicate")
-		.update({ amount: newAmount })
-		.eq("id", id);
+	const { error } = await supabase.from("products").update({ amount: newAmount }).eq("id", id);
 	if (error) toast.error(error.message);
 }
 
 export async function editUnit(id, oldUnit, newUnit) {
 	if (oldUnit === newUnit) return;
 
-	const { error } = await supabase
-		.from("products_duplicate")
-		.update({ unit: newUnit })
-		.eq("id", id);
+	const { error } = await supabase.from("products").update({ unit: newUnit }).eq("id", id);
 	if (error) toast.error(error.message);
 }
 
 export async function toggleChecked(id, checked) {
-	const { error } = await supabase
-		.from("products_duplicate")
-		.update({ checked: !checked })
-		.eq("id", id);
+	const { error } = await supabase.from("products").update({ checked: !checked }).eq("id", id);
 	if (error) toast.error(error.message);
 }
 
 export async function deleteProduct(id) {
 	if (confirm(get(_)("pages.home.deleteConfirm"))) {
-		const { error } = await supabase.from("products_duplicate").delete().eq("id", id);
+		const { error } = await supabase.from("products").delete().eq("id", id);
 		if (error) toast.error(error.message);
 		else toast.success(get(_)("pages.home.deleteSuccess"));
 	}
@@ -159,10 +150,7 @@ export async function changeCategory(id, userId, title, oldCategory, newCategory
 		if (error) toast.error(error.message);
 	}
 
-	const { error } = await supabase
-		.from("products_duplicate")
-		.update({ category: newCategory })
-		.eq("id", id);
+	const { error } = await supabase.from("products").update({ category: newCategory }).eq("id", id);
 	if (error) toast.error(error.message);
 }
 

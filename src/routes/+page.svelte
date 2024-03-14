@@ -21,13 +21,9 @@
 
 	supabase
 		.channel("custom-all-channel")
-		.on(
-			"postgres_changes",
-			{ event: "*", schema: "public", table: "products_duplicate" },
-			async () => {
-				products = await getProducts(data.session.user.id);
-			}
-		)
+		.on("postgres_changes", { event: "*", schema: "public", table: "products" }, async () => {
+			products = await getProducts(data.session.user.id);
+		})
 		.subscribe();
 
 	let input = "";
@@ -40,7 +36,7 @@
 			if (product.title === input) {
 				if (product.checked) {
 					await supabase
-						.from("products_duplicate")
+						.from("products")
 						.update({ checked: false, amount: 1, unit: "pcs" })
 						.eq("id", product.id);
 					toast.success($_("pages.home.added", { values: { product: title } }));
@@ -56,7 +52,7 @@
 		const category = await getCategory(input);
 
 		await supabase
-			.from("products_duplicate")
+			.from("products")
 			.insert([{ title: input, uuid: data.session.user.id, category }]);
 		toast.success($_("pages.home.added", { values: { product: input } }));
 		input = "";
@@ -64,7 +60,7 @@
 
 	async function search() {
 		const { data: res, error } = await supabase
-			.from("products_duplicate")
+			.from("products")
 			.select(`*, categories(category)`)
 			.eq("uuid", data.session.user.id)
 			.ilike("title", "%" + input + "%");
