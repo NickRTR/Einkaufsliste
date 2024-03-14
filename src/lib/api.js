@@ -29,20 +29,20 @@ export async function getProducts(uuid) {
 export async function sortProducts(products, uuid) {
 	let { data: priorities, error } = await supabase
 		.from("userdata")
-		.select(`priorities_2`)
+		.select(`priorities`)
 		.eq("uuid", uuid);
 	if (error) return products;
-	priorities = priorities[0].priorities_2;
+	priorities = priorities[0].priorities;
 	return products.sort((a, b) => priorities[a.category] - priorities[b.category]);
 }
 
 export async function sortCategories(categories, uuid) {
 	let { data: priorities, error } = await supabase
 		.from("userdata")
-		.select(`priorities_2`)
+		.select(`priorities`)
 		.eq("uuid", uuid);
 	if (error) return products;
-	priorities = priorities[0].priorities_2;
+	priorities = priorities[0].priorities;
 
 	// Convert categories array to an object
 	const categoriesObj = categories.reduce((obj, item) => {
@@ -161,7 +161,7 @@ export async function updatePriorities(priorities, uuid) {
 		const category = categoryList[priorities[i]];
 		p[category] = i;
 	}
-	const { error } = await supabase.from("userdata").update({ priorities_2: p }).eq("uuid", uuid);
+	const { error } = await supabase.from("userdata").update({ priorities: p }).eq("uuid", uuid);
 	if (error) toast.error(error.message);
 	toast.success(get(_)("pages.settings.categories.prioritiesUpdated"));
 }
