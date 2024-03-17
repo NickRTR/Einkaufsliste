@@ -1,6 +1,7 @@
 <script>
 	import { _, locale, locales } from "svelte-i18n";
-	import { updatePriorities } from "$lib/api";
+	import { updatePriorities, getProducts } from "$lib/api";
+	import { products } from "$lib/products";
 	import { slide } from "svelte/transition";
 	import { supabase } from "$lib/supabase";
 	import toast from "svelte-french-toast";
@@ -57,6 +58,7 @@
 				toast.error($_("pages.settings.list.deleteAllError") + error.message);
 			} else {
 				toast.success($_("pages.settings.list.deleteAllSuccess"));
+				$products = getProducts(data.session.user.id);
 			}
 		}
 	}

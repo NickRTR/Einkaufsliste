@@ -3,6 +3,7 @@ import { _ } from "svelte-i18n";
 import { supabase } from "$lib/supabase";
 import { page } from "$app/stores";
 import { get } from "svelte/store";
+import { products } from "$lib/products";
 
 const categoryList = {
 	choose: 0,
@@ -18,12 +19,12 @@ const categoryList = {
 };
 
 export async function getProducts(uuid) {
-	const { data: products, error } = await supabase
+	const { data: data, error } = await supabase
 		.from("products")
 		.select(`*, categories(category)`)
 		.eq("uuid", uuid);
 	if (error) toast.error(error.message);
-	return sortProducts(products, uuid);
+	products.set(await sortProducts(data, uuid));
 }
 
 export async function sortProducts(products, uuid) {
@@ -57,7 +58,7 @@ export async function sortCategories(categories, uuid) {
 	return sortedCategories;
 }
 
-export async function editTitle(id, oldTitle, newTitle) {
+export async function editTitle(id, uuid, oldTitle, newTitle) {
 	newTitle = newTitle.trim();
 	if (oldTitle === newTitle || newTitle.length <= 1) newTitle = oldTitle;
 
@@ -67,33 +68,38 @@ export async function editTitle(id, oldTitle, newTitle) {
 		.from("products")
 		.update({ title: newTitle, category })
 		.eq("id", id);
+	await getProducts(uuid);
 	if (error) toast.error(error).message;
 }
 
-export async function editAmount(id, oldAmount, newAmount) {
+export async function editAmount(id, uuid, oldAmount, newAmount) {
 	if (oldAmount === newAmount) return;
 
 	const { error } = await supabase.from("products").update({ amount: newAmount }).eq("id", id);
+	await getProducts(uuid);
 	if (error) toast.error(error.message);
 }
 
-export async function editUnit(id, oldUnit, newUnit) {
+export async function editUnit(id, uuid, oldUnit, newUnit) {
 	if (oldUnit === newUnit) return;
 
 	const { error } = await supabase.from("products").update({ unit: newUnit }).eq("id", id);
+	await getProducts(uuid);
 	if (error) toast.error(error.message);
 }
 
-export async function toggleChecked(id, checked) {
+export async function toggleChecked(id, uuid, checked) {
 	const { error } = await supabase.from("products").update({ checked: !checked }).eq("id", id);
+	await getProducts(uuid);
 	if (error) toast.error(error.message);
 }
 
-export async function deleteProduct(id) {
+export async function deleteProduct(id, uuid) {
 	if (confirm(get(_)("pages.home.deleteConfirm"))) {
 		const { error } = await supabase.from("products").delete().eq("id", id);
 		if (error) toast.error(error.message);
 		else toast.success(get(_)("pages.home.deleteSuccess"));
+		await getProducts(uuid);
 	}
 }
 
@@ -151,6 +157,7 @@ export async function changeCategory(id, userId, title, oldCategory, newCategory
 	}
 
 	const { error } = await supabase.from("products").update({ category: newCategory }).eq("id", id);
+	await getProducts(userId);
 	if (error) toast.error(error.message);
 }
 

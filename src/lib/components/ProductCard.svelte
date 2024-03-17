@@ -47,7 +47,12 @@
 					id="title"
 					contenteditable="true"
 					on:blur={(event) => {
-						editTitle(product.id, product.title, event.target.innerText);
+						editTitle(
+							product.id,
+							$page.data.session.user.id,
+							product.title,
+							event.target.innerText
+						);
 					}}
 				>
 					{product.title}
@@ -61,13 +66,18 @@
 						maxlength="4"
 						value={product.amount}
 						on:blur={(event) => {
-							editAmount(product.id, product.amount, event.target.value);
+							editAmount(
+								product.id,
+								$page.data.session.user.id,
+								product.amount,
+								event.target.value
+							);
 						}}
 					/>
 					<select
 						value={product.unit}
 						on:change={(event) => {
-							editUnit(product.id, product.unit, event.target.value);
+							editUnit(product.id, $page.data.session.user.id, product.unit, event.target.value);
 						}}
 					>
 						<option value="pcs">{$_("pages.home.productCard.quantities.pcs")}</option>
@@ -85,7 +95,7 @@
 					type="checkbox"
 					checked={product.checked}
 					on:click={() => {
-						toggleChecked(product.id, product.checked);
+						toggleChecked(product.id, $page.data.session.user.id, product.checked);
 					}}
 				/>
 				<input
@@ -93,7 +103,7 @@
 					src="/delete.svg"
 					alt="delete"
 					on:click={() => {
-						deleteProduct(product.id);
+						deleteProduct(product.id, $page.data.session.user.id);
 					}}
 				/>
 			</div>

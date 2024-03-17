@@ -4,6 +4,7 @@
 	import { onMount } from "svelte";
 	import { supabase } from "$lib/supabase";
 	import { getProducts } from "$lib/api";
+	import { products } from "$lib/products";
 	import { toast } from "svelte-french-toast";
 	import { getCategory } from "$lib/api";
 	import { _ } from "svelte-i18n";
@@ -13,18 +14,9 @@
 
 	export let data;
 
-	let products = [];
-
 	onMount(() => {
-		products = data.products;
+		$products = data.products;
 	});
-
-	supabase
-		.channel("custom-all-channel")
-		.on("postgres_changes", { event: "*", schema: "public", table: "products" }, async () => {
-			products = await getProducts(data.session.user.id);
-		})
-		.subscribe();
 
 	let input = "";
 
@@ -32,7 +24,7 @@
 		input = input.trim();
 		if (input === "") return;
 
-		for (let product of products) {
+		for (let product of $products) {
 			if (product.title === input) {
 				if (product.checked) {
 					await supabase
@@ -44,7 +36,7 @@
 					toast($_("pages.home.alreadyAdded"), { icon: "👍" });
 				}
 				input = "";
-				products = await getProducts(data.session.user.id);
+				await getProducts(data.session.user.id);
 				return;
 			}
 		}
@@ -55,7 +47,7 @@
 			.from("products")
 			.insert([{ title: input, uuid: data.session.user.id, category }]);
 		toast.success($_("pages.home.added", { values: { product: input } }));
-		products = await getProducts(data.session.user.id);
+		await getProducts(data.session.user.id);
 		input = "";
 	}
 
@@ -66,7 +58,7 @@
 			.eq("uuid", data.session.user.id)
 			.ilike("title", "%" + input + "%");
 		if (error) toast.error(error.message);
-		else products = res;
+		else $products = res;
 	}
 </script>
 
@@ -77,7 +69,7 @@
 	</form>
 
 	<div class="products">
-		{#each products as product (product.id)}
+		{#each $products as product (product.id)}
 			<div animate:flip={{ duration: 1000 }} in:fade|local out:fly|local={{ x: 100 }}>
 				{#if !product.checked}
 					<ProductCard {product} />
@@ -86,10 +78,10 @@
 		{/each}
 	</div>
 
-	{#if products.filter((product) => product.checked).length > 0}
+	{#if $products.filter((product) => product.checked).length > 0}
 		<div class="checkedProducts">
 			<p class="divider"><span>{$_("pages.home.divider")}</span></p>
-			{#each products as product (product.id)}
+			{#each $products as product (product.id)}
 				<div in:fade|local out:fly|local={{ x: 100 }}>
 					{#if product.checked}
 						<ProductCard {product} />
