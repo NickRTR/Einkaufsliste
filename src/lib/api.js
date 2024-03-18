@@ -139,7 +139,7 @@ export async function changeCategory(id, userId, title, oldCategory, newCategory
 	const { count } = await supabase
 		.from("user_dictionary")
 		.select("*", { count: "exact", head: true })
-		.eq("title", title)
+		.eq("title", title.toLowerCase())
 		.eq("uuid", userId);
 
 	if (count === 0) {
