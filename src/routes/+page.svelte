@@ -93,6 +93,10 @@
 </body>
 
 <style>
+	body {
+		padding-bottom: .5rem;
+	}
+
 	form {
 		display: flex;
 		align-items: center;
