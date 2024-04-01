@@ -16,6 +16,12 @@
 
 	onMount(() => {
 		$products = data.products;
+
+		document.addEventListener('visibilitychange', () => {
+			if (document.visibilityState === 'visible') {
+				getProducts(data.session.user.id);
+			}
+		});
 	});
 
 	let input = "";
