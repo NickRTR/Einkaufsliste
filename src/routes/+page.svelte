@@ -17,8 +17,8 @@
 	onMount(() => {
 		$products = data.products;
 
-		document.addEventListener('visibilitychange', () => {
-			if (document.visibilityState === 'visible') {
+		document.addEventListener("visibilitychange", () => {
+			if (document.visibilityState === "visible") {
 				getProducts(data.session.user.id);
 			}
 		});
@@ -57,14 +57,22 @@
 		input = "";
 	}
 
+	let searchTimeout;
 	async function search() {
-		const { data: res, error } = await supabase
-			.from("products")
-			.select(`*, categories(category)`)
-			.eq("uuid", data.session.user.id)
-			.ilike("title", "%" + input + "%");
-		if (error) toast.error(error.message);
-		else $products = res;
+		clearTimeout(searchTimeout);
+		if (input === "") {
+			$products = data.products;
+			return;
+		}
+		searchTimeout = setTimeout(async () => {
+			const { data: res, error } = await supabase
+				.from("products")
+				.select(`*, categories(category)`)
+				.eq("uuid", data.session.user.id)
+				.ilike("title", "%" + input + "%");
+			if (error) toast.error(error.message);
+			else $products = res;
+		}, 500);
 	}
 </script>
 
@@ -90,7 +98,7 @@
 			{#each $products as product (product.id)}
 				<div in:fade|local out:fly|local={{ x: 100 }}>
 					{#if product.checked}
-						<ProductCard {product} />
+						<ProductCard {product} on:toggle={input = ""} />
 					{/if}
 				</div>
 			{/each}
@@ -100,7 +108,7 @@
 
 <style>
 	body {
-		padding-bottom: .5rem;
+		padding-bottom: 0.5rem;
 	}
 
 	form {

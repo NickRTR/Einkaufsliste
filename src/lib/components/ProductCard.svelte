@@ -3,6 +3,9 @@
 	import { _ } from "svelte-i18n";
 	import { page } from "$app/stores";
 	import autoselect from "svelte-autoselect";
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
 
 	import {
 		editTitle,
@@ -95,6 +98,7 @@
 					type="checkbox"
 					checked={product.checked}
 					on:click={() => {
+						dispatch('toggle')
 						toggleChecked(product.id, $page.data.session.user.id, product.checked);
 					}}
 				/>
