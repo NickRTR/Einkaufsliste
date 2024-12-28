@@ -60,10 +60,12 @@
 	let searchTimeout;
 	async function search() {
 		clearTimeout(searchTimeout);
+
 		if (input === "") {
 			$products = data.products;
 			return;
 		}
+		
 		searchTimeout = setTimeout(async () => {
 			const { data: res, error } = await supabase
 				.from("products")
@@ -72,7 +74,7 @@
 				.ilike("title", "%" + input + "%");
 			if (error) toast.error(error.message);
 			else $products = res;
-		}, 500);
+		}, 400);
 	}
 </script>
 
